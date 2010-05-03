@@ -1,5 +1,7 @@
 var FeedItem = new Class({
 
+          Implements: [Options, Events],
+
 		content: null,
 		preview: null,
 		size: null,
@@ -23,4 +25,10 @@ var FeedItem = new Class({
 		getSize: function() {
 			return this.size();
 		}
+           setDisplayBox: function(DisplayBox) {
+                return 0;
+           },
+           getDisplayBox: function() {
+                return 0;
+           }
 });
