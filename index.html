@@ -11,13 +11,18 @@
 		<script type="text/javascript" src="js/Feed.js"></script>
 		<script type="text/javascript" src="js/SearchFilter.js"></script>
 		<script type="text/javascript" src="js/SearchBox.js"></script>
+
+		<!-- Load the feed specific classes here -->
+		<script type="text/javascript" src="js/travellr/TravellrFeedItem.js"></script>
+		<script type="text/javascript" src="js/travellr/TravellrFeed.js"></script>
+
 		<script type="text/javascript" src="js/loader.js"></script>
 	</head>
 	<body>
 		<div id="search">
-			<form id="searchForm">
-				<input type="text" name="search" id="searchField" />
-				<input type="submit" name="submit" value="Explore" />
+			<form id="searchForm" method="get" action="/">
+				<input type="text" name="q" id="searchField" />
+				<input type="submit" value="Explore" />
 			</form>
 		</div>
 		<div id="container"></div>
