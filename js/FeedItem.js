@@ -1,5 +1,5 @@
 var FeedItem = new Class({
-
+//testing JFK comment for git commit
           Implements: [Options, Events],
 
 		content: null,
