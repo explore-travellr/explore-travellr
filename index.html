@@ -30,6 +30,7 @@
                     //0.9 is the opacity level
                     focus: function() {
                         $$('.speechBubble').fade('0.95');
+				   if ($('searchField').value.contains('Swimming in Mount Vesuvius')) $('searchField').value = '';
                     },
                     //keypress is any keyboard input
                     keypress: function() {
@@ -121,7 +122,7 @@
                 <div id="header">
                     <img src="styles/images/logo.jpg" alt=""  />
                     <form id="searchForm" action="">
-                        <input type="text" name="search" id="searchField" maxlength="35" />
+                        <input type="text" name="search" id="searchField" maxlength="35" autocomplete="off" value="Swimming in Mount Vesuvius..."/>
                         <input type="submit" name="explore!" value="submit" id="explore" />
                     </form>
                     <div id="speechCorner" class="speechBubble"></div>
