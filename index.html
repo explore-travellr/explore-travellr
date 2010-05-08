@@ -1,32 +1,192 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
- <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>explore.travellr mashup</title>
-		<script type="text/javascript" src="js/mootools.js"></script>
-		<script type="text/javascript" src="js/mootools-more.js"></script>
-		<script type="text/javascript" src="js/FeedItem.js"></script>
-		<script type="text/javascript" src="js/DisplayBox.js"></script>
-		<script type="text/javascript" src="js/Container.js"></script>
-		<script type="text/javascript" src="js/Feed.js"></script>
-		<script type="text/javascript" src="js/SearchFilter.js"></script>
-		<script type="text/javascript" src="js/SearchBox.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>explore.travellr</title>
+        <script type="text/javascript" src="js/mootools-1.2.4-core-yc.js"></script>
+        <script type="text/javascript" src="js/mootools-more.js"></script>
+        <!-- commented out until necessary
+        <script type="text/javascript" src="js/FeedItem.js"></script>
+        <script type="text/javascript" src="js/DisplayBox.js"></script>
+        <script type="text/javascript" src="js/Container.js"></script>
+        <script type="text/javascript" src="js/Feed.js"></script>
+        <script type="text/javascript" src="js/SearchFilter.js"></script>
+        <script type="text/javascript" src="js/SearchBox.js"></script>
+        <script type="text/javascript" src="js/loader.js"></script> -->
+        <script type="text/javascript" >
+            //when the dom is ready
+            window.addEvent('domready', function() {
 
-		<!-- Load the feed specific classes here -->
-		<script type="text/javascript" src="js/travellr/TravellrFeedItem.js"></script>
-		<script type="text/javascript" src="js/travellr/TravellrFeed.js"></script>
+                //Sets search suggestion box to be invisible
+                $$('.speechBubble').setStyle('opacity','0');
+                //Sets footer inof to be invisible
+                $$('.infoDesc').setStyle('opacity','0');
+                $$('.infoDesc').setStyle('display','none');
+                
+                
+                
+                $('searchField').addEvents({
+                    //when the text input is focused, either through click in or using tab, box fads to visible
+                    //0.9 is the opacity level
+                    focus: function() {
+                        $$('.speechBubble').fade('0.95');
+				   if ($('searchField').value.contains('Swimming in Mount Vesuvius')) $('searchField').value = '';
+                    },
+                    //keypress is any keyboard input
+                    keypress: function() {
+                        $$('.speechBubble').fade('out');
+                    },
+                    //blur is when the text box is de-focused
+                    blur: function() {
+                        $$('.speechBubble').fade('out');
+                    }
+                });
 
-		<script type="text/javascript" src="js/loader.js"></script>
-	</head>
-	<body>
-		<div id="search">
-			<form id="searchForm" method="get" action="?">
-				<input type="text" name="q" id="searchField" />
-				<input type="submit" value="Explore" />
-			</form>
-		</div>
-		<div id="container"></div>
-	</body>
+                $$('.infoBubble').setStyle('opacity','0');
+
+                $$('.info').addEvents({
+                    click: function() {
+                        $$('.infoBubble').fade('0.95');
+                    }
+                });
+
+                $('infoClose').addEvents({
+                    click: function() {
+                        $$('.infoBubble').fade('out');
+                    }
+                });
+
+                //this snippet should set a transition for the tween
+                $('infoCorner').set('tween', {
+                    duration: 1000,
+                    transition: Fx.Transitions.Back.easeOut});
+
+                //moves the blue pointer to ABOUT
+                $('about').addEvents({
+                    click: function() {
+                        $$('.infoDesc').fade('out');
+                        $$('.infoDesc').setStyle('display','none');
+                        $$('.infoDesc').setStyle('visibility','hidden');
+                        $('infoCorner').tween('margin-left','13px');
+                        $('infoAbout').setStyle('display','block');
+                        $('infoAbout').fade('in');
+                    }
+                });
+
+                //moves the blue pointer to PARTNERS
+                $('partners').addEvents({
+                    click: function() {
+                        $$('.infoDesc').fade('out');
+                        $$('.infoDesc').setStyle('display','none');
+                        $$('.infoDesc').setStyle('visibility','hidden');
+                        $('infoCorner').tween('margin-left','82px');
+                        $('infoPartners').setStyle('display','block');
+                        $('infoPartners').fade('in');
+                    }
+                });
+
+                //moves the blue pointer to TERMS and CONDITIONS
+                $('terms').addEvents({
+                    click: function() {
+                        $$('.infoDesc').fade('out');
+                        $$('.infoDesc').setStyle('display','none');
+                        $$('.infoDesc').setStyle('visibility','hidden');
+                        $('infoCorner').tween('margin-left','190px');
+                        $('infoTerms').setStyle('display','block');
+                        $('infoTerms').fade('in');
+                    }
+                });
+
+                //moves the blue pointer to CONTACT
+                $('contact').addEvents({
+                    click: function() {
+                        $$('.infoDesc').fade('out');
+                        $$('.infoDesc').setStyle('display','none');
+                        $$('.infoDesc').setStyle('visibility','hidden');
+                        $('infoCorner').tween('margin-left','305px');
+                        $('infoContact').setStyle('display','block');
+                        $('infoContact').fade('in');
+                    }
+                })
+            });
+        </script>
+        <!-- Default Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="styles/default.css"  />
+    </head>
+    <body>
+
+        <!-- Wrapper start -->
+        <div id="wrapper">
+            <div class="push"></div>
+            <div id="main">
+                <div id="header">
+                    <img src="styles/images/logo.jpg" alt=""  />
+                    <form id="searchForm" action="">
+                        <input type="text" name="search" id="searchField" maxlength="35" autocomplete="off" value="Swimming in Mount Vesuvius..."/>
+                        <input type="submit" name="explore!" value="submit" id="explore" />
+                    </form>
+                    <div id="speechCorner" class="speechBubble"></div>
+                    <div id="autoComplete" class="speechBubble">
+                        <h2>Suggestions</h2>
+                        <p>Rock Climbing in Japan<br />
+                            Surfing in Sydney<br />
+                            Skydiving in Dubai</p>
+                    </div>
+                </div>
+                <div id="searchBox" class="col">
+                    <p>Welcome to explore.travellr! Type you question in the box above, and get ready to be inspired.</p>
+                </div>
+                <div id="discoverBox" class="col">
+                    <p>This is the discover box, meant to be a tag cloud...but maybe change to something else?</p>
+                </div>
+                <div id="travelBox" class="col">
+                    <p>This is an area for suggested searches, or "top" searches</p>
+                </div>
+            </div>
+
+        </div><!-- Wrapper End -->
+
+        <!-- Footer start -->
+        <div id="footer" class="footer" name="footer">
+            <div class="infoBubble">
+                <div id="infoClose"></div>
+                <div id="infoAbout" class="infoDesc">
+                    <h3>About Us</h3>
+                    <p>
+                        explore.travellr has been created by: Nathaniel Burgess, Jacob Bresnehan, John Cobb, Timothy Heap, Jake Kobes, Matthew Platts, Robert Tilt and Clare Vivarelli.
+                    </p>
+                </div>
+                <div id="infoPartners" class="infoDesc">
+                    <h3>Partners</h3>
+                    <p>
+                        This project was created for <a href="http://www.travellr.com">Travellr</a>. Travellr is part of the
+                        <a href="http://www.worldnomads.com.au/">World Nomads Group</a>.
+                    </p>
+                </div>
+                <div id="infoTerms" class="infoDesc">
+                    <h3>Terms &amp; Conditions</h3>
+                    <p>
+                        We currently don't have any terms and conditions, because the page doesn't search anything yet!
+                    </p>
+                </div>
+                <div id="infoContact" class="infoDesc">
+                    <h3>Contact Us</h3>
+                    <p>
+                        This page isn't actually live, but email robert.tilt@gmail.com if you find any bugs...
+                    </p>
+                </div>
+                <div id="infoCorner"></div>
+            </div>
+
+            <ul class="footLinks">
+                <li><a href="#footer" class="info" id="about">about</a></li>
+                <li>|</li>
+                <li><a href="#footer" class="info" id="partners">partners</a></li>
+                <li>|</li>
+                <li><a href="#footer" class="info" id="terms">terms &amp; conditions</a></li>
+                <li>|</li>
+                <li><a href="#footer" class="info" id="contact">contact</a></li>
+            </ul>
+        </div><!-- Footer End -->
+    </body>
 </html>
-
-
