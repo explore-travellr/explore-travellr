@@ -4,6 +4,7 @@ var TravellrFeed = new Class({
     PER_PAGE: 10,
 
     search: function(searchFilter) {
+		this.feedItems = [];
 
         // TODO: Search for tags individually if nothing is found when searching for them all
 
@@ -26,9 +27,9 @@ var TravellrFeed = new Class({
                     this.feedItems.push(feedItem);
                 }, this);
 
+				this.feedItems.push(new TravellrFeedItem.Ask(searchFilter.location.id));
                 this.feedReady();
             }).bind(this)
         }).send();
     }
-
 });
