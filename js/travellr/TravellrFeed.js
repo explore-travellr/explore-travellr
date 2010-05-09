@@ -2,7 +2,7 @@ var TravellrFeed = new Class({
     Extends: Feed,
 
     PER_PAGE: 10,
-
+    
     search: function(searchFilter) {
 
         // TODO: Search for tags individually if nothing is found when searching for them all
