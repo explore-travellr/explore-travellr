@@ -8,10 +8,12 @@ var TravellrFeedItem = new Class({
     preview: null,
 
     initialize: function(data) {
+        
         this.question = data;
 
         this.question.safe_subject = this.question.subject.toLowerCase().replace(/[^a-z0-9]*/, '-').replace(/^-|-$/, '');
         this.question.url = 'http://travellr.com/questions/place/' + this.question.id + '/' + this.question.safe_subject;
+        this.url = this.question.url;
 
         this.size = {
             x: $random(1, 4),
@@ -25,8 +27,8 @@ var TravellrFeedItem = new Class({
         }).adopt([
             new Element('p', {
                 text: this.question.subject
-                }),
-            ]);
+            }),
+        ]);
     },
 
     makeContent: function() {
@@ -36,7 +38,7 @@ var TravellrFeedItem = new Class({
             new Element('h2').grab(new Element('a', {
                 text: this.question.subject,
                 href: this.question.url
-                })),
+            })),
             new Element('p').adopt(this.question.content.newlineToBr()),
             new Element('p', {
                 'class': 'date',
