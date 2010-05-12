@@ -21,8 +21,7 @@ var SearchBox = new Class({
         this.searchFilter.addEvent('ready', (function() {
         	this.fireEvent('search', [this.searchFilter]);
         }).bind(this));
-    },
-    
+    }
     
 });
 
