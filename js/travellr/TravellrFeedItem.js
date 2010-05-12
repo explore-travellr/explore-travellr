@@ -24,11 +24,11 @@ var TravellrFeedItem = new Class({
     makePreview: function() {
         return new Element('div', {
             'class': 'travellr'
-        }).adopt([
+        }).grab(new Element('div', {'class': 'inner'}).adopt([
             new Element('p', {
                 text: this.question.subject
             }),
-        ]);
+        ]));
     },
 
     makeContent: function() {
