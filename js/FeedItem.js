@@ -31,5 +31,12 @@ var FeedItem = new Class({
     },
     getDisplayBox: function() {
         return this.displayBox;
-    }
+    },
+
+	hasPreview: function() {
+		return true;
+	},
+	hasContent: function() {
+		return true;
+	}
 });

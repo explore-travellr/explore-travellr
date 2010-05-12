@@ -5,40 +5,67 @@ var Container = new Class({
     feeds: [],
 
     toggleBox: null,
-    
+
+    displayBoxQueue: [],
+    queueTimer: null,
+    queueDelay: 200,
+
     initialize: function(containerId){
         this.container = $(containerId);
+
+        this.addDisplayBoxFromQueue = this.addDisplayBoxFromQueue.bind(this);
 
         this.toggleBox = new FeedToggleBox();
         this.addDisplayBox(new DisplayBox(this.toggleBox, {readMore: false}));
     },
-	
+
     addFeed: function(feed) {
         this.feeds.push(feed);
         this.toggleBox.addFeed(feed);
     },
-	
+
     addDisplayBox: function(displayBox) {
-	
-        this.container.grab(displayBox.getPreview());
+        this.displayBoxQueue.push(displayBox);
+
+        if (!$chk(this.queueTimer)) {
+            this.queueTimer = this.addDisplayBoxFromQueue.delay(this.queueDelay);
+        }
+    },
+    addDisplayBoxFromQueue: function() {
+        var displayBox = this.displayBoxQueue.removeRandom();
+        var preview = displayBox.getPreview();
+
+        preview.fade('hide');
+        preview.fade('in');
+        this.container.grab(preview);
+
+        displayBox.setContainer(this);
         this.displayBoxes.push(displayBox);
 
+        if (this.displayBoxQueue.length !== 0) {
+            this.queueTimer = this.addDisplayBoxFromQueue.delay(this.queueDelay);
+        } else {
+            this.queueTimer = null;
+        }
     },
-    
+
     getDisplayBoxes: function(feed) {
-    
         return displayBoxes;
     },
-    
+
     removeDisplayBox: function(displayBox) {
+        displayBox.setContainer(null);
 
         this.displayBoxes.erase(displayBox);
         this.container.removeChild(displayBox.getPreview());
-        
     },
-    
+
+    getElement: function() {
+        return this.container;
+    },
+
     layout: function() {}
-    
+
 });
 var FeedToggleBox = new Class({
 
@@ -54,9 +81,21 @@ var FeedToggleBox = new Class({
     addFeed: function(feed) {
         var preview = this.getPreview();
 
-        var button = new Element('input', {'type': 'button', 'value': feed.name + ' on/off'});
-        button.addEvent('click', function() {
-            feed.setVisible(!feed.isVisible());
+        var button = new Element('a', {'href' : '', 'text': feed.name + ' on/off', 'class': feed.name+' button'});
+        button.addEvent('click', function(event) {
+            var isVisible = !feed.isVisible();
+
+            feed.setVisible(isVisible);
+
+            if (isVisible) {
+                button.removeClass('off');
+                button.addClass('on');
+            } else {
+                button.removeClass('on');
+                button.addClass('off');
+            }
+
+            event.stop();
         });
 
         preview.grab(button);
@@ -64,11 +103,13 @@ var FeedToggleBox = new Class({
 
     makePreview: function() {
         return new Element('div', {'class': 'feedToggle'}).adopt([
-            new Element('h2', {text: 'Toggle feeds'}),
+            new Element('b', {text: 'Feed Filter'}),
         ]);
     },
 
     makeContent: function() {
-    }
+    },
+
+    hasContent: $lambda(false)
 
 });
