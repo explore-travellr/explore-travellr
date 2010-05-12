@@ -3,16 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>explore.travellr</title>
-        <script type="text/javascript" src="js/mootools.js"></script>
+        <script type="text/javascript" src="js/mootools-1.2.4-core-yc.js"></script>
         <script type="text/javascript" src="js/mootools-more.js"></script>
-        <!-- commented out until necessary
-        <script type="text/javascript" src="js/FeedItem.js"></script>
-        <script type="text/javascript" src="js/DisplayBox.js"></script>
-        <script type="text/javascript" src="js/Container.js"></script>
-        <script type="text/javascript" src="js/Feed.js"></script>
-        <script type="text/javascript" src="js/SearchFilter.js"></script>
-        <script type="text/javascript" src="js/SearchBox.js"></script>
-        <script type="text/javascript" src="js/loader.js"></script> -->
+
         <script type="text/javascript" >
             //when the dom is ready
             window.addEvent('domready', function() {
@@ -110,6 +103,9 @@
                 })
             });
         </script>
+        <!-- Global Stylesheet -->
+        <link rel="stylesheet" type="text/css" href="styles/global.css"  />
+        
         <!-- Default Stylesheet -->
         <link rel="stylesheet" type="text/css" href="styles/default.css"  />
     </head>
@@ -121,7 +117,7 @@
             <div id="main">
                 <div id="header">
                     <img src="styles/images/logo.jpg" alt=""  />
-                    <form id="searchForm" action="">
+                    <form id="searchForm" action="results.html">
                         <input type="text" name="search" id="searchField" maxlength="35" autocomplete="off" value="Swimming in Mount Vesuvius..."/>
                         <input type="submit" name="explore!" value="submit" id="explore" />
                     </form>

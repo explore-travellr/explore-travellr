@@ -1,0 +1,235 @@
+ @charset "UTF-8";
+/* CSS Document for the Results page of 'explore.travellr'
+Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platts
+*/
+ 
+ 
+ /***********************
+ * Divs
+ ***********************/
+ #container {
+	 width:960px;
+	 margin:60px auto;
+	 position:relative;
+}
+
+
+
+
+
+ /***********************
+ * Display Box (preview box)
+ ***********************/
+.displayBox {
+	width:168px;;
+	height:148px;
+	float:left;
+	margin:10px;
+	position:relative;
+	font-family: Arial;
+	background:#fff;
+	border: 2px solid black;
+	font-size: 0.8em;
+
+	cursor: pointer;
+}
+.displayBox .inner {
+	padding: 10px;
+	display: relative;
+	overflow: auto;
+}
+
+.displayBox.travellr {
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border : 2px solid #365F91;
+	background: url("images/travellr_logo_small_fade.jpg") no-repeat bottom left;
+}
+
+.displayBox.twitter {
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border : 2px solid #95cbe9;
+	background: url("images/twitter_logo_small_fade.jpg") no-repeat 5px 102px;
+}
+
+.displayBox.flickr {
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border : 2px solid #c71585;
+	background: url("images/flickr-yahoo-logo-fade.png") no-repeat 5px 102px;
+	text-align: center;
+	line-height : 128px;
+}
+.displayBox.flickr img {
+	vertical-align: middle;
+	max-width: 100%;
+}
+
+
+/***********************
+ * Modal Box (popup)
+ ***********************/
+
+.modalMask{
+	 position: absolute;
+	 left : 0px;
+	 top : 0px;
+	 width: 100%;
+	 background : #000;
+	 z-index:500;
+}
+.modal{
+	position: absolute;
+	background : white;
+	border : 1px solid #365F91;
+	z-index:1000;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	-moz-box-shadow:1px 1px 20px;
+	-webkit-box-shadow:1px 1px 20px;
+
+	max-width: 80%;
+	max-height: 90%;
+
+	font-family:Arial,Helvetica,Verdana,sans-serif;
+	padding: 15px;
+}
+
+.modal .content {
+	max-height: 800px;
+	max-width: 800px;
+	position: relative;
+	overflow: auto;
+}
+
+.modal .modalClose{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}            
+
+.modal .close-button{
+	-moz-border-radius:15px ;
+	-webkit-border-radius:15px ;
+	background:url("images/close.png") no-repeat scroll 60px 50% #365F91;
+	color:white;
+	cursor:pointer;
+	float:right;
+	height:26px;
+	padding:5px 0 0 10px;
+	width:75px;
+
+	position: absolute;
+	top: -13px;
+	right: -5px;
+	z-index: 10000;
+}
+
+.modal .travellr {
+	background-color:#DDEEFF;
+	padding:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	max-width: 400px;
+}
+
+.modal .travellr h2 {
+	padding:0;
+	margin:0;
+	font-size: 20px
+}
+
+.modal .travellr a:hover {
+	text-decoration: underline
+}
+
+.modal .travellr p {
+	color:#333333;
+	font-size:16px;
+}
+.modal .travellr p.date {
+	font-size:12px;
+	color:#aaa;
+}
+
+
+.modal .flickr {
+	max-width: 560px;
+}
+
+.modal .twitter {
+	max-width: 400px;
+}
+
+/***********************
+ * Feed Toggle Panel
+ ***********************/    
+ .feedToggle {
+	 -moz-border-radius: 10px;
+	 height: 25px;
+	 width: 926px;
+	 padding:5px;
+}
+/***********************
+ * Button Modification
+ ***********************/           
+
+
+.feedToggle .button {
+	 height: 24px;
+	 display: inline-block;
+	 outline: 0px none;
+	 margin-left: 10px;
+	 vertical-align: text-bottom;
+}
+
+.feedToggle .Travellr {
+	background: url(images/feed_travellr.jpg);
+	width: 70px;
+	text-indent: -99999px; 	
+}
+
+.feedToggle .Travellr.on {
+	background-position: 0 top;
+}
+.feedToggle .Travellr.off {
+	background-position: 0 bottom;
+}
+
+/* This is the 'explore!' form submit button */
+#explore	{
+	background: url(images/bt_explore2.jpg) no-repeat 0 top;
+	width: 102px;
+	height: 29px;
+	border: none;
+	text-indent: -99999px;
+	color: white;
+	padding-top: 4px;
+}
+ /* seudo class creating hover effect on submit button */
+#explore:hover	{
+	background: url(images/bt_explore2.jpg) no-repeat 0 bottom;
+	
+}
+
+
+
+/***********************
+ * Search Box
+ ***********************/
+
+/* This is the box a user types their search */
+#searchField	{
+	background:url(images/input_bg2.jpg) no-repeat 0 2px;
+	font: 0.8em 'Hand of Sean', sans-serif;
+	padding: 2px 0 0 10px;
+	width: 345px;
+	height: 29px;
+	border: none;
+	color: #365F91;
+    letter-spacing: 1px;
+    outline: none;
+}
+
+#searchField:focus{border:none;}
