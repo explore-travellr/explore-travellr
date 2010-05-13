@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>explore.travellr</title>
-        <script type="text/javascript" src="js/mootools-1.2.4-core-yc.js"></script>
+        <script type="text/javascript" src="js/mootools.js"></script>
         <script type="text/javascript" src="js/mootools-more.js"></script>
 
         <script type="text/javascript" >
@@ -23,7 +23,7 @@
                     //0.9 is the opacity level
                     focus: function() {
                         $$('.speechBubble').fade('0.95');
-				   if ($('searchField').value.contains('Swimming in Mount Vesuvius')) $('searchField').value = '';
+                        if ($('searchField').value.contains('Swimming in Mount Vesuvius')) $('searchField').value = '';
                     },
                     //keypress is any keyboard input
                     keypress: function() {
@@ -33,6 +33,10 @@
                     blur: function() {
                         $$('.speechBubble').fade('out');
                     }
+                });
+
+                $$('.speechBubble .suggestion').addEvent('click', function() {
+                    $('searchField').set('value', this.get('text'));
                 });
 
                 $$('.infoBubble').setStyle('opacity','0');
@@ -124,9 +128,11 @@
                     <div id="speechCorner" class="speechBubble"></div>
                     <div id="autoComplete" class="speechBubble">
                         <h2>Suggestions</h2>
-                        <p>Rock Climbing in Japan<br />
-                            Surfing in Sydney<br />
-                            Skydiving in Dubai</p>
+						<p>
+							<span class="suggestion">Rock Climbing in Japan</span><br />
+							<span class="suggestion">Surfing in Sydney</span><br />
+							<span class="suggestion">Skydiving in Dubai</span>
+						</p>
                     </div>
                 </div>
                 <div id="searchBox" class="col">
