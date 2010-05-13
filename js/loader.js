@@ -1,30 +1,45 @@
 String.implement({
-		newlineToBr: function() {
-			var bits = this.split(/(?:\r|\n|\r\n)/);
-			var html = [];
+    newlineToBr: function() {
+        var bits = this.split(/(?:\r|\n|\r\n)/);
+        var html = [];
 
-			bits.each(function(bit) {
-				if (html.length !== 0) {
-					html.push(new Element('br'));
-				}
-				html.push(document.createTextNode(bit));
-			});
+        bits.each(function(bit) {
+            if (html.length !== 0) {
+                html.push(new Element('br'));
+            }
+            html.push(document.createTextNode(bit));
+        });
 
-			console.log(html);
-			return html;
-		}
+        return html;
+    }
+});
+
+Array.implement({
+	getRandomKey: function() {
+		return $random(0, this.length - 1);
+	},
+	removeRandom: function() {
+		var index = this.getRandomKey();
+		    splice = this.splice(index, 1);
+		return splice[0];
+	}
 });
 
 window.addEvent('domready', function() {
-	
-	var searchBox, container, feeds;
-	searchBox = new SearchBox($('#searchField'));
-	container = new Container($('#container'));
 
-	//feeds = [TravellrFeed, WorldNomadsFeed, TwitterFeed, FlickrFeed WikiTravelFeed];
-	feeds = [TravellrFeed];
+    var searchBox = new SearchBox('searchField');
+    var container = new Container('container', searchBox);
 
-	feeds.each(function(XFeed) {
-		var feed = new XFeed(searchBox, container);
-	});
+    //feeds = [TravellrFeed, WorldNomadsFeed, TwitterFeed, FlickrFeed, WikiTravelFeed];
+    var feeds = [TravellrFeed, TwitterFeed, FlickrFeed];
+    feeds.each(function(AFeedClass) {
+        new AFeedClass(searchBox, container);
+    });
+    
+    var searchString = location.href.toURI().getData('search').replace(/\+/g, ' ');
+    if (searchString) {
+        $('searchField').set('value', searchString);
+        searchBox.search(searchString);
+    }
+        
 });

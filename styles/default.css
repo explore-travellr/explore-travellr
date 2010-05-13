@@ -1,50 +1,7 @@
 @charset "UTF-8";
-/* CSS Document for explore.travellr.com
+/* CSS Document for the Homepage of 'explore.travellr'
 Author: Robert Tilt, Jake Bresnehan
 */
-
-/***********************
- * Page Reset
- ***********************/
- 
-html, body 	{
-	margin: 0;
-	padding: 0;
-        height: 100%
-}
-
-img 	{
-	border: none;
-}
-/***********************
- * Typographic Styling
- ***********************/
-
-/* font used for search input area */
-@font-face	{
-	font-family: 'Hand of Sean';
-	src: url('handsean.ttf');
-}
-
-p 	{
-	font: 1em/1.5em Verdana, Geneva, Arial, Helvetica, sans-serif;
-}
-
-/* used for 'Suggestions''' */
-h2 	{
-	font:  1.5em arial;
-	color: white;
-        padding: 0;
-
-}
-h3 {
-    font: 1.2em Verdana;
-    
-}
-
-a	{
-    text-decoration: none;
-}
 
 /***********************
  * Div Positioning
@@ -137,24 +94,7 @@ a	{
 #footer {
     
 }
-/***********************
- * List formatting for footer links
- ***********************/
-ul  {
-    float: right;
-}
-ul  li	{
-	padding-left: 10px;
-	float: left;
-	list-style:none;
-}
-ul  li a	{
-	display: block;
-	padding: 3px 0 0 0;
-	text-decoration: none;
-        font: 0.8em Verdana, Geneva, Arial, Helvetica, sans-serif;
-	color: #365F91;
-}
+
 /***********************
  * Unsorted
  ***********************/
@@ -191,50 +131,3 @@ ul  li a	{
     z-index: 70;
 }
 
-/* info bubble */
-
-.infoBubble {
-    display: block;
-    font-size: 12px;
-    background: #365F91;
-    text-align: left;
-    color: white;
-    z-index: 50;
-    position: absolute;
-    padding: 20px;
-    height: 150px;
-    width: 360px;
-    margin: -194px 0 0 590px;
-    -moz-border-radius: 15px; -webkit-border-radius: 15px;
-   /* -moz-box-shadow: 1px 1px 2px #333;    -webkit-box-shadow:  5px 5px 10px #333;
-*/
-   }
-   .infoBubble a {
-       color: #ccc;
-       font-weight: bold;
-}
-#infoClose {
-    position: absolute;
-    background: url('images/close.png');
-    width: 20px;
-    height: 20px;
-    margin: -14px 0 0 353px;
-    z-index: 60;
-    cursor: pointer;
-}
-
-#infoCorner {
-    border-color: #365F91 transparent transparent;
-    border-style: solid;
-    border-width: 20px;
-    width: 0px;
-    height: 0px;
-    margin-top: 55px;
-    /*leave margins seperate in this instance so can be selected by js */
-    margin-left: 13px;
-    position: absolute;
-    z-index: 50;
-}
-.infoDesc {
-    height: 100px;
-}
