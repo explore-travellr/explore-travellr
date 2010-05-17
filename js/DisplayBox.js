@@ -1,6 +1,6 @@
 var DisplayBox = new Class({
 
-    Implements: Options,
+    Implements: [Options, Events],
 
     mouseX : null,
     mouseY : null,
@@ -136,6 +136,7 @@ var DisplayBox = new Class({
             modalClose.destroy();
         });
 
+		this.fireEvent('display');
     }
 
 });
