@@ -21,6 +21,7 @@ var DisplayBox = new Class({
         this.setOptions(options);
     },
 
+    //Creates the preview box (CSS class: displayBox)
     getPreview: function() {
         if (!this.preview) {
 
@@ -33,6 +34,12 @@ var DisplayBox = new Class({
                     event.stop();
                     this.showContent();
                 }).bind(this));
+                preview.addEvent('mouseover', (function() {
+                    this.changeBorder();
+                }).bind(this));
+                preview.addEvent('mouseout', (function() {
+                    this.revertBorder();
+                }).bind(this));
             }
 
             this.preview = preview;
@@ -40,7 +47,29 @@ var DisplayBox = new Class({
         return this.preview;
 
     },
+    changeBorder: function() {
+      var preview = this.getPreview();
+      preview.setStyles({
+          'border-width': '4px',
+          width: 168,
+          height: 148,
+          'padding': '8px',
+          'background-position':'3px 3px'
+         // 'padding-right': '10px'
+      });
 
+    },
+
+    revertBorder: function() {
+        var preview = this.getPreview();
+      preview.setStyles({
+          'border-width': '2px',
+          width: 168,
+          height: 148,
+          'padding': '10px',
+          'background-position':'5px 5px'
+      });
+    },
     getContent: function(){
         if (!this.content) {
             var content = this.feedItem.getContent();
@@ -89,7 +118,7 @@ var DisplayBox = new Class({
 
         var modalLocation = {
             x: (boxLocation.x + ((boxSize.x - modalSize.x) / 2)).limit(this.margin, documentSize.x - modalSize.x - this.margin),
-            y: (boxLocation.y + ((boxSize.y - modalSize.y) / 2)).limit(this.margin, documentSize.y - modalSize.y - this.margin),
+            y: (boxLocation.y + ((boxSize.y - modalSize.y) / 2)).limit(this.margin, documentSize.y - modalSize.y - this.margin)
         };
         modal.setPosition(modalLocation);
 

@@ -131,3 +131,10 @@ Author: Robert Tilt, Jake Bresnehan
     z-index: 70;
 }
 
+.suggestion {
+    cursor: pointer;
+
+}
+.suggestion:hover {
+        text-decoration: underline;
+}

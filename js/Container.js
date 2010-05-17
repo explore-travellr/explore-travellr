@@ -16,7 +16,9 @@ var Container = new Class({
         this.addDisplayBoxFromQueue = this.addDisplayBoxFromQueue.bind(this);
 
         this.toggleBox = new FeedToggleBox();
-        this.addDisplayBox(new DisplayBox(this.toggleBox, {readMore: false}));
+        this.addDisplayBox(new DisplayBox(this.toggleBox, {
+            readMore: false
+        }));
     },
 
     addFeed: function(feed) {
@@ -81,7 +83,11 @@ var FeedToggleBox = new Class({
     addFeed: function(feed) {
         var preview = this.getPreview();
 
-        var button = new Element('a', {'href' : '', 'text': feed.name + ' on/off', 'class': feed.name+' button'});
+        var button = new Element('a', {
+            'href' : '',
+            'text': feed.name + ' on/off',
+            'class': feed.name+' button'
+            });
         button.addEvent('click', function(event) {
             var isVisible = !feed.isVisible();
 
@@ -102,9 +108,13 @@ var FeedToggleBox = new Class({
     },
 
     makePreview: function() {
-        return new Element('div', {'class': 'feedToggle'}).adopt([
-            new Element('b', {text: 'Feed Filter'}),
-        ]);
+        return new Element('div', {
+            'class': 'feedToggle'
+        }).adopt([
+            new Element('b', {
+                text: 'Feed Filter'
+            }),
+            ]);
     },
 
     makeContent: function() {

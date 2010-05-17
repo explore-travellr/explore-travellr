@@ -28,7 +28,7 @@ var FlickrFeedItem = new Class({
         }).grab(new Element('div', {'class': 'inner'}).adopt([
             new Element('img', {
                 text: this.photo.title,
-                src: this.photo.picUrlThumbnail,
+                src: this.photo.picUrlThumbnail
             }),
         ]));
     },

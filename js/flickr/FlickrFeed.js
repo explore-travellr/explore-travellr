@@ -37,7 +37,7 @@ var FlickrFeed = new Class({
             tags.push(tag.name);
         });
         tags = tags.join(',');
-
+        
         this.req = new Request.JSONP({
             url: 'http://api.flickr.com/services/rest/',
                 data: {

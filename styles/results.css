@@ -1,69 +1,87 @@
- @charset "UTF-8";
+@charset "UTF-8";
 /* CSS Document for the Results page of 'explore.travellr'
 Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platts
 */
- 
- 
- /***********************
- * Divs
- ***********************/
- #container {
-	 width:960px;
-	 margin:60px auto;
-	 position:relative;
+
+
+/***********************
+* Divs
+***********************/
+#container {
+    width:960px;
+    margin: auto;
+    position:relative;
 }
+#header {
+    width: 960px;
+    margin: 0 auto;
+}
+#searchBar {
+    float: right;
+    margin: 8px 10px;
 
+}
+#footer {
+    width: 960px;
+    margin: 0 auto;
+    clear: both;
+    position: relative;
+}
+/***********************
+* Display Box (preview box)
+***********************/
 
-
-
-
- /***********************
- * Display Box (preview box)
- ***********************/
 .displayBox {
-	width:168px;;
-	height:148px;
-	float:left;
-	margin:10px;
-	position:relative;
-	font-family: Arial;
-	background:#fff;
-	border: 2px solid black;
-	font-size: 0.8em;
-
-	cursor: pointer;
+    width:168px;;
+    height:148px;
+    float:left;
+    margin:10px;
+    position:relative;
+    font-family: Arial;
+    background:#fff;
+    border: 2px solid black;
+    font-size: 0.8em;
+    cursor: pointer;
+    padding: 10px;
 }
-.displayBox .inner {
-	padding: 10px;
-	display: relative;
-	overflow: auto;
+
+/*.displayBox .inner {
+	whoever wrote this class can you pelase leave the CSS alone.
+} */
+
+.displayBox.travellr.ask {
+    padding: 10px;
+    width: 148px;
+    height: 128px;
+
 }
 
 .displayBox.travellr {
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border : 2px solid #365F91;
-	background: url("images/travellr_logo_small_fade.jpg") no-repeat bottom left;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border : 2px solid #365F91;
+    background: url("images/icon_travellr.jpg") no-repeat 5px 5px;
 }
 
 .displayBox.twitter {
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border : 2px solid #95cbe9;
-	background: url("images/twitter_logo_small_fade.jpg") no-repeat 5px 102px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border : 2px solid #95cbe9;
+    background: url("images/icon_twitter.jpg") no-repeat 5px 5px;
 }
 
 .displayBox.flickr {
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	border : 2px solid #c71585;
-	background: url("images/flickr-yahoo-logo-fade.png") no-repeat 5px 102px;
-	text-align: center;
-	line-height : 128px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    border : 2px solid #c71585;
+    background: url("images/icon_flickr.jpg") no-repeat 5px 5px;
+    text-align: center;
+    line-height : 128px;
 }
 .displayBox.flickr img {
-	vertical-align: middle;
-	max-width: 100%;
+    vertical-align: middle;
+    max-width: 125px;
+    max-height:125px;
 }
 
 
@@ -72,147 +90,209 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
  ***********************/
 
 .modalMask{
-	 position: absolute;
-	 left : 0px;
-	 top : 0px;
-	 width: 100%;
-	 background : #000;
-	 z-index:500;
+    position: absolute;
+    left : 0px;
+    top : 0px;
+    width: 100%;
+    background : #000;
+    z-index:500;
 }
 .modal{
-	position: absolute;
-	background : white;
-	border : 1px solid #365F91;
-	z-index:1000;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	-moz-box-shadow:1px 1px 20px;
-	-webkit-box-shadow:1px 1px 20px;
+    position: absolute;
+    background : white;
+    border : 1px solid #365F91;
+    z-index:1000;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+    -moz-box-shadow:1px 1px 20px;
+    -webkit-box-shadow:1px 1px 20px;
 
-	max-width: 80%;
-	max-height: 90%;
+    max-width: 80%;
+    max-height: 90%;
 
-	font-family:Arial,Helvetica,Verdana,sans-serif;
-	padding: 15px;
+    font-family:Arial,Helvetica,Verdana,sans-serif;
+    padding: 15px;
 }
 
 .modal .content {
-	max-height: 800px;
-	max-width: 800px;
-	position: relative;
-	overflow: auto;
+    max-height: 800px;
+    max-width: 800px;
+    position: relative;
+    
 }
 
 .modal .modalClose{
-	position: absolute;
-	top: 0px;
-	right: 0px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }            
 
 .modal .close-button{
-	-moz-border-radius:15px ;
-	-webkit-border-radius:15px ;
-	background:url("images/close.png") no-repeat scroll 60px 50% #365F91;
-	color:white;
-	cursor:pointer;
-	float:right;
-	height:26px;
-	padding:5px 0 0 10px;
-	width:75px;
-
-	position: absolute;
-	top: -13px;
-	right: -5px;
-	z-index: 10000;
+    -moz-border-radius:15px ;
+    -webkit-border-radius:15px ;
+    background:url("images/closebox.png") no-repeat top right;
+    cursor:pointer;
+    height:29px;
+    width:29px;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    z-index: 10000;
+    text-indent: -99999px;
 }
 
 .modal .travellr {
-	background-color:#DDEEFF;
-	padding:5px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	max-width: 400px;
+    background-color:#DDEEFF;
+    padding:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    max-width: 400px;
+    background: url("images/icon_travellr.jpg") no-repeat 5px 3px;
+
 }
 
 .modal .travellr h2 {
-	padding:0;
-	margin:0;
-	font-size: 20px
+    padding:0;
+    margin:0;
+    font-size: 20px;
+    color : #228;
+    text-indent: 30px;
 }
 
 .modal .travellr a:hover {
-	text-decoration: underline
+    text-decoration: underline
 }
 
 .modal .travellr p {
-	color:#333333;
-	font-size:16px;
+    color:#333333;
+    font-size:16px;
 }
 .modal .travellr p.date {
-	font-size:12px;
-	color:#aaa;
+    font-size:12px;
+    color:#aaa;
 }
 
+.modal .travellr.ask textarea {
+    width: 100%;
+    height : 7em;
+    font-family: sans-serif;
+}
+.modal .travellr.ask input {
+    display : block;
+    margin-top: 1em;
+    padding : 0.2em 1em;
+    float: right;
+}
+
+.modal .travellr.ask .length {
+    display: block;
+    float: left;
+    font-size: 1.5em;
+    color : #999;
+    margin-top: 0.5em;
+}
+.modal .travellr.ask a {
+    display: block;
+    text-align: right;
+    font-size: 0.8em;
+    clear: both;
+}
+.modal .travellr.ask form.error .length {
+    color : #f44;
+}
+.modal .travellr.ask form.error textarea {
+    border-color : #f44;
+}
 
 .modal .flickr {
-	max-width: 560px;
+    max-width: 560px;
+    background: url("images/icon_flickr.jpg") no-repeat 5px 3px;
+    text-indent: 30px;
 }
 
 .modal .twitter {
-	max-width: 400px;
+    max-width: 400px;
+    background: url("images/icon_twitter.jpg") no-repeat 5px 3px;
+    text-indent: 30px;
 }
 
 /***********************
  * Feed Toggle Panel
- ***********************/    
- .feedToggle {
-	 -moz-border-radius: 10px;
-	 height: 25px;
-	 width: 926px;
-	 padding:5px;
+ ***********************/
+
+.feedToggle {
+    -moz-border-radius: 10px;
+    height: 25px;
+    width: 926px;
+    padding:5px;
 }
 /***********************
  * Button Modification
  ***********************/           
 
-
 .feedToggle .button {
-	 height: 24px;
-	 display: inline-block;
-	 outline: 0px none;
-	 margin-left: 10px;
-	 vertical-align: text-bottom;
+    height: 24px;
+    display: inline-block;
+    outline: 0px none;
+    margin-left: 10px;
+    vertical-align: text-bottom;
 }
 
 .feedToggle .Travellr {
-	background: url(images/feed_travellr.jpg);
-	width: 70px;
-	text-indent: -99999px; 	
+    background: url(images/feed_travellr.jpg);
+    width: 70px;
+    text-indent: -99999px;
 }
 
 .feedToggle .Travellr.on {
-	background-position: 0 top;
+    background-position: 0 top;
 }
 .feedToggle .Travellr.off {
-	background-position: 0 bottom;
+    background-position: 0 bottom;
+}
+
+.feedToggle .Twitter {
+    background: url(images/feed_twitter.jpg);
+    width: 95px;
+    text-indent: -99999px;
+}
+
+.feedToggle .Twitter.on {
+    background-position: 0 top;
+}
+.feedToggle .Twitter.off {
+    background-position: 0 bottom;
+}
+
+.feedToggle .Flickr {
+    background: url(images/feed_flickr.jpg);
+    width: 70px;
+    text-indent: -99999px;
+}
+
+.feedToggle .Flickr.on {
+    background-position: 0 top;
+}
+.feedToggle .Flickr.off {
+    background-position: 0 bottom;
 }
 
 /* This is the 'explore!' form submit button */
 #explore	{
-	background: url(images/bt_explore2.jpg) no-repeat 0 top;
-	width: 102px;
-	height: 29px;
-	border: none;
-	text-indent: -99999px;
-	color: white;
-	padding-top: 4px;
-}
- /* seudo class creating hover effect on submit button */
-#explore:hover	{
-	background: url(images/bt_explore2.jpg) no-repeat 0 bottom;
-	
+    background: url(images/bt_explore2.jpg) no-repeat 0 top;
+    width: 102px;
+    height: 29px;
+    border: none;
+    text-indent: -99999px;
+    color: white;
+    padding-top: 4px;
 }
 
+/* seudo class creating hover effect on submit button */
+#explore:hover	{
+    background: url(images/bt_explore2.jpg) no-repeat 0 bottom;
+
+}
 
 
 /***********************
@@ -221,15 +301,18 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
 
 /* This is the box a user types their search */
 #searchField	{
-	background:url(images/input_bg2.jpg) no-repeat 0 2px;
-	font: 0.8em 'Hand of Sean', sans-serif;
-	padding: 2px 0 0 10px;
-	width: 345px;
-	height: 29px;
-	border: none;
-	color: #365F91;
+    background:url(images/input_bg2.jpg) no-repeat 0 0;
+    font: 0.8em 'Hand of Sean', sans-serif;
+    padding: 2px 0 0 10px;
+    width: 345px;
+    height: 29px;
+    border: none;
+    color: #365F91;
     letter-spacing: 1px;
     outline: none;
 }
 
 #searchField:focus{border:none;}
+
+
+
