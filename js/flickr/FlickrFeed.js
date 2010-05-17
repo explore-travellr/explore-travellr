@@ -11,16 +11,21 @@ Copyright:
 Dependencies:
    - MooTools-core 1.2.4 or higher
    - MooTools-more 1.2.4.4 RC1 or higher
-   - JSONP
+   - Request/Request.JSONP
+   - Feed Class
+   - FlickrFeedItem Class
 */
 
 var FlickrFeed = new Class({
+    
     Extends: Feed,
+
+    PER_PAGE: 5,
+
     Implements: [Options, Events],
     options: {
         size: 'm',
         method: 'flickr.photos.search',
-        amount: 5,
         apikey: '49dbf1eebc2e9dd4ae02a97d074d83fc'
     },
 
@@ -28,9 +33,15 @@ var FlickrFeed = new Class({
 
     name: 'Flickr',
 
-    // fetch JSON from flickr
+    /**
+     * Search the feed for items relating to the search terms. Calls
+     * makeFeedItems on success.
+     *
+     * @param searchFilter The search filter to filter results with
+     */
     search: function(searchFilter) {
         this.parent();
+        
         var tags = [];
 
         searchFilter.tags.each(function(tag) {
@@ -38,12 +49,12 @@ var FlickrFeed = new Class({
         });
         tags = tags.join(',');
         
-        this.req = new Request.JSONP({
+        new Request.JSONP({
             url: 'http://api.flickr.com/services/rest/',
                 data: {
                 api_key: 	this.options.apikey,
                 method: 	this.options.method,
-                per_page: 	this.options.amount,
+                per_page: 	this.PER_PAGE,
                 tags:           tags,//+', travel',
                 woe_id:         (searchFilter.location ? searchFilter.location.woe_id : null),
                 format: 	'json',
@@ -55,18 +66,24 @@ var FlickrFeed = new Class({
 
     },
 
+    /**
+     * Makes the individual flickr feed items by sending the each photo
+     * object of the response object to the FlickrFeedItem class and then
+     * pushing each of them onto a feedItems array
+     *
+     * @param response object returned by the flickr call
+     */
     makeFeedItems: function(response) {
 
         this.response = response.photos;
-        //console.log(response);
+
         if($chk(this.response)) {
-            response.photos.photo.each(function(photo) {
-                var feedItem = new FlickrFeedItem(photo);
+            response.photos.photo.each(function(data) {
+                var feedItem = new FlickrFeedItem(data);
                 this.feedItems.push(feedItem);
             }, this);
         }
 
         this.feedReady();
-
     }
 });

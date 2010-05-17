@@ -33,10 +33,20 @@ var FeedItem = new Class({
         return this.displayBox;
     },
 
-	hasPreview: function() {
-		return true;
-	},
-	hasContent: function() {
-		return true;
-	}
+    hasPreview: function() {
+        return true;
+    },
+
+    hasContent: function() {
+        return true;
+    },
+
+    truncateText: function(strText){
+        if(strText.length >= 100){
+            return strText.substring(0, 100) + ' ...';
+        }
+        else{
+            return strText;
+        }
+    }
 });

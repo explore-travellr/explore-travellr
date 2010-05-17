@@ -1,19 +1,40 @@
+/*
+Script: TravellrFeedItem.js
+   TravellrFeedItem - MooTools based Travellr feed item handler
+
+License:
+   MIT-style license.
+
+Copyright:
+   Copyright (c) 2010 explore.travellr.com
+
+Dependencies:
+   - MooTools-core 1.2.4 or higher
+   - MooTools-more 1.2.4.4 RC1 or higher
+   - FeedItem Class
+   - TravellrFeed Class
+*/
+
 var TravellrFeedItem = new Class({
 
     Extends: FeedItem,
 
-    data: null,
+    question: null,
 
-    content: null,
-    preview: null,
+    name: 'TravellrFeedItem',
 
-    initialize: function(data) {
+    /**
+     * Sets the parameter to a instance variable then sets the safe subject and
+     * question url
+     *
+     * @param feedObject The object is associative array of keys related
+     * to the feedObject passed in
+     */
+    initialize: function(feedObject) {
         
-        this.question = data;
-
+        this.question = feedObject;
         this.question.safe_subject = this.question.subject.toLowerCase().replace(/[^a-z0-9]*/, '-').replace(/^-|-$/, '');
         this.question.url = 'http://travellr.com/questions/place/' + this.question.id + '/' + this.question.safe_subject;
-        this.url = this.question.url;
 
         this.size = {
             x: $random(1, 4),
@@ -21,23 +42,39 @@ var TravellrFeedItem = new Class({
         };
     },
 
+    /**
+     * Builds a feed item preview to go in the displayBox within the container
+     *
+     * @example <div class="travellr displayBox">
+     *              <p></p>
+     *          </div>
+     */
     makePreview: function() {
-		var text = this.question.subject
-		var length = text.length;
-		var max_length = 100;
-		if(length >= max_length){
-			var text = text.substring(0, 100);
-			var text = text + '...';
-		};
         return new Element('div', {
             'class': 'travellr'
-        }).grab(new Element('div', {'class': 'inner'}).adopt([
+        }).adopt([
             new Element('p', {
-                text: text
+                text: this.truncateText(this.question.subject) //Calls parent function
             }),
-        ]));
+            ]);
     },
 
+    /**
+     * Builds a feed item content div for insertion into the modal box once
+     * clicked
+     *
+     * @example <div class="modal">
+     *              <div class="content">
+     *                  <div class="travellr">
+     *                      <h2>
+     *                          <a href=""></a>
+     *                      </h2>
+     *                      <p></p>
+     *                      <p class="date"></p>
+     *                  </div>
+     *              </div>
+     *         </div>
+     */
     makeContent: function() {
         return new Element('div', {
             'class': 'travellr'
@@ -50,54 +87,74 @@ var TravellrFeedItem = new Class({
             new Element('p', {
                 'class': 'date',
                 text: Date.parse(this.question.created_at).toString()
-                })
+            })
             ]);
     }
 
 });
 
 TravellrFeedItem.Ask = new Class({
-	Extends: FeedItem,
+    Extends: FeedItem,
 
-	// TODO: Work out how to submit this paramater to travellr
-	locationId: null,
+    // TODO: Work out how to submit this paramater to travellr
+    locationId: null,
 
-	MAX_LENGTH: 140,
-	ACTION: 'http://travellr.com/ask',
+    MAX_LENGTH: 140,
+    ACTION: 'http://travellr.com/ask',
 
-	initialize: function(locationId) {
-		this.locationId = locationId;
-	},
+    initialize: function(locationId) {
+        this.locationId = locationId;
+    },
 
-	makePreview: function() {
-		return new Element('div', {'class': 'travellr'}).grab(new Element('div', {'class': 'inner'}).adopt([
-			new Element('p', {text: 'Didnt find the information you were looking for? Ask a question on Travellr.com!'})
-		]));
+    makePreview: function() {
+        return new Element('div', {
+            'class': 'travellr'
+        }).grab(new Element('div', {
+            'class': 'inner'
+        }).adopt([
+            new Element('p', {
+                text: 'Didn\'t find the information you were looking for? Ask a question on Travellr.com!'
+            })
+            ]));
 
-	},
+    },
 
-	makeContent: function() {
-		var textarea = new Element('textarea', {name: 'q', rows: 2}),
-		    submit = new Element('input', {type: 'submit', value: 'ask'}),
-			maxLength = this.MAX_LENGTH;
+    makeContent: function() {
+        var textarea = new Element('textarea', {
+            name: 'q',
+            rows: 2
+        }),
+        submit = new Element('input', {
+            type: 'submit',
+            value: 'ask'
+        }),
+        maxLength = this.MAX_LENGTH;
 
-		textarea.addEvent('keyup', function() {
-			var isError = textarea.hasClass('error'),
-				tooLong = textarea.get('value').length >= maxLength;
-			if (tooLong && !isError) {
-				textarea.addClass('error');
-			} else if (!tooLong && isError) {
-				textarea.removeClass('error');
-			}
-		});
+        textarea.addEvent('keyup', function() {
+            var isError = textarea.hasClass('error'),
+            tooLong = textarea.get('value').length >= maxLength;
+            if (tooLong && !isError) {
+                textarea.addClass('error');
+            } else if (!tooLong && isError) {
+                textarea.removeClass('error');
+            }
+        });
 
-		return new Element('div', {'class': 'travellr ask'}).adopt([
-			new Element('h2', {text: 'Ask your travel question on Travellr.com'}),
-			new Element('form', {method: 'get', action: this.ACTION, target: '_blank'}).adopt([
-				textarea,
-				submit
-			]),
-		]);
-	}
+        return new Element('div', {
+            'class': 'travellr ask'
+        }).adopt([
+            new Element('h2', {
+                text: 'Ask your travel question on Travellr.com'
+            }),
+            new Element('form', {
+                method: 'get',
+                action: this.ACTION,
+                target: '_blank'
+            }).adopt([
+                textarea,
+                submit
+                ]),
+            ]);
+    }
 
 });
