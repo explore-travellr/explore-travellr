@@ -22,11 +22,18 @@ var TravellrFeedItem = new Class({
     },
 
     makePreview: function() {
+		var text = this.question.subject
+		var length = text.length;
+		var max_length = 100;
+		if(length >= max_length){
+			var text = text.substring(0, 100);
+			var text = text + '...';
+		};
         return new Element('div', {
             'class': 'travellr'
         }).grab(new Element('div', {'class': 'inner'}).adopt([
             new Element('p', {
-                text: this.question.subject
+                text: text
             }),
         ]));
     },
@@ -63,9 +70,10 @@ TravellrFeedItem.Ask = new Class({
 	},
 
 	makePreview: function() {
-		return new Element('div', {'class': 'travellr ask'}).adopt([
+		return new Element('div', {'class': 'travellr'}).grab(new Element('div', {'class': 'inner'}).adopt([
 			new Element('p', {text: 'Didnt find the information you were looking for? Ask a question on Travellr.com!'})
-		]);
+		]));
+
 	},
 
 	makeContent: function() {
