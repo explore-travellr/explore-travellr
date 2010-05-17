@@ -21,11 +21,18 @@ var TwitterFeedItem = new Class({
     },
 
     makePreview: function() {
+		var text = this.text.text
+		var length = text.length;
+		var max_length = 100;
+		if(length >= max_length){
+			var text = text.substring(0, 100);
+			var text = text + '...';
+		};
         return new Element('div', {
             'class': 'twitter'
         }).grab(new Element('div', {'class': 'inner'}).adopt([
             new Element('p', {
-                text: this.text.text
+                text: text
             }),
         ]));
     },
