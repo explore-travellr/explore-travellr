@@ -6,8 +6,6 @@ var TravellrFeed = new Class({
     name: 'Travellr',
     
     search: function(searchFilter) {
-		this.feedItems = [];
-
         this.parent();
         // TODO: Search for tags individually if nothing is found when searching for them all
 
