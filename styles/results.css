@@ -152,18 +152,11 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
 }
 
 .modal .travellr h2 {
-<<<<<<< HEAD
     padding:0;
     margin:0;
     font-size: 20px;
     color : #228;
     text-indent: 30px;
-=======
-	padding:0;
-	margin:0;
-	font-size: 20px;
-	color : #228;
->>>>>>> 815bb48ca743acd920a4c83887132e31184254d4
 }
 
 .modal .travellr a:hover {
@@ -180,7 +173,6 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
 }
 
 .modal .travellr.ask textarea {
-<<<<<<< HEAD
     width: 100%;
     height : 7em;
     font-family: sans-serif;
@@ -211,39 +203,6 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
 .modal .travellr.ask form.error textarea {
     border-color : #f44;
 }
-=======
-	width: 100%;
-	height : 7em;
-	font-family: sans-serif;
-}
-.modal .travellr.ask input {
-	display : block;
-	margin-top: 1em;
-	padding : 0.2em 1em;
-	float: right;
-}
-
-.modal .travellr.ask .length {
-	display: block;
-	float: left;
-	font-size: 1.5em;
-	color : #999;
-	margin-top: 0.5em;
-}
-.modal .travellr.ask a {
-	display: block;
-	text-align: right;
-	font-size: 0.8em;
-	clear: both;
-}
-.modal .travellr.ask form.error .length {
-	color : #f44;
-}
-.modal .travellr.ask form.error textarea {
-	border-color : #f44;
-}
-
->>>>>>> 815bb48ca743acd920a4c83887132e31184254d4
 
 .modal .flickr {
     max-width: 560px;

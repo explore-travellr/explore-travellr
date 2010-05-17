@@ -23,7 +23,6 @@ var TravellrFeed = new Class({
     PER_PAGE: 10,
 
     name: 'Travellr',
-<<<<<<< HEAD
 
     /**
      * Search the feed for items relating to the search terms.
@@ -31,10 +30,7 @@ var TravellrFeed = new Class({
      * @param searchFilter The search filter to filter results with
      */
     search: function(searchFilter) {     
-=======
-    
-    search: function(searchFilter) {
->>>>>>> 815bb48ca743acd920a4c83887132e31184254d4
+
         this.parent();
         
         //this.feedItems = []; Removed : Jake Kobes : 17-May-2010 : this was the problem with travellr feeditems not refreshing
