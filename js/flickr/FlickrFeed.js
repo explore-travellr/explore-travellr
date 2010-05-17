@@ -44,9 +44,10 @@ var FlickrFeed = new Class({
                 api_key: 	this.options.apikey,
                 method: 	this.options.method,
                 per_page: 	this.options.amount,
-                tags:           tags+', travel',
+                tags:           tags,//+', travel',
                 woe_id:         (searchFilter.location ? searchFilter.location.woe_id : null),
-                format: 	'json'
+                format: 	'json',
+                sort:           'relevance'
             },
             callbackKey: 	'jsoncallback',
             onSuccess: 	this.makeFeedItems.bind(this)
