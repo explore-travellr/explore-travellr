@@ -1,3 +1,22 @@
+/*
+Script: Feed.js
+   Feed - MooTools based generic parent feed generator
+
+License:
+   MIT-style license.
+
+Copyright:
+   Copyright (c) 2010 explore.travellr.com
+
+Dependencies:
+   - MooTools-core 1.2.4 or higher
+   - MooTools-more 1.2.4.4 RC1 or higher
+   - Request/Request.JSONP
+   - TwitterFeed Class
+   - TravellrFeed Class
+   - FlickrFeed Class
+*/
+
 var Feed = new Class({
 
     Implements: [Events],
@@ -20,11 +39,11 @@ var Feed = new Class({
     },
 
     /**
-	 * Search the feed for items relating to the search terms. Calls
-	 * feedReady when the feedItems are found.
-	 *
-	 * @param searchFilter The search filter to filter results with
-	 */
+     * Search the feed for items relating to the search terms. Calls
+     * feedReady when the feedItems are found.
+     *
+     * @param searchFilter The search filter to filter results with
+     */
     search: function() {
         this.feedItems.each(function(feedItem) {
             this.container.removeDisplayBox(feedItem.getDisplayBox());
@@ -34,12 +53,12 @@ var Feed = new Class({
     },
 
     /**
-	 * The method binds all of the methods in unbound. The
-	 * methods are then used for events or similar
-	 *
-	 * @param unbound A hash of method names to bind
-	 * @return A hash of the methods, bound to this
-	 */
+     * The method binds all of the methods in unbound. The
+     * methods are then used for events or similar
+     *
+     * @param unbound A hash of method names to bind
+     * @return A hash of the methods, bound to this
+     */
     bindMethods: function(unbound) {
         var bound = {};
         $H(unbound).each(function(value, key){
@@ -49,31 +68,33 @@ var Feed = new Class({
     },
 
     /**
-	 * Attach event listeners. Bind methods in this.bound first!
-	 */
+     * Attach event listeners. Bind methods in this.bound first!
+     */
     attach: function() {
         this.searchBox.addEvent('search', this.bound.search);
     },
+
     /**
-	 * Detach event listeners
-	 */
+     * Detach event listeners
+     */
     detach: function() {
         this.searchBox.removeEvent('search', this.bound.search);
     },
 
     /**
-	 * If the feed is currently visible
-	 *
-	 * @return True if the feed is visible, false otherwise
-	 */
+     * If the feed is currently visible
+     *
+     * @return True if the feed is visible, false otherwise
+     */
     isVisible: function() {
         return this.visible;
     },
+
     /**
-	 * Set the visibility of the feed
-	 *
-	 * @param visible True if the feed should be visible, false otherwise
-	 */
+     * Set the visibility of the feed
+     *
+     * @param visible True if the feed should be visible, false otherwise
+     */
     setVisible: function(visible) {
         if (this.visible != visible) {
             this.visible = visible;
@@ -91,18 +112,18 @@ var Feed = new Class({
     },
 
     /**
-	 * Returns an array of all feedItems currently displayed
-	 *
-	 * @return The feedItems the feed is currently displaying
-	 */
+     * Returns an array of all feedItems currently displayed
+     *
+     * @return The feedItems the feed is currently displaying
+     */
     getFeedItems: function() {
         return this.feedItems;
     },
 
     /**
-	 * Called when the FeedItems are ready. This adds the FeedItems to the
-	 * Container, in a new DisplayBox.
-	 */
+     * Called when the FeedItems are ready. This adds the FeedItems to the
+     * Container, in a new DisplayBox.
+     */
     feedReady: function() {
         // So that we dont have to bind. Binding is expensive.
         var container = this.container;

@@ -30,13 +30,13 @@
 
         <script type="text/javascript" src="js/loader.js"></script>
 
-         <!-- Global Stylesheet -->
+        <!-- Global Stylesheet -->
         <link rel="stylesheet" type="text/css" href="styles/global.css"  />
-        
+
         <!-- Default Stylesheet -->
         <link rel="stylesheet" type="text/css" href="styles/results.css"  />
-        
-          <script type="text/javascript" >
+
+        <script type="text/javascript" >
             //when the dom is ready
             window.addEvent('domready', function() {
 
@@ -48,22 +48,22 @@
                 
                 
                 
-               /* $('searchField').addEvents({
-                    //when the text input is focused, either through click in or using tab, box fads to visible
-                    //0.9 is the opacity level
-                    focus: function() {
-                        $$('.speechBubble').fade('0.95');
-				   if ($('searchField').value.contains('Swimming in Mount Vesuvius')) $('searchField').value = '';
-                    },
-                    //keypress is any keyboard input
-                    keypress: function() {
-                        $$('.speechBubble').fade('out');
-                    },
-                    //blur is when the text box is de-focused
-                    blur: function() {
-                        $$('.speechBubble').fade('out');
-                    }
-                }); */
+                /* $('searchField').addEvents({
+                  //when the text input is focused, either through click in or using tab, box fads to visible
+                  //0.9 is the opacity level
+                  focus: function() {
+                      $$('.speechBubble').fade('0.95');
+                                 if ($('searchField').value.contains('Swimming in Mount Vesuvius')) $('searchField').value = '';
+                  },
+                  //keypress is any keyboard input
+                  keypress: function() {
+                      $$('.speechBubble').fade('out');
+                  },
+                  //blur is when the text box is de-focused
+                  blur: function() {
+                      $$('.speechBubble').fade('out');
+                  }
+              }); */
 
                 $$('.infoBubble').setStyle('opacity','0');
 
@@ -132,34 +132,35 @@
                     }
                 })
             });
-        </script>        
-        
-        
+
+           alert(window.location.search.substring(1));
+           window.location.search.substring(1) = '';
+        </script>
         
     </head>
     <body>
-                
-        	<div id="header">
-                    <img src="styles/images/logo.jpg" alt=""  />
-                    
-                    <div id="searchBar">
-                    <form>
-                    	<input type="text" id="searchField" value="Climbing in Japan!!" />
-                    	<input type="submit" name="explore!" value="submit" id="explore" />
-                    </form>
-                    </div>
-                    
-        	</div>
-        
+
+        <div id="header">
+            <img src="styles/images/logo.jpg" alt=""  />
+
+            <div id="searchBar">
+                <form action="results.html">
+                    <input type="text" id="searchField" value="Climbing in Japan!!" />
+                    <input type="submit" name="explore!" value="submit" id="explore" />
+                </form>
+            </div>
+
+        </div>
+
         <!-- Container start -->
         <div id="container">
 
         </div><!-- Container end -->
-    
-       
-       
-       
-       
+
+
+
+
+
         <!-- Footer start -->
         <div id="footer" class="footer" name="footer">
             <div class="infoBubble">
@@ -190,7 +191,7 @@
                     </p>
                 </div>
                 <div id="infoCorner"></div>
-            
+
             </div>
             <ul class="footLinks">
                 <li><a href="#footer" class="info" id="about">about</a></li>
@@ -202,7 +203,7 @@
                 <li><a href="#footer" class="info" id="contact">contact</a></li>
             </ul>
         </div><!-- Footer End -->
-        
-        
+
+
     </body>
 </html>
