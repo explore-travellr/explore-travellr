@@ -31,7 +31,7 @@ window.addEvent('domready', function() {
     var container = new Container('container', searchBox);
 
     //feeds = [TravellrFeed, WorldNomadsFeed, TwitterFeed, FlickrFeed, WikiTravelFeed];
-    var feeds = [TravellrFeed, TwitterFeed, FlickrFeed];
+    var feeds = [TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed];
     feeds.each(function(AFeedClass) {
         new AFeedClass(searchBox, container);
     });
