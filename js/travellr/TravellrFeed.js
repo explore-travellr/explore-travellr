@@ -52,7 +52,8 @@ var TravellrFeed = new Class({
                 location_id: (searchFilter.location ? searchFilter.location.id : null),
                 tags: tags,
                 page: 1,
-                per_page: this.PER_PAGE
+                per_page: this.PER_PAGE,
+                include: 'answers'
             },
             onSuccess: this.makeFeedItems.bind(this)
         }).send();

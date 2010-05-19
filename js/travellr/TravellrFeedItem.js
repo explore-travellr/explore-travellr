@@ -56,7 +56,7 @@ var TravellrFeedItem = new Class({
             new Element('p', {
                 text: this.truncateText(this.question.subject) //Calls parent function
             }),
-            ]);
+        ]);
     },
 
     /**
@@ -76,6 +76,16 @@ var TravellrFeedItem = new Class({
      *         </div>
      */
     makeContent: function() {
+        var answers = [
+            new Element('h3', {text: 'Answers'}),
+        ];
+        this.question.answers.each(function(answer) {
+            answers.push(new Element('div', {'class': 'answer'}).adopt([
+                new Element('p', {'class': 'asside', text: 'A:'}),
+                new Element('p', {text: answer.content})
+            ]));
+        });
+
         return new Element('div', {
             'class': 'travellr'
         }).adopt([
@@ -84,11 +94,12 @@ var TravellrFeedItem = new Class({
                 href: this.question.url
             })),
             new Element('p').adopt(this.question.content.newlineToBr()),
+            new Element('div', {'class': 'answers'}).adopt(answers),
             new Element('p', {
                 'class': 'date',
                 text: Date.parse(this.question.created_at).toString()
             })
-            ]);
+        ]);
     }
 
 });
