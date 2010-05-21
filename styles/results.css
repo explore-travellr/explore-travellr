@@ -7,14 +7,21 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
 /***********************
 * Divs
 ***********************/
+body {
+    background: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#D9D9D9));
+    background: -moz-linear-gradient(top,  #FFF,  #D9D9D9);
+}
 #container {
-    width:960px;
-    margin: auto;
-    position:relative;
+    width: 90%;
+    margin: 0 auto;
+    position: relative;
 }
 #header {
     width: 960px;
     margin: 0 auto;
+}
+#logo {
+    margin-top: 13px;
 }
 #searchBar {
     float: right;
@@ -27,64 +34,92 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
     clear: both;
     position: relative;
 }
+#feedToggle {
+    background: #FFF;
+}
 /***********************
 * Display Box (preview box)
 ***********************/
 
 .displayBox {
-    width:168px;;
-    height:148px;
-    float:left;
-    margin:10px;
-    position:relative;
+    width: 200px;
+    position:absolute;
+}
+.displayBox .inner {
+    margin:5px;
     font-family: Arial;
     background:#fff;
     border: 2px solid black;
+    -moz-border-radius:10px; -webkit-border-radius:10px;
     font-size: 0.8em;
     cursor: pointer;
-    padding: 10px;
+    padding: 8px;
+    background-repeat: no-repeat;
+    background-position: 5px 5px;
+}
+.displayBox p {
+    margin: 0;
+    text-indent: 25px;
+}
+.displayBox .inner:hover {
+    border-width: 4px;
+    padding: 7px;
+    margin: 4px;
+    background-position: 4px 4px;
+}
+.displayBox .flickr:hover {
+    padding: 0;
+}
+.displayBox .travellr {
+    border-color : #365F91;
+    background-image: url("images/icon_travellr.jpg");
 }
 
-/*.displayBox .inner {
-	whoever wrote this class can you pelase leave the CSS alone.
-} */
-
-.displayBox.travellr.ask {
-    padding: 10px;
-    width: 148px;
-    height: 128px;
-
+.displayBox .twitter {
+    border-color : #00ccff;
+    background-image: url("images/icon_twitter.jpg");
 }
 
-.displayBox.travellr {
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border : 2px solid #365F91;
-    background: url("images/icon_travellr.jpg") no-repeat 5px 5px;
-}
-
-.displayBox.twitter {
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border : 2px solid #95cbe9;
-    background: url("images/icon_twitter.jpg") no-repeat 5px 5px;
-}
-
-.displayBox.flickr {
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border : 2px solid #c71585;
-    background: url("images/icon_flickr.jpg") no-repeat 5px 5px;
+.displayBox .flickr {
+    border-color : #ff0099;
+    background-image: url("images/icon_flickr.jpg");
     text-align: center;
-    line-height : 128px;
+    line-height : 148px;
+    padding: 1px;
 }
-.displayBox.flickr img {
+.displayBox .flickr img {
     vertical-align: middle;
     max-width: 125px;
     max-height:125px;
+    margin: 0px 30px;
 }
 
-
+.displayBox .worldNomads {
+    border-color: #f90;
+    background-image: url("images/icon_worldNomads.jpg");
+    text-align: center;
+}
+.displayBox .worldNomads p {
+    text-indent: 0;
+}
+.displayBox .worldNomads img {
+    display: block;
+    margin: 0px auto;
+    max-height: 100px;
+    max-width: 130px;
+    padding: 15px 0 10px;
+}
+.displayBox .ask {
+    text-align: center;
+    background-image: url("images/ask_travellr.png");
+}
+.displayBox .travellr .ask .inner {
+    background-position: 0 0;
+}
+.displayBox .ask p {
+    text-indent: 0;
+    padding: 25px 5px;
+}
 /***********************
  * Modal Box (popup)
  ***********************/
@@ -94,22 +129,18 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
     left : 0px;
     top : 0px;
     width: 100%;
-    background : #000;
+    height: 100%;
+    background: #000;
     z-index:500;
 }
 .modal{
     position: absolute;
     background : white;
-    border : 1px solid #365F91;
     z-index:1000;
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    -moz-box-shadow:1px 1px 20px;
-    -webkit-box-shadow:1px 1px 20px;
-
+    -moz-border-radius:10px; -webkit-border-radius:10px;
+    -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
     max-width: 80%;
     max-height: 90%;
-
     font-family:Arial,Helvetica,Verdana,sans-serif;
     padding: 15px;
 }
@@ -118,7 +149,7 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
     max-height: 800px;
     max-width: 800px;
     position: relative;
-    
+
 }
 
 .modal .modalClose{
@@ -128,8 +159,7 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
 }            
 
 .modal .close-button{
-    -moz-border-radius:15px ;
-    -webkit-border-radius:15px ;
+    -moz-border-radius:15px ; -webkit-border-radius:15px ;
     background:url("images/closebox.png") no-repeat top right;
     cursor:pointer;
     height:29px;
@@ -144,14 +174,13 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
 .modal .travellr {
     background-color:#DDEEFF;
     padding:5px;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
+    -moz-border-radius:5px; -webkit-border-radius:5px;
     max-width: 400px;
     background: url("images/icon_travellr.jpg") no-repeat 5px 3px;
 
 }
 
-.modal .travellr h2 {
+.modal h2 {
     padding:0;
     margin:0;
     font-size: 20px;
@@ -207,30 +236,37 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
 .modal .flickr {
     max-width: 560px;
     background: url("images/icon_flickr.jpg") no-repeat 5px 3px;
-    text-indent: 30px;
 }
 
 .modal .twitter {
     max-width: 400px;
     background: url("images/icon_twitter.jpg") no-repeat 5px 3px;
-    text-indent: 30px;
 }
 
+.modal .worldNomads {
+    background: url("images/icon_worldNomads.jpg") no-repeat 5px 3px;
+}
 /***********************
  * Feed Toggle Panel
  ***********************/
 
-.feedToggle {
-    -moz-border-radius: 10px;
+#feedToggleWrapper {
+    float: right;
+    margin-top: -50px;
+}
+
+#feedToggle {
+    -moz-border-radius: 10px; -webkit-border-radius: 10px;
+    border: 2px solid #365F91;
     height: 25px;
-    width: 926px;
+    width: 455px;
     padding:5px;
 }
 /***********************
  * Button Modification
  ***********************/           
 
-.feedToggle .button {
+#feedToggle .button {
     height: 24px;
     display: inline-block;
     outline: 0px none;
@@ -238,44 +274,29 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
     vertical-align: text-bottom;
 }
 
-.feedToggle .Travellr {
+#feedToggle .Travellr {
     background: url(images/feed_travellr.jpg);
-    width: 70px;
+    width: 90px;
     text-indent: -99999px;
 }
-
-.feedToggle .Travellr.on {
-    background-position: 0 top;
-}
-.feedToggle .Travellr.off {
-    background-position: 0 bottom;
-}
-
-.feedToggle .Twitter {
+#feedToggle .Twitter {
     background: url(images/feed_twitter.jpg);
     width: 95px;
     text-indent: -99999px;
 }
-
-.feedToggle .Twitter.on {
-    background-position: 0 top;
-}
-.feedToggle .Twitter.off {
-    background-position: 0 bottom;
-}
-
-.feedToggle .Flickr {
+#feedToggle .Flickr {
     background: url(images/feed_flickr.jpg);
     width: 70px;
     text-indent: -99999px;
 }
+#feedToggle .WorldNomads {
+    background: url('images/feed_worldNomads.jpg');
+    width: 146px;
+    text-indent: -99999px;
+}
 
-.feedToggle .Flickr.on {
-    background-position: 0 top;
-}
-.feedToggle .Flickr.off {
-    background-position: 0 bottom;
-}
+#feedToggle .on { background-position: 0 top; }
+#feedToggle .off { background-position: 0 bottom; }
 
 /* This is the 'explore!' form submit button */
 #explore	{
@@ -299,11 +320,18 @@ Author: Robert Tilt, Jake Bresnehan, Nathaniel Burgess, John Cobb, Matthew Platt
  * Search Box
  ***********************/
 
+#searchBar {
+    float: right;
+    margin: 8px 0 10px;
+}
+
+
+
 /* This is the box a user types their search */
 #searchField	{
     background:url(images/input_bg2.jpg) no-repeat 0 0;
     font: 0.8em 'Hand of Sean', sans-serif;
-    padding: 2px 0 0 10px;
+    padding: 2px 0 0 17px;
     width: 345px;
     height: 29px;
     border: none;

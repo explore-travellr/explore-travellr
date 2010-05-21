@@ -21,6 +21,8 @@ var SearchFilter = new Class({
                 })
                 this.tags = tagArray;
 
+                this.noun_phrases = data.noun_phrases;
+
                 this.fireEvent('ready');
             }).bind(this)
         }).send();

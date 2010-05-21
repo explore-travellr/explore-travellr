@@ -32,8 +32,7 @@ var WorldNomadsFeedItem = new Class({
         this.post = post;
 
         this.size = {
-            x: $random(1, 4),
-            y: $random(1, 4)
+            x: 2
         };
     },
 

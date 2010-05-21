@@ -12,18 +12,13 @@ var Container = new Class({
 
     initialize: function(containerId){
         this.container = $(containerId);
+   		this.masonry = this.container.masonry({ columnWidth: 100, itemSelector: '.displayBox' });
 
         this.addDisplayBoxFromQueue = this.addDisplayBoxFromQueue.bind(this);
-
-        this.toggleBox = new FeedToggleBox();
-        this.addDisplayBox(new DisplayBox(this.toggleBox, {
-            readMore: false
-        }));
     },
 
     addFeed: function(feed) {
         this.feeds.push(feed);
-        this.toggleBox.addFeed(feed);
     },
 
     addDisplayBox: function(displayBox) {
@@ -40,6 +35,7 @@ var Container = new Class({
         preview.fade('hide');
         preview.fade('in');
         this.container.grab(preview);
+        this.container.masonry({appendContent: [preview]});
 
         displayBox.setContainer(this);
         this.displayBoxes.push(displayBox);
@@ -69,25 +65,23 @@ var Container = new Class({
     layout: function() {}
 
 });
-var FeedToggleBox = new Class({
-
-    Extends: FeedItem,
+var FeedToggle = new Class({
 
     data: null,
 
-    content: null,
-    preview: null,
+    container: null,
 
-    initialize: function() {},
+    initialize: function(container) {
+        this.container = $(container);
+    },
 
     addFeed: function(feed) {
-        var preview = this.getPreview();
-
         var button = new Element('a', {
             'href' : '',
             'text': feed.name + ' on/off',
             'class': feed.name+' button'
-            });
+        });
+
         button.addEvent('click', function(event) {
             var isVisible = !feed.isVisible();
 
@@ -104,22 +98,7 @@ var FeedToggleBox = new Class({
             event.stop();
         });
 
-        preview.grab(button);
-    },
-
-    makePreview: function() {
-        return new Element('div', {
-            'class': 'feedToggle'
-        }).adopt([
-            new Element('b', {
-                text: 'Feed Filter'
-            }),
-            ]);
-    },
-
-    makeContent: function() {
-    },
-
-    hasContent: $lambda(false)
+        this.container.grab(button);
+    }
 
 });

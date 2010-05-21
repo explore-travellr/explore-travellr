@@ -36,10 +36,7 @@ var TravellrFeedItem = new Class({
         this.question.safe_subject = this.question.subject.toLowerCase().replace(/[^a-z0-9]*/, '-').replace(/^-|-$/, '');
         this.question.url = 'http://travellr.com/questions/place/' + this.question.id + '/' + this.question.safe_subject;
 
-        this.size = {
-            x: $random(1, 4),
-            y: $random(1, 4)
-        };
+        this.size = {x: 2};
     },
 
     /**
@@ -116,18 +113,17 @@ TravellrFeedItem.Ask = new Class({
 
     initialize: function(locationId) {
         this.locationId = locationId;
+        this.size = {x: 2};
     },
 
     makePreview: function() {
         return new Element('div', {
-            'class': 'travellr'
-        }).grab(new Element('div', {
-            'class': 'inner'
+            'class': 'travellr ask'
         }).adopt([
             new Element('p', {
                 text: 'Didn\'t find the information you were looking for? Ask a question on Travellr.com!'
             })
-            ]));
+        ]);
 
     },
 

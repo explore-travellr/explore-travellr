@@ -43,7 +43,7 @@ var FeedItem = new Class({
     },
 
     getSize: function() {
-        return this.size();
+        return this.size;
     },
     setDisplayBox: function(displayBox) {
         this.displayBox = displayBox;

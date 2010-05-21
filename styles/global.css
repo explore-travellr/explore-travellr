@@ -26,8 +26,8 @@ img 	{
 	src: url('handsean.ttf');
 }
 
-p 	{
-	font: 1em/1.5em Verdana, Geneva, Arial, Helvetica, sans-serif;
+p, ol 	{
+	font: 1em/1.3em Verdana, Geneva, Arial, Helvetica, sans-serif;
 }
 
 /* used for 'Suggestions''' */
@@ -72,6 +72,7 @@ ul  li a	{
 
 .infoBubble {
     display: block;
+    visibility: hidden;
     font-size: 12px;
     background: #365F91;
     text-align: left;
@@ -85,12 +86,13 @@ ul  li a	{
     -moz-border-radius: 15px; -webkit-border-radius: 15px;
    /* -moz-box-shadow: 1px 1px 2px #333;    -webkit-box-shadow:  5px 5px 10px #333;
 */
-  
-   }
-   .infoBubble a {
-       color: #ccc;
-       font-weight: bold;
 }
+
+.infoBubble a {
+    color: #ccc;
+    font-weight: bold;
+}
+
 #infoClose {
     position: absolute;
     background: url('images/close.png');
@@ -115,4 +117,5 @@ ul  li a	{
 }
 .infoDesc {
     height: 100px;
+    visibility: hidden;
 }

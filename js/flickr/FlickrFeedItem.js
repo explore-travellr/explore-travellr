@@ -41,8 +41,7 @@ var FlickrFeedItem = new Class({
         new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent]);
 
         this.size = {
-            x: $random(1, 4),
-            y: $random(1, 4)
+            x: 2
         };
     },
 
@@ -54,13 +53,13 @@ var FlickrFeedItem = new Class({
      *          </div>
      */
     makePreview: function() {
+        var img = new Element('img', {
+            src: this.photo.picUrlThumbnail
+        });
         return new Element('div', {
             'class': 'flickr'
         }).adopt([
-            new Element('img', {
-                text: this.photo.title,
-                src: this.photo.picUrlThumbnail
-            }),
+            img,
         ]);
     },
 

@@ -25,28 +25,29 @@ var DisplayBox = new Class({
     getPreview: function() {
         if (!this.preview) {
 
-            var preview = this.feedItem.getPreview();
+            var preview = this.feedItem.getPreview().addClass('inner');
+            var wrapper = new Element('div').grab(preview);
+            var size = this.feedItem.getSize();
+            
+            wrapper.setStyles({
+            	width: size.x * 100,
+            });
 
-            preview.addClass('displayBox');
+            wrapper.addClass('displayBox');
 
             if (this.feedItem.hasContent()) {
                 preview.addEvent('click', (function(event) {
                     event.stop();
                     this.showContent();
                 }).bind(this));
-                preview.addEvent('mouseover', (function() {
-                    this.changeBorder();
-                }).bind(this));
-                preview.addEvent('mouseout', (function() {
-                    this.revertBorder();
-                }).bind(this));
             }
 
-            this.preview = preview;
+            this.preview = wrapper;
         }
         return this.preview;
 
     },
+		/*
     changeBorder: function() {
       var preview = this.getPreview();
       preview.setStyles({
@@ -70,6 +71,7 @@ var DisplayBox = new Class({
           'background-position':'5px 5px'
       });
     },
+		  */
     getContent: function(){
         if (!this.content) {
             var content = this.feedItem.getContent();

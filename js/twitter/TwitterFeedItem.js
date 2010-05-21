@@ -36,8 +36,7 @@ var TwitterFeedItem = new Class({
         this.tweet.url = 'http://twitter.com/' + this.tweet.from_user + '/status/' + this.tweet.id;
 
         this.size = {
-            x: $random(1, 4),
-            y: $random(1, 4)
+            x: 2
         };
     },
 
@@ -55,7 +54,7 @@ var TwitterFeedItem = new Class({
             new Element('p', {
                 text: this.truncateText(this.tweet.text) //Calls parent function
             }),
-            ]);
+        ]);
     },
 
     /**
@@ -82,9 +81,7 @@ var TwitterFeedItem = new Class({
                 text: this.tweet.from_user,
                 href: this.tweet.url
             })),
-            new Element('p', {
-                text: this.tweet.text
-            }),
+            new Element('p', {html:this.tweet.text.tweetify()}),
             new Element('p', {
                 'class': 'date',
                 text: Date.parse(this.tweet.created_at).toString()

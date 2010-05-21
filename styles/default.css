@@ -34,11 +34,12 @@ Author: Robert Tilt, Jake Bresnehan
 	text-align: center;	
 }
 
+
 /* This is the box a user types their search */
 #searchField	{
 	background:url(images/input_bg.jpg) no-repeat 0 2px;
 	font: 1.3em 'Hand of Sean', sans-serif;
-	padding: 2px 0 0 10px;
+	padding: 2px 0 0 17px;
 	width: 480px;
 	height: 40px;
 	border: none;
@@ -58,6 +59,7 @@ Author: Robert Tilt, Jake Bresnehan
 	text-indent: -99999px;
 	color: white;
 	padding-top: 4px;
+        cursor: pointer;
 }
 
 /* class setting porportions of the three boxes. original img width is 300x180 */
