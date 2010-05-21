@@ -1,4 +1,10 @@
 String.implement({
+
+    /**
+     * Converts newline characters to <br/> tags for viewing in HTML
+     *
+     * @return the converted html
+     */
     newlineToBr: function() {
         var bits = this.split(/(?:\r|\n|\r\n)/);
         var html = [];
@@ -12,6 +18,7 @@ String.implement({
 
         return html;
     },
+    
     /**
      * Converts a string to an array of HTML objects, with links, #hashtags and @usernames linked
      * to their twitter URLs.
@@ -26,7 +33,21 @@ String.implement({
         str = str.replace(/(^|\W)@(\w+)/g, '$1<a href="http://twitter.com/$2">@$2</a>');
         str = str.replace(/(^|\W)#(\w+)/g, '$1#<a href="http://search.twitter.com/search?q=%23$2">$2</a>');
         return str;
-    } 
+    },
+    
+    /**
+     * Truncates the string to the upper bound number of characters passed in as a parameter
+     *
+     * @return the truncated substring
+     */
+    truncateText: function(upperBound){
+        if(this.length >= upperBound){
+            return this.substring(0, upperBound) + '...';
+        }
+        else{
+            return this;
+        }
+    }
 });
 
 Array.implement({

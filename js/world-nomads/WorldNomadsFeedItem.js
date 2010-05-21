@@ -39,8 +39,11 @@ var WorldNomadsFeedItem = new Class({
     /**
      * Builds a feed item preview to go in the displayBox within the container
      *
-     * @example <div class="twitter displayBox">
-     *              <p></p>
+     * @example <div class="displayBox">
+     *              <div class="worldNomads inner">
+     *                  <img src=""></img>
+     *                  <p></p>
+     *              </div>
      *          </div>
      */
     makePreview: function() {
@@ -62,12 +65,11 @@ var WorldNomadsFeedItem = new Class({
      *
      * @example <div class="modal">
      *              <div class="content">
-     *                  <div class="twitter">
+     *                  <div class="worldNomads">
      *                      <h2>
      *                          <a href=""></a>
      *                      </h2>
-     *                      <p></p>
-     *                      <p class="date"></p>
+     *                      <div></div>
      *                  </div>
      *              </div>
      *         </div>

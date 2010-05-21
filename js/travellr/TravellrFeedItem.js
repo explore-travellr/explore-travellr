@@ -42,8 +42,10 @@ var TravellrFeedItem = new Class({
     /**
      * Builds a feed item preview to go in the displayBox within the container
      *
-     * @example <div class="travellr displayBox">
-     *              <p></p>
+     * @example <div class="displayBox">
+     *              <div class="travellr inner">
+     *                  <p></p>
+     *              </div>
      *          </div>
      */
     makePreview: function() {
@@ -51,7 +53,7 @@ var TravellrFeedItem = new Class({
             'class': 'travellr'
         }).adopt([
             new Element('p', {
-                text: this.truncateText(this.question.subject) //Calls parent function
+                text: this.question.subject.truncateText(100)//this.truncateText(this.question.subject)
             }),
         ]);
     },

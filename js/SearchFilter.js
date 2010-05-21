@@ -1,3 +1,18 @@
+/*
+Script: SearchFilter.js
+   SearchFilter - DESC TODO
+
+License:
+   MIT-style license.
+
+Copyright:
+   Copyright (c) 2010 explore.travellr.com
+
+Dependencies:
+   - MooTools-core 1.2.4 or higher
+   - MooTools-more 1.2.4.4 RC1 or higher
+*/
+
 var SearchFilter = new Class({
     Implements: Events,
 

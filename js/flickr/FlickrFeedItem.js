@@ -48,8 +48,10 @@ var FlickrFeedItem = new Class({
     /**
      * Builds a feed item preview to go in the displayBox within the container
      *
-     * @example <div class="flickr displayBox">
-     *              <img src=""></img>
+     * @example <div class="displayBox">
+     *              <div class="flickr inner">
+     *                  <img src=""></img>
+     *              </div>
      *          </div>
      */
     makePreview: function() {

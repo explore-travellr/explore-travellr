@@ -1,3 +1,19 @@
+/*
+Script: Container.js
+   Container - DESC TODO
+   FeedToggle - DESC TODO
+
+License:
+   MIT-style license.
+
+Copyright:
+   Copyright (c) 2010 explore.travellr.com
+
+Dependencies:
+   - MooTools-core 1.2.4 or higher
+   - MooTools-more 1.2.4.4 RC1 or higher
+*/
+
 var Container = new Class({
 
     container: null,
@@ -47,6 +63,7 @@ var Container = new Class({
         }
     },
 
+    // Possiblly irrelivant
     getDisplayBoxes: function(feed) {
         return displayBoxes;
     },
@@ -65,6 +82,7 @@ var Container = new Class({
     layout: function() {}
 
 });
+
 var FeedToggle = new Class({
 
     data: null,
@@ -100,5 +118,4 @@ var FeedToggle = new Class({
 
         this.container.grab(button);
     }
-
 });

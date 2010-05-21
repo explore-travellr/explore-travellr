@@ -15,6 +15,7 @@ Dependencies:
    - FlickrFeedItem Class
    - TravellrFeedItem Class
    - TwitterFeedItem Class
+   - WorldNomadsFeedItem Class
 */
 
 var FeedItem = new Class({
@@ -45,27 +46,22 @@ var FeedItem = new Class({
     getSize: function() {
         return this.size;
     },
+    
     setDisplayBox: function(displayBox) {
         this.displayBox = displayBox;
     },
+
     getDisplayBox: function() {
         return this.displayBox;
     },
 
+    // Possiblly irrelivant
     hasPreview: function() {
         return true;
     },
 
+    // Possiblly irrelivant
     hasContent: function() {
         return true;
-    },
-
-    truncateText: function(strText){
-        if(strText.length >= 100){
-            return strText.substring(0, 100) + ' ...';
-        }
-        else{
-            return strText;
-        }
     }
 });

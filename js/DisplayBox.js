@@ -30,7 +30,7 @@ var DisplayBox = new Class({
             var size = this.feedItem.getSize();
             
             wrapper.setStyles({
-            	width: size.x * 100,
+            	width: size.x * 100
             });
 
             wrapper.addClass('displayBox');

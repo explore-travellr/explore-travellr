@@ -43,8 +43,10 @@ var TwitterFeedItem = new Class({
     /**
      * Builds a feed item preview to go in the displayBox within the container
      *
-     * @example <div class="twitter displayBox">
-     *              <p></p>
+     * @example <div class="displayBox">
+     *              <div class="twitter inner">
+     *                  <p></p>
+     *              </div>
      *          </div>
      */
     makePreview: function() {
@@ -52,7 +54,7 @@ var TwitterFeedItem = new Class({
             'class': 'twitter'
         }).adopt([
             new Element('p', {
-                text: this.truncateText(this.tweet.text) //Calls parent function
+                text: this.tweet.text.truncateText(100) //Calls parent function
             }),
         ]);
     },

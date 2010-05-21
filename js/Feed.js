@@ -15,6 +15,7 @@ Dependencies:
    - TwitterFeed Class
    - TravellrFeed Class
    - FlickrFeed Class
+   - WorldNomadsFeed Class
 */
 
 var Feed = new Class({
