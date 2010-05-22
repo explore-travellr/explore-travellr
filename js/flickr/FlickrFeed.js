@@ -20,7 +20,7 @@ var FlickrFeed = new Class({
     
     Extends: Feed,
 
-    PER_PAGE: 5,
+    itemsCalled: null,
 
     Implements: [Options, Events],
     options: {
@@ -44,6 +44,8 @@ var FlickrFeed = new Class({
         
         var tags = [];
 
+        this.itemsCalled = $random(4,8);
+
         searchFilter.tags.each(function(tag) {
             tags.push(tag.name);
         });
@@ -54,7 +56,7 @@ var FlickrFeed = new Class({
                 data: {
                 api_key: 	this.options.apikey,
                 method: 	this.options.method,
-                per_page: 	this.PER_PAGE,
+                per_page: 	this.itemsCalled,
                 tags:           tags,
                 woe_id:         (searchFilter.location ? searchFilter.location.woe_id : null),
                 format: 	'json',
@@ -63,7 +65,6 @@ var FlickrFeed = new Class({
             callbackKey: 	'jsoncallback',
             onSuccess: 	this.makeFeedItems.bind(this)
         }).send();
-
     },
 
     /**

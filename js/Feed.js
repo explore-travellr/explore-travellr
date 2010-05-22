@@ -24,6 +24,7 @@ var Feed = new Class({
 
     visible: true,
     feedItems: [],
+    itemsCalled: null,
 
     bound: {
         search: null

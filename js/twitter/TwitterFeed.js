@@ -20,7 +20,7 @@ var TwitterFeed = new Class({
     
     Extends: Feed,
 
-    PER_PAGE: 3,
+    itemsCalled: null,
 
     name: 'Twitter',
     
@@ -31,7 +31,8 @@ var TwitterFeed = new Class({
      */
     search: function(searchFilter) {
         this.parent();
-        
+
+        this.itemsCalled = $random(4,8);
         // TODO: Search for tags individually if nothing is found when searching for them all
 
         var tags = "";
@@ -47,7 +48,7 @@ var TwitterFeed = new Class({
                 q: searchFilter.searchString,
                 lang: 'en',
                 page: 1,
-                rpp: this.PER_PAGE,
+                rpp: this.itemsCalled,
                 result_type: 'recent' //results can also be popular or mixed
             },
             onSuccess: this.makeFeedItems.bind(this)

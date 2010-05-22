@@ -20,7 +20,7 @@ var TravellrFeed = new Class({
     
     Extends: Feed,
 
-    PER_PAGE: 10,
+    itemsCalled: null,
 
     name: 'Travellr',
 
@@ -32,7 +32,8 @@ var TravellrFeed = new Class({
     search: function(searchFilter) {     
 
         this.parent();
-        
+
+        this.itemsCalled = $random(4,8);
         //this.feedItems = []; Removed : Jake Kobes : 17-May-2010 : this was the problem with travellr feeditems not refreshing
         // TODO: Search for tags individually if nothing is found when searching for them all
 
@@ -52,7 +53,7 @@ var TravellrFeed = new Class({
                 location_id: (searchFilter.location ? searchFilter.location.id : null),
                 tags: tags,
                 page: 1,
-                per_page: this.PER_PAGE,
+                per_page: this.itemsCalled,
                 include: 'answers'
             },
             onSuccess: this.makeFeedItems.bind(this)
