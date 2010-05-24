@@ -43,14 +43,12 @@ var Feed = new Class({
     /**
      * Search the feed for items relating to the search terms. Calls
      * feedReady when the feedItems are found.
+     * Stub method. Should be overwritten by subclass.
      *
+     * @abstract
      * @param searchFilter The search filter to filter results with
      */
     search: function() {
-        this.feedItems.each(function(feedItem) {
-            this.container.removeDisplayBox(feedItem.getDisplayBox());
-        }, this);
-        
         this.feedItems = [];
     },
 
@@ -127,11 +125,12 @@ var Feed = new Class({
      * Container, in a new DisplayBox.
      */
     feedReady: function() {
-        // So that we dont have to bind. Binding is expensive.
-        var container = this.container;
         this.getFeedItems().each(function(feedItem) {
-            container.addDisplayBox(new DisplayBox(feedItem));
-        });
+            var displayBox = new DisplayBox(feedItem);
+            if (this.isVisible()) {
+                this.container.addDisplayBox(displayBox);
+            }
+        }, this);
     }
 
 });

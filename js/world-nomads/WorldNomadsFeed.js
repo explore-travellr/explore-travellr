@@ -35,7 +35,7 @@ var WorldNomadsFeed = new Class({
     search: function(searchFilter) {
         this.parent();
 
-        var country = searchFilter.location.country.toLowerCase();
+        var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
         var country_id = this.countries.get(country);
 
         if (!$chk(country_id)) {
