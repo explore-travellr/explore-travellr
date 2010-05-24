@@ -32,6 +32,7 @@ var SearchBox = new Class({
 
     //called when the search query is submitted. Creates a SearchFilter and calls Feed: each on all feeds.
     search: function(searchString) {  
+        location.hash = searchString;
         this.searchFilter = new SearchFilter(searchString);
         this.searchFilter.addEvent('ready', (function() {
             this.fireEvent('search', [this.searchFilter]);

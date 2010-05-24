@@ -74,8 +74,10 @@ window.addEvent('domready', function() {
         feedToggle.addFeed(feed);
     });
     
-    var searchString = location.href.toURI().getData('search').replace(/\+/g, ' ');
+    var uri = new URI(location);
+    var searchString = (uri.get('fragment') || uri.getData('search'));
     if (searchString) {
+        searchString = searchString.replace(/\+|%20/g, ' ');
         $('searchField').set('value', searchString);
         searchBox.search(searchString);
     }

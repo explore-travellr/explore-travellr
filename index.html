@@ -10,6 +10,19 @@
         <script type="text/javascript" src="js/mootools-more.js"></script>
         <script type="text/javascript" src="js/menu.js"></script>
 
+        <script type="text/javascript">
+window.addEvent('domready', function() {
+    console.log($('searchForm'));
+    $('searchForm').addEvent('submit', function(event) {
+        event.stop();
+        var uri = new URI(location);
+        uri.set('fragment', $('searchField').get('value'));
+        uri.set('file', 'results.html');
+        uri.go();
+    });
+});
+        </script>
+
         <!-- Global Stylesheet -->
         <link rel="stylesheet" type="text/css" href="styles/global.css"  />
 
