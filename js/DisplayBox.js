@@ -15,13 +15,24 @@ var DisplayBox = new Class({
 
     container: null,
 
+    /**
+     * Create a new DisplayBox for a FeedItem.
+     *
+     * @param feedItem {FeedItem} The FeedItem to manage 
+     * @param opeions {Object} Options for this class
+     */
     initialize: function(feedItem, options) {
         this.feedItem = feedItem;
         this.feedItem.setDisplayBox(this);
         this.setOptions(options);
     },
 
-    //Creates the preview box (CSS class: displayBox)
+    /**
+     * Get an HTML element containing a preview of the FeedItem
+     *
+     * @return A preview of the FeedItem
+     * @type Element
+     */
     getPreview: function() {
         if (!this.preview) {
 
@@ -48,6 +59,12 @@ var DisplayBox = new Class({
 
     },
 
+    /**
+     * Get an HTML element containing the content of the FeedItem
+     *
+     * @return The FeedItem content
+     * @type Element
+     */
     getContent: function(){
         if (!this.content) {
             var content = this.feedItem.getContent();
@@ -68,6 +85,9 @@ var DisplayBox = new Class({
         this.container = container;
     },
 
+    /**
+     * Show the full content of the FeedItem in a Modal dialog.
+     */
     showContent: function(){
 
         //make a modal dialog

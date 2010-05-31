@@ -29,6 +29,16 @@ var FeedItem = new Class({
 
     initialize: function() { },
 
+    /**
+     * Get the content of the FeedItem.
+     *
+     * Get the content of the FeedItem. The content returned is cached. Only
+     * one copy of the content is ever returned. Subsequent calls to this method
+     * will return the same Element
+     *
+     * @return The content
+     * @type Element
+     */
     getContent: function() {
         if (!this.content) {
             this.content = this.makeContent();
@@ -36,6 +46,16 @@ var FeedItem = new Class({
         return this.content;
     },
 
+    /**
+     * Get the preview of the FeedItem.
+     *
+     * Get the preview of the FeedItem. The preview returned is cached. Only
+     * one copy of the preview is ever returned. Subsequent calls to this method
+     * will return the same Element
+     *
+     * @return The preview
+     * @type Element
+     */
     getPreview:function() {
         if (!this.preview) {
             this.preview = this.makePreview();
@@ -43,25 +63,32 @@ var FeedItem = new Class({
         return this.preview;
     },
 
+    /**
+     * Get the size of the preview
+     *
+     * @return An object containing an x and y paramater of the size
+     * @type Object
+     */
     getSize: function() {
         return this.size;
     },
     
+    /**
+     * Sets the DisplayBox that manages this FeedItem
+     *
+     * @param displayBox {DisplayBox} The DisplayBox that will manage this FeedItem
+     */
     setDisplayBox: function(displayBox) {
         this.displayBox = displayBox;
     },
 
+    /**
+     * Returns the DisplayBox that manages this FeedItem
+     *
+     * @return The DisplayBox that will manage this FeedItem
+     * @type DisplayBox
+     */
     getDisplayBox: function() {
         return this.displayBox;
-    },
-
-    // Possiblly irrelivant
-    hasPreview: function() {
-        return true;
-    },
-
-    // Possiblly irrelivant
-    hasContent: function() {
-        return true;
     }
 });

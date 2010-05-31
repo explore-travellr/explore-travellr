@@ -1,9 +1,13 @@
 String.implement({
-
     /**
-     * Converts newline characters to <br/> tags for viewing in HTML
+     * Converts newline characters in the string to <br />
      *
-     * @return the converted html
+     * Converts all new line characters (\r or \n) to a <br /> Element. It then
+     * converts
+     *
+     * @return The string, converted into an array of HTML text nodes seperated
+     *         by <br /> Elements
+     * @type Array
      */
     newlineToBr: function() {
         var bits = this.split(/(?:\r|\n|\r\n)/);
@@ -20,11 +24,16 @@ String.implement({
     },
     
     /**
-     * Converts a string to an array of HTML objects, with links, #hashtags and @usernames linked
-     * to their twitter URLs.
+     * Converts links, #hashtags and @usernames to <a> Elements linked to their
+     * twitter URLs.
      *
-     * @return An array of HTML objects based upon the string. The HTML array can be used by eg.
-     * Element.adopt(String.tweetify());
+     * Converts links, #hashtags and @usernames to <a> Elements linked to their
+     * twitter URLs.
+     * Modified from {@link davidwalsh.name}
+     * 
+     * TODO: Make this return HTML objects, instead of a string
+     *
+     * @return An array of HTML objects based upon the string.
      */
     tweetify: function () {
         // modified from TwitterGitter by David Walsh (davidwalsh.name)
@@ -36,13 +45,22 @@ String.implement({
     },
     
     /**
-     * Truncates the string to the upper bound number of characters passed in as a parameter
+     * Truncates the string to a maximum length
      *
-     * @return the truncated substring
+     * Truncates the string to the specified maximum length. The terminator is
+     * appended to the end if the string is truncated. The terminator defautls
+     * to ellipsis (...)
+     *
+     * @param upperBound {Number} The maximum length of the string
+     * @param terminator {String} The terminator to use if the string is
+     *         truncated. Defaults to (...).
+     * @return The truncated string
+     * @type String
      */
-    truncateText: function(upperBound){
+    truncateText: function(upperBound, terminator){
+        terminator = $pick(terminator, '...');
         if(this.length >= upperBound){
-            return this.substring(0, upperBound) + '...';
+            return this.substring(0, upperBound - terminator.length) + terminator;
         }
         else{
             return this;
@@ -51,35 +69,52 @@ String.implement({
 });
 
 Array.implement({
-	getRandomKey: function() {
-		return $random(0, this.length - 1);
-	},
-	removeRandom: function() {
-		var index = this.getRandomKey();
-		    splice = this.splice(index, 1);
-		return splice[0];
-	}
+    /**
+     * Returns a random key from the array.
+     *
+     * @return A random key.
+     * @type Number
+     */
+    getRandomKey: function() {
+        return $random(0, this.length - 1);
+    },
+    
+    /**
+     * Removes and returns a random value from the array
+     *
+     * @return The removed item
+     */
+    removeRandom: function() {
+        var index = this.getRandomKey();
+        splice = this.splice(index, 1);
+        return splice[0];
+    }
 });
 
-window.addEvent('domready', function() {
 
+window.addEvent('domready', function() {
+    // Initialize the main classes
     var searchBox = new SearchBox('searchField');
     var container = new Container('container', searchBox);
     var feedToggle = new FeedToggle('feedToggle');
 
-    //feeds = [TravellrFeed, WorldNomadsFeed, TwitterFeed, FlickrFeed, WikiTravelFeed];
+    // Initialize the feed classes.
+    // Add a feed to the list to automatically set it up.
     var feeds = [TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed];
     feeds.each(function(AFeedClass) {
         var feed = new AFeedClass(searchBox, container);
         feedToggle.addFeed(feed);
     });
-    
+
+    // Grab the search string from the #fragment or ?search= get paramater
     var uri = new URI(location);
     var searchString = (uri.get('fragment') || uri.getData('search'));
     if (searchString) {
+        // Spaces are encoded in URIs. This replaces + or %20 with spaces.
         searchString = searchString.replace(/\+|%20/g, ' ');
+
+        // Search for the string
         $('searchField').set('value', searchString);
         searchBox.search(searchString);
     }
-        
 });

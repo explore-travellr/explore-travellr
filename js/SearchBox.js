@@ -15,10 +15,16 @@ Dependencies:
 
 var SearchBox = new Class({
 
-    Implements: [Options, Events],
+    Implements: Events,
 
     element: null,
 
+    /**
+     * Create a new SearchBox. The SearchBox will listen to the supplied element
+     * for its searches
+     *
+     * @param element {Element} The input field to listen to for searches
+     */
     initialize: function(element) {
         this.element = $(element);
     	
@@ -30,7 +36,16 @@ var SearchBox = new Class({
         }).bind(this));
     },
 
-    //called when the search query is submitted. Creates a SearchFilter and calls Feed: each on all feeds.
+    /**
+     * Search for a given string.
+     *
+     * Search for the supplied string. A searchFitler is created based upon the
+     * search string. The SearchBox then fires the search event, with the search
+     * filter being the event details. Feeds and other objects can listen to
+     * this event.
+     *
+     * @param searchString {String} The string to search for.
+     */
     search: function(searchString) {  
         location.hash = searchString;
         this.searchFilter = new SearchFilter(searchString);

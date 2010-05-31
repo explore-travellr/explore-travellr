@@ -30,6 +30,12 @@ var Feed = new Class({
         search: null
     },
 
+    /**
+     * Create a new Feed
+     *
+     * @param searchBox {SearchBox} The SearchBox that this Feed is driven by
+     * @param container {Container} The Container that this Feed should put its content into
+     */
     initialize: function(searchBox, container) {
         this.searchBox = searchBox;
         this.container = container;

@@ -11,16 +11,20 @@
         <script type="text/javascript" src="js/menu.js"></script>
 
         <script type="text/javascript">
-window.addEvent('domready', function() {
-    console.log($('searchForm'));
-    $('searchForm').addEvent('submit', function(event) {
-        event.stop();
-        var uri = new URI(location);
-        uri.set('fragment', $('searchField').get('value'));
-        uri.set('file', 'results.html');
-        uri.go();
-    });
-});
+            // Submit the form via the #fragment, rather than get
+            window.addEvent('domready', function() {
+                $('searchForm').addEvent('submit', function(event) {
+                    event.stop();
+
+                    // Construct a new URI, based upon the current location
+                    var uri = new URI(location);
+                    uri.set('fragment', $('searchField').get('value'));
+                    uri.set('file', this.get('action'));
+
+                    // Go to the URI
+                    uri.go();
+                });
+            });
         </script>
 
         <!-- Global Stylesheet -->
@@ -59,11 +63,11 @@ window.addEvent('domready', function() {
                 </div>
                 <div id="travelBox" class="col">
                     <ol>
-                        <li  class="suggestion">Tours in India</li>
-                    <li class="suggestion">Skiing in Japan</li>
-                    <li class="suggestion">Wildlife in South Africa</li>
-                    <li class="suggestion">Festivals in Germany</li>
-                    <li class="suggestion">Food in France</li>
+                        <li class="suggestion">Tours in India</li>
+                        <li class="suggestion">Skiing in Japan</li>
+                        <li class="suggestion">Wildlife in South Africa</li>
+                        <li class="suggestion">Festivals in Germany</li>
+                        <li class="suggestion">Food in France</li>
                     </ol>
                 </div>
             </div>
@@ -115,20 +119,20 @@ window.addEvent('domready', function() {
         <!-- Google Tracking Code -->
         <script type="text/javascript">
 
- 		var _gaq = _gaq || [];
- 		_gaq.push(['_setAccount', 'UA-16599691-1']);
-		 _gaq.push(['_trackPageview']);
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-16599691-1']);
+            _gaq.push(['_trackPageview']);
 
- 		(function() {
-   		var ga = document.createElement('script'); ga.type =
-		'text/javascript'; ga.async = true;
-   		ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
-		'http://www') + '.google-analytics.com/ga.js';
-   		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(ga, s);
- 		})();
+            (function() {
+                var ga = document.createElement('script'); ga.type =
+                    'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+                    'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
 
-		</script>
+        </script>
     </body>
 </html>
 <!-- vim: expandtab :

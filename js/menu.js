@@ -1,97 +1,84 @@
-//when the dom is ready
 window.addEvent('domready', function() {
 
     //Sets search suggestion box to be invisible
     $$('.speechBubble').setStyle('opacity','0');
-    //Sets footer inof to be invisible
-    $$('.infoDesc').setStyle('opacity','0');
-    $$('.infoDesc').setStyle('display','none');
-
-
 
     $('searchField').addEvents({
-        //when the text input is focused, either through click in or using tab, box fads to visible
-        //0.9 is the opacity level
+        // when the text input is focused, either through click in or using tab,
+        // fade the suggestion box to 95% opacity
         focus: function() {
             $$('.speechBubble').fade('0.95');
             if ($('searchField').value.contains('Swimming in Mount Vesuvius')) $('searchField').value = '';
         },
-        //keypress is any keyboard input
+        // Fade out when the keyboard is pressed
         keypress: function() {
             $$('.speechBubble').fade('out');
         },
-        //blur is when the text box is de-focused
+        // Fade out when the field loses focus
         blur: function() {
             $$('.speechBubble').fade('out');
         }
     });
 
+    // Fill out the search box when a suggestion is clicked
     $$('.suggestion').addEvent('click', function() {
         $('searchField').set('value', this.get('text'));
     });
 
+    //Sets footer info to be invisible
+    $$('.infoDesc').setStyle('opacity','0');
+    $$('.infoDesc').setStyle('display','none');
     $$('.infoBubble').setStyle('opacity','0');
 
-    $$('.info').addEvents({
-        click: function() {
-            $$('.infoBubble').fade('0.95');
-        }
+    $$('.info').addEvent('click', function() {
+        $$('.infoBubble').fade('0.95');
     });
 
-    $('infoClose').addEvents({
-        click: function() {
-            $$('.infoBubble').fade('out');
-        }
+    $('infoClose').addEvent('click', function() {
+        $$('.infoBubble').fade('out');
     });
 
-    //this snippet should set a transition for the tween
+    // Set up the default transition for the infobubble arrow
     $('infoCorner').set('tween', {
         duration: 1000,
         transition: Fx.Transitions.Back.easeOut
-        });
+    });
 
-    //moves the blue pointer to ABOUT
+    // The following code snippets show the info bubble and move the arrow
+    // to point to the link clicked
+    // TODO Combine them into one dynamic code block
+    var hideInfoBubbles = function() {
+        $$('.infoDesc').fade('out');
+        $$('.infoDesc').setStyle('display','none');
+        $$('.infoDesc').setStyle('visibility','hidden');
+    }
     $('about').addEvents({
         click: function() {
-            $$('.infoDesc').fade('out');
-            $$('.infoDesc').setStyle('display','none');
-            $$('.infoDesc').setStyle('visibility','hidden');
+            hideInfoBubbles();
             $('infoCorner').tween('margin-left','13px');
             $('infoAbout').setStyle('display','block');
             $('infoAbout').fade('in');
         }
     });
-
-    //moves the blue pointer to PARTNERS
     $('partners').addEvents({
         click: function() {
-            $$('.infoDesc').fade('out');
-            $$('.infoDesc').setStyle('display','none');
-            $$('.infoDesc').setStyle('visibility','hidden');
+            hideInfoBubbles();
             $('infoCorner').tween('margin-left','82px');
             $('infoPartners').setStyle('display','block');
             $('infoPartners').fade('in');
         }
     });
-
-    //moves the blue pointer to TERMS and CONDITIONS
     $('terms').addEvents({
         click: function() {
-            $$('.infoDesc').fade('out');
-            $$('.infoDesc').setStyle('display','none');
-            $$('.infoDesc').setStyle('visibility','hidden');
+            hideInfoBubbles();
             $('infoCorner').tween('margin-left','190px');
             $('infoTerms').setStyle('display','block');
             $('infoTerms').fade('in');
         }
     });
-
-    //moves the blue pointer to CONTACT
     $('contact').addEvents({
         click: function() {
-            $$('.infoDesc').fade('out');
-            $$('.infoDesc').setStyle('display','none');
-            $$('.infoDesc').setStyle('visibility','hidden');
+            hideInfoBubbles();
             $('infoCorner').tween('margin-left','305px');
             $('infoContact').setStyle('display','block');
             $('infoContact').fade('in');
