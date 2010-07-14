@@ -21,9 +21,11 @@ body {
 #header {
     width: 960px;
     margin: 0 auto;
+    overflow: auto;
 }
 #logo {
     margin-top: 13px;
+    float: left;
 }
 #searchBar {
     float: right;
@@ -257,7 +259,6 @@ body {
 
 #feedToggleWrapper {
     float: right;
-    margin-top: -50px;
 }
 
 #feedToggle {
