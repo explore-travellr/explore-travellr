@@ -1,34 +1,48 @@
 /*
-Script: TravellrFeedItem.js
-   TravellrFeedItem - MooTools based Travellr feed item handler
+Class: travellr.TravellrFeedItem
+    Displays content obtained by a <TravellrFeed>
+
+Extends:
+    <FeedItem>
 
 License:
-   MIT-style license.
+    MIT-style license.
 
 Copyright:
-   Copyright (c) 2010 explore.travellr.com
+    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - FeedItem Class
-   - TravellrFeed Class
+    - <MooTools::core> 1.2.4 or higher
+    - <MooTools::more> 1.2.4.4 RC1 or higher
+    - <TravellrFeed>
 */
 
 var TravellrFeedItem = new Class({
 
     Extends: FeedItem,
 
+    /**
+     * Variable: question
+     * A <JS::Object> holding all the question data
+     *
+     * See Also:
+     *     - <http://api.travellr.com/explore_travellr>
+     */
     question: null,
 
+    /**
+     * Variable: name
+     * The name of this <FeedItem>, used in the GUI
+     */
     name: 'TravellrFeedItem',
 
     /**
+     * Consructor: initialize
      * Sets the parameter to a instance variable then sets the safe subject and
      * question url
      *
-     * @param feedObject The object is associative array of keys related
-     * to the feedObject passed in
+     * Paramaters:
+     *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject) {
         
@@ -40,13 +54,11 @@ var TravellrFeedItem = new Class({
     },
 
     /**
-     * Builds a feed item preview to go in the displayBox within the container
+     * Function: makePreview
+     * Builds a <MooTools::Element> containing a preview of this <TravellrFeedItem>
      *
-     * @example <div class="displayBox">
-     *              <div class="travellr inner">
-     *                  <p></p>
-     *              </div>
-     *          </div>
+     * Returns:
+     *     A <MooTools::Element> containing a preview of this <TravellrFeedItem>
      */
     makePreview: function() {
         return new Element('div', {
@@ -59,20 +71,11 @@ var TravellrFeedItem = new Class({
     },
 
     /**
-     * Builds a feed item content div for insertion into the modal box once
-     * clicked
+     * Function: makePreview
+     * Builds a <MooTools::Element> with the content of this <TravellrFeedItem>
      *
-     * @example <div class="modal">
-     *              <div class="content">
-     *                  <div class="travellr">
-     *                      <h2>
-     *                          <a href=""></a>
-     *                      </h2>
-     *                      <p></p>
-     *                      <p class="date"></p>
-     *                  </div>
-     *              </div>
-     *         </div>
+     * Returns:
+     *     A <MooTools::Element> with the content of this <TravellrFeedItem>
      */
     makeContent: function() {
         var answers = [
@@ -103,6 +106,24 @@ var TravellrFeedItem = new Class({
 
 });
 
+/*
+Class: travellr.TravellrFeedItem.Ask
+A <FeedItem> that allows users to ask a question directly to Travellr
+
+Extends:
+  <FeedItem>
+
+License:
+    MIT-style license.
+
+Copyright:
+    Copyright (c) 2010 explore.travellr.com
+
+Dependencies:
+    - <MooTools::core> 1.2.4 or higher
+    - <MooTools::more> 1.2.4.4 RC1 or higher
+    - <TravellrFeed>
+*/
 TravellrFeedItem.Ask = new Class({
 
     Extends: FeedItem,
@@ -110,14 +131,37 @@ TravellrFeedItem.Ask = new Class({
     // TODO: Work out how to submit this paramater to travellr
     locationId: null,
 
+    /**
+     * Constant: MAX_LENGTH
+     * The maximum length of a question on Travellr
+     */
     MAX_LENGTH: 140,
+
+    /**
+     * Constant: ACTION
+     * The URL to post to question to
+     */
     ACTION: 'http://travellr.com/ask',
 
+    /**
+     * Constructor: initialize
+     * Create a new <Ask> box
+     *
+     * Paramaters:
+     *     locationId - The location this question is about. Optional
+     */
     initialize: function(locationId) {
         this.locationId = locationId;
         this.size = {x: 2};
     },
 
+    /**
+     * Function: makePreview
+     * Builds a <MooTools::Element> containing some explanitory text
+     *
+     * Returns:
+     *     A <MooTools::Element> containing some explanitory text
+     */
     makePreview: function() {
         return new Element('div', {
             'class': 'travellr ask'
@@ -129,6 +173,14 @@ TravellrFeedItem.Ask = new Class({
 
     },
 
+    /**
+     * Function: makePreview
+     * Builds a <MooTools::Element> containing a form and text field, to submit
+     * a question to Travellr
+     *
+     * Returns:
+     *     A <MooTools::Element> containing a form and text field
+     */
     makeContent: function() {
         var textarea = new Element('textarea', {
             name: 'q',

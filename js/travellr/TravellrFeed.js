@@ -1,6 +1,9 @@
 /*
-Script: TravellrFeed.js
+Class: travellr.TravellrFeed
    TravellrFeed - MooTools based Travellr feed generator
+
+Extends:
+   <Feed>
 
 License:
    MIT-style license.
@@ -9,25 +12,41 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - TravellrFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <MooTools::more> Request.JSONP
+   - <TravellrFeedItem>
+
+See Also:
+   - <TravellrFeedItem>
+   - <DisplayBox>
 */
 
 var TravellrFeed = new Class({
     
     Extends: Feed,
 
+    /**
+     * Variable: itemsCalled
+     * The number of items to display
+     */
     itemsCalled: null,
 
+    /**
+     * Variable: name
+     * The name of this <Feed>, used in the GUI
+     */
     name: 'Travellr',
 
     /**
+     * Function: search
      * Search the feed for items relating to the search terms.
      *
-     * @param searchFilter The search filter to filter results with
+     * Paramaters:
+     *     searchFilter - The search filter to filter results with
+     *
+     * See Also:
+     *     <Feed::search>
      */
     search: function(searchFilter) {     
 
@@ -61,11 +80,13 @@ var TravellrFeed = new Class({
     },
 
     /**
+     * Function: makeFeedItems
      * Makes the individual travellr feed items by sending the each question
      * object of the response object to the TravellrFeedItem class and then
      * pushing each of them onto a feedItems array
      *
-     * @param response object returned by the travellr call
+     * Paramaters:
+     *     response - object returned by the travellr call
      */
     makeFeedItems: function(response) {
 
