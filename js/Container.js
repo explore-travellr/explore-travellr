@@ -1,7 +1,6 @@
 /*
-Script: Container.js
-   Container - DESC TODO
-   FeedToggle - DESC TODO
+Class: Container
+   Displays and lays out a collection of <DisplayBoxes>
 
 License:
    MIT-style license.
@@ -10,32 +9,68 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-*/
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
 
+See Also:
+   - <DisplayBox>
+*/
 var Container = new Class({
 
+    /**
+     * Variable: container
+     * The <MooTools::Element> that this <Container> displays its <DisplayBoxes> in
+     */
     container: null,
+
+    /**
+     * Variable: displayBoxes
+     * An <JS::Array> of all the <DisplayBoxes> currently displayed
+     */
     displayBoxes: [],
+
+    /**
+     * Variable: feeds
+     * An <JS::Array> of all the <Feeds> displayed by this <Container>
+     */
     feeds: [],
 
+    /**
+     * Variable: toggleBox
+     * The <FeedToggle> that controlls all the <Feeds> held in <feeds>
+     */
     toggleBox: null,
 
+    /**
+     * Variable: displayBoxQueue
+     * A queue (<JS::Array>) of <DisplayBoxes> that will be animated in to the
+     * display
+     */
     displayBoxQueue: [],
+
+    /**
+     * Variable: queueTimer
+     * The timer reference for delaying the animation of <displayBoxQueue>
+     */
     queueTimer: null,
+
+    /**
+     * Variable: queueDelay
+     * The time in milliseconds to delay between displaying each <DisplayBox> in
+     * in <displayBoxQueue>
+     */
     queueDelay: 500,
 
     /**
-     * Creates a new Container class.
-     *
+     * Constructor: initialize
      * Creates a new Container class. This instance will layout its DisplayBoxes
      * in the supplied container element. The container will listen to the
      * search box, emptying itself out when a seach is made
      *
-     * @param container {Mixed} The element to layout the DisplayBoxes in
-     * @param searchBox {SearchBox} The SearchBox that will create searches for
-     *         the feeds in this container.
+     * Paramaters:
+     *
+     *     container - The element to layout the DisplayBoxes in
+     *     searchBox - The SearchBox that will create searches for the feeds in this container.
      */
     initialize: function(container, searchBox){
         this.container = $(container);
@@ -56,22 +91,26 @@ var Container = new Class({
     },
 
     /**
+     * Function: addFeed
      * Adds a feed to this container
      *
-     * @param feed {Feed} The feed to add
+     * Paramaters:
+     *     feed - The feed to add
      */
     addFeed: function(feed) {
         this.feeds.push(feed);
     },
 
     /**
-     * Adds a DisplayBox to this Container.
+     * Function: addDisplayBox
+     * Adds a <DisplayBox> to the <Containers> <displayBoxQueue>. <DisplayBoxes>
+     * will be added in the future at a time decided by the <Container>.
      *
-     * Adds a DisplayBox to the Containers queue of DisplayBoxes. DisplayBoxes
-     * will be added in the future at a time decided by the Container. This is
-     * done by calling {@link #queueAddDisplayBox}
+     * Paramaters:
+     *     displayBox - The <DisplayBox> to add
      *
-     * @param displayBox {DisplayBox} The DisplayBox to add
+     * See Also:
+     *     - <queueAddDisplayBox>
      */
     addDisplayBox: function(displayBox) {
         this.displayBoxQueue.push(displayBox);
@@ -79,15 +118,17 @@ var Container = new Class({
     },
 
     /**
-     * Adds a DisplayBox to this Container from the queue.
+     * Function: addDisplayBoxFromQueue
+     * Adds a <DisplayBox> from the <displayBoxQueue>. This method will then
+     * call <queueAddDisplayBox>, to add any more queued <DisplayBoxes>
      *
-     * Adds a DisplayBox from the Containers queue of DisplayBoxes. This method
-     * will then call {@link #queueAddDisplayBox}, to add any more queued
-     * DisplayBoxes
+     * Paramaters:
+     *     displayBox - The <DisplayBox> to add
      *
-     * @private
-     * @param displayBox {DisplayBox} The DisplayBox to add
-     */
+     * See Also:
+     *     - <addDisplayBox>
+     *     - <queueAddDisplayBox>
+    */
     addDisplayBoxFromQueue: function() {
         var displayBox = this.displayBoxQueue.removeRandom();
         var preview = displayBox.getPreview();
@@ -105,11 +146,15 @@ var Container = new Class({
     },
 
     /**
-     * Make a periodical function to add a queued DisplayBox.
+     * Function: queueAddDisplayBox
+     * Make a periodical function to add a queued <DisplayBox> from
+     * <displayBoxQueue>. This function will only run if there are
+     * <DisplayBoxes> to add, and the periodical function is not already
+     * running.
      *
-     * Make a periodical function to add a queued DisplayBox. This function will
-     * only run if there are DisplayBoxes to add, and the periodical function is
-     * not already running.
+     * See Also:
+     *     - <addDisplayBox>
+     *     - <addDisplayBoxFromQueue>
      */
     queueAddDisplayBox: function() {
         // Check it is not already queued
@@ -123,19 +168,22 @@ var Container = new Class({
     },
 
     /**
+     * Function: getDisplayBoxes
      * Get all the DisplayBoxes being managed by this Container
      *
-     * @return An array containing the DisplayBoxes in this Container
+     * Returns:
+     *     An array containing the DisplayBoxes in this Container
      */
     getDisplayBoxes: function(feed) {
         return displayBoxes;
     },
 
     /**
+     * Function: removeDisplayBox
      * Remove a display box from the Container
      *
-     * @param displayBox {DisplayBox} The DisplayBox to remove. If the DisplayBox is
-     *         not present, this function does nothing.
+     * Paramaters:
+     *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
      */
     removeDisplayBox: function(displayBox) {
         displayBox.setContainer(null);
@@ -147,10 +195,11 @@ var Container = new Class({
     },
 
     /**
+     * Function: getElement
      * Get the element that this Container is putting its DisplayBoxes in
      *
-     * @return The Element the Container manages
-     * @type Element
+     * Returns:
+     *     The Element the Container manages
      */
     getElement: function() {
         return this.container;
@@ -158,28 +207,47 @@ var Container = new Class({
 
 });
 
+/*
+Class: FeedToggle
+
+License:
+   MIT-style license.
+
+Copyright:
+   Copyright (c) 2010 explore.travellr.com
+
+Dependencies:
+   - MooTools-core 1.2.4 or higher
+   - MooTools-more 1.2.4.4 RC1 or higher
+*/
 var FeedToggle = new Class({
 
     data: null,
 
+    /**
+     * Variable: container
+     * The <MooTools::Element> that the <FeedToggle> is displayed in
+     */
     container: null,
 
     /**
-     * Create a new FeedToggle class.
+     * Constructor: initialize
+     * Create a new <FeedToggle> class. It will put the controls for its <Feeds>
+     * in the container <MooTools::Element> supplied
      *
-     * Create a new FeedToggle class. It will put the controls for its Feeds
-     * in the container element supplied
-     *
-     * @param container {Element} The Element to put the controls in
+     * Paramaters:
+     *     container - The <MooTools::Element> to put the controls in
      */
     initialize: function(container) {
         this.container = $(container);
     },
 
     /**
-     * Add a feed to this FeedToggle
+     * Function: addFeed
+     * Add a <Feed> to this <FeedToggle>
      *
-     * @param feed {Feed} The feed to add to the FeedToggle
+     * Paramaters:
+     *     feed - The <Feed> to add to the <FeedToggle>
      */
     addFeed: function(feed) {
         var button = new Element('a', {

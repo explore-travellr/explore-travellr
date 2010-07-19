@@ -1,0 +1,59 @@
+Title: References
+Provide references to classes, functions and other things out of the scope of this project
+
+
+
+
+Namespace: JS
+All global JavaScript classes, objects and functions are in this namespace
+
+Class: JS::Array
+The JavaScript Array built in
+
+See Also:
+    - <https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Array/>
+
+Class: JS::String
+The JavaScript String built in
+
+See Also:
+    - <https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/String/>
+
+Class: JS::Object
+The JavaScript Object
+
+See Also:
+    - <https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Object/>
+
+
+
+Namespace: MooTools
+The MooTools JavaScript library
+
+See Also:
+    - <http://mootools.net/>
+
+Class: MooTools::core
+The MooTools core library. This contains the core functionality, classes used by basically every script.
+
+See Also:
+    - <http://mootools.net/docs/core/Core/Core/>
+
+Class: MooTools::more
+The MooTools more library. This contains functionality included on an as-needed basis
+
+See Also:
+    - <http://mootools.net/docs/more/Core/More/>
+
+Class: MooTools::Request.JSONP
+The MooTools JSONP request class. This requests external JSON actions via JSONP
+
+See Also:
+    - <http://mootools.net/docs/more/Request/Request.JSONP/>
+    - <http://en.wikipedia.org/wiki/JSONP>
+
+Class: MooTools::Element
+The MooTools Element. This extends the JavaScript <JS::Element> class
+
+See Also:
+    - <http://mootools.net/docs/core/Element/Element>

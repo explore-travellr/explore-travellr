@@ -1,5 +1,5 @@
 /*
-Script: SearchFilter.js
+Class: SearchFilter
    SearchFilter - DESC TODO
 
 License:
@@ -13,40 +13,45 @@ Dependencies:
    - MooTools-more 1.2.4.4 RC1 or higher
 */
 
+
 var SearchFilter = new Class({
-    Implements: Events,
+    Implements: Events;
+    /**
+     * Event: searchReady
+     * Fired when the data has been retrieved from Travellr
+     */
 
     /**
-     * The string that was searched for
+     * Variable: searchString
+     * The <JS::String> that was searched for
      */
     searchString: null,
 
     /**
-     * The location of the search. Can be null
+     * Variable: location
+     * The geographic location of the search. Can be null
      */
     location: null,
 
     /**
-     * An Array of the Travellr tags found in the search. Can be empty.
-     * @type Array
+     * Variable: tags
+     * An <JS::Array> of the Travellr tags found in the search. Can be empty.
      */
     tags: null,
     
     /**
-     * An Array of the noun phrases found in the search. Can be empty.
-     * @type Array
+     * Variable: nounPhrase
+     * A <JS::Array> of the noun phrases found in the search. Can be empty.
      */
     nounPhrases: null,
 
     /**
-     * Create a new SearchFilter, searching for the supplied search string.
+     * Constructor: initialize
+     * Creates a new <SearchFilter>. It will search for the supplied search
+     * string. The <SearchFilters> data fields will be filled with the results.
      *
-     * Creates a new SearchFilter. It will search for the supplied search
-     * string, filling out its data fields with the results. Other objects can
-     * listen for the ready event to know when the SearchFilter has gathered its
-     * data
-     *
-     * @param searchString {String} The search string to gather data about
+     * Paramaters:
+     *     searchString - {String} The search string to gather data about
      */
     initialize: function(searchString) {
         this.searchString = searchString;

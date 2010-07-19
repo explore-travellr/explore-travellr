@@ -8302,18 +8302,6 @@ MooTools.lang.set('ca-CA', 'Date', {
 
 });
 
-/*
-Script: Date.Czech.js
-	Date messages for Czech.
-
-	License:
-		MIT-style license.
-
-	Authors:
-		Jan Černý chemiX
-
-*/
-
 MooTools.lang.set('cs-CZ', 'Date', {
 
 	months: ['Leden', 'Únor', 'Březen', 'Duben', 'Květen', 'Červen', 'Červenec', 'Srpen', 'Září', 'Říjen', 'Listopad', 'Prosinec'],
@@ -8868,17 +8856,6 @@ MooTools.lang.set('pt-BR', 'Date', {
 
 });
 
-/*
-Script: Date.Russian.js
-	Date messages for Russian.
-
-	License:
-		MIT-style license.
-
-	Authors:
-		Evstigneev Pavel
-*/
-
 MooTools.lang.set('ru-RU-unicode', 'Date', {
 
 	months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
@@ -9225,18 +9202,6 @@ MooTools.lang.set('ca-CA', 'Form.Validator', {
 	sameMonth: 'Aquestes dos dates deuen estar dins del mateix mes - deus canviar una o altra.'
 
 });
-
-/*
-Script: FormValidator.Czech.js
-	Date messages for Czech
-
-	License:
-		MIT-style license.
-
-	Authors:
-		Jan Černý chemiX
-
-*/
 
 MooTools.lang.set('cs-CZ', 'FormValidator', {
 

@@ -1,3 +1,7 @@
+/*
+ * File: menu.js
+ * Contains animations for the footer menu
+ */
 window.addEvent('domready', function() {
 
     //Sets search suggestion box to be invisible
