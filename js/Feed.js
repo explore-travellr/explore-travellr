@@ -131,6 +131,7 @@ var Feed = new Class({
      * Container, in a new DisplayBox.
      */
     feedReady: function() {
+        this.fireEvent("feedReady", this.getFeedItems().length);
         this.getFeedItems().each(function(feedItem) {
             var displayBox = new DisplayBox(feedItem);
             if (this.isVisible()) {

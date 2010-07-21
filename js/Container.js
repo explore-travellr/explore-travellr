@@ -52,6 +52,10 @@ var Container = new Class({
                 this.removeDisplayBox(displayBox);
             }, this);
             $clear(this.queueTimer);
+
+            this.loadedFeeds = 0;
+            console.log("BEGIN "+this.loadedFeeds)
+            this.numberOfFeeds = this.feeds.length;
         }).bind(this));
     },
 
@@ -62,6 +66,15 @@ var Container = new Class({
      */
     addFeed: function(feed) {
         this.feeds.push(feed);
+        feed.addEvent('feedReady', (function(amount) {
+            this.loadedFeeds++;
+            //increment loading bar
+            console.log(this.loadedFeeds)
+            if (this.loadedFeeds == this.numberOfFeeds) {
+                //hide loading bar
+                console.log("END "+this.loadedFeeds)
+            }
+        }).bind(this));
     },
 
     /**
@@ -154,7 +167,7 @@ var Container = new Class({
      */
     getElement: function() {
         return this.container;
-    },
+    }
 
 });
 

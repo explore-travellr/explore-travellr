@@ -349,4 +349,18 @@ body {
 #searchField:focus{border:none;}
 
 
+		#first_mb, #second_mb, #third_mb, #fourth_mb {
+			width: 95%;
+			margin: 0px auto;
+		}
 
+		#first_mb, #second_mb, #third_mb{
+			background-color: #cecece;
+		}
+		#foot {
+			text-align: right;
+		}
+		#download_img {
+			margin-top: 20px;
+			margin-right: 50px;
+		}

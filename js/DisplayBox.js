@@ -125,7 +125,6 @@ var DisplayBox = new Class({
         modalMask.fade('0.8');
         modal.fade('in');
 
-
         $$(modalClose, modalMask).addEvent('click', function() {
             content.parentNode.removeChild(content);
             modal.destroy();
