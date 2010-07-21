@@ -89,12 +89,10 @@ var DisplayBox = new Class({
 
             wrapper.addClass('displayBox');
 
-            if (this.feedItem.hasContent()) {
-                preview.addEvent('click', (function(event) {
-                    event.stop();
-                    this.showContent();
-                }).bind(this));
-            }
+            preview.addEvent('click', (function(event) {
+                event.stop();
+                this.showContent();
+            }).bind(this));
 
             this.preview = wrapper;
         }
