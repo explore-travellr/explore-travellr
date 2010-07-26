@@ -128,7 +128,6 @@ var Feed = new Class({
 
     /**
      * Function: setVisible
-
      * Paramaters:
      *     visible - True if the feed should be visible, false otherwise.
      *
@@ -152,6 +151,7 @@ var Feed = new Class({
     },
 
     /**
+     * Function: getFeedItems
      * Retrieve all <FeedItem>s currently displayed by this <Feed>.
      *
      * Returns:

@@ -1,6 +1,6 @@
 /*
-Script: WorldNomadsFeedItem.js
-   WorldNomadsFeedItem - MooTools based World Nomads feed item handler
+Class: world-nomads.WorldNomadsFeedItem
+Displays blog posts from the <WorldNomadsFeed>
 
 License:
    MIT-style license.
@@ -24,9 +24,11 @@ var WorldNomadsFeedItem = new Class({
     name: 'WorldNomadsFeedItem',
 
     /**
+     * Constructor: initialize
      * Constructs a new WorldNomadsFeedItem with the content drawn from the blog post sent in
      *
-     * @param post The blog post to draw content from
+     * Paramaters:
+     *     post - The blog post to draw content from
      */
     initialize: function(post) {
         this.post = post;
@@ -37,14 +39,11 @@ var WorldNomadsFeedItem = new Class({
     },
 
     /**
-     * Builds a feed item preview to go in the displayBox within the container
+     * Function: makePreview
+     * Builds a <MooTools::Element> containing a preview of the blog post
      *
-     * @example <div class="displayBox">
-     *              <div class="worldNomads inner">
-     *                  <img src=""></img>
-     *                  <p></p>
-     *              </div>
-     *          </div>
+     * Returns:
+     *     A <MooTools::Element> containing a preview of the blog post
      */
     makePreview: function() {
         return new Element('div', {
@@ -60,19 +59,11 @@ var WorldNomadsFeedItem = new Class({
     },
 
     /**
-     * Builds a feed item content div for insertion into the modal box once
-     * clicked
+     * Function: makeContent
+     * Builds a <MooTools::Element> containing the text of the blog post
      *
-     * @example <div class="modal">
-     *              <div class="content">
-     *                  <div class="worldNomads">
-     *                      <h2>
-     *                          <a href=""></a>
-     *                      </h2>
-     *                      <div></div>
-     *                  </div>
-     *              </div>
-     *         </div>
+     * Returns:
+     *     A <MooTools::Element> containing the text of the blog post
      */
     makeContent: function() {
         return new Element('div', {

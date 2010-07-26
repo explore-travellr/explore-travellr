@@ -68,7 +68,6 @@ var Container = new Class({
      * search box, emptying itself out when a seach is made
      *
      * Paramaters:
-     *
      *     container - The element to layout the DisplayBoxes in
      *     searchBox - The SearchBox that will create searches for the feeds in this container.
      */

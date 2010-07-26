@@ -15,7 +15,7 @@ Dependencies:
 
 
 var SearchFilter = new Class({
-    Implements: Events;
+    Implements: Events,
     /**
      * Event: searchReady
      * Fired when the data has been retrieved from Travellr

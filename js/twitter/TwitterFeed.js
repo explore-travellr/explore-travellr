@@ -1,6 +1,9 @@
 /*
-Script: TwitterFeed.js
-   TwitterFeed - MooTools based Twitter feed generator
+Class: twitter.TwitterFeed
+   MooTools based Twitter feed generator
+
+Extends:
+   <Feed>
 
 License:
    MIT-style license.
@@ -9,25 +12,34 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - TwitterFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <Feed>
+   - <TwitterFeedItem>
 */
 
 var TwitterFeed = new Class({
     
     Extends: Feed,
 
+    /**
+     * Variable: itemsCalled
+     * The number of tweets to display
+     */
     itemsCalled: null,
 
+    /**
+     * Variable: name
+     * The name of this <Feed>, used in the GUI
+     */
     name: 'Twitter',
     
     /**
+     * Function: search
      * Search the feed for items relating to the search terms.
      *
-     * @param searchFilter The search filter to filter results with
+     * Paramaters:
+     *     searchFilter - The search filter to filter results with
      */
     search: function(searchFilter) {
         this.parent();
@@ -56,11 +68,13 @@ var TwitterFeed = new Class({
     },
 
     /**
+     * Function: makeFeedItems
      * Makes the individual twitter feed items by sending the each tweet
      * object of the response object to the TwitterFeedItem class and then
      * pushing each of them onto a feedItems array
      *
-     * @param response object returned by the twitter call
+     * Paramaters:
+     *     response - object returned by the twitter call
      */
     makeFeedItems: function(response) {
 

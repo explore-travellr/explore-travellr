@@ -1,6 +1,9 @@
 /*
-Script: TwitterFeedItem.js
-   TwitterFeedItem - MooTools based Twitter feed item handler
+Class: twitter.TwitterFeedItem
+   Searches the Twitter API for tweets relating to the search term.
+
+Extends:
+   <FeedItem>
 
 License:
    MIT-style license.
@@ -9,26 +12,33 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - FeedItem Class
-   - TwitterFeed Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <TwitterFeed>
 */
 
 var TwitterFeedItem = new Class({
 
     Extends: FeedItem,
 
+    /**
+     * Variable: tweet
+     * The tweet data
+     */
     tweet: null,
 
+    /**
+     * Variable: name
+     * The name of this <FeedItem> class, used in the GUI
+     */
     name: 'TwitterFeedItem',
 
     /**
-     * Sets the parameter to a instance variable then sets the url, pic
-     * thumbnail and pic content
+     * Constructor: initialize
+     * Create a new <TwitterFeedItem> with the tweet data provided
      *
-     * @param feedObject The object is associative array of keys related
-     * to the feedObject passed in
+     * Paramaters:
+     *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject) {
         
@@ -41,13 +51,11 @@ var TwitterFeedItem = new Class({
     },
 
     /**
-     * Builds a feed item preview to go in the displayBox within the container
+     * Function: makePreview
+     * Builds a <MooTools::Element> containing a preview of the tweet data
      *
-     * @example <div class="displayBox">
-     *              <div class="twitter inner">
-     *                  <p></p>
-     *              </div>
-     *          </div>
+     * Returns:
+     *     A <MooTools::Element> containing a preview of the tweet data
      */
     makePreview: function() {
         return new Element('div', {
@@ -60,20 +68,11 @@ var TwitterFeedItem = new Class({
     },
 
     /**
-     * Builds a feed item content div for insertion into the modal box once
-     * clicked
+     * Function: makePreview
+     * Builds a <MooTools::Element> containing the tweet data
      *
-     * @example <div class="modal">
-     *              <div class="content">
-     *                  <div class="twitter">
-     *                      <h2>
-     *                          <a href=""></a>
-     *                      </h2>
-     *                      <p></p>
-     *                      <p class="date"></p>
-     *                  </div>
-     *              </div>
-     *         </div>
+     * Returns:
+     *     A <MooTools::Element> containing the tweet data
      */
     makeContent: function() {
         return new Element('div', {

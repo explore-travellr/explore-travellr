@@ -18,6 +18,7 @@ Dependencies:
 
 See Also:
    - <Container>
+   - <FeedItem>
 */
 
 var DisplayBox = new Class({
@@ -37,7 +38,7 @@ var DisplayBox = new Class({
      * Variable: options
      * Options for this <DisplayBox> instance
      *
-     * readMore - Whether the <FeedItem> has more content to show
+     *     readMore - Whether the <FeedItem> has more content to show
      */
     options: {
         readMore: true
