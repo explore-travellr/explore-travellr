@@ -37,6 +37,9 @@ var TravellrFeed = new Class({
         //this.feedItems = []; Removed : Jake Kobes : 17-May-2010 : this was the problem with travellr feeditems not refreshing
         // TODO: Search for tags individually if nothing is found when searching for them all
 
+        //This line adds the "Didn't find the information..." feedItem
+        this.feedItems.push(new TravellrFeedItem.Ask(searchFilter.location_id || null));
+
         if (!($chk(searchFilter.location) || searchFilter.tags.length !== 0)) {
             this.feedReady();
             return;
@@ -75,9 +78,6 @@ var TravellrFeed = new Class({
             var feedItem = new TravellrFeedItem(questionData);
             this.feedItems.push(feedItem);
         }, this);
-
-        //This line adds the "Didn't find the information..." feedItem
-        this.feedItems.push(new TravellrFeedItem.Ask(response.location_id));
 
         this.feedReady();
     }
