@@ -56,30 +56,10 @@
                 <div id="feedToggle"></div>
             </div>
         </div>
-            <h3>With onFinish event</h3>
-            <p id="msg">&nbsp;</p>
-            <div id="progressBar"></div>
 
-            <div id="third_buttons" style="text-align: center">
-                    <input type="button" value="Set to 25%" onclick="javascript: myThirdMB.setPercentage(25);">
-                    <input type="button" value="Set to 50%" onclick="javascript: myThirdMB.setPercentage(50);">
-                    <input type="button" value="Set to 75%" onclick="javascript: myThirdMB.setPercentage(75);">
-                    <input type="button" value="Set to 100%" onclick="javascript: myThirdMB.setPercentage(100);">
-            </div>
-
-            <script type="text/javascript">
-                    myThirdMB = new MoogressBar('progressBar',{
-                            bgImage: 'blue_animated.gif',
-                            percentage: 60,
-                            onFinish: function(){
-                                    document.id('msg')
-                                            .set('text',"It's full, and will hide now")
-                                            .highlight();
-
-                                    document.id("third_buttons").fade('out');
-                            }
-                    });
-            </script>
+        <p id="msg">&nbsp;</p>
+        <div id="progressBar" style=""></div>
+            
         <div id="container">
 
         </div>

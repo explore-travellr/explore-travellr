@@ -25,6 +25,7 @@ var Container = new Class({
     displayBoxQueue: [],
     queueTimer: null,
     queueDelay: 500,
+    loaded: false,
 
     /**
      * Creates a new Container class.
@@ -39,7 +40,10 @@ var Container = new Class({
      */
     initialize: function(container, searchBox){
         this.container = $(container);
-        this.masonry = this.container.masonry({ columnWidth: 100, itemSelector: '.displayBox' });
+        this.masonry = this.container.masonry({
+            columnWidth: 100,
+            itemSelector: '.displayBox'
+        });
 
         this.addDisplayBoxFromQueue = this.addDisplayBoxFromQueue.bind(this);
 
@@ -54,7 +58,16 @@ var Container = new Class({
             $clear(this.queueTimer);
 
             this.loadedFeeds = 0;
-            console.log("BEGIN "+this.loadedFeeds)
+            this.loaded = false;
+
+            this.progressBar = new MoogressBar('progressBar',{
+                bgImage: 'blue_animated.gif',
+                percentage: 0,
+                onFinish: function(){
+                    $('msg').set('text',"LOADING COMPLETE").highlight();
+                }
+            });
+            //console.log("BEGIN "+this.loadedFeeds);
             this.numberOfFeeds = this.feeds.length;
         }).bind(this));
     },
@@ -69,10 +82,12 @@ var Container = new Class({
         feed.addEvent('feedReady', (function(amount) {
             this.loadedFeeds++;
             //increment loading bar
-            console.log(this.loadedFeeds)
+            console.log(this.loadedFeeds);
+            this.progressBar.setPercentage(this.loadedFeeds/this.numberOfFeeds * 100);
             if (this.loadedFeeds == this.numberOfFeeds) {
                 //hide loading bar
-                console.log("END "+this.loadedFeeds)
+                this.loaded = true;
+            //console.log("END "+this.loadedFeeds);
             }
         }).bind(this));
     },
@@ -108,7 +123,9 @@ var Container = new Class({
         preview.fade('hide');
         preview.fade('in');
         this.container.grab(preview);
-        this.container.masonry({appendContent: [preview]});
+        this.container.masonry({
+            appendContent: [preview]
+            });
 
         displayBox.setContainer(this);
         this.displayBoxes.push(displayBox);
@@ -127,7 +144,7 @@ var Container = new Class({
     queueAddDisplayBox: function() {
         // Check it is not already queued
         if (!$chk(this.queueTimer)) {
-            if (this.displayBoxQueue.length !== 0) {
+            if (this.displayBoxQueue.length !== 0 && this.loaded) {
                 this.queueTimer = this.addDisplayBoxFromQueue.delay(this.queueDelay);
             } else {
                 this.queueTimer = null;
@@ -141,7 +158,7 @@ var Container = new Class({
      * @return An array containing the DisplayBoxes in this Container
      */
     getDisplayBoxes: function(feed) {
-        return displayBoxes;
+        return this.displayBoxes;
     },
 
     /**
