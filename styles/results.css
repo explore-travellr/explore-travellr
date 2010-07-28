@@ -93,6 +93,10 @@ body {
     line-height : 148px;
     padding: 1px;
 }
+
+.displayBox .geckoReview { border-color : #6AE851; }
+.displayBox .geckoTips{ border-color : #009900; }
+
 .displayBox .flickr img {
     vertical-align: middle;
     max-width: 125px;
