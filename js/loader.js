@@ -95,6 +95,7 @@ Array.implement({
 window.addEvent('domready', function() {
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
+    var scrapbook = new Scrapbook();
     var container = new Container('container', searchBox);
     var feedToggle = new FeedToggle('feedToggle');
 
@@ -102,7 +103,7 @@ window.addEvent('domready', function() {
     // Add a feed to the list to automatically set it up.
     var feeds = [TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoTipsFeed, GeckoReviewFeed, TravellersPointFeed];
     feeds.each(function(AFeedClass) {
-        var feed = new AFeedClass(searchBox, container);
+        var feed = new AFeedClass(searchBox, container, scrapbook);
         feedToggle.addFeed(feed);
     });
 

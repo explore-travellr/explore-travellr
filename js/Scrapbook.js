@@ -1,49 +1,52 @@
 var Scrapbook = new Class({
 
+    Implements: [Events],
+
     root: null,
 
     container: null,
 
     initialize: function() {
-        // this.persistant = new Persist.Store();
+        var name = 'Scrapbook';
+        var persistant = new Persist.Store(name);
 
-        this.persistant = new (function() {
-            return {
-                load: function(name) {
-                    var data = prompt("Loading " + data + ". Enter it below");
-                    return data || null;
-                },
-                save: function(name, data) {
-                    console.log("Saving", name, ":", data);
-                }
+        persistant.get(name, function(data) {
+            if (data == null || data == "") {
+                console.log("No old state, making new scrapbook");
+                this.root = new Scrapbook.Folder("Root", null, this);
+            } else {
+                console.log("Loading old state");
+                this.root = Scrapbook.Folder.unserialize(JSON.decode(data));
             }
-        })();
 
-        var oldState = this.persistant.load('Scrapbook');
+            this.root.addEvent('dirty', function() {
+                var serialized = this.serialize();
+                var serializedJSON = JSON.encode(serialized);
+                console.log("Saving: ", serializedJSON)
+                persistant.set(name, serialized);
+            });
 
-        if (oldState == null || oldState == "") {
-            console.log("No old state, making new scrapbook");
-            root = new Scrapbook.Folder("Root", this);
-        } else {
-            console.log("Loading old state");
-            root = Scrapbook.Folder.unserialize(oldState);
-        }
+        });
 
-        this.container = new Container('#scrapbook');
+        this.container = new Container('scrapbook');
     },
 
     addItem: function() {
-    },
+        this.root.addItem.apply(this.root, arguments);
+    }
 
 });
 
 Scrapbook.Folder = new Class({
 
+    Implements: [Events, Options],
+
     parent: null,
     name: null,
-    items: null,
+    items: [],
 
-    /** Variable: container
+    /**
+     * Variable: container
      * A <Container> that is used to display the contents of this folder
      */
     container: null,
@@ -57,14 +60,31 @@ Scrapbook.Folder = new Class({
     /**
      * Variable: dirty
      * A boolean, representing if this item has been modified since it was last saved
+     */
     dirty: false,
 
+    /**
+     * Constructor: initialize
+     * Creates a new folder.
+     *
+     * Paramaters
+     *     name - The name of the folder
+     *     parent - The parent folder
+     *     scrapbook - The scrapbook that manages this heirachy
+     */
     initialize: function(name, parent, scrapbook) {
         this.name = name;
         this.parent = parent;
         this.scrapbook = scrapbook;
     },
 
+    /**
+     * Function: getItems
+     * Return an <JS::Array> of all items in this folder
+     *
+     * Returns:
+     *      An <JS::Array> of items in this folder
+     */
     getItems: function() {
         return this.items;
     },
@@ -73,9 +93,10 @@ Scrapbook.Folder = new Class({
         // Listen for a change on the item
         item.addEvent('dirty', (function() {
             this.setDirty(true);
-        });
+        }).bind(this));
 
         // Add the item
+        console.log(item);
         this.items.push(item);
         this.setDirty(true);
     },
@@ -118,13 +139,15 @@ Scrapbook.Folder = new Class({
             var items = [];
 
             this.items.each(function(item) {
-                content.push(item.serialize());
+                console.log(item);
+                items.push(item.serialize());
             });
 
             this.serialized = {
                 name: name,
                 items: items
             };
+            this.dirty = false;
         }
 
         return this.serialized;

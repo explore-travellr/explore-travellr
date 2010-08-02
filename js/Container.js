@@ -37,22 +37,11 @@ var Container = new Class({
      * @param searchBox {SearchBox} The SearchBox that will create searches for
      *         the feeds in this container.
      */
-    initialize: function(container, searchBox){
+    initialize: function(container){
         this.container = $(container);
         this.masonry = this.container.masonry({ columnWidth: 100, itemSelector: '.displayBox' });
 
         this.addDisplayBoxFromQueue = this.addDisplayBoxFromQueue.bind(this);
-
-        this.searchBox = searchBox;
-        this.searchBox.addEvent('search', (function(event) {
-            this.displayBoxQueue = [];
-            // Clone the array, as we are removing elements as we go from it
-            // Looping over an array as you remove elements from it leads to problems
-            $A(this.displayBoxes).each(function(displayBox) {
-                this.removeDisplayBox(displayBox);
-            }, this);
-            $clear(this.queueTimer);
-        }).bind(this));
     },
 
     /**
@@ -90,16 +79,25 @@ var Container = new Class({
      */
     addDisplayBoxFromQueue: function() {
         var displayBox = this.displayBoxQueue.removeRandom();
+        if (!displayBox) {
+            // The queue may have been emptied since this function was queued.
+            return;
+        }
+
+        // Get the preview to display
         var preview = displayBox.getPreview();
 
+        // Add it to the container
         preview.fade('hide');
-        preview.fade('in');
         this.container.grab(preview);
         this.container.masonry({appendContent: [preview]});
+        preview.fade('in');
 
+        // Tell the display box about this container
         displayBox.setContainer(this);
         this.displayBoxes.push(displayBox);
 
+        // Add another if we need to
         this.queueTimer = null;
         this.queueAddDisplayBox();
     },

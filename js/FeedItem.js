@@ -90,5 +90,16 @@ var FeedItem = new Class({
      */
     getDisplayBox: function() {
         return this.displayBox;
+    },
+
+    /**
+     * Function: canScrapbook
+     * Returns if this <FeedItem> is capable of being Scrapbooked
+     * 
+     * Return:
+     *      True if this <FeedItem> can be Scrapbooked, false otherwise
+     */
+    canScrapbook: function() {
+        return true;
     }
 });

@@ -32,7 +32,7 @@ var TravellersPointFeed = new Class({
      * @param searchFilter The search filter to filter results with
      */
     search: function(searchFilter) {
-        this.parent();
+        this.empty();
 
         var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
      
