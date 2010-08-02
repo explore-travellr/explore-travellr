@@ -22,7 +22,6 @@ var MapFeed = new Class({
 
     name: 'Map',
 
-
     /**
      * 
      *
@@ -31,14 +30,20 @@ var MapFeed = new Class({
     search: function(searchFilter) {
         this.parent();
 
+		if (searchFilter.location == null) {
+			this.feedReady();
+			return;
+		}
+		
         var lat = searchFilter.location.lat;
         var lng = searchFilter.location.lng;
-
-            callbackKey: '_callback',
-            onSuccess: 
-			this.feedItems.push(new MapFeedItem());
-			this.feedReady();
+		
+		var latLng = new google.maps.LatLng(lat, lng);
+		
+		var mapFeedItem = new MapFeedItem(latLng);
+		
+		this.feedItems.push(mapFeedItem);
+		
+		this.feedReady();
     },
-
-
  });
