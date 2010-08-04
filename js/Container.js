@@ -61,10 +61,11 @@ var Container = new Class({
             this.loaded = false;
 
             this.progressBar = new MoogressBar('progressBar',{
-                bgImage: 'blue_animated.gif',
+                bgImage: 'styles/images/loading.gif',
                 percentage: 0,
                 onFinish: function(){
                     $('msg').set('text',"LOADING COMPLETE").highlight();
+                    $('progressBar').empty();
                 }
             });
             //console.log("BEGIN "+this.loadedFeeds);
@@ -82,7 +83,7 @@ var Container = new Class({
         feed.addEvent('feedReady', (function(amount) {
             this.loadedFeeds++;
             //increment loading bar
-            console.log(this.loadedFeeds);
+            //console.log(this.loadedFeeds);
             this.progressBar.setPercentage(this.loadedFeeds/this.numberOfFeeds * 100);
             if (this.loadedFeeds == this.numberOfFeeds) {
                 //hide loading bar
