@@ -18,6 +18,7 @@ Dependencies:
 var TwitterFeedItem = new Class({
 
     Extends: FeedItem,
+    Serializable: 'TwitterFeedItem',
 
     tweet: null,
 
@@ -89,5 +90,12 @@ var TwitterFeedItem = new Class({
                 text: Date.parse(this.tweet.created_at).toString()
             })
             ]);
+    },
+
+    serialize: function() {
+        return this.tweet;
     }
 });
+TwitterFeedItem.unserialize = function(data) {
+    return new TwitterFeedItem(data);
+};

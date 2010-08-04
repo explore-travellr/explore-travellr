@@ -18,6 +18,7 @@ Dependencies:
 var WorldNomadsFeedItem = new Class({
 
     Extends: FeedItem,
+    Serializable: 'WorldNomadsFeedItem',
 
     post: null,
 
@@ -86,5 +87,12 @@ var WorldNomadsFeedItem = new Class({
                 html: this.post.description
             })
         ]);
+    },
+
+    serialize: function() {
+        return this.post;
     }
 });
+WorldNomadsFeedItem.unserialize = function(data) {
+    return new WorldNomadsFeedItem(data);
+};

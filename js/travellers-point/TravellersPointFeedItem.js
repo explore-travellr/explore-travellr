@@ -18,6 +18,7 @@ Dependencies:
 var TravellersPointFeedItem = new Class({
 
     Extends: FeedItem,
+    Serializable: 'TravellersPointFeedItem',
 
     post: null,
 
@@ -89,5 +90,12 @@ var TravellersPointFeedItem = new Class({
             }).grab(new Element('img',{
             'src':this.post['media:content'].url}))
         ]);
+    },
+
+    serialize: function() {
+        return this.post;
     }
 });
+TravellersPointFeedItem.unserialize = function(data) {
+    return new TravellersPointFeedItem(data);
+};

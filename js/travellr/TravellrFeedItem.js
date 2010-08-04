@@ -18,6 +18,7 @@ Dependencies:
 var TravellrFeedItem = new Class({
 
     Extends: FeedItem,
+    Serializable: 'TravellrFeedItem',
 
     question: null,
 
@@ -179,4 +180,3 @@ TravellrFeedItem.Ask = new Class({
 
 
 });
-
