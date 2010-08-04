@@ -37,9 +37,22 @@ var DisplayBox = new Class({
         if (!this.preview) {
 
             var preview = this.feedItem.getPreview().addClass('inner');
-            var wrapper = new Element('div').grab(preview);
+            var handle = new Element('div', {'class': 'handle'});
+            var wrapper = new Element('div').adopt([preview, handle]);
             var size = this.feedItem.getSize();
-            
+
+            preview.setStyles({position: 'relative'});
+
+            new Drag.Move(wrapper, {
+                droppables: $('dropArea'),
+                handle: handle,
+                onDrop: function(draggable, droppable) {
+                    if(droppable) {
+                        alert('Adding to FAVOURITES! (Not Really, just disposing it)');
+                        draggable.dispose();
+                    }
+                }
+            });
             wrapper.setStyles({
             	width: size.x * 100
             });

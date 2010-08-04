@@ -13,6 +13,14 @@ body {
     background-color: #d9d9d9;
     background-repeat: repeat-x;
 }
+
+#dropArea {
+    width:50px;
+    height:50px;
+    float:left;
+    background-image: url("images/fav_star.png");
+}
+
 #container {
     width: 90%;
     margin: 0 auto;
@@ -129,6 +137,15 @@ body {
 .displayBox .ask p {
     text-indent: 0;
     padding: 25px 5px;
+}
+
+.displayBox .handle {
+    width: 20px;
+    height: 29px;
+    position: absolute;
+    left: -5px;
+    top: -15px;
+    background-image: url("images/pin.png");
 }
 /***********************
  * Modal Box (popup)

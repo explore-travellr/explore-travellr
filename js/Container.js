@@ -64,7 +64,7 @@ var Container = new Class({
                 bgImage: 'styles/images/loading.gif',
                 percentage: 0,
                 onFinish: function(){
-                    $('msg').set('text',"LOADING COMPLETE").highlight();
+                    //$('msg').set('text',"LOADING COMPLETE").highlight();
                     $('progressBar').empty();
                 }
             });
