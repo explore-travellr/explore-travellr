@@ -18,6 +18,7 @@ Dependencies:
 var GeckoReviewFeedItem = new Class({
 
     Extends: FeedItem,
+    Serializable: 'GeckoReviewFeedItem',
 
     post: null,
 
@@ -85,5 +86,12 @@ var GeckoReviewFeedItem = new Class({
                 html: this.post.text
             })
         ]);
+    },
+
+    serialize: function() {
+        return this.post;
     }
 });
+GeckoReviewFeedItem.unserialize = function(data) {
+    return new GeckoReviewFeedItem(data);
+};

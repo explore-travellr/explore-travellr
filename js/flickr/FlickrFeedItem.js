@@ -19,6 +19,7 @@ Dependencies:
 var FlickrFeedItem = new Class({
 
     Extends: FeedItem,
+    Serializable: 'FlickrFeedItem',
 
     photo: null,
 
@@ -88,5 +89,12 @@ var FlickrFeedItem = new Class({
                 src: this.photo.picUrlContent
             }))
         ]);
+    },
+
+    serialize: function() {
+        return this.photo;
     }
 });
+FlickrFeedItem.unserialize = function(data) {
+    return new FlickrFeedItem(data);
+};

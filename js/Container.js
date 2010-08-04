@@ -48,29 +48,23 @@ var Container = new Class({
         this.addDisplayBoxFromQueue = this.addDisplayBoxFromQueue.bind(this);
 
         this.searchBox = searchBox;
-        this.searchBox.addEvent('search', (function(event) {
-            this.displayBoxQueue = [];
-            // Clone the array, as we are removing elements as we go from it
-            // Looping over an array as you remove elements from it leads to problems
-            $A(this.displayBoxes).each(function(displayBox) {
-                this.removeDisplayBox(displayBox);
-            }, this);
-            $clear(this.queueTimer);
+        if (this.searchBox) {
+            this.searchBox.addEvent('search', (function(event) {
+                this.loadedFeeds = 0;
+                this.loaded = false;
 
-            this.loadedFeeds = 0;
-            this.loaded = false;
-
-            this.progressBar = new MoogressBar('progressBar',{
-                bgImage: 'styles/images/loading.gif',
-                percentage: 0,
-                onFinish: function(){
-                    $('msg').set('text',"LOADING COMPLETE").highlight();
-                    $('progressBar').empty();
-                }
-            });
-            //console.log("BEGIN "+this.loadedFeeds);
-            this.numberOfFeeds = this.feeds.length;
-        }).bind(this));
+                this.progressBar = new MoogressBar('progressBar',{
+                    bgImage: 'styles/images/loading.gif',
+                    percentage: 0,
+                    onFinish: function(){
+                        $('progressBar').empty();
+                    }
+                });
+                this.numberOfFeeds = this.feeds.length;
+            }).bind(this));
+        } else {
+            this.loaded = true;
+        }
     },
 
     /**
@@ -88,7 +82,6 @@ var Container = new Class({
             if (this.loadedFeeds == this.numberOfFeeds) {
                 //hide loading bar
                 this.loaded = true;
-            //console.log("END "+this.loadedFeeds);
             }
         }).bind(this));
     },
@@ -119,18 +112,25 @@ var Container = new Class({
      */
     addDisplayBoxFromQueue: function() {
         var displayBox = this.displayBoxQueue.removeRandom();
+        if (!displayBox) {
+            // The queue may have been emptied since this function was queued.
+            return;
+        }
+
+        // Get the preview to display
         var preview = displayBox.getPreview();
 
+        // Add it to the container
         preview.fade('hide');
-        preview.fade('in');
         this.container.grab(preview);
-        this.container.masonry({
-            appendContent: [preview]
-            });
+        this.container.masonry({appendContent: [preview]});
+        preview.fade('in');
 
+        // Tell the display box about this container
         displayBox.setContainer(this);
         this.displayBoxes.push(displayBox);
 
+        // Add another if we need to
         this.queueTimer = null;
         this.queueAddDisplayBox();
     },
@@ -177,6 +177,13 @@ var Container = new Class({
         }
     },
 
+    removeAllDisplayBoxes: function() {
+        var displayBoxes = this.getDisplayBoxes();
+        while (displayBoxes.length) {
+            this.removeDisplayBox(displayBoxes[0]);
+        }
+    },
+
     /**
      * Get the element that this Container is putting its DisplayBoxes in
      *
@@ -185,6 +192,13 @@ var Container = new Class({
      */
     getElement: function() {
         return this.container;
+    },
+
+    show: function() {
+        this.getElement().setStyle('display', null);
+    },
+    hide: function() {
+        this.getElement().setStyle('display', 'none');
     }
 
 });

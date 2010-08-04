@@ -40,7 +40,7 @@ var FlickrFeed = new Class({
      * @param searchFilter The search filter to filter results with
      */
     search: function(searchFilter) {
-        this.parent();
+        this.empty();
         
         var tags = [];
 

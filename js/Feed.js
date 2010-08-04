@@ -23,7 +23,9 @@ var Feed = new Class({
     Implements: [Events],
 
     visible: true,
+
     feedItems: [],
+
     itemsCalled: null,
 
     bound: {
@@ -36,9 +38,10 @@ var Feed = new Class({
      * @param searchBox {SearchBox} The SearchBox that this Feed is driven by
      * @param container {Container} The Container that this Feed should put its content into
      */
-    initialize: function(searchBox, container) {
+    initialize: function(searchBox, container, scrapbook) {
         this.searchBox = searchBox;
         this.container = container;
+        this.scrapbook = scrapbook;
 
         this.bound = this.bindMethods(this.bound);
         this.attach();
@@ -54,7 +57,16 @@ var Feed = new Class({
      * @abstract
      * @param searchFilter The search filter to filter results with
      */
-    search: function() {
+    search: function() { },
+
+    /**
+     * Function: empty
+     * Removes all <FeedItems> from the <Feed> and <Container>.
+     */
+    empty: function() {
+        this.feedItems.each(function(feedItem) {
+            this.container.removeDisplayBox(feedItem.getDisplayBox());
+        }, this);
         this.feedItems = [];
     },
 
@@ -133,7 +145,7 @@ var Feed = new Class({
     feedReady: function() {
         this.fireEvent("feedReady", this.getFeedItems().length);
         this.getFeedItems().each(function(feedItem) {
-            var displayBox = new DisplayBox(feedItem);
+            var displayBox = feedItem.toDisplayBox(feedItem.canScrapbook() ? this.scrapbook : null);
             if (this.isVisible()) {
                 this.container.addDisplayBox(displayBox);
             }

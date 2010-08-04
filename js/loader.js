@@ -96,13 +96,22 @@ window.addEvent('domready', function() {
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
     var container = new Container('container', searchBox);
+    var scrapbook = new Scrapbook({
+        button: $('scrapbook-button'),
+        onShown: function() {
+            container.hide();
+        },
+        onHidden: function() {
+            container.show();
+        }
+    });
     var feedToggle = new FeedToggle('feedToggle');
 
     // Initialize the feed classes.
     // Add a feed to the list to automatically set it up.
     var feeds = [TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoTipsFeed, GeckoReviewFeed, TravellersPointFeed, MapFeed];
     feeds.each(function(AFeedClass) {
-        var feed = new AFeedClass(searchBox, container);
+        var feed = new AFeedClass(searchBox, container, scrapbook);
         feedToggle.addFeed(feed);
     });
 

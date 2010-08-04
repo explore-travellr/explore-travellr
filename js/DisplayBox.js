@@ -1,6 +1,6 @@
 var DisplayBox = new Class({
 
-    Implements: [Options, Events],
+    Implements: [Events, Options],
 
     mouseX : null,
     mouseY : null,
@@ -8,7 +8,8 @@ var DisplayBox = new Class({
     feedItem: null,
 
     options: {
-        readMore: true
+        readMore: true,
+        scrapbook: null
     },
 
     margin: 50,
@@ -21,8 +22,9 @@ var DisplayBox = new Class({
      * @param feedItem {FeedItem} The FeedItem to manage 
      * @param opeions {Object} Options for this class
      */
-    initialize: function(feedItem, options) {
+    initialize: function(feedItem, scrapbook, options) {
         this.feedItem = feedItem;
+        this.scrapbook = scrapbook;
         this.feedItem.setDisplayBox(this);
         this.setOptions(options);
     },
@@ -37,9 +39,25 @@ var DisplayBox = new Class({
         if (!this.preview) {
 
             var preview = this.feedItem.getPreview().addClass('inner');
-            var wrapper = new Element('div').grab(preview);
+            var wrapper = new Element('div').adopt([preview]);
             var size = this.feedItem.getSize();
-            
+            preview.setStyles({position: 'relative'});
+
+            if (this.getFeedItem().canScrapbook() && this.scrapbook) {
+                var handle = new Element('div', {'class': 'handle'});
+                wrapper.grab(handle);
+
+                new Drag.Move(wrapper, {
+                    droppables: this.scrapbook.getButton(),
+                    handle: handle,
+                    onDrop: (function(draggable, droppable) {
+                        if(droppable) {
+                            this.scrapbook.addItem(this.getFeedItem());
+                        }
+                    }).bindWithEvent(this)
+                });
+            }
+
             wrapper.setStyles({
             	width: size.x * 100
             });
@@ -95,14 +113,29 @@ var DisplayBox = new Class({
         var content = this.feedItem.getContent();
         var preview = this.getPreview();
         var container = this.container.getElement();
+        var contentWrapper = new Element('div', {'class': 'content'});
+
+        var iconBar = new Element('div', {'class': 'icons'});
 
         // Hide the containers
         modalMask.fade('hide');
         modal.fade('hide');
 
         // Put all the element in their correct containers
-        modal.grab(modalClose);
-        modal.grab(new Element('div', {'class': 'content'}). grab(content));
+        if (this.getFeedItem().canScrapbook() && this.scrapbook) {
+            var scrapbookAdd = new Element('div', {'class': 'scrapbook-add scrapbook-icon icon', text: 'Add to scrapbook', title: 'Add to scrapbook'});
+
+            scrapbookAdd.addEvent('click', (function() {
+                this.scrapbook.addItem(this.getFeedItem());
+            }).bind(this));
+
+            iconBar.adopt(scrapbookAdd);
+        }
+
+        contentWrapper.grab(content);
+
+        modal.adopt([modalClose, contentWrapper, iconBar]);
+
         $(document.body).grab(modalMask);
         $(document.body).grab(modal);
 
@@ -116,7 +149,6 @@ var DisplayBox = new Class({
             x: (boxLocation.x + ((boxSize.x - modalSize.x) / 2)).limit(this.margin, documentSize.x - modalSize.x - this.margin),
             y: (boxLocation.y + ((boxSize.y - modalSize.y) / 2)).limit(this.margin, documentSize.y - modalSize.y - this.margin)
         };
-
         modal.setPosition(modalLocation);
 
         modalMask.set('styles', {height: documentSize.y});
@@ -125,6 +157,7 @@ var DisplayBox = new Class({
         modalMask.fade('0.8');
         modal.fade('in');
 
+        // Add events to elements
         $$(modalClose, modalMask).addEvent('click', function() {
             content.parentNode.removeChild(content);
             modal.destroy();
@@ -132,6 +165,7 @@ var DisplayBox = new Class({
             modalClose.destroy();
         });
 
+        // Tell listeners that this box was just displayed
 		this.fireEvent('display');
     }
 

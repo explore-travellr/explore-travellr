@@ -18,6 +18,7 @@ Dependencies:
 var TravellrFeedItem = new Class({
 
     Extends: FeedItem,
+    Serializable: 'TravellrFeedItem',
 
     question: null,
 
@@ -99,9 +100,15 @@ var TravellrFeedItem = new Class({
                 text: Date.parse(this.question.created_at).toString()
             })
         ]);
-    }
+    },
 
+    serialize: function() {
+        return this.question;
+    }
 });
+TravellrFeedItem.unserialize = function(data) {
+    return new TravellrFeedItem(data);
+};
 
 TravellrFeedItem.Ask = new Class({
 
@@ -165,6 +172,11 @@ TravellrFeedItem.Ask = new Class({
                 submit
                 ]),
             ]);
-    }
+    },
+
+    canScrapbook: function() {
+        return false;
+    },
+
 
 });

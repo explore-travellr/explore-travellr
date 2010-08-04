@@ -18,6 +18,7 @@ Dependencies:
 var GeckoTipsFeedItem = new Class({
 
     Extends: FeedItem,
+    Serializable: 'GeckoTipsFeedItem',
 
     post: null,
 
@@ -89,5 +90,12 @@ var GeckoTipsFeedItem = new Class({
                 html: this.post.text
             })
         ]);
+    },
+
+    serialize: function() {
+        return this.post;
     }
 });
+GeckoTipsFeedItem.unserialize = function(data) {
+    return new GeckoTipsFeedItem(data);
+};

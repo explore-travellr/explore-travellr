@@ -31,7 +31,7 @@ var TravellrFeed = new Class({
      */
     search: function(searchFilter) {     
 
-        this.parent();
+        this.empty();
 
         this.itemsCalled = $random(4,8);
         //this.feedItems = []; Removed : Jake Kobes : 17-May-2010 : this was the problem with travellr feeditems not refreshing

@@ -30,7 +30,7 @@ var TwitterFeed = new Class({
      * @param searchFilter The search filter to filter results with
      */
     search: function(searchFilter) {
-        this.parent();
+        this.empty();
 
         this.itemsCalled = $random(4,8);
         // TODO: Search for tags individually if nothing is found when searching for them all
