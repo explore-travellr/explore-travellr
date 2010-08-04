@@ -95,33 +95,25 @@ Array.implement({
 window.addEvent('domready', function() {
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
-    var scrapbook = new Scrapbook();
     var container = new Container('container', searchBox);
+    var scrapbook = new Scrapbook({
+        button: $('scrapbook-button'),
+        onShown: function() {
+            container.hide();
+        },
+        onHidden: function() {
+            container.show();
+        }
+    });
     var feedToggle = new FeedToggle('feedToggle');
 
     // Initialize the feed classes.
     // Add a feed to the list to automatically set it up.
-    var feeds = [TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoTipsFeed, GeckoReviewFeed, TravellersPointFeed];
+    var feeds = [TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoTipsFeed, GeckoReviewFeed, TravellersPointFeed, MapFeed];
     feeds.each(function(AFeedClass) {
         var feed = new AFeedClass(searchBox, container, scrapbook);
         feedToggle.addFeed(feed);
     });
-
-    (function() {
-        var shown = false;
-        $('scrapbookToggle').addEvent('click', function() {
-            if (shown) {
-                console.log("Hiding scrapbook");
-                scrapbook.hide();
-                container.show();
-            } else {
-                console.log("Showing scrapbook");
-                scrapbook.show();
-                container.hide();
-            }
-            shown = !shown;
-        });
-    })();
 
     // Grab the search string from the #fragment or ?search= get paramater
     var uri = new URI(location);

@@ -143,6 +143,7 @@ var Feed = new Class({
      * Container, in a new DisplayBox.
      */
     feedReady: function() {
+        this.fireEvent("feedReady", this.getFeedItems().length);
         this.getFeedItems().each(function(feedItem) {
             var displayBox = feedItem.toDisplayBox(feedItem.canScrapbook() ? this.scrapbook : null);
             if (this.isVisible()) {

@@ -1,93 +1,82 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
+        <link rel="icon" type="image/png" href="favicon.png" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>explore.travellr</title>
 
-        <link rel="icon" type="image/png" href="favicon.png" />
-
+        <!-- Load the mootools library -->
         <script type="text/javascript" src="js/mootools.js"></script>
         <script type="text/javascript" src="js/mootools-more.js"></script>
+
+        <!-- Load all the classes needed -->
+        <script type="text/javascript" src="js/Serializable.js"></script>
+        <script type="text/javascript" src="js/FeedItem.js"></script>
+        <script type="text/javascript" src="js/DisplayBox.js"></script>
+        <script type="text/javascript" src="js/Container.js"></script>
+        <script type="text/javascript" src="js/Feed.js"></script>
+        <script type="text/javascript" src="js/SearchFilter.js"></script>
+        <script type="text/javascript" src="js/SearchBox.js"></script>
+        <script type="text/javascript" src="js/Persist.js"></script>
+        <script type="text/javascript" src="js/Scrapbook.js"></script>
+        <script type="text/javascript" src="js/mooMasonry.js"></script>
         <script type="text/javascript" src="js/menu.js"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
-        <script type="text/javascript">
-            // Submit the form via the #fragment, rather than get
-            window.addEvent('domready', function() {
-                $('searchForm').addEvent('submit', function(event) {
-                    event.stop();
+        <!-- Load the feed specific classes here -->
+        <script type="text/javascript" src="js/flickr/FlickrFeedItem.js"></script>
+        <script type="text/javascript" src="js/flickr/FlickrFeed.js"></script>
+        <script type="text/javascript" src="js/map/MapFeedItem.js"></script>
+        <script type="text/javascript" src="js/map/MapFeed.js"></script>
+        <script type="text/javascript" src="js/gecko/GeckoReviewFeedItem.js"></script>
+        <script type="text/javascript" src="js/gecko/GeckoReviewFeed.js"></script>
+        <script type="text/javascript" src="js/gecko/GeckoTipsFeedItem.js"></script>
+        <script type="text/javascript" src="js/gecko/GeckoTipsFeed.js"></script>
+        <script type="text/javascript" src="js/travellers-point/TravellersPointFeedItem.js"></script>
+        <script type="text/javascript" src="js/travellers-point/TravellersPointFeed.js"></script>
+        <script type="text/javascript" src="js/travellr/TravellrFeedItem.js"></script>
+        <script type="text/javascript" src="js/travellr/TravellrFeed.js"></script>
+        <script type="text/javascript" src="js/twitter/TwitterFeedItem.js"></script>
+        <script type="text/javascript" src="js/twitter/TwitterFeed.js"></script>
+        <script type="text/javascript" src="js/world-nomads/WorldNomadsFeedItem.js"></script>
+        <script type="text/javascript" src="js/world-nomads/WorldNomadsFeed.js"></script>
 
-                    // Construct a new URI, based upon the current location
-                    var uri = new URI(location);
-                    uri.set('fragment', $('searchField').get('value'));
-                    uri.set('file', this.get('action'));
-
-                    // Go to the URI
-                    uri.go();
-                });
-            });
-        </script>
+        <!-- Loading scripts specific to this page -->
+        <script type="text/javascript" src="js/loader.js"></script>
+        <script type="text/javascript" src="js/moogressBar.js"></script>
 
         <!-- Global Stylesheet -->
         <link rel="stylesheet" type="text/css" href="styles/global.css"  />
 
         <!-- Default Stylesheet -->
-        <link rel="stylesheet" type="text/css" href="styles/default.css"  />
+        <link rel="stylesheet" type="text/css" href="styles/results.css"  />
+
     </head>
     <body>
 
-        <!-- Wrapper start -->
-        <div id="wrapper">
-            <div class="push"></div>
-            <div id="main">
-                <div id="header">
-                    <img src="styles/images/logo.jpg" alt=""  />
-                    <form id="searchForm" action="results.html">
-                        <input type="text" name="search" id="searchField" maxlength="35" autocomplete="off" value=""/>
-                        <input type="submit" name="explore!" value="submit" id="explore" />
-                    </form>
-                    <div id="speechCorner" class="speechBubble"></div>
-                    <div id="autoComplete" class="speechBubble">
-                        <h2>Suggestions</h2>
-                        <p>
-                            <span class="suggestion">Skiing in New Zealand</span><br />
-                            <span class="suggestion">Portugal</span><br />
-                            <span class="suggestion">Travelling in Thailand</span>
-                        </p>
-                    </div>
-                </div>
-                <div id="searchBox" class="col">
-                    <p>Welcome to explore.travellr! Type you question in the box above, and get ready to be inspired.</p>
-                </div>
-                <div id="discoverBox" class="col">
-                    <p>Let explore.travellr help you discover amazing places, experience people's stories and tap the knowledge of locals and seasoned travellers alike.</p>
-                </div>
-                <div id="travelBox" class="col">
-                    <ol>
-                        <li class="suggestion">Tours in India</li>
-                        <li class="suggestion">Skiing in Japan</li>
-                        <li class="suggestion">Wildlife in South Africa</li>
-                        <li class="suggestion">Festivals in Germany</li>
-                        <li class="suggestion">Food in France</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- What is this start -->
-            <div style="border: 1px solid rgb(53, 91, 136); font: 10pt 'Trebuchet MS',sans-serif; padding: 5px; width: 400px; margin:0 auto; background: none repeat scroll 0% 0% rgb(255, 255, 204);" id="whatisthis">
-              <p style="margin: 2px;">
-              <span style="font-weight: bold;">What is this?</span><br>
-                explore.travellr is a web mashup created by university students from the <a href="http://www.cis.utas.edu.au/" style="text-decoration: underline; color: rgb(6, 6, 6);">School of CIS</a> in <a href="http://www.flickr.com/groups/tasmania/" style="text-decoration: underline; color: rgb(6, 6, 6);">Tasmania</a>. It allows users to search and explore travel-related content from <a href="http://travellr.com" style="text-decoration: underline; color: rgb(6, 6, 6);">Travellr</a>, <a href="http://adventures.worldnomads.com" style="text-decoration: underline; color: rgb(6, 6, 6);">World Nomads Adventures</a>, <a href="http://flickr.com" style="text-decoration: underline; color: rgb(6, 6, 6);">Flickr</a> and <a href="http://twitter.com" style="text-decoration: underline; color: rgb(6, 6, 6);">Twitter</a>. 
-              </p>
-              <p>
-                Got a comment for the team or want to suggest a data source to add? Then <a href="http://travellr.com/contact_us" style="text-decoration: underline; color: rgb(6, 6, 6);">drop us a line</a>!    
-              </p>
-              <p style="font-size: smaller;">
-                Note to Internet Explorer users: your mileage may vary! We recommend Firefox, Chrome, or Safari. 
-              </p>
-            </div>
-            <div style='height: 55px;'></div>
-            <!-- What is this end -->
+        <div id="header"> 
+            <a href="index.html"><img id="logo" src="styles/images/logo.png" alt="explore.travellr"  /></a>
 
-        </div><!-- Wrapper End -->
+            <div id="searchBar">
+                <form action="results.html">
+                    <input type="text" id="searchField" value="Climbing in Japan!!" />
+                    <input type="submit" name="explore!" value="submit" id="explore" />
+                </form>
+            </div>
+
+            <div id="feedToggleWrapper">
+                <div id="feedToggle"></div>
+            </div>
+                
+        </div>
+
+        <!--<p id="msg">&nbsp;</p>-->
+        <div id="progressBar" style=""></div>
+        
+        <div id="scrapbook-button"></div>
+
+        <div id="container" class="container"></div>
+        <div id="scrapbook" class="container"></div>
 
         <!-- Footer start -->
         <div id="footer" class="footer" name="footer">
@@ -119,8 +108,8 @@
                     </p>
                 </div>
                 <div id="infoCorner"></div>
-            </div>
 
+            </div>
             <ul class="footLinks">
                 <li><a href="#footer" class="info" id="about">about</a></li>
                 <li>|</li>
@@ -130,7 +119,9 @@
                 <li>|</li>
                 <li><a href="#footer" class="info" id="contact">contact</a></li>
             </ul>
-        </div><!-- Footer End -->
+        </div>
+        <!-- Footer End -->
+
         <!-- Google Tracking Code -->
         <script type="text/javascript">
 
@@ -148,7 +139,6 @@
             })();
 
         </script>
+
     </body>
 </html>
-<!-- vim: expandtab :
--->

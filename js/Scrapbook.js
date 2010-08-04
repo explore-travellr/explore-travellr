@@ -1,12 +1,20 @@
 var Scrapbook = new Class({
 
-    Implements: [Events],
+    Implements: [Events, Options],
 
     root: null,
 
     container: null,
 
-    initialize: function() {
+    visible: false,
+
+    options: {
+        button: null
+    },
+
+    initialize: function(options) {
+        this.setOptions(options);
+
         var name = 'Scrapbook';
         var persistant = new Persist.Store(name);
 
@@ -32,19 +40,39 @@ var Scrapbook = new Class({
 
         this.container = new Container('scrapbook');
         this.container.hide();
+
+        this.getButton().addEvent('click', (function() {
+            if (this.isVisible()) {
+                this.hide();
+            } else {
+                this.show();
+            }
+        }).bind(this));
     },
 
     addItem: function() {
         this.root.addItem.apply(this.root, arguments);
     },
 
+    getButton: function() {
+       return this.options.button;
+    },
+
+    isVisible: function() {
+        return this.visible;
+    },
+
     show: function() {
         this.container.show();
         this.root.view(this.container);
+        this.visible = true;
+        this.fireEvent('shown');
     },
 
     hide: function() {
         this.container.hide();
+        this.visible = false;
+        this.fireEvent('hidden');
     }
 
 });
@@ -88,6 +116,7 @@ Scrapbook.Folder = new Class({
 
     view: function(container) {
         this.container = container;
+        this.container.removeAllDisplayBoxes();
         this.getItems().each(function(item) {
             container.addDisplayBox(item.toDisplayBox());
         });

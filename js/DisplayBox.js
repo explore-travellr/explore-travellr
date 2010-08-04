@@ -39,9 +39,25 @@ var DisplayBox = new Class({
         if (!this.preview) {
 
             var preview = this.feedItem.getPreview().addClass('inner');
-            var wrapper = new Element('div').grab(preview);
+            var wrapper = new Element('div').adopt([preview]);
             var size = this.feedItem.getSize();
-            
+            preview.setStyles({position: 'relative'});
+
+            if (this.getFeedItem().canScrapbook() && this.scrapbook) {
+                var handle = new Element('div', {'class': 'handle'});
+                wrapper.grab(handle);
+
+                new Drag.Move(wrapper, {
+                    droppables: this.scrapbook.getButton(),
+                    handle: handle,
+                    onDrop: (function(draggable, droppable) {
+                        if(droppable) {
+                            this.scrapbook.addItem(this.getFeedItem());
+                        }
+                    }).bindWithEvent(this)
+                });
+            }
+
             wrapper.setStyles({
             	width: size.x * 100
             });
