@@ -17,6 +17,7 @@ body {
     width: 90%;
     margin: 0 auto;
     position: relative;
+    background-color: #dddddd;
 }
 #header {
     width: 960px;
@@ -189,6 +190,18 @@ body {
     max-width: 400px;
     background: url("images/icon_travellr.jpg") no-repeat 5px 3px;
 
+}
+.modal .travellr .answer {
+    border-top: 1px solid #ddd;
+}
+.modal .travellr .answer .asside {
+    float: left;
+    color: #ccc;
+    margin-right: 0.1em;
+    margin-bottom: 0.2em;
+    margin-top: 0.5em;
+    font-weight: bold;
+    font-size: 2em;
 }
 
 .modal h2 {
