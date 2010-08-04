@@ -100,14 +100,21 @@ var DisplayBox = new Class({
         var contentWrapper = new Element('div', {'class': 'content'});
 
         var iconBar = new Element('div', {'class': 'icons'});
-        var scrapbookAdd = new Element('div', {'class': 'scrapbook-add scrapbook-icon', text: 'Add to scrapbook', title: 'Add to scrapbook'});
 
         // Hide the containers
         modalMask.fade('hide');
         modal.fade('hide');
 
         // Put all the element in their correct containers
-        iconBar.adopt(scrapbookAdd);
+        if (this.getFeedItem().canScrapbook() && this.scrapbook) {
+            var scrapbookAdd = new Element('div', {'class': 'scrapbook-add scrapbook-icon icon', text: 'Add to scrapbook', title: 'Add to scrapbook'});
+
+            scrapbookAdd.addEvent('click', (function() {
+                this.scrapbook.addItem(this.getFeedItem());
+            }).bind(this));
+
+            iconBar.adopt(scrapbookAdd);
+        }
 
         contentWrapper.grab(content);
 
@@ -141,10 +148,6 @@ var DisplayBox = new Class({
             modalMask.destroy();
             modalClose.destroy();
         });
-
-        scrapbookAdd.addEvent('click', (function() {
-            this.scrapbook.addItem(this.getFeedItem());
-        }).bind(this));
 
         // Tell listeners that this box was just displayed
 		this.fireEvent('display');

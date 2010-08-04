@@ -10,29 +10,41 @@ var Scrapbook = new Class({
         var name = 'Scrapbook';
         var persistant = new Persist.Store(name);
 
-        persistant.get(name, function(data) {
-            if (data == null || data == "") {
-                console.log("No old state, making new scrapbook");
+        persistant.get(name, (function(ok, data) {
+            if (ok && data != null) {
+                // Unserializing the data may fail
+                try {
+                    this.root = Serializable.unserialize(JSON.decode(data), [null, this]);
+                } catch (err) {
+                    this.root = null;
+                }
+            }
+            if (this.root == null) {
                 this.root = new Scrapbook.Folder("Root", null, this);
-            } else {
-                console.log("Loading old state");
-                this.root = Scrapbook.Folder.unserialize(JSON.decode(data));
             }
 
             this.root.addEvent('dirty', function() {
-                var serialized = this.serialize();
-                var serializedJSON = JSON.encode(serialized);
-                console.log("Saving: ", serializedJSON)
-                persistant.set(name, serialized);
+                var serialized = Serializable.serialize(this);
+                persistant.set(name, JSON.encode(serialized));
             });
 
-        });
+        }).bind(this));
 
         this.container = new Container('scrapbook');
+        this.container.hide();
     },
 
     addItem: function() {
         this.root.addItem.apply(this.root, arguments);
+    },
+
+    show: function() {
+        this.container.show();
+        this.root.view(this.container);
+    },
+
+    hide: function() {
+        this.container.hide();
     }
 
 });
@@ -40,16 +52,11 @@ var Scrapbook = new Class({
 Scrapbook.Folder = new Class({
 
     Implements: [Events, Options],
+    Serializable: 'Scrapbook.Folder',
 
     parent: null,
     name: null,
     items: [],
-
-    /**
-     * Variable: container
-     * A <Container> that is used to display the contents of this folder
-     */
-    container: null,
 
     /**
      * Variable: serialized
@@ -76,6 +83,18 @@ Scrapbook.Folder = new Class({
         this.name = name;
         this.parent = parent;
         this.scrapbook = scrapbook;
+        this.displayBox = new Scrapbook.Folder.DisplayBox(this);
+    },
+
+    view: function(container) {
+        this.container = container;
+        this.getItems().each(function(item) {
+            container.addDisplayBox(item.toDisplayBox());
+        });
+    }, 
+
+    toDisplayBox: function() {
+        return this.displayBox;
     },
 
     /**
@@ -96,7 +115,6 @@ Scrapbook.Folder = new Class({
         }).bind(this));
 
         // Add the item
-        console.log(item);
         this.items.push(item);
         this.setDirty(true);
     },
@@ -139,8 +157,7 @@ Scrapbook.Folder = new Class({
             var items = [];
 
             this.items.each(function(item) {
-                console.log(item);
-                items.push(item.serialize());
+                items.push(Serializable.serialize(item));
             });
 
             this.serialized = {
@@ -153,4 +170,50 @@ Scrapbook.Folder = new Class({
         return this.serialized;
     }
 
+});
+/**
+ * Unserialize a <Scrapbook.Folder> from an object.
+ *
+ * Paramaters:
+ *      data - The <Folders> data.
+ *      parent - The <Folders> parent. Either another <Folder> or null.
+ *      scrapbook - The <Scrapbook> managing this <Folder>.
+ *
+ * Returns:
+ *      A <Scrapbook.Folder>, identical to the one that was serialized initially.
+ */
+Scrapbook.Folder.unserialize = function(data, parent, scrapbook) {
+    var folder = new Scrapbook.Folder(data.name, parent, scrapbook);
+    data.items.each(function(item) {
+        folder.addItem(Serializable.unserialize(item));
+    });
+    return folder;
+};
+
+Scrapbook.Folder.DisplayBox = new Class({
+    folder: null,
+    preview: null,
+    initialize: function(folder) {
+        this.folder = folder;
+    },
+
+    getPreview: function() {
+        if (!this.preview) {
+
+            var wrapper = new Element('div', {
+                text: this.folder.getName(),
+                styles: {
+                    width: 50
+                },
+                'class': 'displayBox folder'
+            });
+
+            wrapper.addEvent('click', (function() {
+                this.fireEvent('click');
+            }).bind(this));
+
+            this.preview = wrapper;
+        }
+        return this.preview;
+    }
 });

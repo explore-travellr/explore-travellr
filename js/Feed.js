@@ -144,7 +144,7 @@ var Feed = new Class({
      */
     feedReady: function() {
         this.getFeedItems().each(function(feedItem) {
-            var displayBox = new DisplayBox(feedItem, this.scrapbook);
+            var displayBox = feedItem.toDisplayBox(feedItem.canScrapbook() ? this.scrapbook : null);
             if (this.isVisible()) {
                 this.container.addDisplayBox(displayBox);
             }

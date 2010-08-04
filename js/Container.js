@@ -154,6 +154,13 @@ var Container = new Class({
         return this.container;
     },
 
+    show: function() {
+        this.getElement().setStyle('display', null);
+    },
+    hide: function() {
+        this.getElement().setStyle('display', 'none');
+    }
+
 });
 
 var FeedToggle = new Class({

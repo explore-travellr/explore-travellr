@@ -107,6 +107,22 @@ window.addEvent('domready', function() {
         feedToggle.addFeed(feed);
     });
 
+    (function() {
+        var shown = false;
+        $('scrapbookToggle').addEvent('click', function() {
+            if (shown) {
+                console.log("Hiding scrapbook");
+                scrapbook.hide();
+                container.show();
+            } else {
+                console.log("Showing scrapbook");
+                scrapbook.show();
+                container.hide();
+            }
+            shown = !shown;
+        });
+    })();
+
     // Grab the search string from the #fragment or ?search= get paramater
     var uri = new URI(location);
     var searchString = (uri.get('fragment') || uri.getData('search'));

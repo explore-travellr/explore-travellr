@@ -13,7 +13,7 @@ body {
     background-color: #d9d9d9;
     background-repeat: repeat-x;
 }
-#container {
+.container {
     width: 90%;
     margin: 0 auto;
     position: relative;
@@ -149,17 +149,35 @@ body {
     z-index:1000;
     -moz-border-radius:10px; -webkit-border-radius:10px;
     -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
-    max-width: 80%;
-    max-height: 90%;
+    max-width: 600px;
+    max-height: 500px;
     font-family:Arial,Helvetica,Verdana,sans-serif;
     padding: 15px;
 }
+.modal .icons {
+    background-color: #eeeeee;
+    border: 1px solid #dddddd;
+    line-height: 16px;
+    font-size: 16px;
+}
+.icons .icon {
+    display: inline-block;
+    width: 16px;
+    heigth: 16px;
+    line-height: 16px;
+    overflow: hidden;
+    text-indent: -999999px;
+    vertical-align: middle;
+}
+.icons .scrapbook-icon {
+    background-image: url('http://upload.wikimedia.org/wikipedia/commons/a/a1/Heart_add.png');
+}
 
 .modal .content {
-    max-height: 800px;
-    max-width: 800px;
+    max-width: 600px;
+    max-height: 450px;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     word-wrap: break-word;
 }
 
