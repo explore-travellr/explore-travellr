@@ -30,7 +30,19 @@ var MapFeedItem = new Class({
      * Builds a feed item preview to go in the displayBox within the container
      */
     makePreview: function() {
-        return new Element('div', {text: 'View google maps'});
+		var mapElement = new Element('div', {styles:{height: 400}});
+		
+		var myOptions = {
+			zoom: 8,
+			center: this.latLng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+		
+		var map = new google.maps.Map(mapElement, myOptions);
+		
+        return new Element('div', {
+            'class': 'Map'
+        }).adopt([mapElement]);
     },
 
     /**
@@ -47,9 +59,29 @@ var MapFeedItem = new Class({
 		};
 		
 		var map = new google.maps.Map(mapElement, myOptions);
+		var address = new Element('p');
 		
+		//Trying to obtain coodinates from a click
+		google.maps.event.addListener(map, 'click', function(event) {
+			console.log(event);
+			var clicked_lat = event.latLng.lat();
+			var clicked_lng = event.latLng.lng();
+			new Request.JSONP({
+				url: 'http://maps.google.com/maps/api/geocode/jsonp',
+					data: {
+					latlng: clicked_lat + "," + clicked_lng,
+					sensor: false
+				},
+				
+				onSuccess: 	function(){
+					address.set('text', this.results.formatted_address);
+				}
+			}).send();
+			
+		}); // end click function
+
         return new Element('div', {
             'class': 'Map'
-        }).adopt([mapElement]);
+        }).adopt([mapElement, address]);
     }
 });
