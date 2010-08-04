@@ -1,6 +1,9 @@
 /*
-Script: GeckoReviewFeed.js
-   GeckoReviewFeed - MooTools based World Nomads feed generator
+Class: gecko.GeckoReviewFeed
+   Grabs reviews from Gecko via Yahoo Pipes
+
+Extends:
+   <Feed>
 
 License:
    MIT-style license.
@@ -9,27 +12,31 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - GeckoReviewFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <gecko.GeckoReviewFeedItem>
 */
 
 var GeckoReviewFeed = new Class({
 
     Extends: Feed,
 
+	/**
+	 * Variable: name
+	 * The name of thie <Feed>, used in the GUI
+	 */
     name: 'GeckoReview',
 
 
     /**
+	 * Function: search
      * Search the feed for items relating to the latitude and longtitude of the search terms. This particular
      * search is actually done to yahoo pipes in which the pipe handles the request
      * and converts a XML feed from Gecko into a JSON object. It then
      * calls makeFeedItems on success.
      *
-     * @param searchFilter The search filter to filter results with
+	 * Paramaters:
+     *     searchFilter - The search filter to filter results with
      */
     search: function(searchFilter) {
         this.empty();
@@ -54,11 +61,11 @@ var GeckoReviewFeed = new Class({
     },
 
     /**
-     * Makes the individual Gecko feed items by sending the each review
-     * post object of the response object to the GeckoReviewFeedItem class and then
-     * pushing each of them onto a feedItems array
-     *
-     * @param response object returned by the yahoo pipes call (parsing Gecko feeds)
+	 * Function: makeFeedItems
+     * Makes individual <GeckoReviewFeedItems> from the contents of the API call to Gecko
+	 *
+	 * Paramaters
+     *     response - API response from Gecko
      */
     makeFeedItems: function(results) {
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {

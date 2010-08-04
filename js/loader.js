@@ -1,13 +1,25 @@
+/*
+Title: loader.js
+Loads the Explore.travellr application and some Native type extentions
+*/
+/*
+ * Class: MooTools::String
+ * Extensions of the MooTools String class
+ *
+ * See Also:
+ *     - <JS::String>
+ *     - <MooTools>
+ *     - <http://mootools.net/docs/core/Native/String/>
+ */
 String.implement({
+
     /**
-     * Converts newline characters in the string to <br />
-     *
+     * Function: newlineToBr
      * Converts all new line characters (\r or \n) to a <br /> Element. It then
-     * converts
+     * converts all remaining chunks of text in to HTML text nodes
      *
-     * @return The string, converted into an array of HTML text nodes seperated
-     *         by <br /> Elements
-     * @type Array
+     * Returns:
+     *     The string, converted into an array of HTML text nodes seperated by <br /> <MooTools::Elements>
      */
     newlineToBr: function() {
         var bits = this.split(/(?:\r|\n|\r\n)/);
@@ -24,16 +36,14 @@ String.implement({
     },
     
     /**
-     * Converts links, #hashtags and @usernames to <a> Elements linked to their
-     * twitter URLs.
-     *
-     * Converts links, #hashtags and @usernames to <a> Elements linked to their
-     * twitter URLs.
-     * Modified from {@link davidwalsh.name}
+     * Function: tweetify
+     * Converts links, #hashtags and @usernames to <a> Elements linked to their twitter URL.
+     * Modified from <http://davidwalsh.name>
      * 
      * TODO: Make this return HTML objects, instead of a string
      *
-     * @return An array of HTML objects based upon the string.
+     * Returns:
+     *     A the string with URLs, #hashtags and @usernames replaced by anchors
      */
     tweetify: function () {
         // modified from TwitterGitter by David Walsh (davidwalsh.name)
@@ -45,17 +55,17 @@ String.implement({
     },
     
     /**
-     * Truncates the string to a maximum length
-     *
-     * Truncates the string to the specified maximum length. The terminator is
-     * appended to the end if the string is truncated. The terminator defautls
+     * Function: truncateText
+     * Truncates the <String> to the specified maximum length. The terminator is
+     * appended to the end if the <String> is truncated. The terminator defautls
      * to ellipsis (...)
      *
-     * @param upperBound {Number} The maximum length of the string
-     * @param terminator {String} The terminator to use if the string is
-     *         truncated. Defaults to (...).
-     * @return The truncated string
-     * @type String
+     * Paramaters:
+     *     upperBound - The maximum length of the <String>
+     *     terminator - The terminator <String> to use if this <String> is truncated. Defaults to (...).
+     *
+     * Returns:
+     *     A new truncated <String>
      */
     truncateText: function(upperBound, terminator){
         terminator = $pick(terminator, '...');
@@ -63,32 +73,47 @@ String.implement({
             return this.substring(0, upperBound - terminator.length) + terminator;
         }
         else{
-            return this;
+            return this.substring(0, this.length);
         }
     }
+
 });
 
+/*
+ * Class: MooTools::Array
+ * Extensions of the MooTools Array class
+ *
+ * See Also:
+ *     - <JS::Array>
+ *     - <MooTools>
+ *     - <http://mootools.net/docs/core/Native/Array>
+ */
 Array.implement({
+
     /**
+     * Function: getRandomKey
      * Returns a random key from the array.
      *
-     * @return A random key.
-     * @type Number
+     * Returns:
+     *     A random key.
      */
     getRandomKey: function() {
         return $random(0, this.length - 1);
     },
     
     /**
+     * Function: removeRandom
      * Removes and returns a random value from the array
      *
-     * @return The removed item
+     * Returns:
+     *     The removed item
      */
     removeRandom: function() {
         var index = this.getRandomKey();
         splice = this.splice(index, 1);
         return splice[0];
     }
+
 });
 
 

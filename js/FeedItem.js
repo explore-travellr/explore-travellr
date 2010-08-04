@@ -1,5 +1,5 @@
 /*
-Script: FeedItem.js
+Class: FeedItem
    FeedItem - MooTools based generic feed item handler
 
 License:
@@ -22,22 +22,66 @@ var FeedItem = new Class({
 
     Implements: [Options, Events],
     
+    // TODO Check if useless
     type: null,
+
+    /**
+     * Variable: displayBox
+     * The <DisplayBox> that displays this <FeedItem>
+     *
+     * See Also:
+     *     - <setDisplayBox>
+     *     - <getDisplayBox>
+     */
     content: null,
+
+    /**
+     * Variable: content
+     * A <MooTools::Element> containing the large content view of this <FeedItem>
+     *
+     * See Also:
+     *     - <getContent>
+     *     - <makeContent>
+     */
+    content: null,
+
+    /**
+     * Variable: preview
+     * A <MooTools::Element> containing the small preview content of this <FeedItem>
+     *
+     * See Also:
+     *     - <getPreview>
+     *     - <makePreview>
+     */
     preview: null,
+
+    /**
+     * Variable: size
+     * A <JS::Object> containing the width (x) of the FeedItem preview
+     *
+     * See Also:
+     *     - <getSize>
+     */
     size: null,
 
+    /**
+     * Constructor: intialize
+     * Abstract constructor. Subclasses should implement this
+     */
     initialize: function() { },
 
     /**
-     * Get the content of the FeedItem.
-     *
-     * Get the content of the FeedItem. The content returned is cached. Only
+     * Function: getContent
+     * Get the content of the <FeedItem>. The content returned is cached. Only
      * one copy of the content is ever returned. Subsequent calls to this method
-     * will return the same Element
+     * will return the same <MooTools::Element>.
      *
-     * @return The content
-     * @type Element
+     * Returns:
+     *     The <MooTools::Element> containing the content of this <FeedItem>
+     *
+     * See Also:
+     *     - <content>
+     *     - <makeContent>
      */
     getContent: function() {
         if (!this.content) {
@@ -47,14 +91,23 @@ var FeedItem = new Class({
     },
 
     /**
-     * Get the preview of the FeedItem.
-     *
-     * Get the preview of the FeedItem. The preview returned is cached. Only
+     * Function: makeContent
+     * Creates a <MooTools::Element> with the contents of this FeedItem
+     */
+     makeContent: function() { },
+
+    /**
+     * Function: getPreview
+     * Get the preview of the <FeedItem>. The preview returned is cached. Only
      * one copy of the preview is ever returned. Subsequent calls to this method
-     * will return the same Element
+     * will return the same <MooTools::Element>
      *
-     * @return The preview
-     * @type Element
+     * Returns:
+     *     The <MooTools::Element> containing the preview of this <FeedItem>
+     *
+     * See Also:
+     *     - <preview>
+     *     - <makePreview>
      */
     getPreview:function() {
         if (!this.preview) {
@@ -64,29 +117,47 @@ var FeedItem = new Class({
     },
 
     /**
+     * Function: makePreview
+     * Creates a <MooTools::Element> with a preview of this FeedItem
+     */
+     makePreview: function() { },
+
+    /**
+     * Function: getSize
      * Get the size of the preview
      *
-     * @return An object containing an x and y paramater of the size
-     * @type Object
+     * Returns:
+     *     An object containing an x and y paramater of the size
      */
     getSize: function() {
         return this.size;
     },
     
     /**
-     * Sets the DisplayBox that manages this FeedItem
+     * Function: setDisplayBox
+     * Sets the <DisplayBox> that manages this <FeedItem>
      *
-     * @param displayBox {DisplayBox} The DisplayBox that will manage this FeedItem
+     * Paramaters:
+     *     displayBox - The <DisplayBox> that will manage this <FeedItem>
+     *
+     * See Also:
+     *     - <getDisplayBox>
+     *     - <displayBox>
      */
     setDisplayBox: function(displayBox) {
         this.displayBox = displayBox;
     },
 
     /**
-     * Returns the DisplayBox that manages this FeedItem
+     * Function: getDisplayBox
+     * Returns the <DisplayBox> that manages this <FeedItem>
      *
-     * @return The DisplayBox that will manage this FeedItem
-     * @type DisplayBox
+     * Returns:
+     *     The <DisplayBox> that will manage this <FeedItem>
+     *
+     * See Also:
+     *     - <setDisplayBox>
+     *     - <displayBox>
      */
     getDisplayBox: function() {
         return this.displayBox;

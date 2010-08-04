@@ -1,6 +1,6 @@
 /*
-Script: WorldNomadsFeed.js
-   WorldNomadsFeed - MooTools based World Nomads feed generator
+Class: world-nomads.WorldNomadsFeed
+Retrieves World Nomads blog posts from the World Nomads Yahoo Pipe
 
 License:
    MIT-style license.
@@ -25,12 +25,14 @@ var WorldNomadsFeed = new Class({
     TYPE: 'recent',
 
     /**
+     * Function: search
      * Search the feed for items relating to the search terms. This particular
      * search is actually done to yahoo pipes in which the pipe handles the request
      * and converts a RSS feed from World Nomads into a JSON object. It then
      * calls makeFeedItems on success.
      *
-     * @param searchFilter The search filter to filter results with
+     * Paramaters:
+     *     searchFilter - The search filter to filter results with
      */
     search: function(searchFilter) {
         this.empty();
@@ -55,11 +57,12 @@ var WorldNomadsFeed = new Class({
     },
 
     /**
-     * Makes the individual world nomads feed items by sending the each journal
-     * post object of the response object to the WorldNomadsFeedItem class and then
-     * pushing each of them onto a feedItems array
+     * Function: makeFeedItems
+     * Makes the individual <WorldNomadsFeedItems> from the search results.
+     * <feedReady> is called when everything is created, to populate the <Container>
      *
-     * @param response object returned by the yahoo pipes call (parsing world nomads feeds)
+     * Paramaters:
+     *     response - object returned by the yahoo pipes call (parsing world nomads feeds)
      */
     makeFeedItems: function(results) {
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {
@@ -70,7 +73,11 @@ var WorldNomadsFeed = new Class({
         }
     },
 
-    //Static country index
+    /**
+     * Variable: countries
+     * An array of country IDs. Searches need to be made using the country ID,
+     * not the name, so this array can map between the two.
+     */
     countries: $H({
         'argentina': 11,
         'australia': 14,
