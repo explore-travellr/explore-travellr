@@ -15,7 +15,7 @@ Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
    - <Feed>
-   - <TwitterFeedItem>
+   - <twitter.TwitterFeedItem>
 */
 
 var TwitterFeed = new Class({
@@ -24,7 +24,7 @@ var TwitterFeed = new Class({
 
     /**
      * Variable: itemsCalled
-     * The number of tweets to display
+     * The random number of tweets to display
      */
     itemsCalled: null,
 
@@ -77,16 +77,13 @@ var TwitterFeed = new Class({
      *     response - object returned by the twitter call
      */
     makeFeedItems: function(response) {
-
         this.response = response;
-
         if($chk(this.response)) {
             response.results.each(function(data) {
                 var feedItem = new TwitterFeedItem(data);
                 this.feedItems.push(feedItem);
             }, this);
-        }
-        
+        }       
         this.feedReady();
     }
 });

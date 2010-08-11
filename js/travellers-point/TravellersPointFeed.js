@@ -1,19 +1,21 @@
 /*
-Script: TravellersPointFeed.js
-   TravellersPointFeed - MooTools based World Nomads feed generator
+Class: travellers-point.TravellersPointFeed
+    Gets a stream of google maps by location
+
+Extends:
+    <Feed>
 
 License:
-   MIT-style license.
+    MIT-style license.
 
 Copyright:
-   Copyright (c) 2010 explore.travellr.com
+    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - TravellersPointFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <MooTools::more> Request.JSONP
+   - <travellers-point.TravellersPointFeedItem>
 */
 
 var TravellersPointFeed = new Class({
@@ -21,7 +23,6 @@ var TravellersPointFeed = new Class({
     Extends: Feed,
 
     name: 'TravellersPoint',
-
 
     /**
      * Search the feed for items relating to the search terms. This particular
@@ -63,6 +64,5 @@ var TravellersPointFeed = new Class({
             }, this);
             this.feedReady();
         }
-    },
-
+    }
  });

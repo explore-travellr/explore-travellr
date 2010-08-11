@@ -110,6 +110,7 @@ body {
 
 .displayBox .geckoReview { border-color : #6AE851; }
 .displayBox .geckoTips{ border-color : #009900; }
+.displayBox .lonelyPlanet { border-color : #660066; }
 
 .displayBox .flickr img {
     vertical-align: middle;

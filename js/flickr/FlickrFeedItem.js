@@ -1,9 +1,9 @@
 /*
 Class: flickr.FlickrFeedItem
-Displays Flickr photos retrieved by a <FlickrFeed>
+   Displays Flickr photos retrieved by a <FlickrFeed>
 
 Extends:
-    <FeedItem>
+   <FeedItem>
 
 License:
    MIT-style license.
@@ -15,7 +15,6 @@ Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
    - <MooTools::more> Utilities/Assets
-   - <FeedItem>
    - <flickr.FlickrFeed>
 */
 
@@ -48,7 +47,6 @@ var FlickrFeedItem = new Class({
      * thumbnail and pic content
      *
      * Paramaters:
-     *
      *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject, options) {
@@ -62,6 +60,7 @@ var FlickrFeedItem = new Class({
 
         new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent], {onComplete: this.fireEvent.bind(this, 'ready')});
 
+        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent]);
         this.size = {
             x: 2
         };
@@ -104,10 +103,16 @@ var FlickrFeedItem = new Class({
         ]);
     },
 
+    /**
+     * Function: serialize
+     * Returns the photo data, ready for serialization
+     *
+     * Returns:
+     *     The photo data
+     */
     serialize: function() {
         return this.photo;
     }
-
 });
 FlickrFeedItem.unserialize = function(data) {
     return new FlickrFeedItem(data);
