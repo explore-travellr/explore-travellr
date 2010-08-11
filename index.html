@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!doctype html>
+<html lang="en">
     <head>
         <link rel="icon" type="image/png" href="favicon.png" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8">
         <title>explore.travellr</title>
 
         <!-- Load the mootools library -->
@@ -45,82 +45,60 @@
         <script type="text/javascript" src="js/loader.js"></script>
         <script type="text/javascript" src="js/moogressBar.js"></script>
 
-        <!-- Global Stylesheet -->
-        <link rel="stylesheet" type="text/css" href="styles/global.css"  />
-
-        <!-- Default Stylesheet -->
-        <link rel="stylesheet" type="text/css" href="styles/results.css"  />
+        <!-- CSS : implied media="all"-->
+        <link rel="stylesheet" href="styles/reset.css">
+        <link rel="stylesheet" href="styles/styles.css">
 
     </head>
     <body>
 
-        <div id="header"> 
-            <a href="index.html"><img id="logo" src="styles/images/logo.png" alt="explore.travellr"  /></a>
-
-            <div id="searchBar">
-                <form action="results.html">
-                    <input type="text" id="searchField" value="Climbing in Japan!!" />
-                    <input type="submit" name="explore!" value="submit" id="explore" />
-                </form>
+        <div id="toolbar_wrapper">
+            <h1 id="logo" class="left">
+                explore.travellr
+            </h1>
+            <div id="searchbar_wrapper" class="left">
+                <div id="searchBar">
+                    <form id="searchForm" action="">
+                        <input type="text" id="searchField" name="search" placeholder="Climbing in Japan" />
+                        <input type="submit" name="explore!" value="" id="search_button" class="right" />
+                    </form>
+                </div>
+            </div>
+            <div id="feed_button" class="left toolbar_button">
+                <a href="#">Filter Content</a>
+                <div id="feed_dropdown" class="dropdown">
+                    <div id="feedToggle"></div>
+                </div>
+            </div>
+            <!--right side of tool bar-->
+            <div id="info_button" class="left toolbar_button">
+                <a href="">About</a>
+                <div id="info_dropdown" class="dropdown">
+                    <ul>
+                        <li>About Us</li>
+                        <li>Partners</li>
+                        <li>Terms and Conditions</li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="favourites_button" class="right fav_button">
+                <a href="">Scrapbook</a>
             </div>
 
-            <div id="feedToggleWrapper">
-                <div id="feedToggle"></div>
-            </div>
-                
         </div>
-
+        <div id="favourties_wrapper">
+            <div id="favourites_dropdown" ></div>
+        </div>
         <!--<p id="msg">&nbsp;</p>-->
-        <div id="progressBar" style=""></div>
-        
         <div id="scrapbook-button"></div>
 
-        <div id="scrapbook" class="container"></div>
-        <div id="container" class="container"></div>
-
-        <!-- Footer start -->
-        <div id="footer" class="footer" name="footer">
-            <div class="infoBubble">
-                <div id="infoClose"></div>
-                <div id="infoAbout" class="infoDesc">
-                    <h3>About Us</h3>
-                    <p>
-                        explore.travellr has been created by: Nathaniel Burgess, Jacob Bresnehan, John Cobb, Timothy Heap, Jake Kobes, Matthew Platts, Robert Tilt and Clare Vivarelli.
-                    </p>
-                </div>
-                <div id="infoPartners" class="infoDesc">
-                    <h3>Partners</h3>
-                    <p>
-                        This project was created for <a href="http://www.travellr.com">Travellr</a>. Travellr is part of the
-                        <a href="http://www.worldnomads.com.au/">World Nomads Group</a>.
-                    </p>
-                </div>
-                <div id="infoTerms" class="infoDesc">
-                    <h3>Terms &amp; Conditions</h3>
-                    <p>
-                        By accessing the Service, You agree to be bound by the terms and conditions available <a href="http://travellr.com/terms_of_use">here</a>.
-                    </p>
-                </div>
-                <div id="infoContact" class="infoDesc">
-                    <h3>Contact Us</h3>
-                    <p>
-                        For more information contact npb@utas.edu.au
-                    </p>
-                </div>
-                <div id="infoCorner"></div>
-
+        <div id="container" class="container">
+            <div id="slogan">
+                <p>View a sample search <a href="#">Skiing in Japan</a> or <a href="#">learn more</a></p>
             </div>
-            <ul class="footLinks">
-                <li><a href="#footer" class="info" id="about">about</a></li>
-                <li>|</li>
-                <li><a href="#footer" class="info" id="partners">partners</a></li>
-                <li>|</li>
-                <li><a href="#footer" class="info" id="terms">terms &amp; conditions</a></li>
-                <li>|</li>
-                <li><a href="#footer" class="info" id="contact">contact</a></li>
-            </ul>
         </div>
-        <!-- Footer End -->
+        <div id="scrapbook" class="container"></div>
 
         <!-- Google Tracking Code -->
         <script type="text/javascript">
@@ -131,14 +109,12 @@
 
             (function() {
                 var ga = document.createElement('script'); ga.type =
-                    'text/javascript'; ga.async = true;
+                'text/javascript'; ga.async = true;
                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
-                    'http://www') + '.google-analytics.com/ga.js';
+                'http://www') + '.google-analytics.com/ga.js';
                 var s = document.getElementsByTagName('script')[0];
                 s.parentNode.insertBefore(ga, s);
             })();
-
         </script>
-
     </body>
 </html>
