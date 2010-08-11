@@ -24,7 +24,7 @@ var Container = new Class({
 
     displayBoxQueue: [],
     queueTimer: null,
-    queueDelay: 500,
+    queueDelay: 5,
 
     /**
      * Creates a new Container class.
@@ -96,6 +96,7 @@ var Container = new Class({
         preview.fade('in');
         this.container.grab(preview);
         this.container.masonry({appendContent: [preview]});
+		displayBox.fireEvent('preview');
 
         displayBox.setContainer(this);
         this.displayBoxes.push(displayBox);

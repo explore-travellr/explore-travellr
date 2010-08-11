@@ -34,22 +34,24 @@ var GeckoTipsFeed = new Class({
     search: function(searchFilter) {
         this.parent();
 
-        var lat = searchFilter.location.lat;
-        var lng = searchFilter.location.lng;
-     
-        new Request.JSONP({
-            url: 'http://pipes.yahoo.com/pipes/pipe.run',
-            data: {
-                _id: '0f5f327e38d7d95de1d741c1bc41544a',
-                _render: 'json',
-                lat: lat,
-                lng: lng,
-				type: 'Tips'
-               
-            },
-            callbackKey: '_callback',
-            onSuccess: this.makeFeedItems.bind(this)
-        }).send();
+		if(searchFilter.location != null){
+			var lat = searchFilter.location.lat;
+			var lng = searchFilter.location.lng;
+			
+			new Request.JSONP({
+				url: 'http://pipes.yahoo.com/pipes/pipe.run',
+				data: {
+					_id: '0f5f327e38d7d95de1d741c1bc41544a',
+					_render: 'json',
+					lat: lat,
+					lng: lng,
+					type: 'Tips'
+				   
+				},
+				callbackKey: '_callback',
+				onSuccess: this.makeFeedItems.bind(this)
+			}).send();
+		}
     },
 
     /**
