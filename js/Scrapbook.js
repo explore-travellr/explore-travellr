@@ -2,7 +2,7 @@ var Scrapbook = new Class({
 
     Implements: [Events, Options],
 
-    root: null,
+    folders: [],
 
     container: null,
 
@@ -12,34 +12,35 @@ var Scrapbook = new Class({
         button: null
     },
 
+    persistant: null,
+
     initialize: function(options) {
         this.setOptions(options);
 
         var name = 'Scrapbook';
-        var persistant = new Persist.Store(name);
 
-        persistant.get(name, (function(ok, data) {
+        this.persistant = new Persist.Store(name);
+        this.persistant.get(name, (function(ok, data) {
             if (ok && data != null) {
                 // Unserializing the data may fail
                 try {
-                    this.root = Serializable.unserialize(JSON.decode(data), [null, this]);
+                    var folders = Serializable.unserialize(JSON.decode(data), [null, this]);
+                    folders.each(function(folder) {
+                        this.addFolder(folder);
+                    }, this);
                 } catch (err) {
-                    this.root = null;
+                    this.folders = null;
                 }
             }
-            if (this.root == null) {
-                this.root = new Scrapbook.Folder("Root", null, this);
+
+            // If nothing was loaded, make a default thing
+            if (this.folders == null || this.folders.length == 0) {
+                this.folders = [];
+                this.addFolder(new Scrapbook.Folder("Favorites", null, this));
             }
-
-            this.root.addEvent('dirty', function() {
-                var serialized = Serializable.serialize(this);
-                persistant.set(name, JSON.encode(serialized));
-            });
-
         }).bind(this));
 
         this.container = new Container('scrapbook');
-        this.container.hide();
 
         this.getButton().addEvent('click', (function() {
             if (this.isVisible()) {
@@ -51,11 +52,39 @@ var Scrapbook = new Class({
     },
 
     addItem: function() {
-        this.root.addItem.apply(this.root, arguments);
+        var folder = this.folders[0];
+        folder.addItem.apply(folder, arguments);
+    },
+
+    removeItem: function(item) {
+        this.folders.each(function(folder) {
+            folder.remove(item);
+        });
+    },
+
+    addFolder: function(folder) {
+        this.folders.push(folder);
+        //this.save();
+
+        folder.addEvent('dirty', (function() {
+            this.save();
+        }).bind(this));
+    },
+
+    removeFolder: function(folder) {
+        this.folders.erase(folder);
     },
 
     getButton: function() {
        return this.options.button;
+    },
+
+    save: function() {
+        var serialized = [];
+        this.folders.each(function(folder) {
+            serialized.push(Serializable.serialize(folder));
+        });
+        this.persistant.set(name, JSON.encode(serialized));
     },
 
     isVisible: function() {
@@ -64,7 +93,7 @@ var Scrapbook = new Class({
 
     show: function() {
         this.container.show();
-        this.root.view(this.container);
+        this.folders[0].view(this.container);
         this.visible = true;
         this.fireEvent('shown');
     },

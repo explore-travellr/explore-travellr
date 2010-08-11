@@ -25,7 +25,12 @@ body {
     width: 90%;
     margin: 0 auto;
     position: relative;
+}
+#scrapbook {
     background-color: #dddddd;
+    border : 1px solid #aaaaaa;
+    max-height: 300px;
+    oveflow: auto;
 }
 #header {
     width: 960px;
