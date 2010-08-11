@@ -60,7 +60,6 @@ var FlickrFeedItem = new Class({
 
         new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent], {onComplete: this.fireEvent.bind(this, 'ready')});
 
-        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent]);
         this.size = {
             x: 2
         };

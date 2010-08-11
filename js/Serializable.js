@@ -26,8 +26,8 @@ var Serializable = new (function() {
          *      key - The unique key for this class.
          *      class - The class to add
          */
-        addClass: function(key, class) {
-            classes[key] = class;
+        addClass: function(key, c) {
+            classes[key] = c;
         },
 
         /**

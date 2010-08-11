@@ -20,6 +20,7 @@ Dependencies:
 var TravellersPointFeedItem = new Class({
 
     Extends: FeedItem,
+    Implements: [Options, Events],
     Serializable: 'TravellersPointFeedItem',
 
     /**
@@ -41,11 +42,15 @@ var TravellersPointFeedItem = new Class({
      * Paramaters:
      *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(feedObject) {
+    initialize: function(feedObject, options) {
+        this.setOptions(options);
+
         this.post = feedObject;
         this.size = {
             x: 2
         };
+
+        new Asset.images([this.post['media:thumbnail'].url], {onComplete: this.fireEvent.bind(this, 'ready')});
     },
 
     /**
@@ -83,9 +88,7 @@ var TravellersPointFeedItem = new Class({
                 href: this.post.link,
                 text: this.post.title
             })),
-            new Element('div', {
-            }).grab(new Element('img',{
-            'src':this.post['media:content'].url}))
+            new Element('div').grab(new Element('img',{'src':this.post['media:content'].url}))
         ]);
     },
 

@@ -58,6 +58,12 @@ var DisplayBox = new Class({
     container: null,
 
     /**
+     * Variable: shown
+     * If the content is currently shown
+     */
+    shown: false,
+
+    /**
      * Function: initialize
      * Create a new <DisplayBox> for a <FeedItem>.
      *
@@ -168,7 +174,13 @@ var DisplayBox = new Class({
      * Function: showContent
      * Show the full content of the <FeedItem> in a modal dialog.
      */
-    showContent: function(){
+    showContent: function() {
+
+         if (this.shown) {
+             alert("Attempted to show twice");
+             return;
+         }
+         this.shown = true;
 
         //make a modal dialog
         var modalMask = new Element('div', {'class': 'modalMask'});
@@ -222,12 +234,17 @@ var DisplayBox = new Class({
         modal.fade('in');
 
         // Add events to elements
-        $$(modalClose, modalMask).addEvent('click', function() {
-            content.parentNode.removeChild(content);
+        $$(modalClose, modalMask).addEvent('click', (function() {
+            // Fix untill the double modal box bug is fixed
+            if (content.parentNode) {
+                content.parentNode.removeChild(content);
+            }
+
             modal.destroy();
             modalMask.destroy();
             modalClose.destroy();
-        });
+            this.shown = false;
+        }).bind(this));
 
         // Tell listeners that this box was just displayed
 		this.fireEvent('display');
