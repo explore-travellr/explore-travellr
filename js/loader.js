@@ -122,7 +122,9 @@ window.addEvent('domready', function() {
     var searchBox = new SearchBox('searchField');
     var container = new Container('container', searchBox);
     var scrapbook = new Scrapbook({
-        button: $('scrapbook-button'),
+        button: $('favourites_button'),
+        folderDropdown: $('favourites_dropdown'),
+        folderWrapper: $('favourites_folders'),
         onShown: function() {
             container.hide();
         },

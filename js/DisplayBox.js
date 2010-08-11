@@ -89,17 +89,11 @@ var DisplayBox = new Class({
 
             if (this.getFeedItem().canScrapbook() && this.scrapbook) {
                 var handle = new Element('div', {'class': 'handle'});
-                wrapper.grab(handle);
+                handle.addEvent('click', function(event) { event.stop(); });
+                preview.grab(handle);
 
-                new Drag.Move(wrapper, {
-                    droppables: this.scrapbook.getButton(),
-                    handle: handle,
-                    onDrop: (function(draggable, droppable) {
-                        if(droppable) {
-                            this.scrapbook.addItem(this.getFeedItem());
-                        }
-                    }).bindWithEvent(this)
-                });
+                this.scrapbook.addDraggable(preview, {handle: handle});
+
             }
 
             wrapper.setStyles({

@@ -123,6 +123,7 @@ var Container = new Class({
             if (this.loadedFeeds == this.numberOfFeeds) {
                 //hide loading bar\
                 this.loaded = true;
+                this.queueAddDisplayBox();
             }
         }).bind(this));
     },

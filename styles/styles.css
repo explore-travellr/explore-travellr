@@ -246,6 +246,22 @@ h1#logo{
 
 /* display box, modal and progress bar NEED STYLING */
 
+#progressBar {
+    position: absolute;
+    z-index: 10;
+    width: 80%;
+    left: 10%;
+    top: 50%;
+    height: 20px;
+    line-height: 20px;
+    margin-top: -10px;
+    background-color : #eee;
+    border-color : 1px solid #222;
+}
+#progressBar div {
+    background-color : red;
+}
+
 /***********************
 * Display Box (preview box)
 ***********************/
