@@ -22,6 +22,7 @@ Dependencies:
 var FlickrFeedItem = new Class({
 
     Extends: FeedItem,
+    Implements: [Options, Events],
     Serializable: 'FlickrFeedItem',
 
     /**
@@ -50,14 +51,16 @@ var FlickrFeedItem = new Class({
      *
      *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(feedObject) {
+    initialize: function(feedObject, options) {
+
+        this.setOptions(options);
 
         this.photo = feedObject;
         this.photo.url = 'http://www.flickr.com/photos/'+this.photo.owner+'/'+this.photo.id;
         this.photo.picUrlThumbnail = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'_m.jpg';
         this.photo.picUrlContent = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'.jpg';
 
-        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent]);
+        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent], {onComplete: this.fireEvent.bind(this, 'ready')});
 
         this.size = {
             x: 2

@@ -100,16 +100,25 @@ var FlickrFeed = new Class({
      *     response - object returned by the flickr call
      */
     makeFeedItems: function(response) {
+        var outstanding = 1;
+        var feedItemReady = (function() {
+            outstanding = outstanding - 1;
+            if (outstanding === 0) {
+                this.feedReady();
+            }
+        }).bind(this);
 
         this.response = response.photos;
 
         if($chk(this.response)) {
             response.photos.photo.each(function(data) {
-                var feedItem = new FlickrFeedItem(data);
+                outstanding = outstanding + 1;
+                var feedItem = new FlickrFeedItem(data, {onReady: feedItemReady});
                 this.feedItems.push(feedItem);
             }, this);
         }
 
-        this.feedReady();
+        // By calling it here, it still works when there are no feed items
+        feedItemReady();
     }
 });
