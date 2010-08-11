@@ -1,6 +1,9 @@
 /*
 Class: world-nomads.WorldNomadsFeedItem
-Displays blog posts from the <WorldNomadsFeed>
+    Displays blog posts from the <WorldNomadsFeed>
+
+Extends:
+   <FeedItem>
 
 License:
    MIT-style license.
@@ -9,10 +12,9 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - FeedItem Class
-   - WorldNomadsFeed Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <WorldNomadsFeed>
 */
 
 var WorldNomadsFeedItem = new Class({
@@ -20,19 +22,27 @@ var WorldNomadsFeedItem = new Class({
     Extends: FeedItem,
     Serializable: 'WorldNomadsFeedItem',
 
+    /**
+     * Variable: post
+     * A <JS::Object> holding all the post data
+     */
     post: null,
 
+    /**
+     * Variable: name
+     * The name of this <FeedItem>, used in the GUI
+     */
     name: 'WorldNomadsFeedItem',
 
     /**
      * Constructor: initialize
-     * Constructs a new WorldNomadsFeedItem with the content drawn from the blog post sent in
+     * Constructs a new <WorldNomadsFeedItem> with the content drawn from the blog post sent in
      *
      * Paramaters:
-     *     post - The blog post to draw content from
+     *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(post) {
-        this.post = post;
+    initialize: function(feedObject) {
+        this.post = feedObject;
 
         this.size = {
             x: 2
@@ -41,10 +51,10 @@ var WorldNomadsFeedItem = new Class({
 
     /**
      * Function: makePreview
-     * Builds a <MooTools::Element> containing a preview of the blog post
+     * Builds a <MooTools::Element> containing a preview of this <WorldNomadsFeedItem>
      *
      * Returns:
-     *     A <MooTools::Element> containing a preview of the blog post
+     *     A <MooTools::Element> containing a preview of this <WorldNomadsFeedItem>
      */
     makePreview: function() {
         return new Element('div', {
@@ -61,10 +71,10 @@ var WorldNomadsFeedItem = new Class({
 
     /**
      * Function: makeContent
-     * Builds a <MooTools::Element> containing the text of the blog post
+     * Builds a <MooTools::Element> with the content of this <WorldNomadsFeedItem>
      *
      * Returns:
-     *     A <MooTools::Element> containing the text of the blog post
+     *     A <MooTools::Element> with the content of this <WorldNomadsFeedItem>
      */
     makeContent: function() {
         return new Element('div', {
@@ -80,6 +90,13 @@ var WorldNomadsFeedItem = new Class({
         ]);
     },
 
+    /**
+     * Function: serialize
+     * Returns the post data, ready for serialization
+     *
+     * Returns:
+     *     The post data
+     */
     serialize: function() {
         return this.post;
     }

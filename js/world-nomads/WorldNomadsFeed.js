@@ -1,6 +1,9 @@
 /*
 Class: world-nomads.WorldNomadsFeed
-Retrieves World Nomads blog posts from the World Nomads Yahoo Pipe
+    Retrieves World Nomads blog posts from the World Nomads Yahoo Pipe
+
+Extends:
+   <Feed>
 
 License:
    MIT-style license.
@@ -9,11 +12,10 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - WorldNomadsFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <Feed>
+   - <world-nomads.WorldNomadsFeedItem>
 */
 
 var WorldNomadsFeed = new Class({

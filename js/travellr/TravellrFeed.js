@@ -15,11 +15,7 @@ Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
    - <MooTools::more> Request.JSONP
-   - <TravellrFeedItem>
-
-See Also:
-   - <TravellrFeedItem>
-   - <DisplayBox>
+   - <travellr.TravellrFeedItem>
 */
 
 var TravellrFeed = new Class({
@@ -28,7 +24,7 @@ var TravellrFeed = new Class({
 
     /**
      * Variable: itemsCalled
-     * The number of items to display
+     * The random number of items to display
      */
     itemsCalled: null,
 
