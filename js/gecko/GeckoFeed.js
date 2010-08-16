@@ -23,27 +23,29 @@ var GeckoFeed = new Class({
     Extends: Feed,
 
     /**
-     * Variable: name
-     * The name of thie <Feed>, used in the GUI
-     */
+    * Variable: name
+    * The name of thie <Feed>, used in the GUI
+    */
     name: 'Gecko',
 
     /**
-     * Function: search
-     * Search the feed for items relating to the latitude and longtitude of the search terms. This particular
-     * search is actually done to yahoo pipes in which the pipe handles the request
-     * and converts a XML feed from Gecko into a JSON object. It then
-     * calls makeFeedItems on success.
-     *
-     * Paramaters:
-     *     searchFilter - The search filter to filter results with
-     */
+    * Function: search
+    * Search the feed for items relating to the latitude and longtitude of the search terms. This particular
+    * search is actually done to yahoo pipes in which the pipe handles the request
+    * and converts a XML feed from Gecko into a JSON object. It then
+    * calls makeFeedItems on success.
+    *
+    * Paramaters:
+    *     searchFilter - The search filter to filter results with
+    */
     search: function(searchFilter) {
         this.empty();
 
-        var lat = searchFilter.location.lat;
-        var lng = searchFilter.location.lng;
-          
+        //var lat = searchFilter.location.lat;
+        var lat = ($chk(searchFilter.location)) ? searchFilter.location.lat : 1;
+        //var lng = searchFilter.location.lng;
+        var lng = ($chk(searchFilter.location)) ? searchFilter.location.lng : 1;
+        //console.log(lat + " " + lng);
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {
@@ -51,7 +53,7 @@ var GeckoFeed = new Class({
                 _render: 'json',
                 lat: lat,
                 lng: lng,
-		type: 'Tips'
+                type: 'Tips'
             },
             callbackKey: '_callback',
             onSuccess: this.makeFeedItems.bind(this)
@@ -59,12 +61,12 @@ var GeckoFeed = new Class({
     },
 
     /**
-     * Function: makeFeedItems
-     * Makes individual <GeckoReviewFeedItems> or <GeckoTipsFeedItems> from the contents of the API call to Gecko
-     *
-     * Paramaters
-     *     response - API response from Gecko
-     */
+    * Function: makeFeedItems
+    * Makes individual <GeckoReviewFeedItems> or <GeckoTipsFeedItems> from the contents of the API call to Gecko
+    *
+    * Paramaters
+    *     response - API response from Gecko
+    */
     makeFeedItems: function(results) {
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {
             results.value.items.each(function(post) {
@@ -74,4 +76,4 @@ var GeckoFeed = new Class({
             this.feedReady();
         }
     }
- });
+});
