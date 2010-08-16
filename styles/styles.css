@@ -1,0 +1,524 @@
+/* 
+  styles.css
+*/
+
+body{background:url(images/bg.jpg) center 45px repeat-x; font-family:Tahoma, Arial; font-size:14px}
+
+/* Reusable classes*/
+
+.left{float:left}
+.right{float:right}
+.clear{clear:both}
+
+
+/* Tool Bar Styles */
+
+
+#toolbar_wrapper{
+          width:100%;
+          height:45px;
+          background:url(images/toolbar_bg2.gif);
+          min-width:960px;
+}
+#toolbar_wrapper a {
+          outline: none;
+}
+
+h1#logo{
+          width:170px;
+          height:45px;
+          display:block;
+          text-indent:-999px;
+          background:url(images/logoSmall.png) no-repeat 15px 11px;
+}
+
+/*	Search Bar	*/
+
+#searchbar_wrapper{
+          width:300px;
+          height:45px;
+
+}
+
+#searchBar{
+          width:300px;
+          height:24px;
+          -moz-border-radius:5px;
+          -webkit-border-radius:5px;
+          background:#fff;
+          margin:9px 0 0 0;
+          border:1px #B5c4d6 solid;
+}
+
+#search_button{
+          width:30px;
+          background:url(images/search_icon.png) no-repeat 5px -16px;
+          border:none;
+          border-left:1px solid #e4eaf0;
+          margin: 3px 0 0 0;
+          height:16px;
+          cursor:pointer;
+}
+
+#search_button:hover{
+          background:url(images/search_icon.png) no-repeat 5px 0px;
+}
+
+#searchField{
+          border:none;
+          border:transparent;
+          outline:none;
+          height:18px;
+          width:230px;
+          margin:2px 0 0 8px;
+          font-size:14px;
+          color:#333;
+}
+
+#searchField:focus{
+          border:none;
+}
+
+/*	Generic toolbar button styles	*/
+
+.toolbar_button, .fav_button {
+          height: 45px;
+          cursor: pointer;
+}
+.button_hover {
+          background:#365F91;
+          color:#fff;
+}
+.toolbar_button a, .fav_button a {
+          background:url("images/arrow.png") no-repeat scroll 109px 3px transparent;
+          color:#365F91;
+          display:block;
+          font-size:13px;
+          text-align:center;
+}
+.toolbar_button:hover a, .fav_button:hover a {
+          color:#fff;
+          background:url("images/arrow.png") no-repeat scroll 109px -12px transparent;
+}
+.fav_button:hover {
+          background: #365F91;
+}
+/* Specific toolbar button styles	*/
+
+#feed_button{
+          width:140px;
+          margin:0 0 0 20px;
+}
+
+#feed_button a{
+          margin:14px 0 0;
+          padding:0 20px 0 0;
+}
+
+#info_button{
+          width:150px;
+}
+
+#info_button a{
+          margin:14px 0 0;
+          padding:0 20px 0 0;
+}
+
+#favourites_button{
+          width:130px;
+          padding:0 0 0 10px;
+}
+
+#favourites_button a{
+          background:url("images/bookSmall.png") no-repeat scroll 0 0 transparent;
+          height:26px;
+          margin:10px 0 0;
+          padding:4px 0 0 21px;
+}
+
+#favourites_button:hover a{
+          background:url("images/bookSmall.png") no-repeat scroll 0 -29px transparent;
+}
+
+/* Generic dropdown styles */
+
+.dropdown {
+          position:absolute;
+          color: #fff;
+          top:44px;
+          background:#365F91;
+          display:none;
+          z-index:100;
+          padding:0 0 10px 0;
+}
+
+#feedToggle{
+
+}
+
+.dropdown li{
+          display:block;
+          font-size:12px;
+          list-style:none outside none;
+          padding:6px 45px;
+}
+
+.dropdown li:hover{
+          background:#4870a0;
+}
+
+.off{
+          color:#aaa;
+          background: none;
+}
+
+
+.dropdown h3 {
+          font-weight: normal;
+          padding:4px 5px;
+          font-size:12px;
+          font-weight:600;
+}
+
+/*	Specific dropdown styles	*/
+
+#feed_dropdown{
+          left:490px;	  
+}
+
+#info_dropdown{
+          left:630px;
+}
+
+
+#favourties_wrapper {
+          position: absolute;
+          z-index: 10;
+          width: 100%;
+}
+#favourites_dropdown {
+          width: 100%;
+          height: 140px;
+          background: #365F91 url("images/favourites_lip.gif") repeat-x bottom;
+}
+
+/* temp Container styles */
+
+.scrapbook-button {
+          width: 100px;
+          height: 100px;
+          background: #0ff;
+}
+
+
+#container{
+          width:100%;
+          min-height:300px;
+          z-index: 1;
+          background: url("images/bg_large.png");
+}
+
+#slogan{
+          background:url("images/slogan.png") no-repeat scroll 0 0 transparent;
+          height:200px;
+          margin:0 0 0 298px;
+          width:640px;
+}
+
+#slogan p{
+          color:#666;
+          left:97px;
+          position:relative;
+          top:185px;
+}
+
+#slogan p a{
+          color:#50BCFF;
+          font-weight:600;
+}
+
+#slogan p a:hover{
+          color:#48A7E3;
+          font-weight:600;
+          text-decoration:underline;
+}
+
+
+/* display box, modal and progress bar NEED STYLING */
+
+/***********************
+* Display Box (preview box)
+***********************/
+
+.displayBox {
+          width: 150px;
+          position:absolute;
+}
+.displayBox .inner {
+          margin:5px;
+          font-family: Arial;
+          font-size: 0.8em;
+          cursor: pointer;
+          overflow: hidden;
+          word-wrap: break-word;
+}
+.displayBox p {
+          margin: 0;
+}
+
+.displayBox img{
+          width:150px;
+}
+
+
+/***********************
+ * Modal Box (popup)
+ ***********************/
+
+.modalMask{
+          position: absolute;
+          left : 0px;
+          top : 0px;
+          width: 100%;
+          height: 100%;
+          background: #000;
+          z-index:500;
+}
+.modal{
+          position: absolute;
+          background : white;
+          z-index:1000;
+          -moz-border-radius:10px; -webkit-border-radius:10px;
+          -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
+          max-width: 600px;
+          max-height: 500px;
+          font-family:Arial,Helvetica,Verdana,sans-serif;
+          padding: 15px;
+}
+.modal .icons {
+          background-color: #eeeeee;
+          border: 1px solid #dddddd;
+          line-height: 16px;
+          font-size: 16px;
+}
+.icons .icon {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          line-height: 16px;
+          overflow: hidden;
+          text-indent: -999999px;
+          vertical-align: middle;
+}
+.icons .scrapbook-icon {
+          background-image: url('http://upload.wikimedia.org/wikipedia/commons/a/a1/Heart_add.png');
+}
+
+.modal .content {
+          max-width: 600px;
+          max-height: 450px;
+          position: relative;
+          overflow: auto;
+          word-wrap: break-word;
+}
+
+.modal .modalClose{
+          position: absolute;
+          top: 0px;
+          right: 0px;
+}
+
+.modal .close-button{
+          -moz-border-radius:15px ; -webkit-border-radius:15px ;
+          background:url("images/closebox.png") no-repeat top right;
+          cursor:pointer;
+          height:29px;
+          width:29px;
+          position: absolute;
+          top: -12px;
+          right: -12px;
+          z-index: 10000;
+          text-indent: -99999px;
+}
+
+.modal .travellr {
+          background-color:#DDEEFF;
+          padding:5px;
+          -moz-border-radius:5px; -webkit-border-radius:5px;
+          max-width: 400px;
+          background: url("images/icon_travellr.jpg") no-repeat 5px 3px;
+
+}
+.modal .travellr .answer {
+          border-top: 1px solid #ddd;
+}
+.modal .travellr .answer .asside {
+          float: left;
+          color: #ccc;
+          margin-right: 0.1em;
+          margin-bottom: 0.2em;
+          margin-top: 0.5em;
+          font-weight: bold;
+          font-size: 2em;
+}
+
+.modal h2 {
+          padding:0;
+          margin:0;
+          font-size: 20px;
+          color : #228;
+          text-indent: 30px;
+}
+
+.modal .travellr a:hover {
+          text-decoration: underline
+}
+
+.modal .travellr p {
+          color:#333333;
+          font-size:16px;
+}
+.modal .travellr p.date {
+          font-size:12px;
+          color:#aaa;
+}
+
+.modal .travellr.ask textarea {
+          width: 100%;
+          height : 7em;
+          font-family: sans-serif;
+}
+.modal .travellr.ask input {
+          display : block;
+          margin-top: 1em;
+          padding : 0.2em 1em;
+          float: right;
+}
+
+.modal .travellr.ask .length {
+          display: block;
+          float: left;
+          font-size: 1.5em;
+          color : #999;
+          margin-top: 0.5em;
+}
+.modal .travellr.ask a {
+          display: block;
+          text-align: right;
+          font-size: 0.8em;
+          clear: both;
+}
+.modal .travellr.ask form.error .length {
+          color : #f44;
+}
+.modal .travellr.ask form.error textarea {
+          border-color : #f44;
+}
+
+.modal .flickr {
+          max-width: 560px;
+          background: url("images/icon_flickr.jpg") no-repeat 5px 3px;
+}
+
+.modal .twitter {
+          max-width: 400px;
+          background: url("images/icon_twitter.jpg") no-repeat 5px 3px;
+}
+
+.modal .worldNomads {
+          background: url("images/icon_worldNomads.jpg") no-repeat 5px 3px;
+}
+/***********************
+ * Feed Toggle Panel
+ ***********************/
+
+#feedToggleWrapper {
+          float: right;
+}
+
+#feedToggle {
+}
+
+
+/*	Loading Bar */
+
+
+
+
+.displayBox .handle {
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top: 0;
+    position: absolute;
+    background: blue;
+}
+/***********************
+ * Modal Box (popup)
+ ***********************/
+
+.modalMask{
+    position: absolute;
+    left : 0px;
+    top : 0px;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index:500;
+}
+.modal{
+    position: absolute;
+    background : white;
+    z-index:1000;
+    -moz-border-radius:10px; -webkit-border-radius:10px;
+    -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
+    max-width: 600px;
+    max-height: 500px;
+    font-family:Arial,Helvetica,Verdana,sans-serif;
+    padding: 15px;
+}
+.modal .icons {
+    background-color: #eeeeee;
+    border: 1px solid #dddddd;
+    line-height: 16px;
+    font-size: 16px;
+}
+.icons .icon {
+    display: inline-block;
+    width: 16px;
+    heigth: 16px;
+    line-height: 16px;
+    overflow: hidden;
+    text-indent: -999999px;
+    vertical-align: middle;
+}
+.icons .scrapbook-icon {
+    background-image: url('http://upload.wikimedia.org/wikipedia/commons/a/a1/Heart_add.png');
+}
+
+.modal .content {
+    max-width: 600px;
+    max-height: 450px;
+    position: relative;
+    overflow: auto;
+    word-wrap: break-word;
+}
+
+.modal .modalClose{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.modal .close-button{
+    -moz-border-radius:15px ; -webkit-border-radius:15px ;
+    background:url("images/closebox.png") no-repeat top right;
+    cursor:pointer;
+    height:29px;
+    width:29px;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    z-index: 10000;
+    text-indent: -99999px;
+}

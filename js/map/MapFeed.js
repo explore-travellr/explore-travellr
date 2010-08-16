@@ -1,19 +1,21 @@
 /*
-Script: GeckoReviewFeed.js
-   GeckoReviewFeed - MooTools based World Nomads feed generator
+Class: map.MapFeed
+    Gets a stream of google maps by location
+
+Extends:
+    <Feed>
 
 License:
-   MIT-style license.
+    MIT-style license.
 
 Copyright:
-   Copyright (c) 2010 explore.travellr.com
+    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - GeckoReviewFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <MooTools::more> Request.JSONP
+   - <map.MapFeedItem>
 */
 
 var MapFeed = new Class({
@@ -23,12 +25,10 @@ var MapFeed = new Class({
     name: 'Map',
 
     /**
-     * 
-     *
-     * @param searchFilter The search filter to filter results with
+     * TODO
      */
     search: function(searchFilter) {
-		
+		this.empty();
 		console.log(searchFilter);
 		
         this.parent();
@@ -38,5 +38,5 @@ var MapFeed = new Class({
 		this.feedItems.push(mapFeedItem);
 		
 		this.feedReady();
-    },
+    }
  });

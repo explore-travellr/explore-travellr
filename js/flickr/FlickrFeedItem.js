@@ -1,6 +1,9 @@
 /*
-Script: FlickrFeedItem.js
-   FlickrFeedItem - MooTools based Flickr feed item handler
+Class: flickr.FlickrFeedItem
+   Displays Flickr photos retrieved by a <FlickrFeed>
+
+Extends:
+   <FeedItem>
 
 License:
    MIT-style license.
@@ -9,36 +12,53 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Utilities/Assets
-   - FeedItem Class
-   - FlickrFeed Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <MooTools::more> Utilities/Assets
+   - <flickr.FlickrFeed>
 */
 
 var FlickrFeedItem = new Class({
 
     Extends: FeedItem,
+    Implements: [Options, Events],
+    Serializable: 'FlickrFeedItem',
 
+    /**
+     * Variable: photo
+     * A <JS::Object> that holds all the information about this Flickr photo
+     *
+     * Values in this object include:
+     *   url - The URL of the photo page
+     *   picUrlThumbnail - The URL of the thumbnail
+     *   picUrlContent - The URL of the image used in the content 
+     */
     photo: null,
 
+    /**
+     * Variable: name
+     * The name of this <FeedItem> class, used in the GUI
+     */
     name: 'FlickrFeedItem',
 
     /**
+     * Function: initialize
      * Sets the parameter to a instance variable then sets the url, pic
      * thumbnail and pic content
      *
-     * @param feedObject The object is associative array of keys related
-     * to the feedObject passed in
+     * Paramaters:
+     *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(feedObject) {
+    initialize: function(feedObject, options) {
+
+        this.setOptions(options);
 
         this.photo = feedObject;
         this.photo.url = 'http://www.flickr.com/photos/'+this.photo.owner+'/'+this.photo.id;
         this.photo.picUrlThumbnail = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'_m.jpg';
         this.photo.picUrlContent = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'.jpg';
 
-        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent]);
+        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent], {onComplete: this.fireEvent.bind(this, 'ready')});
 
         this.size = {
             x: 2
@@ -46,13 +66,11 @@ var FlickrFeedItem = new Class({
     },
 
     /**
-     * Builds a feed item preview to go in the displayBox within the container
+     * Function: makePreview
+     * Builds a <MooTools::Element> containing a preview of this <FlickrFeedItem>
      *
-     * @example <div class="displayBox">
-     *              <div class="flickr inner">
-     *                  <img src=""></img>
-     *              </div>
-     *          </div>
+     * Returns:
+     *     A <MooTools::Element> containing a preview of this <FlickrFeedItem>
      */
     makePreview: function() {
         var img = new Element('img', {
@@ -66,17 +84,11 @@ var FlickrFeedItem = new Class({
     },
 
     /**
-     * Builds a feed item content div for insertion into the modal box once
-     * clicked
+     * Function: makeContent
+     * Builds a <MooTools::Element> with the contents of this <FlickrFeedItem>
      *
-     * @example <div class="modal">
-     *              <div class="content">
-     *                  <div class="flickr">
-     *                      <h2></h2>
-     *                      <a href=""></a>
-     *                  </div>
-     *              </div>
-     *         </div>
+     * Returns:
+     *     A <MooTools::Element> with the contents of this <FlickrFeedItem>
      */
     makeContent: function() {
         return new Element('div', {'class': 'flickr'}).adopt([
@@ -88,5 +100,19 @@ var FlickrFeedItem = new Class({
                 src: this.photo.picUrlContent
             }))
         ]);
+    },
+
+    /**
+     * Function: serialize
+     * Returns the photo data, ready for serialization
+     *
+     * Returns:
+     *     The photo data
+     */
+    serialize: function() {
+        return this.photo;
     }
 });
+FlickrFeedItem.unserialize = function(data) {
+    return new FlickrFeedItem(data);
+};

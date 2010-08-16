@@ -13,10 +13,24 @@ body {
     background-color: #d9d9d9;
     background-repeat: repeat-x;
 }
-#container {
+
+#scrapbook-button {
+    width:50px;
+    height:50px;
+    float:left;
+    background-image: url("images/fav_star.png");
+}
+
+.container {
     width: 90%;
     margin: 0 auto;
     position: relative;
+}
+#scrapbook {
+    background-color: #dddddd;
+    border : 1px solid #aaaaaa;
+    max-height: 300px;
+    oveflow: auto;
 }
 #header {
     width: 960px;
@@ -96,6 +110,7 @@ body {
 
 .displayBox .geckoReview { border-color : #6AE851; }
 .displayBox .geckoTips{ border-color : #009900; }
+.displayBox .lonelyPlanet { border-color : #660066; }
 
 .displayBox .flickr img {
     vertical-align: middle;
@@ -130,6 +145,15 @@ body {
     text-indent: 0;
     padding: 25px 5px;
 }
+
+.displayBox .handle {
+    width: 20px;
+    height: 29px;
+    position: absolute;
+    left: -5px;
+    top: -15px;
+    background-image: url("images/pin.png");
+}
 /***********************
  * Modal Box (popup)
  ***********************/
@@ -149,17 +173,35 @@ body {
     z-index:1000;
     -moz-border-radius:10px; -webkit-border-radius:10px;
     -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
-    max-width: 80%;
-    max-height: 90%;
+    max-width: 600px;
+    max-height: 500px;
     font-family:Arial,Helvetica,Verdana,sans-serif;
     padding: 15px;
 }
+.modal .icons {
+    background-color: #eeeeee;
+    border: 1px solid #dddddd;
+    line-height: 16px;
+    font-size: 16px;
+}
+.icons .icon {
+    display: inline-block;
+    width: 16px;
+    heigth: 16px;
+    line-height: 16px;
+    overflow: hidden;
+    text-indent: -999999px;
+    vertical-align: middle;
+}
+.icons .scrapbook-icon {
+    background-image: url('http://upload.wikimedia.org/wikipedia/commons/a/a1/Heart_add.png');
+}
 
 .modal .content {
-    max-height: 800px;
-    max-width: 800px;
+    max-width: 600px;
+    max-height: 450px;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     word-wrap: break-word;
 }
 
@@ -189,6 +231,18 @@ body {
     max-width: 400px;
     background: url("images/icon_travellr.jpg") no-repeat 5px 3px;
 
+}
+.modal .travellr .answer {
+    border-top: 1px solid #ddd;
+}
+.modal .travellr .answer .asside {
+    float: left;
+    color: #ccc;
+    margin-right: 0.1em;
+    margin-bottom: 0.2em;
+    margin-top: 0.5em;
+    font-weight: bold;
+    font-size: 2em;
 }
 
 .modal h2 {
@@ -353,4 +407,18 @@ body {
 #searchField:focus{border:none;}
 
 
+		#first_mb, #second_mb, #third_mb, #fourth_mb {
+			width: 95%;
+			margin: 0px auto;
+		}
 
+		#first_mb, #second_mb, #third_mb{
+			background-color: #cecece;
+		}
+		#foot {
+			text-align: right;
+		}
+		#download_img {
+			margin-top: 20px;
+			margin-right: 50px;
+		}

@@ -52,7 +52,7 @@ var Container = new Class({
      * Variable: queueTimer
      * The timer reference for delaying the animation of <displayBoxQueue>
      */
-    queueTimer: null,
+    queueTimer: null,s
 
     /**
      * Variable: queueDelay
@@ -168,11 +168,11 @@ var Container = new Class({
         // Add it to the container
         preview.fade('hide');
         this.container.grab(preview);
+
         this.container.masonry({
             appendContent: [preview]
         });
         preview.fade('in');
-		displayBox.fireEvent('preview');
 
         // Tell the display box about this container
         displayBox.setContainer(this);

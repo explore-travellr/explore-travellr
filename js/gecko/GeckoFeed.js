@@ -1,38 +1,45 @@
 /*
-Script: GeckoTipsFeed.js
-   GeckoTipsFeed - MooTools based World Nomads feed generator
+Class: gecko.GeckoFeed
+    Grabs reviews and tips from Gecko via Yahoo Pipes
+
+Extends:
+    <Feed>
 
 License:
-   MIT-style license.
+    MIT-style license.
 
 Copyright:
-   Copyright (c) 2010 explore.travellr.com
+    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - GeckoTipsFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <MooTools::more> Request.JSONP
+   - <gecko.GeckoFeedItem>
 */
 
-var GeckoTipsFeed = new Class({
+var GeckoFeed = new Class({
 
     Extends: Feed,
 
-    name: 'GeckoTips',
-
+    /**
+     * Variable: name
+     * The name of thie <Feed>, used in the GUI
+     */
+    name: 'Gecko',
 
     /**
+     * Function: search
      * Search the feed for items relating to the latitude and longtitude of the search terms. This particular
      * search is actually done to yahoo pipes in which the pipe handles the request
      * and converts a XML feed from Gecko into a JSON object. It then
      * calls makeFeedItems on success.
      *
-     * @param searchFilter The search filter to filter results with
+     * Paramaters:
+     *     searchFilter - The search filter to filter results with
      */
     search: function(searchFilter) {
-        this.parent();
+        this.empty();
 
 		if(searchFilter.location != null){
 			var lat = searchFilter.location.lat;
@@ -55,20 +62,19 @@ var GeckoTipsFeed = new Class({
     },
 
     /**
-     * Makes the individual Gecko feed items by sending the each Tips
-     * post object of the response object to the GeckoTipsFeedItem class and then
-     * pushing each of them onto a feedItems array
+     * Function: makeFeedItems
+     * Makes individual <GeckoReviewFeedItems> or <GeckoTipsFeedItems> from the contents of the API call to Gecko
      *
-     * @param response object returned by the yahoo pipes call (parsing Gecko feeds)
+     * Paramaters
+     *     response - API response from Gecko
      */
     makeFeedItems: function(results) {
-	
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {
             results.value.items.each(function(post) {
-                this.feedItems.push(new GeckoTipsFeedItem(post));
+                // GeckoGo Review or GeckoGo Tips
+                this.feedItems.push(post.id ? new GeckoReviewFeedItem(post) : new GeckoTipsFeedItem(post));
             }, this);
             this.feedReady();
         }
     }
-
  });
