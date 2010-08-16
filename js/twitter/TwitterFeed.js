@@ -80,7 +80,7 @@ var TwitterFeed = new Class({
      */
     makeFeedItems: function(response) {
         this.response = response;
-        if($chk(this.response)) {
+        if($chk(this.response.results)) {
             response.results.each(function(data) {
                 var feedItem = new TwitterFeedItem(data);
                 this.feedItems.push(feedItem);
