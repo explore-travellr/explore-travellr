@@ -28,19 +28,12 @@ var MapFeed = new Class({
      * TODO
      */
     search: function(searchFilter) {
+		this.empty();
+		//console.log(searchFilter);
+		
         this.parent();
-
-		if (searchFilter.location == null) {
-			this.feedReady();
-			return;
-		}
 		
-        var lat = searchFilter.location.lat;
-        var lng = searchFilter.location.lng;
-		
-		var latLng = new google.maps.LatLng(lat, lng);
-		
-		var mapFeedItem = new MapFeedItem(latLng);
+		var mapFeedItem = new MapFeedItem(searchFilter);
 		
 		this.feedItems.push(mapFeedItem);
 		
