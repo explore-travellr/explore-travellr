@@ -2,7 +2,10 @@
   styles.css
 */
 
-body{background:url(images/bg.jpg) center 45px repeat-x; font-family:Tahoma, Arial; font-size:14px}
+body{
+    font-family:Tahoma, Arial; font-size:14px;
+    background: url("images/bg_large.png") no-repeat 0 40px;
+}
 
 /* Reusable classes*/
 
@@ -213,9 +216,8 @@ h1#logo{
 
 #container{
           width:100%;
-          min-height:300px;
-          z-index: 1;
-          background: url("images/bg_large.png");
+          height:100%;
+          z-index: 1;`
 }
 
 #slogan{
@@ -245,22 +247,6 @@ h1#logo{
 
 
 /* display box, modal and progress bar NEED STYLING */
-
-#progressBar {
-    position: absolute;
-    z-index: 10;
-    width: 80%;
-    left: 10%;
-    top: 50%;
-    height: 20px;
-    line-height: 20px;
-    margin-top: -10px;
-    background-color : #eee;
-    border-color : 1px solid #222;
-}
-#progressBar div {
-    background-color : red;
-}
 
 /***********************
 * Display Box (preview box)
@@ -537,4 +523,7 @@ h1#logo{
     right: -12px;
     z-index: 10000;
     text-indent: -99999px;
+}
+#progressBar div {
+    background: pink;
 }

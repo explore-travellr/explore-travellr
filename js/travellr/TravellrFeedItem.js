@@ -66,13 +66,13 @@ var TravellrFeedItem = new Class({
             'class': 'travellr'
         }).adopt([
             new Element('p', {
-                text: this.question.subject.truncateText(100)//this.truncateText(this.question.subject)
-            }),
+                text: this.question.subject.truncateText(100)
+            })
         ]);
     },
 
     /**
-     * Function: makePreview
+     * Function: makeContent
      * Builds a <MooTools::Element> with the content of this <TravellrFeedItem>
      *
      * Returns:
@@ -105,6 +105,13 @@ var TravellrFeedItem = new Class({
         ]);
     },
 
+    /**
+     * Function: serialize
+     * Returns the question data, ready for serialization
+     *
+     * Returns:
+     *     The question data
+     */
     serialize: function() {
         return this.question;
     }
@@ -228,7 +235,5 @@ TravellrFeedItem.Ask = new Class({
 
     canScrapbook: function() {
         return false;
-    },
-
-
+    }
 });
