@@ -1,91 +1,74 @@
-/*
- * File: menu.js
- * Contains animations for the footer menu
- */
+//when the dom is ready
 window.addEvent('domready', function() {
 
-    //Sets search suggestion box to be invisible
-    $$('.speechBubble').setStyle('opacity','0');
+          $$('.feed_toggle').addEvents({
+                    'click': function(){
+		
+                              if($(this).hasClass('on')){
+                                        $(this).removeClass('on');
+                                        $(this).addClass('off');
+                              }
+                              else{
+                                        $(this).removeClass('off');
+                                        $(this).addClass('on');
+                              }
+				
+                    }
+		
+		
+          });
+	
 
-    $('searchField').addEvents({
-        // when the text input is focused, either through click in or using tab,
-        // fade the suggestion box to 95% opacity
-        focus: function() {
-            $$('.speechBubble').fade('0.95');
-            if ($('searchField').value.contains('Swimming in Mount Vesuvius')) $('searchField').value = '';
-        },
-        // Fade out when the keyboard is pressed
-        keypress: function() {
-            $$('.speechBubble').fade('out');
-        },
-        // Fade out when the field loses focus
-        blur: function() {
-            $$('.speechBubble').fade('out');
-        }
-    });
 
-    // Fill out the search box when a suggestion is clicked
-    $$('.suggestion').addEvent('click', function() {
-        $('searchField').set('value', this.get('text'));
-    });
+          //Hide & Display dropdown menus on moueover & mouseout
+          $$('.dropdown').setStyle('display','none');
 
-    //Sets footer info to be invisible
-    $$('.infoDesc').setStyle('opacity','0');
-    $$('.infoDesc').setStyle('display','none');
-    $$('.infoBubble').setStyle('opacity','0');
+          var showMenu = function(event){
+                    event.stop();
+                    $(this).addClass('button_hover');
+                    $(this).getElement('.dropdown').setStyle('display','block');
+          };
+	
+          var hideMenu = function(){
+                    $(this).removeClass('button_hover');
+                    $(this).getElement('.dropdown').setStyle('display','none');
+          };
 
-    $$('.info').addEvent('click', function() {
-        $$('.infoBubble').fade('0.95');
-    });
+          //sets drop bar boolean as false on load
+          var dropBarVisible = false;
 
-    $('infoClose').addEvent('click', function() {
-        $$('.infoBubble').fade('out');
-    });
+          var mySlide = new Fx.Slide($('favourites_dropdown'), { duration: 400, wrapper: 'favourites_wrapper'  }).hide();
 
-    // Set up the default transition for the infobubble arrow
-    $('infoCorner').set('tween', {
-        duration: 1000,
-        transition: Fx.Transitions.Back.easeOut
-    });
 
-    // The following code snippets show the info bubble and move the arrow
-    // to point to the link clicked
-    // TODO Combine them into one dynamic code block
-    var hideInfoBubbles = function() {
-        $$('.infoDesc').fade('out');
-        $$('.infoDesc').setStyle('display','none');
-        $$('.infoDesc').setStyle('visibility','hidden');
-    }
-    $('about').addEvents({
-        click: function() {
-            hideInfoBubbles();
-            $('infoCorner').tween('margin-left','13px');
-            $('infoAbout').setStyle('display','block');
-            $('infoAbout').fade('in');
-        }
-    });
-    $('partners').addEvents({
-        click: function() {
-            hideInfoBubbles();
-            $('infoCorner').tween('margin-left','82px');
-            $('infoPartners').setStyle('display','block');
-            $('infoPartners').fade('in');
-        }
-    });
-    $('terms').addEvents({
-        click: function() {
-            hideInfoBubbles();
-            $('infoCorner').tween('margin-left','190px');
-            $('infoTerms').setStyle('display','block');
-            $('infoTerms').fade('in');
-        }
-    });
-    $('contact').addEvents({
-        click: function() {
-            hideInfoBubbles();
-            $('infoCorner').tween('margin-left','305px');
-            $('infoContact').setStyle('display','block');
-            $('infoContact').fade('in');
-        }
-    })
+
+          $$('.toolbar_button').addEvents({
+                    'mouseover': showMenu,
+                    'mouseout': hideMenu,
+                    'click': showMenu
+          });
+          $$('.fav_button').addEvent('click', function(event) {
+                    event.stop();
+
+                    
+                    //mySlide.slideOut(); //My element slides out of view
+
+                    mySlide.toggle();  //will slide back in now because it
+          //was hidden:
+          // mySlide.toggle();
+
+          //                  if (dropBarVisible) {
+          //                               //hide drop bar
+          //                               $(this).getElement('.dropdown').setStyle('display','none');
+          //                              dropBarVisible = false;
+          //                   }
+          //                    else {
+          //                              //show drop bar
+          //                              $(this).getElement('.dropdown').setStyle('display','block');
+          //                             dropBarVisible = true;
+          //                  }
+          });
 });
+
+	
+
+

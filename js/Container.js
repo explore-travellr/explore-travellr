@@ -14,7 +14,7 @@ Dependencies:
 
 See Also:
    - <DisplayBox>
-*/
+     */
 var Container = new Class({
 
     /**
@@ -59,7 +59,7 @@ var Container = new Class({
      * The time in milliseconds to delay between displaying each <DisplayBox> in
      * in <displayBoxQueue>
      */
-    queueDelay: 500,
+    queueDelay: 100,
     loaded: false,
 
     /**
@@ -84,19 +84,23 @@ var Container = new Class({
         this.searchBox = searchBox;
         if (this.searchBox) {
             this.searchBox.addEvent('search', (function(event) {
+                var progressElement = new Element('div', {id: 'progressBar'})
+                this.container.grab(progressElement);
+
                 this.loadedFeeds = 0;
                 this.loaded = false;
 
-                this.progressBar = new MoogressBar('progressBar',{
-                    bgImage: 'styles/images/loading.gif',
+                this.progressBar = new MoogressBar(progressElement,{
                     percentage: 0,
+                    // label: false,
                     onFinish: function(){
-                        $('progressBar').empty();
+                        progressElement.getParent().removeChild(progressElement);
                     }
                 });
                 this.numberOfFeeds = this.feeds.length;
             }).bind(this));
         } else {
+
             this.loaded = true;
         }
     },
@@ -114,9 +118,10 @@ var Container = new Class({
             this.loadedFeeds++;
             //increment loading bar
             //console.log(this.loadedFeeds);
-            this.progressBar.setPercentage(this.loadedFeeds/this.numberOfFeeds * 100);
+            var progressWidth = this.progressBar.setPercentage(this.loadedFeeds/this.numberOfFeeds * 100);
+            $('progressBar').setStyle('width', progressWidth + '%');
             if (this.loadedFeeds == this.numberOfFeeds) {
-                //hide loading bar
+                //hide loading bar\
                 this.loaded = true;
             }
         }).bind(this));
@@ -149,7 +154,7 @@ var Container = new Class({
      * See Also:
      *     - <addDisplayBox>
      *     - <queueAddDisplayBox>
-    */
+     */
     addDisplayBoxFromQueue: function() {
         var displayBox = this.displayBoxQueue.removeRandom();
         if (!displayBox) {
@@ -163,7 +168,9 @@ var Container = new Class({
         // Add it to the container
         preview.fade('hide');
         this.container.grab(preview);
-        this.container.masonry({appendContent: [preview]});
+        this.container.masonry({
+            appendContent: [preview]
+        });
         preview.fade('in');
 
         // Tell the display box about this container
@@ -255,15 +262,15 @@ var Container = new Class({
 Class: FeedToggle
 
 License:
-   MIT-style license.
+    MIT-style license.
 
 Copyright:
-   Copyright (c) 2010 explore.travellr.com
+    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-*/
+    - MooTools-core 1.2.4 or higher
+    - MooTools-more 1.2.4.4 RC1 or higher
+     */
 var FeedToggle = new Class({
 
     data: null,
@@ -294,15 +301,14 @@ var FeedToggle = new Class({
      *     feed - The <Feed> to add to the <FeedToggle>
      */
     addFeed: function(feed) {
-        var button = new Element('a', {
-            href : '',
-            text: feed.name + ' on/off',
-            'class': feed.name+' button'
+        var button = new Element('li', {
+            text: feed.name , //+ ' on/off',
+            'class': feed.name+ 'feed_toggle'
         });
 
         button.addEvent('click', function(event) {
             var isVisible = !feed.isVisible();
-            event.stop();
+            //event.stop();
 
             feed.setVisible(isVisible);
 
