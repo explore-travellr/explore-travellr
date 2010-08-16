@@ -30,7 +30,7 @@ var TravellersPointFeed = new Class({
      * and converts a RSS feed from World Nomads into a JSON object. It then
      * calls makeFeedItems on success.
      *
-     * @param searchFilter The search filter to filter results with
+     * @param searchFilter The search filter to filter results with in TP
      */
     search: function(searchFilter) {
         this.empty();
