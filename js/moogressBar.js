@@ -26,7 +26,7 @@ var MoogressBar = new Class({
 		percentage: 0,  // Start at which percentage?
 		height: 20,  // Height of the bar
 		hide: true, // Hide the bar on 100%?
-		label: true, // show percentage?
+		label: false, // show percentage?
 		fx: { // The effects for the scroll, set to null or false if you don't want this effect
 			unit: '%',
 			duration: 'normal',
@@ -54,27 +54,27 @@ var MoogressBar = new Class({
 				'text-align': 'center',
 				'line-height': this.options.height + 'px',
 				'color': '#FFFFFF',
-				'font-weight': 'bold',
-				'background-image': 'url(' + this.options.bgImage + ')'/*,
 				// Border Radius deactivated, because Firefox is causing drawing problems
-				'border-radius': '5px',
-				'-webkit-border-radius': '5px',
-				'-moz-border-radius': '5px'*/
+				'border-radius': '4px 0px 0px 4px',
+				'-webkit-border-radius': '4px 0px 0px 4px',
+				'-moz-border-radius': '4px 0px 0px 4px'
 			}
 		}).inject(parent);
 		
-		if(this.options.label)
+		
+        if(this.options.label)
 		{
 			Element('span', {
 				'text': this.options.percentage + "%"
 			}).inject(this.bar);
 		}
 		
+
 		// Will it be Animated?
 		if(this.options.fx)
 		{
 			this.fx = new Fx.Tween(this.bar, this.options.fx);
-			this.labelFx = new Fx.Counter(this.bar, this.options.fx, "%");
+			this.labelFx = new Fx.Counter(this.bar, this.options.fx, "stupid");
 		}
 	},
 	
@@ -98,7 +98,7 @@ var MoogressBar = new Class({
 			}.bind(this));
 		}else{
 			// Fire the events immediately when there's no fx
-			this.bar.set('text', percentage + "%");
+			// this.bar.set('text', percentage + "%");
 			this.fireEvent('change',percentage);
 			if(percentage >= 100){
 				this.fireEvent('finish');
@@ -147,7 +147,7 @@ Fx.Counter = new Class({
     },
     
     set: function(now){
-        this.element.set('text', now.round() + this.after);
+        //this.element.set('text', now.round() + this.after);
         return this;
     }
     

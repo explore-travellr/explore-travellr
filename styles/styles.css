@@ -2,7 +2,10 @@
   styles.css
 */
 
-body{background:url(images/bg.jpg) center 45px repeat-x; font-family:Tahoma, Arial; font-size:14px}
+body{
+    font-family:Tahoma, Arial; font-size:14px;
+    background: url("images/bg_large.png") no-repeat 0 40px;
+}
 
 /* Reusable classes*/
 
@@ -164,13 +167,9 @@ h1#logo{
 }
 
 .dropdown li:hover{
-          background:#4870a0;
+          background-color:#4870a0;
 }
 
-.off{
-          color:#aaa;
-          background: none;
-}
 
 
 .dropdown h3 {
@@ -178,6 +177,39 @@ h1#logo{
           padding:4px 5px;
           font-size:12px;
           font-weight:600;
+}
+
+/*individual feed icons that are inside the the filter content menu
+NOTE: has to be below dropdown CSS!!
+ */
+
+.Travellrfeed_toggle{
+		background: url(images/favs/travellr.png) no-repeat 11px 5px;
+}
+.Twitterfeed_toggle{
+		background: url(images/favs/twitter.png) no-repeat 11px 5px;
+}
+.Flickrfeed_toggle{
+		background: url(images/favs/flickr.png) no-repeat 11px 5px;
+}
+.WorldNomadsfeed_toggle{
+		background: url(images/favs/worldNomads.png) no-repeat 11px 5px;
+}
+.Geckofeed_toggle{
+		background: url(images/favs/geckoGo.png) no-repeat 11px 5px;
+}
+.TravellersPointfeed_toggle{
+		background: url(images/favs/travellersPoint.png) no-repeat 11px 5px;
+}
+.Mapfeed_toggle{
+		background: url(images/favs/google.png) no-repeat 11px 5px;
+}
+
+
+
+.off {
+background-position: 11px -19px;
+color:#aaa;
 }
 
 /*	Specific dropdown styles	*/
@@ -213,9 +245,8 @@ h1#logo{
 
 #container{
           width:100%;
-          min-height:300px;
-          z-index: 1;
-          background: url("images/bg_large.png");
+          height:100%;
+          z-index: 1;`
 }
 
 #slogan{
@@ -261,14 +292,62 @@ h1#logo{
           cursor: pointer;
           overflow: hidden;
           word-wrap: break-word;
+		  -moz-box-shadow: 1px 1px 6px #999;
+		  -webkit-box-shadow: 0px 0px 6px #999;
+		  padding:5px;
+		  background:#fff;
 }
 .displayBox p {
           margin: 0;
 }
 
 .displayBox img{
-          width:150px;
+          width:180px;
 }
+
+.displayBox .flickr{
+	padding-top:26px;
+	background:url(images/favs/flickr.png) no-repeat 85px 5px #fff;
+}
+
+.displayBox .geckoReview, .displayBox .geckoTips{
+	padding-top:31px;
+	background:url(images/favs/minilogo.png) no-repeat 5px 5px #fff;
+}
+
+.geckoReview p{
+
+}
+
+.geckoReview p:before{
+	font-weight:600;
+	color:#77bb00;
+	font-style:normal;
+	content: 'Gecko has a review for ';
+}
+
+.geckoTips p{
+
+}
+
+.geckoTips p:before{
+	font-weight:600;
+	color:#77bb00;
+	font-style:normal;
+	content: 'Gecko travel tip: ';
+}
+
+.displayBox .twitter{
+	-moz-box-shadow:0 0 0;
+}
+
+.displayBox .twitter p{
+	background:#eee;
+	margin-left:20px;
+	border:solid 1px #aaa;
+	padding:4px;
+}
+
 
 
 /***********************
@@ -285,13 +364,15 @@ h1#logo{
           z-index:500;
 }
 .modal{
-          position: absolute;
+          position: fixed;
+          top: 20%;
+          left: 30%;
           background : white;
           z-index:1000;
           -moz-border-radius:10px; -webkit-border-radius:10px;
           -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
-          max-width: 600px;
-          max-height: 500px;
+          /*max-width: 600px;
+          max-height: 500px; */
           font-family:Arial,Helvetica,Verdana,sans-serif;
           padding: 15px;
 }
@@ -315,8 +396,7 @@ h1#logo{
 }
 
 .modal .content {
-          max-width: 600px;
-          max-height: 450px;
+
           position: relative;
           overflow: auto;
           word-wrap: break-word;
@@ -452,6 +532,7 @@ h1#logo{
     top: 0;
     position: absolute;
     background: blue;
+	display:none;
 }
 /***********************
  * Modal Box (popup)
@@ -521,4 +602,15 @@ h1#logo{
     right: -12px;
     z-index: 10000;
     text-indent: -99999px;
+}
+#progressBar {
+    width: 300px;
+    margin: 0 auto;
+    border: 1px solid #a3b5cc;
+    -moz-border-radius: 5px;
+    
+}
+#progressBar div {
+    background: #B5C4D6;
+    color: #B5C4D6;
 }
