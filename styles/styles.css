@@ -205,12 +205,11 @@ NOTE: has to be below dropdown CSS!!
 
 
 
-.off {
+.off, .unavailable {
 background-position: 11px -19px;
 color:#aaa;
 }
 
->>>>>>> 1861967bccc7a27b86d5e9f60827ff7cb3db3036
 /*	Specific dropdown styles	*/
 
 #feed_dropdown{

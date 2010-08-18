@@ -22,6 +22,10 @@ var WorldNomadsFeed = new Class({
 
     Extends: Feed,
 
+    /**
+    * Variable: name
+    * The name of thie <Feed>, used in the GUI
+    */
     name: 'WorldNomads',
 
     TYPE: 'recent',
@@ -41,11 +45,14 @@ var WorldNomadsFeed = new Class({
 
         var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
         var country_id = this.countries.get(country);
-
-        if (!$chk(country_id)) {
+        
+        //if the search string doesn't return a country, don't request World Nomads feed and grey out the toggle
+        if (!$chk(country_id) || (!searchFilter.location.name.toLowerCase().contains(country))) {
+            $$('.WorldNomadsfeed_toggle').addClass('unavailable');
             this.feedReady();
             return;
         }
+        $$('.WorldNomadsfeed_toggle').removeClass('unavailable');
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {
