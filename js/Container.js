@@ -84,17 +84,18 @@ var Container = new Class({
 
         this.searchBox = searchBox;
         if (this.searchBox) {
-            this.searchBox.addEvent('search', (function(event) {
+                this.searchBox.addEvent('search', (function (event) {
                 var progressElement = new Element('div', { id: 'progressBar' })
                 this.container.grab(progressElement);
 
                 this.loadedFeeds = 0;
                 this.loaded = false;
 
+                //fades out the tooltip
+                $('slogan').fade('out');
+
                 this.progressBar = new MoogressBar(progressElement, {
-                    percentage: 0,
-                    // label: false,
-                    onFinish: function() {
+                    onFinish: function () {
                         progressElement.getParent().removeChild(progressElement);
                     }
                 });
@@ -114,13 +115,11 @@ var Container = new Class({
     */
     addFeed: function(feed) {
         this.feeds.push(feed);
-        feed.addEvent('feedReady', (function(amount) {
-            this.loadedFeeds++;
-            //increment loading bar
+        feed.addEvent('feedReady', (function (amount) {
+            this.loadedFeeds++;//increment loading bar
             var progressWidth = this.progressBar.setPercentage(this.loadedFeeds / this.numberOfFeeds * 100);
-            $('progressBar').setStyle('width', progressWidth + '%');
             if (this.loadedFeeds == this.numberOfFeeds) {
-                //hide loading bar\
+                //hide loading bar
                 this.loaded = true;
             }
         }).bind(this));
@@ -154,8 +153,8 @@ var Container = new Class({
     *     - <addDisplayBox>
     *     - <queueAddDisplayBox>
     */
-    addDisplayBoxFromQueue: function() {
-        var displayBox = this.displayBoxQueue.removeRandom(); //TODO google map 1st item
+    addDisplayBoxFromQueue: function () {
+        var displayBox = this.displayBoxQueue.removeRandom();
         if (!displayBox) {
             // The queue may have been emptied since this function was queued.
             return;
@@ -193,7 +192,7 @@ var Container = new Class({
     *     - <addDisplayBox>
     *     - <addDisplayBoxFromQueue>
     */
-    queueAddDisplayBox: function() {
+    queueAddDisplayBox: function () {
         // Check it is not already queued
         if (!$chk(this.queueTimer)) {
             if (this.displayBoxQueue.length !== 0 && this.loaded) {
@@ -211,7 +210,7 @@ var Container = new Class({
     * Returns:
     *     An array containing the DisplayBoxes in this Container
     */
-    getDisplayBoxes: function(feed) {
+    getDisplayBoxes: function (feed) {
         return this.displayBoxes;
     },
 
@@ -231,7 +230,7 @@ var Container = new Class({
         }
     },
 
-    removeAllDisplayBoxes: function() {
+    removeAllDisplayBoxes: function () {
         var displayBoxes = this.getDisplayBoxes();
         while (displayBoxes.length) {
             this.removeDisplayBox(displayBoxes[0]);
@@ -245,14 +244,14 @@ var Container = new Class({
     * Returns:
     *     The Element the Container manages
     */
-    getElement: function() {
+    getElement: function () {
         return this.container;
     },
 
-    show: function() {
+    show: function () {
         this.getElement().setStyle('display', null);
     },
-    hide: function() {
+    hide: function () {
         this.getElement().setStyle('display', 'none');
     }
 

@@ -60,7 +60,7 @@ var GeckoTipsFeedItem = new Class({
             'class': 'geckoTips'
         }).adopt([
             new Element('p', {
-                text: 'Gecko travel tip: ' + this.post.text.truncateText(100)
+                text: this.post.text.truncateText(100)
             })
         ]);
     },
