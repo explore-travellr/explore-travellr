@@ -73,7 +73,7 @@ var Container = new Class({
     *     container - The element to layout the DisplayBoxes in
     *     searchBox - The SearchBox that will create searches for the feeds in this container.
     */
-    initialize: function(container, searchBox) {
+    initialize: function (container, searchBox) {
         this.container = $(container);
         this.masonry = this.container.masonry({
             columnWidth: 100,
@@ -84,7 +84,7 @@ var Container = new Class({
 
         this.searchBox = searchBox;
         if (this.searchBox) {
-                this.searchBox.addEvent('search', (function (event) {
+            this.searchBox.addEvent('search', (function (event) {
                 var progressElement = new Element('div', { id: 'progressBar' })
                 this.container.grab(progressElement);
 
@@ -113,7 +113,7 @@ var Container = new Class({
     * Parameters:
     *     feed - The feed to add
     */
-    addFeed: function(feed) {
+    addFeed: function (feed) {
         this.feeds.push(feed);
         feed.addEvent('feedReady', (function (amount) {
             this.loadedFeeds++;//increment loading bar
@@ -121,6 +121,7 @@ var Container = new Class({
             if (this.loadedFeeds == this.numberOfFeeds) {
                 //hide loading bar
                 this.loaded = true;
+                this.queueAddDisplayBox();
             }
         }).bind(this));
     },
@@ -136,7 +137,7 @@ var Container = new Class({
     * See Also:
     *     - <queueAddDisplayBox>
     */
-    addDisplayBox: function(displayBox) {
+    addDisplayBox: function (displayBox) {
         this.displayBoxQueue.push(displayBox);
         this.queueAddDisplayBox();
     },
@@ -221,7 +222,7 @@ var Container = new Class({
     * Parameters:
     *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
     */
-    removeDisplayBox: function(displayBox) {
+    removeDisplayBox: function (displayBox) {
         displayBox.setContainer(null);
         this.displayBoxes.erase(displayBox);
         this.displayBoxQueue.erase(displayBox);
@@ -250,6 +251,7 @@ var Container = new Class({
 
     show: function () {
         this.getElement().setStyle('display', null);
+        this.container.masonry({appendContent: []});
     },
     hide: function () {
         this.getElement().setStyle('display', 'none');

@@ -87,31 +87,27 @@ var DisplayBox = new Class({
     getPreview: function() {
         if (!this.preview) {
 
-            var preview = this.feedItem.getPreview().addClass('inner');
-            var wrapper = new Element('div').adopt([preview]);
             var size = this.feedItem.getSize();
-            preview.setStyles({ position: 'relative' });
 
-            if (this.getFeedItem().canScrapbook() && this.scrapbook) {
-                var handle = new Element('div', { 'class': 'handle' });
-                wrapper.grab(handle);
+            var preview = this.feedItem.getPreview();
+            preview.addClass('inner');
+            preview.setStyles({position: 'relative'});
 
-                new Drag.Move(wrapper, {
-                    droppables: this.scrapbook.getButton(),
-                    handle: handle,
-                    onDrop: (function(draggable, droppable) {
-                        if (droppable) {
-                            this.scrapbook.addItem(this.getFeedItem());
-                        }
-                    }).bindWithEvent(this)
-                });
-            }
-
+            var wrapper = new Element('div');
+            wrapper.adopt([preview]);
+            wrapper.addClass('displayBox');
             wrapper.setStyles({
                 width: size.x * 100
             });
 
-            wrapper.addClass('displayBox');
+
+            if (this.getFeedItem().canScrapbook() && this.scrapbook) {
+                var handle = new Element('div', {'class': 'handle'});
+                handle.addEvent('click', function(event) { event.stop(); });
+                preview.grab(handle);
+
+                this.scrapbook.addDraggable(preview, {handle: handle});
+            }
 
             preview.addEvent('click', (function(event) {
                 event.stop();

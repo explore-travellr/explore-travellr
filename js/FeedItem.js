@@ -28,27 +28,7 @@ var FeedItem = new Class({
      *     - <setDisplayBox>
      *     - <getDisplayBox>
      */
-    content: null,
-
-    /**
-     * Variable: content
-     * A <MooTools::Element> containing the large content view of this <FeedItem>
-     *
-     * See Also:
-     *     - <getContent>
-     *     - <makeContent>
-     */
-    content: null,
-
-    /**
-     * Variable: preview
-     * A <MooTools::Element> containing the small preview content of this <FeedItem>
-     *
-     * See Also:
-     *     - <getPreview>
-     *     - <makePreview>
-     */
-    preview: null,
+    displayBox: null,
 
     /**
      * Variable: size
@@ -79,10 +59,9 @@ var FeedItem = new Class({
      *     - <makeContent>
      */
     getContent: function() {
-        if (!this.content) {
-            this.content = this.makeContent();
-        }
-        return this.content;
+        var content = this.makeContent();
+        content.store('FeedItem', this);
+        return content;
     },
 
     /**
@@ -105,10 +84,9 @@ var FeedItem = new Class({
      *     - <makePreview>
      */
     getPreview:function() {
-        if (!this.preview) {
-            this.preview = this.makePreview();
-        }
-        return this.preview;
+        var preview = this.makePreview();
+        preview.store('FeedItem', this);
+        return preview;
     },
 
     /**
