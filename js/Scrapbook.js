@@ -132,20 +132,34 @@ var Scrapbook = new Class({
                 this.showFolders();
                 draggable.addClass('dragged');
             }).bindWithEvent(this),
+            
+            onEnter: function(draggable, droppable) {
+                droppable.addClass('drop');
+            },
+            onLeave: function(draggable, droppable) {
+                droppable.removeClass('drop');
+            },
 
             onDrop: (function(draggable, droppable, event) {
                 if (event) {
                     event.stop();
                 }
-
-                this.hideFolders();
+                
                 if (droppable) {
+                    droppable.removeClass('drop');
+                    
+                    droppable.highlight();
+                    this.hideFolders.delay(1000, this);
+                    
                     droppable.retrieve('Scrapbook.Folder').addItem(draggable.retrieve('FeedItem'));
+                } else {
+                    this.hideFolders();
                 }
-
+                
                 new Fx.Morph(draggable).start({left:0, top:0}).chain(function() {
                     draggable.removeClass('dragged');
                 });
+                
             }).bindWithEvent(this)
 
         })));
