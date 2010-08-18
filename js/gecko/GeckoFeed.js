@@ -26,7 +26,7 @@ var GeckoFeed = new Class({
     * Variable: name
     * The name of thie <Feed>, used in the GUI
     */
-    name: 'Gecko',
+    name: 'GeckoGo',
 
     /**
     * Function: search
