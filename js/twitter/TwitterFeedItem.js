@@ -24,7 +24,7 @@ var TwitterFeedItem = new Class({
 
     /**
      * Variable: tweet
-     * The tweet data
+     * A <JS::Object> holding all the post data
      */
     tweet: null,
 
@@ -42,10 +42,8 @@ var TwitterFeedItem = new Class({
      *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject) {
-        
         this.tweet = feedObject;
         this.tweet.url = 'http://twitter.com/' + this.tweet.from_user + '/status/' + this.tweet.id;
-
         this.size = {
             x: 2
         };
@@ -91,6 +89,13 @@ var TwitterFeedItem = new Class({
             ]);
     },
 
+    /**
+     * Function: serialize
+     * Returns the tweet data, ready for serialization
+     *
+     * Returns:
+     *     The tweet data
+     */
     serialize: function() {
         return this.tweet;
     }

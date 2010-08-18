@@ -1,19 +1,21 @@
 /*
-Script: TravellersPointFeed.js
-   TravellersPointFeed - MooTools based World Nomads feed generator
+Class: travellers-point.TravellersPointFeed
+    Gets a stream of google maps by location
+
+Extends:
+    <Feed>
 
 License:
-   MIT-style license.
+    MIT-style license.
 
 Copyright:
-   Copyright (c) 2010 explore.travellr.com
+    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - TravellersPointFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <MooTools::more> Request.JSONP
+   - <travellers-point.TravellersPointFeedItem>
 */
 
 var TravellersPointFeed = new Class({
@@ -22,20 +24,24 @@ var TravellersPointFeed = new Class({
 
     name: 'TravellersPoint',
 
-
     /**
      * Search the feed for items relating to the search terms. This particular
      * search is actually done to yahoo pipes in which the pipe handles the request
      * and converts a RSS feed from World Nomads into a JSON object. It then
      * calls makeFeedItems on success.
      *
-     * @param searchFilter The search filter to filter results with
+     * @param searchFilter The search filter to filter results with in TP
      */
     search: function(searchFilter) {
         this.empty();
 
         var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
-     
+
+        if (!$chk(country)) {
+            this.feedReady();
+            return;
+        }
+        
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {
@@ -57,12 +63,20 @@ var TravellersPointFeed = new Class({
      * @param response object returned by the yahoo pipes call (parsing travellers point feeds)
      */
     makeFeedItems: function(results) {
-        if (results && results.value && results.value.items && $chk(results.value.items.length)) {
-            results.value.items.each(function(post) {
-                this.feedItems.push(new TravellersPointFeedItem(post));
-            }, this);
-            this.feedReady();
-        }
-    },
+        var outstanding = 1;
+        var callback = (function() {
+            outstanding = outstanding - 1;
+            if (outstanding === 0) {
+                this.feedReady();
+            }
+        }).bind(this);
 
+        if (results && results.value && results.value.items && results.value.items.length !== 0) {
+            results.value.items.each(function(post) {
+                this.feedItems.push(new TravellersPointFeedItem(post, {onReady: callback}));
+            }, this);
+        }
+
+        callback();
+    }
  });

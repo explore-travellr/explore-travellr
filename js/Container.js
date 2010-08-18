@@ -18,61 +18,61 @@ See Also:
 var Container = new Class({
 
     /**
-     * Variable: container
-     * The <MooTools::Element> that this <Container> displays its <DisplayBoxes> in
-     */
+    * Variable: container
+    * The <MooTools::Element> that this <Container> displays its <DisplayBoxes> in
+    */
     container: null,
 
     /**
-     * Variable: displayBoxes
-     * An <JS::Array> of all the <DisplayBoxes> currently displayed
-     */
+    * Variable: displayBoxes
+    * An <JS::Array> of all the <DisplayBoxes> currently displayed
+    */
     displayBoxes: [],
 
     /**
-     * Variable: feeds
-     * An <JS::Array> of all the <Feeds> displayed by this <Container>
-     */
+    * Variable: feeds
+    * An <JS::Array> of all the <Feeds> displayed by this <Container>
+    */
     feeds: [],
 
     /**
-     * Variable: toggleBox
-     * The <FeedToggle> that controlls all the <Feeds> held in <feeds>
-     */
+    * Variable: toggleBox
+    * The <FeedToggle> that controlls all the <Feeds> held in <feeds>
+    */
     toggleBox: null,
 
     /**
-     * Variable: displayBoxQueue
-     * A queue (<JS::Array>) of <DisplayBoxes> that will be animated in to the
-     * display
-     */
+    * Variable: displayBoxQueue
+    * A queue (<JS::Array>) of <DisplayBoxes> that will be animated in to the
+    * display
+    */
     displayBoxQueue: [],
 
     /**
-     * Variable: queueTimer
-     * The timer reference for delaying the animation of <displayBoxQueue>
-     */
+    * Variable: queueTimer
+    * The timer reference for delaying the animation of <displayBoxQueue>
+    */
     queueTimer: null,
 
     /**
-     * Variable: queueDelay
-     * The time in milliseconds to delay between displaying each <DisplayBox> in
-     * in <displayBoxQueue>
-     */
+    * Variable: queueDelay
+    * The time in milliseconds to delay between displaying each <DisplayBox> in
+    * in <displayBoxQueue>
+    */
     queueDelay: 100,
     loaded: false,
 
     /**
-     * Constructor: initialize
-     * Creates a new Container class. This instance will layout its DisplayBoxes
-     * in the supplied container element. The container will listen to the
-     * search box, emptying itself out when a seach is made
-     *
-     * Paramaters:
-     *     container - The element to layout the DisplayBoxes in
-     *     searchBox - The SearchBox that will create searches for the feeds in this container.
-     */
-    initialize: function(container, searchBox){
+    * Constructor: initialize
+    * Creates a new Container class. This instance will layout its DisplayBoxes
+    * in the supplied container element. The container will listen to the
+    * search box, emptying itself out when a seach is made
+    *
+    * Paramaters:
+    *     container - The element to layout the DisplayBoxes in
+    *     searchBox - The SearchBox that will create searches for the feeds in this container.
+    */
+    initialize: function (container, searchBox) {
         this.container = $(container);
         this.masonry = this.container.masonry({
             columnWidth: 100,
@@ -83,17 +83,19 @@ var Container = new Class({
 
         this.searchBox = searchBox;
         if (this.searchBox) {
-            this.searchBox.addEvent('search', (function(event) {
-                var progressElement = new Element('div', {id: 'progressBar'})
+            this.searchBox.addEvent('search', (function (event) {
+                var progressElement = new Element('div', { id: 'progressBar' })
                 this.container.grab(progressElement);
 
                 this.loadedFeeds = 0;
                 this.loaded = false;
 
-                this.progressBar = new MoogressBar(progressElement,{
-                    percentage: 0,
-                    // label: false,
-                    onFinish: function(){
+                //fades out the tooltip
+                $('slogan').fade('out');
+
+                this.progressBar = new MoogressBar(progressElement, {
+                    label: false,
+                    onFinish: function () {
                         progressElement.getParent().removeChild(progressElement);
                     }
                 });
@@ -106,20 +108,19 @@ var Container = new Class({
     },
 
     /**
-     * Function: addFeed
-     * Adds a feed to this container
-     *
-     * Paramaters:
-     *     feed - The feed to add
-     */
-    addFeed: function(feed) {
+    * Function: addFeed
+    * Adds a feed to this container
+    *
+    * Paramaters:
+    *     feed - The feed to add
+    */
+    addFeed: function (feed) {
         this.feeds.push(feed);
-        feed.addEvent('feedReady', (function(amount) {
+        feed.addEvent('feedReady', (function (amount) {
             this.loadedFeeds++;
+            //console.log("Feed", feed.name, "is loaded");
             //increment loading bar
-            //console.log(this.loadedFeeds);
-            var progressWidth = this.progressBar.setPercentage(this.loadedFeeds/this.numberOfFeeds * 100);
-            $('progressBar').setStyle('width', progressWidth + '%');
+            var progressWidth = this.progressBar.setPercentage(this.loadedFeeds / this.numberOfFeeds * 100);
             if (this.loadedFeeds == this.numberOfFeeds) {
                 //hide loading bar\
                 this.loaded = true;
@@ -128,34 +129,34 @@ var Container = new Class({
     },
 
     /**
-     * Function: addDisplayBox
-     * Adds a <DisplayBox> to the <Containers> <displayBoxQueue>. <DisplayBoxes>
-     * will be added in the future at a time decided by the <Container>.
-     *
-     * Paramaters:
-     *     displayBox - The <DisplayBox> to add
-     *
-     * See Also:
-     *     - <queueAddDisplayBox>
-     */
-    addDisplayBox: function(displayBox) {
+    * Function: addDisplayBox
+    * Adds a <DisplayBox> to the <Containers> <displayBoxQueue>. <DisplayBoxes>
+    * will be added in the future at a time decided by the <Container>.
+    *
+    * Paramaters:
+    *     displayBox - The <DisplayBox> to add
+    *
+    * See Also:
+    *     - <queueAddDisplayBox>
+    */
+    addDisplayBox: function (displayBox) {
         this.displayBoxQueue.push(displayBox);
         this.queueAddDisplayBox();
     },
 
     /**
-     * Function: addDisplayBoxFromQueue
-     * Adds a <DisplayBox> from the <displayBoxQueue>. This method will then
-     * call <queueAddDisplayBox>, to add any more queued <DisplayBoxes>
-     *
-     * Paramaters:
-     *     displayBox - The <DisplayBox> to add
-     *
-     * See Also:
-     *     - <addDisplayBox>
-     *     - <queueAddDisplayBox>
-     */
-    addDisplayBoxFromQueue: function() {
+    * Function: addDisplayBoxFromQueue
+    * Adds a <DisplayBox> from the <displayBoxQueue>. This method will then
+    * call <queueAddDisplayBox>, to add any more queued <DisplayBoxes>
+    *
+    * Paramaters:
+    *     displayBox - The <DisplayBox> to add
+    *
+    * See Also:
+    *     - <addDisplayBox>
+    *     - <queueAddDisplayBox>
+    */
+    addDisplayBoxFromQueue: function () {
         var displayBox = this.displayBoxQueue.removeRandom();
         if (!displayBox) {
             // The queue may have been emptied since this function was queued.
@@ -172,6 +173,7 @@ var Container = new Class({
             appendContent: [preview]
         });
         preview.fade('in');
+        displayBox.fireEvent('preview');
 
         // Tell the display box about this container
         displayBox.setContainer(this);
@@ -183,17 +185,17 @@ var Container = new Class({
     },
 
     /**
-     * Function: queueAddDisplayBox
-     * Make a periodical function to add a queued <DisplayBox> from
-     * <displayBoxQueue>. This function will only run if there are
-     * <DisplayBoxes> to add, and the periodical function is not already
-     * running.
-     *
-     * See Also:
-     *     - <addDisplayBox>
-     *     - <addDisplayBoxFromQueue>
-     */
-    queueAddDisplayBox: function() {
+    * Function: queueAddDisplayBox
+    * Make a periodical function to add a queued <DisplayBox> from
+    * <displayBoxQueue>. This function will only run if there are
+    * <DisplayBoxes> to add, and the periodical function is not already
+    * running.
+    *
+    * See Also:
+    *     - <addDisplayBox>
+    *     - <addDisplayBoxFromQueue>
+    */
+    queueAddDisplayBox: function () {
         // Check it is not already queued
         if (!$chk(this.queueTimer)) {
             if (this.displayBoxQueue.length !== 0 && this.loaded) {
@@ -205,24 +207,24 @@ var Container = new Class({
     },
 
     /**
-     * Function: getDisplayBoxes
-     * Get all the DisplayBoxes being managed by this Container
-     *
-     * Returns:
-     *     An array containing the DisplayBoxes in this Container
-     */
-    getDisplayBoxes: function(feed) {
+    * Function: getDisplayBoxes
+    * Get all the DisplayBoxes being managed by this Container
+    *
+    * Returns:
+    *     An array containing the DisplayBoxes in this Container
+    */
+    getDisplayBoxes: function (feed) {
         return this.displayBoxes;
     },
 
     /**
-     * Function: removeDisplayBox
-     * Remove a display box from the Container
-     *
-     * Paramaters:
-     *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
-     */
-    removeDisplayBox: function(displayBox) {
+    * Function: removeDisplayBox
+    * Remove a display box from the Container
+    *
+    * Paramaters:
+    *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
+    */
+    removeDisplayBox: function (displayBox) {
         displayBox.setContainer(null);
         this.displayBoxes.erase(displayBox);
         this.displayBoxQueue.erase(displayBox);
@@ -231,7 +233,7 @@ var Container = new Class({
         }
     },
 
-    removeAllDisplayBoxes: function() {
+    removeAllDisplayBoxes: function () {
         var displayBoxes = this.getDisplayBoxes();
         while (displayBoxes.length) {
             this.removeDisplayBox(displayBoxes[0]);
@@ -239,20 +241,20 @@ var Container = new Class({
     },
 
     /**
-     * Function: getElement
-     * Get the element that this Container is putting its DisplayBoxes in
-     *
-     * Returns:
-     *     The Element the Container manages
-     */
-    getElement: function() {
+    * Function: getElement
+    * Get the element that this Container is putting its DisplayBoxes in
+    *
+    * Returns:
+    *     The Element the Container manages
+    */
+    getElement: function () {
         return this.container;
     },
 
-    show: function() {
+    show: function () {
         this.getElement().setStyle('display', null);
     },
-    hide: function() {
+    hide: function () {
         this.getElement().setStyle('display', 'none');
     }
 

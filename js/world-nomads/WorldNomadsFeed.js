@@ -1,6 +1,9 @@
 /*
 Class: world-nomads.WorldNomadsFeed
-Retrieves World Nomads blog posts from the World Nomads Yahoo Pipe
+    Retrieves World Nomads blog posts from the World Nomads Yahoo Pipe
+
+Extends:
+   <Feed>
 
 License:
    MIT-style license.
@@ -9,11 +12,10 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Request/Request.JSONP
-   - Feed Class
-   - WorldNomadsFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <Feed>
+   - <world-nomads.WorldNomadsFeedItem>
 */
 
 var WorldNomadsFeed = new Class({
@@ -25,15 +27,15 @@ var WorldNomadsFeed = new Class({
     TYPE: 'recent',
 
     /**
-     * Function: search
-     * Search the feed for items relating to the search terms. This particular
-     * search is actually done to yahoo pipes in which the pipe handles the request
-     * and converts a RSS feed from World Nomads into a JSON object. It then
-     * calls makeFeedItems on success.
-     *
-     * Paramaters:
-     *     searchFilter - The search filter to filter results with
-     */
+    * Function: search
+    * Search the feed for items relating to the search terms. This particular
+    * search is actually done to yahoo pipes in which the pipe handles the request
+    * and converts a RSS feed from World Nomads into a JSON object. It then
+    * calls makeFeedItems on success.
+    *
+    * Paramaters:
+    *     searchFilter - The search filter to filter results with
+    */
     search: function(searchFilter) {
         this.empty();
 
@@ -41,6 +43,7 @@ var WorldNomadsFeed = new Class({
         var country_id = this.countries.get(country);
 
         if (!$chk(country_id)) {
+            this.feedReady();
             return;
         }
         new Request.JSONP({
@@ -57,27 +60,27 @@ var WorldNomadsFeed = new Class({
     },
 
     /**
-     * Function: makeFeedItems
-     * Makes the individual <WorldNomadsFeedItems> from the search results.
-     * <feedReady> is called when everything is created, to populate the <Container>
-     *
-     * Paramaters:
-     *     response - object returned by the yahoo pipes call (parsing world nomads feeds)
-     */
+    * Function: makeFeedItems
+    * Makes the individual <WorldNomadsFeedItems> from the search results.
+    * <feedReady> is called when everything is created, to populate the <Container>
+    *
+    * Paramaters:
+    *     response - object returned by the yahoo pipes call (parsing world nomads feeds)
+    */
     makeFeedItems: function(results) {
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {
             results.value.items.each(function(post) {
                 this.feedItems.push(new WorldNomadsFeedItem(post));
             }, this);
-            this.feedReady();
         }
+        this.feedReady();
     },
 
     /**
-     * Variable: countries
-     * An array of country IDs. Searches need to be made using the country ID,
-     * not the name, so this array can map between the two.
-     */
+    * Variable: countries
+    * An array of country IDs. Searches need to be made using the country ID,
+    * not the name, so this array can map between the two.
+    */
     countries: $H({
         'argentina': 11,
         'australia': 14,

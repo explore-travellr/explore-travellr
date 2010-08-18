@@ -1,6 +1,9 @@
 /*
-Script: GeckoReviewFeedItem.js
-   GeckoReviewFeedItem - MooTools based GeckoGo feed item handler
+Class: gecko.GeckoReviewFeedItem
+   Displays GeckoGo review retrieved by a <GeckoFeed>
+
+Extends:
+   <FeedItem>
 
 License:
    MIT-style license.
@@ -9,10 +12,9 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - FeedItem Class
-   - GeckoReviewFeed Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <GeckoGoFeed>
 */
 
 var GeckoReviewFeedItem = new Class({
@@ -20,59 +22,55 @@ var GeckoReviewFeedItem = new Class({
     Extends: FeedItem,
     Serializable: 'GeckoReviewFeedItem',
 
+    /**
+     * Variable: post
+     * A <JS::Object> holding all the post data
+     */
     post: null,
 
+    /**
+     * Variable: name
+     * The name of this <FeedItem>, used in the GUI
+     */
     name: 'GeckoReviewFeedItem',
 
     /**
-     * Constructs a new GeckoReviewFeedItem with the content drawn from user reviews
+     * Consructor: initialize
+     * Sets a new <GeckoReviewFeedItem> with the content drawn from user Reviews
      *
-     * @param post The review to draw content from
+     * Paramaters:
+     *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(post) {
-        this.post = post;
-
+    initialize: function(feedObject) {
+        this.post = feedObject;
         this.size = {
             x: 2
         };
     },
 
     /**
-     * Builds a feed item preview to go in the displayBox within the container
+     * Function: makePreview
+     * Builds a <MooTools::Element> containing a preview of this <GeckoReviewFeedItem>
      *
-     * @example <div class="displayBox">
-     *              <div class="geckoReview inner">
-     *                  <img src=""></img>
-     *                  <p></p>
-     *              </div>
-     *          </div>
+     * Returns:
+     *     A <MooTools::Element> containing a preview of this <GeckoReviewFeedItem>
      */
     makePreview: function() {
-        //console.log(this.post);
         return new Element('div', {
             'class': 'geckoReview'
         }).adopt([
             new Element('p', {
-                text: 'Gecko has a review for '+this.post.name+' in '+this.post.country
+                text: this.post.name+' in '+this.post.country
             })
-
         ]);
     },
 
     /**
-     * Builds a feed item content div for insertion into the modal box once
-     * clicked
+     * Function: makeContent
+     * Builds a <MooTools::Element> with the content of this <GeckoReviewFeedItem>
      *
-     * @example <div class="modal">
-     *              <div class="content">
-     *                  <div class="GeckoReview">
-     *                      <h2>
-     *                          <a href=""></a>
-     *                      </h2>
-     *                      <div></div>
-     *                  </div>
-     *              </div>
-     *         </div>
+     * Returns:
+     *     A <MooTools::Element> with the content of this <GeckoReviewFeedItem>
      */
     makeContent: function() {
         return new Element('div', {
@@ -87,7 +85,14 @@ var GeckoReviewFeedItem = new Class({
             })
         ]);
     },
-
+    
+    /**
+     * Function: serialize
+     * Returns the post data, ready for serialization
+     *
+     * Returns:
+     *     The post data
+     */
     serialize: function() {
         return this.post;
     }
