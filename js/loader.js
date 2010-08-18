@@ -121,10 +121,12 @@ window.addEvent('domready', function() {
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
     var container = new Container('container', searchBox);
+
     var scrapbook = new Scrapbook({
         button: $('favourites_button'),
         folderDropdown: $('favourites_dropdown'),
         folderWrapper: $('favourites_folders'),
+        folderAdd: $('favourites_add_folder'),
         onShown: function() {
             container.hide();
         },

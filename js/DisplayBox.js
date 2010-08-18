@@ -88,10 +88,19 @@ var DisplayBox = new Class({
     getPreview: function() {
         if (!this.preview) {
 
-            var preview = this.feedItem.getPreview().addClass('inner');
-            var wrapper = new Element('div').adopt([preview]);
             var size = this.feedItem.getSize();
+
+            var preview = this.feedItem.getPreview();
+            preview.addClass('inner');
             preview.setStyles({position: 'relative'});
+
+            var wrapper = new Element('div');
+            wrapper.adopt([preview]);
+            wrapper.addClass('displayBox');
+            wrapper.setStyles({
+                width: size.x * 100
+            });
+
 
             if (this.getFeedItem().canScrapbook() && this.scrapbook) {
                 var handle = new Element('div', {'class': 'handle'});
@@ -99,14 +108,7 @@ var DisplayBox = new Class({
                 preview.grab(handle);
 
                 this.scrapbook.addDraggable(preview, {handle: handle});
-
             }
-
-            wrapper.setStyles({
-                width: size.x * 100
-            });
-
-            wrapper.addClass('displayBox');
 
             preview.addEvent('click', (function(event) {
                 event.stop();

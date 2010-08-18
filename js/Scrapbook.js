@@ -11,23 +11,27 @@ var Scrapbook = new Class({
     foldersVisible: false,
 
     draggables: [],
+    draggableElements: [],
 
     options: {
         button: null,
         folderDropdown: null,
         folderWrapper: null,
+        folderAdd: null,
         folderFx: { duration: 400, wrapper: 'favourites_wrapper'  }
     },
 
     persistant: null,
+    name: 'Scrapbook',
 
     initialize: function(options) {
         this.setOptions(options);
 
-        var name = 'Scrapbook';
 
-        this.persistant = new Persist.Store(name);
-        this.persistant.get(name, (function(ok, data) {
+        this.container = new Container('scrapbook');
+
+        this.persistant = new Persist.Store(this.name);
+        this.persistant.get(this.name, (function(ok, data) {
             if (ok && data != null) {
                 // Unserializing the data may fail
                 try {
@@ -47,13 +51,17 @@ var Scrapbook = new Class({
             }
         }).bind(this));
 
-        this.container = new Container('scrapbook');
-
         this.folderFx = new Fx.Slide(this.options.folderDropdown, this.options.folderFx).hide();
+        this.options.folderAdd.addEvent('click', (function() {
+            this.addFolder(new Scrapbook.Folder(prompt('Name of new folder'), null, this));
+        }).bind(this));
 
         this.getButton().addEvent('click', (function(event) {
             event.preventDefault();
-            if (this.isFoldersVisible()) {
+            if (this.isVisible()) {
+                console.log('Hiding');
+                this.hide();
+            } else if (this.isFoldersVisible()) {
                 this.hideFolders();
             } else {
                 this.showFolders();
@@ -80,6 +88,10 @@ var Scrapbook = new Class({
         folder.addEvent('dirty', (function() {
             this.save();
         }).bind(this));
+
+        folder.toElement().addEvent('click', (function() {
+            this.show(folder);
+        }).bind(this));
     },
 
     removeFolder: function(folder) {
@@ -100,19 +112,25 @@ var Scrapbook = new Class({
         this.folderFx.cancel().slideOut();
     },
 
-    addDraggable: function(draggable, options) {
+    addDraggable: function(draggable, options, feedItem) {
         var droppables = this.getFolders().map(function(folder) {
             return folder.toElement();
         });
 
-        this.draggables.push(new Drag.Move(draggable, $extend(options, {
+        var drag = {draggable: draggable, options: options, feedItem: feedItem};
+        this.draggableElements.push(drag);
+        this._addDraggable(drag, droppables);
+    },
+
+    _addDraggable: function(drag, droppables) {
+        this.draggables.push(new Drag.Move(drag.draggable, $extend(drag.options, {
             droppables: droppables,
             preventDefault: true,
             stopPropagation: true,
 
             onStart: (function(draggable) {
                 this.showFolders();
-                draggable.setStyle('z-index', 1000);
+                draggable.addClass('dragged');
             }).bindWithEvent(this),
 
             onDrop: (function(draggable, droppable, event) {
@@ -120,11 +138,12 @@ var Scrapbook = new Class({
 
                 this.hideFolders();
                 if (droppable) {
-                    droppable.addItem(this.getFeedItem());
+                    droppable.retrieve('Scrapbook.Folder').addItem(draggable.retrieve('FeedItem'));
                 }
 
-                draggable.setStyle('z-index', null);
-                new Fx.Morph(draggable).start({left:0, top:0});
+                new Fx.Morph(draggable).start({left:0, top:0}).chain(function() {
+                    draggable.removeClass('dragged');
+                });
             }).bindWithEvent(this)
 
         })));
@@ -136,6 +155,15 @@ var Scrapbook = new Class({
      * Updates all the draggables to reflect a change in the droppables
      */
     updateDraggables: function() {
+        var droppables = this.getFolders().map(function(folder) {
+            return folder.toElement();
+        });
+        this.draggables.each(function(d) {
+            d.stop();
+        });
+        this.draggableElements.each(function(d) {
+            this._addDraggable(d.draggable, d.options, droppables);
+        });
     },
 
     getButton: function() {
@@ -147,7 +175,8 @@ var Scrapbook = new Class({
         this.folders.each(function(folder) {
             serialized.push(Serializable.serialize(folder));
         });
-        this.persistant.set(name, JSON.encode(serialized));
+        console.log("Saving", serialized, "in", this.name);
+        this.persistant.set(this.name, JSON.encode(serialized));
     },
 
     isVisible: function() {
@@ -158,16 +187,19 @@ var Scrapbook = new Class({
         return this.foldersVisible;
     },
 
-    show: function() {
+    show: function(folder) {
         this.container.show();
-        this.folders[0].view(this.container);
+        (folder || this.folders[0]).view(this.container);
         this.visible = true;
+        this.hideFolders();
+        this.getButton().addClass('active');
         this.fireEvent('shown');
     },
 
     hide: function() {
         this.container.hide();
         this.visible = false;
+        this.getButton().removeClass('active');
         this.fireEvent('hidden');
     }
 
@@ -219,7 +251,11 @@ Scrapbook.Folder = new Class({
     }, 
 
     toElement: function() {
-        return new Element('div', {text: this.getName()});
+        if (!this.element) {
+            this.element = new Element('div', {text: this.getName()});
+            this.element.store('Scrapbook.Folder', this);
+        }
+        return this.element;
     },
 
     toDisplayBox: function() {
@@ -258,8 +294,10 @@ Scrapbook.Folder = new Class({
     },
 
     setDirty: function(dirty) {
+        var fire = !this.dirty && dirty;
         this.dirty = dirty;
-        if (this.dirty) {
+        if (fire) {
+            console.log("Folder", this.getName(), "is dirty");
             this.fireEvent('dirty');
         }
     },

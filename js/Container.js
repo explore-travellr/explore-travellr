@@ -253,6 +253,7 @@ var Container = new Class({
 
     show: function() {
         this.getElement().setStyle('display', null);
+        this.container.masonry({appendContent: []});
     },
     hide: function() {
         this.getElement().setStyle('display', 'none');
