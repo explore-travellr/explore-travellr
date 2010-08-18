@@ -58,36 +58,36 @@ var LonelyPlanetFeed = new Class({
      * Search the feed for items relating to the search terms. Calls
      * makeFeedItems on success.
      *
-     * Paramaters:
+     * Parameters:
      *
      *     searchFilter - The search filter to filter results with
      */
     search: function(searchFilter) {
         this.empty();
         
-        var tags = [];
+//        var tags = [];
 
-        this.itemsCalled = $random(4,8);
+//        this.itemsCalled = $random(4,8);
 
-        searchFilter.tags.each(function(tag) {
-            tags.push(tag.name);
-        });
-        tags = tags.join(',');
-        
-        new Request.HTML({
-            url: 'http://api.lonelyplanet.com/api/places?name=lond',
-                /*data: {
-                api_key: this.options.apikey,
-                method: this.options.method,
-                per_page: this.itemsCalled,
-                tags: tags,
-                woe_id: (searchFilter.location ? searchFilter.location.woe_id : null),
-                format: 'json',
-                sort: 'relevance'
+//        searchFilter.tags.each(function(tag) {
+//            tags.push(tag.name);
+//        });
+//        tags = tags.join(',');
+        console.log(searchFilter.searchString);
+        new Request.JSON({
+        url: 'http://www.lonelyplanet.com/destinations-landing-toppicks-json-feed',
+              data: {
+              oauth_consumer_key: 'uHlEq1ijsbVkB0cwhbaHUg',
+//              oauth_token: ''
+//                _id: '7edb44091bd3fc76ed4ff8090ea2609d',
+//                _render: 'json',
+//                country_id: country_id,
+//                type: this.TYPE
             },
-            callbackKey: 'jsoncallback',*/
-            onSuccess: this.makeFeedItems.bind(this)
-        }).send();
+            callbackKey: '_callback',
+              onSuccess: this.makeFeedItems.bind(this),
+                onFailure: console.log("FAIL")
+               }).send();       
     },
 
     /**
@@ -96,13 +96,12 @@ var LonelyPlanetFeed = new Class({
      * object of the response object to the <LonelyPlanetFeedItem> class and then
      * pushing each of them onto the <Feed::feedItems> array
      *
-     * Paramaters:
+     * Parameters:
      *     response - object returned by the lonely planet call
      */
     makeFeedItems: function(response) {
 
-        console.log("gsd");
-        console.log(response);
+        console.log("response: " +response);
 
         this.feedReady();
     }

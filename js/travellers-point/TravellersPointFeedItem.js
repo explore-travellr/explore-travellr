@@ -39,7 +39,7 @@ var TravellersPointFeedItem = new Class({
      * Consructor: initialize
      * Sets a new <TravellerspPointFeedItem> with the content drawn from the blog post sent in
      *
-     * Paramaters:
+     * Parameters:
      *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject, options) {

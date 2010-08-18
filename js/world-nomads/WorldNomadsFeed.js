@@ -33,7 +33,7 @@ var WorldNomadsFeed = new Class({
     * and converts a RSS feed from World Nomads into a JSON object. It then
     * calls makeFeedItems on success.
     *
-    * Paramaters:
+    * Parameters:
     *     searchFilter - The search filter to filter results with
     */
     search: function(searchFilter) {
@@ -64,7 +64,7 @@ var WorldNomadsFeed = new Class({
     * Makes the individual <WorldNomadsFeedItems> from the search results.
     * <feedReady> is called when everything is created, to populate the <Container>
     *
-    * Paramaters:
+    * Parameters:
     *     response - object returned by the yahoo pipes call (parsing world nomads feeds)
     */
     makeFeedItems: function(results) {

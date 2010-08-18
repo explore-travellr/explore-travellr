@@ -1,8 +1,7 @@
 /*
 Class: DisplayBox
-
-Displays a small preview of a <FeedItem> in a <Container>, and the large view
-of the <FeedItem> in a lightbox style popup
+    Displays a small preview of a <FeedItem> in a <Container>, and the large view
+    of the <FeedItem> in a lightbox style popup
 
 License:
     MIT-style license.
@@ -67,7 +66,7 @@ var DisplayBox = new Class({
      * Function: initialize
      * Create a new <DisplayBox> for a <FeedItem>.
      *
-     * Paramaters:
+     * Parameters:
      *     feedItem - The <FeedItem> to manage 
      *     options - Options for this class
      */

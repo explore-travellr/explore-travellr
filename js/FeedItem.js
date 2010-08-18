@@ -1,6 +1,6 @@
 /*
 Class: FeedItem
-   FeedItem - MooTools based generic feed item handler
+   MooTools based generic feed item handler
 
 License:
    MIT-style license.
@@ -9,13 +9,8 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
-   - Utilities/Assets
-   - FlickrFeedItem Class
-   - TravellrFeedItem Class
-   - TwitterFeedItem Class
-   - WorldNomadsFeedItem Class
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
 */
 
 var FeedItem = new Class({
@@ -127,7 +122,7 @@ var FeedItem = new Class({
      * Get the size of the preview
      *
      * Returns:
-     *     An object containing an x and y paramater of the size
+     *     An object containing an x and y parameter of the size
      */
     getSize: function() {
         return this.size;
@@ -137,7 +132,7 @@ var FeedItem = new Class({
      * Function: setDisplayBox
      * Sets the <DisplayBox> that manages this <FeedItem>
      *
-     * Paramaters:
+     * Parameters:
      *     displayBox - The <DisplayBox> that will manage this <FeedItem>
      *
      * See Also:

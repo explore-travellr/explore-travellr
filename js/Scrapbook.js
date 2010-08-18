@@ -131,7 +131,7 @@ Scrapbook.Folder = new Class({
      * Constructor: initialize
      * Creates a new folder.
      *
-     * Paramaters
+     * Parameters
      *     name - The name of the folder
      *     parent - The parent folder
      *     scrapbook - The scrapbook that manages this heirachy
@@ -232,7 +232,7 @@ Scrapbook.Folder = new Class({
 /**
  * Unserialize a <Scrapbook.Folder> from an object.
  *
- * Paramaters:
+ * Parameters:
  *      data - The <Folders> data.
  *      parent - The <Folders> parent. Either another <Folder> or null.
  *      scrapbook - The <Scrapbook> managing this <Folder>.

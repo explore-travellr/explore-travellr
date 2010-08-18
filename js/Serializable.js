@@ -22,7 +22,7 @@ var Serializable = new (function() {
          * Adds a class to the <Serializables> class registry. Should only
          * be called from <Class.Mutators.Serializable>.
          *
-         * Paramaters
+         * Parameters
          *      key - The unique key for this class.
          *      class - The class to add
          */
@@ -36,7 +36,7 @@ var Serializable = new (function() {
          * Serializes an instance of a class to a JSON object. Instances serialized
          * using this function can be unserialized by calling <Serializable.unserialize>
          *
-         * Paramaters:
+         * Parameters:
          *      instance - The instance of a <Serializable> class to serialize
          */
         serialize: function(instance) {
@@ -52,7 +52,7 @@ var Serializable = new (function() {
          * Unserializes an instance of a class from a JSON object. Accepts objects serialized
          * by <Serializable.serialize>.
          *
-         * Paramaters:
+         * Parameters:
          *      data - A JSON object produced by <Serializable.serialize>
          *      args - An array of aditional arguments to send to the classes unserialize method
          */
