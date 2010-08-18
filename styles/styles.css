@@ -244,6 +244,7 @@ color:#aaa;
     border: 1px solid black;
     margin: 0px 10px;
     text-align: center;
+    cursor: pointer;
 }
 
 .drop {
@@ -402,12 +403,12 @@ color:#aaa;
 
 
 .displayBox .handle {
-    width: 15px;
-    height: 15px;
+    width: 190px;
+    height: 23px;
     left: 0;
     top: 0;
     position: absolute;
-    background: blue;
+    cursor: move;
 }
 /***********************
  * Modal Box (popup)
