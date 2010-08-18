@@ -36,7 +36,12 @@ var TravellersPointFeed = new Class({
         this.empty();
 
         var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
-     
+
+        if (!$chk(country)) {
+            this.feedReady();
+            return;
+        }
+        
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {

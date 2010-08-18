@@ -41,11 +41,14 @@ var GeckoFeed = new Class({
     search: function(searchFilter) {
         this.empty();
 
-        //var lat = searchFilter.location.lat;
-        var lat = ($chk(searchFilter.location)) ? searchFilter.location.lat : 1;
-        //var lng = searchFilter.location.lng;
-        var lng = ($chk(searchFilter.location)) ? searchFilter.location.lng : 1;
-        //console.log(lat + " " + lng);
+        if (!$chk(searchFilter.location)) {
+            this.feedReady();
+            return;
+        }
+        
+        var lat = searchFilter.location.lat;
+        var lng = searchFilter.location.lng;
+
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {
