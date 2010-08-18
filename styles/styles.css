@@ -309,10 +309,22 @@ color:#aaa;
 	padding-top:26px;
 	background:url(images/favs/flickr.png) no-repeat 85px 5px #fff;
 }
+.displayBox .worldNomads{
+	padding-top:26px;
+	background:url(images/favs/worldNomads.png) no-repeat 85px 5px #fff;
+}
+.displayBox .TravellersPoint{
+	padding-top:26px;
+	background:url(images/favs/travellersPoint.png) no-repeat 85px 5px #fff;
+}
+.displayBox .travellr{
+	padding-top:31px;
+	background:url(images/favs/travellr_long.png) no-repeat 5px 5px #fff;
+}
 
 .displayBox .geckoReview, .displayBox .geckoTips{
 	padding-top:31px;
-	background:url(images/favs/minilogo.png) no-repeat 5px 5px #fff;
+	background:url(images/favs/geckoGo_long.png) no-repeat 5px 5px #fff;
 }
 
 .geckoReview p{
@@ -339,175 +351,17 @@ color:#aaa;
 
 .displayBox .twitter{
 	-moz-box-shadow:0 0 0;
+	background: url("images/twitter_arrow.png") no-repeat 16px 5px;
 }
 
 .displayBox .twitter p{
 	background:#eee;
 	margin-left:20px;
 	border:solid 1px #aaa;
+	border-left: none;
 	padding:4px;
 }
 
-
-
-/***********************
- * Modal Box (popup)
- ***********************/
-
-.modalMask{
-          position: absolute;
-          left : 0px;
-          top : 0px;
-          width: 100%;
-          height: 100%;
-          background: #000;
-          z-index:500;
-}
-.modal{
-          position: fixed;
-          top: 20%;
-          left: 30%;
-          background : white;
-          z-index:1000;
-          -moz-border-radius:10px; -webkit-border-radius:10px;
-          -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
-          /*max-width: 600px;
-          max-height: 500px; */
-          font-family:Arial,Helvetica,Verdana,sans-serif;
-          padding: 15px;
-}
-.modal .icons {
-          background-color: #eeeeee;
-          border: 1px solid #dddddd;
-          line-height: 16px;
-          font-size: 16px;
-}
-.icons .icon {
-          display: inline-block;
-          width: 16px;
-          height: 16px;
-          line-height: 16px;
-          overflow: hidden;
-          text-indent: -999999px;
-          vertical-align: middle;
-}
-.icons .scrapbook-icon {
-          background-image: url('http://upload.wikimedia.org/wikipedia/commons/a/a1/Heart_add.png');
-}
-
-.modal .content {
-
-          position: relative;
-          overflow: auto;
-          word-wrap: break-word;
-}
-
-.modal .modalClose{
-          position: absolute;
-          top: 0px;
-          right: 0px;
-}
-
-.modal .close-button{
-          -moz-border-radius:15px ; -webkit-border-radius:15px ;
-          background:url("images/closebox.png") no-repeat top right;
-          cursor:pointer;
-          height:29px;
-          width:29px;
-          position: absolute;
-          top: -12px;
-          right: -12px;
-          z-index: 10000;
-          text-indent: -99999px;
-}
-
-.modal .travellr {
-          background-color:#DDEEFF;
-          padding:5px;
-          -moz-border-radius:5px; -webkit-border-radius:5px;
-          max-width: 400px;
-          background: url("images/icon_travellr.jpg") no-repeat 5px 3px;
-
-}
-.modal .travellr .answer {
-          border-top: 1px solid #ddd;
-}
-.modal .travellr .answer .asside {
-          float: left;
-          color: #ccc;
-          margin-right: 0.1em;
-          margin-bottom: 0.2em;
-          margin-top: 0.5em;
-          font-weight: bold;
-          font-size: 2em;
-}
-
-.modal h2 {
-          padding:0;
-          margin:0;
-          font-size: 20px;
-          color : #228;
-          text-indent: 30px;
-}
-
-.modal .travellr a:hover {
-          text-decoration: underline
-}
-
-.modal .travellr p {
-          color:#333333;
-          font-size:16px;
-}
-.modal .travellr p.date {
-          font-size:12px;
-          color:#aaa;
-}
-
-.modal .travellr.ask textarea {
-          width: 100%;
-          height : 7em;
-          font-family: sans-serif;
-}
-.modal .travellr.ask input {
-          display : block;
-          margin-top: 1em;
-          padding : 0.2em 1em;
-          float: right;
-}
-
-.modal .travellr.ask .length {
-          display: block;
-          float: left;
-          font-size: 1.5em;
-          color : #999;
-          margin-top: 0.5em;
-}
-.modal .travellr.ask a {
-          display: block;
-          text-align: right;
-          font-size: 0.8em;
-          clear: both;
-}
-.modal .travellr.ask form.error .length {
-          color : #f44;
-}
-.modal .travellr.ask form.error textarea {
-          border-color : #f44;
-}
-
-.modal .flickr {
-          max-width: 560px;
-          background: url("images/icon_flickr.jpg") no-repeat 5px 3px;
-}
-
-.modal .twitter {
-          max-width: 400px;
-          background: url("images/icon_twitter.jpg") no-repeat 5px 3px;
-}
-
-.modal .worldNomads {
-          background: url("images/icon_worldNomads.jpg") no-repeat 5px 3px;
-}
 /***********************
  * Feed Toggle Panel
  ***********************/
@@ -518,11 +372,6 @@ color:#aaa;
 
 #feedToggle {
 }
-
-
-/*	Loading Bar */
-
-
 
 
 .displayBox .handle {
@@ -603,6 +452,10 @@ color:#aaa;
     z-index: 10000;
     text-indent: -99999px;
 }
+
+/***********************
+ * Loading Bar
+ ***********************/
 #progressBar {
     width: 300px;
     margin: 0 auto;
