@@ -27,7 +27,6 @@ var Scrapbook = new Class({
     initialize: function(options) {
         this.setOptions(options);
 
-
         this.container = new Container('scrapbook');
 
         this.persistant = new Persist.Store(this.name);
@@ -175,7 +174,6 @@ var Scrapbook = new Class({
         this.folders.each(function(folder) {
             serialized.push(Serializable.serialize(folder));
         });
-        console.log("Saving", serialized, "in", this.name);
         this.persistant.set(this.name, JSON.encode(serialized));
     },
 

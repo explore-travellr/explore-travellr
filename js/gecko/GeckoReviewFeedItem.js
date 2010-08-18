@@ -60,7 +60,7 @@ var GeckoReviewFeedItem = new Class({
             'class': 'geckoReview'
         }).adopt([
             new Element('p', {
-                text: 'Gecko has a review for '+this.post.name+' in '+this.post.country
+                text: this.post.name+' in '+this.post.country
             })
         ]);
     },
