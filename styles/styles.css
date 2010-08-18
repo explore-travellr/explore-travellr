@@ -444,6 +444,7 @@ color:#aaa;
     overflow: hidden;
     text-indent: -999999px;
     vertical-align: middle;
+    cursor: pointer;
 }
 .icons .scrapbook-icon {
     background-image: url('http://upload.wikimedia.org/wikipedia/commons/a/a1/Heart_add.png');
