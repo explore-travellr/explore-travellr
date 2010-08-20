@@ -43,7 +43,7 @@ var Feed = new Class({
      * Constructor: initialize
      * Create a new <Feed>
      *
-     * Paramaters:
+     * Parameters:
      *     searchBox - The <SearchBox> that this <Feed> is driven by
      *     container - The <Container> that this <Feed> should put its content into
      */
@@ -65,7 +65,7 @@ var Feed = new Class({
      * 
      * This is an abstract method.
      *
-     * Paramaters:
+     * Parameters:
      *     searchFilter - The <SearchFilter> to filter the feed results with
      */
     search: function() { },
@@ -86,7 +86,7 @@ var Feed = new Class({
      * The method binds all of the methods in unbound to this. The
      * bound methods are used for events and such.
      *
-     * Paramaters:
+     * Parameters:
      *     unbound - A <JS::Object> of method names to bind
      *
      * Returns:
@@ -138,7 +138,7 @@ var Feed = new Class({
 
     /**
      * Function: setVisible
-     * Paramaters:
+     * Parameters:
      *     visible - True if the feed should be visible, false otherwise.
      *
      * See Also:

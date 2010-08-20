@@ -38,7 +38,7 @@ var GeckoReviewFeedItem = new Class({
      * Consructor: initialize
      * Sets a new <GeckoReviewFeedItem> with the content drawn from user Reviews
      *
-     * Paramaters:
+     * Parameters:
      *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject) {

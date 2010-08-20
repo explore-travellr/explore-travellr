@@ -1,8 +1,8 @@
 /*
 Class: SearchBox
-A <SearchBox> listens to a <MooTools::Element> for changes, and makes a new
-search where appropriate. <Feeds>, amongst other classes, can listen to the
-search event for new searches.
+    A <SearchBox> listens to a <MooTools::Element> for changes, and makes a new
+    search where appropriate. <Feeds>, amongst other classes, can listen to the
+    search event for new searches.
 
 License:
    MIT-style license.
@@ -11,8 +11,8 @@ Copyright:
    Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-   - MooTools-core 1.2.4 or higher
-   - MooTools-more 1.2.4.4 RC1 or higher
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
 */
 
 var SearchBox = new Class({
@@ -22,8 +22,8 @@ var SearchBox = new Class({
      * Fired when a new search is created. A <SearchFilter> is sent as the event
      * arguments
      *
-     * Paramaters:
-     *     searchFilter - A <SearchFilter> containing the search paramaters
+     * Parameters:
+     *     searchFilter - A <SearchFilter> containing the search parameters
      */
 
     Implements: Events,
@@ -39,7 +39,7 @@ var SearchBox = new Class({
      * Create a new SearchBox. The SearchBox will listen to the supplied element
      * for its searches
      *
-     * Paramaters:
+     * Parameters:
      *     element - {Element} The input field to listen to for searches
      */
     initialize: function(element) {
@@ -62,7 +62,7 @@ var SearchBox = new Class({
      * filter being the event details. Feeds and other objects can listen to
      * this event.
      *
-     * Paramaters:
+     * Parameters:
      *     searchString - {String} The string to search for.
      */
     search: function(searchString) {  

@@ -14,7 +14,8 @@ Dependencies:
 
 See Also:
    - <DisplayBox>
-     */
+*/
+
 var Container = new Class({
 
     /**
@@ -68,7 +69,7 @@ var Container = new Class({
     * in the supplied container element. The container will listen to the
     * search box, emptying itself out when a seach is made
     *
-    * Paramaters:
+    * Parameters:
     *     container - The element to layout the DisplayBoxes in
     *     searchBox - The SearchBox that will create searches for the feeds in this container.
     */
@@ -94,7 +95,6 @@ var Container = new Class({
                 $('slogan').fade('out');
 
                 this.progressBar = new MoogressBar(progressElement, {
-                    label: false,
                     onFinish: function () {
                         progressElement.getParent().removeChild(progressElement);
                     }
@@ -102,7 +102,6 @@ var Container = new Class({
                 this.numberOfFeeds = this.feeds.length;
             }).bind(this));
         } else {
-
             this.loaded = true;
         }
     },
@@ -111,18 +110,16 @@ var Container = new Class({
     * Function: addFeed
     * Adds a feed to this container
     *
-    * Paramaters:
+    * Parameters:
     *     feed - The feed to add
     */
     addFeed: function (feed) {
         this.feeds.push(feed);
         feed.addEvent('feedReady', (function (amount) {
-            this.loadedFeeds++;
-            //console.log("Feed", feed.name, "is loaded");
-            //increment loading bar
+            this.loadedFeeds++;//increment loading bar
             var progressWidth = this.progressBar.setPercentage(this.loadedFeeds / this.numberOfFeeds * 100);
             if (this.loadedFeeds == this.numberOfFeeds) {
-                //hide loading bar\
+                //hide loading bar
                 this.loaded = true;
                 this.queueAddDisplayBox();
             }
@@ -134,7 +131,7 @@ var Container = new Class({
     * Adds a <DisplayBox> to the <Containers> <displayBoxQueue>. <DisplayBoxes>
     * will be added in the future at a time decided by the <Container>.
     *
-    * Paramaters:
+    * Parameters:
     *     displayBox - The <DisplayBox> to add
     *
     * See Also:
@@ -150,7 +147,7 @@ var Container = new Class({
     * Adds a <DisplayBox> from the <displayBoxQueue>. This method will then
     * call <queueAddDisplayBox>, to add any more queued <DisplayBoxes>
     *
-    * Paramaters:
+    * Parameters:
     *     displayBox - The <DisplayBox> to add
     *
     * See Also:
@@ -162,7 +159,7 @@ var Container = new Class({
         if (!displayBox) {
             // The queue may have been emptied since this function was queued.
             return;
-        }
+        }  
 
         // Get the preview to display
         var preview = displayBox.getPreview();
@@ -222,7 +219,7 @@ var Container = new Class({
     * Function: removeDisplayBox
     * Remove a display box from the Container
     *
-    * Paramaters:
+    * Parameters:
     *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
     */
     removeDisplayBox: function (displayBox) {
@@ -272,9 +269,9 @@ Copyright:
     Copyright (c) 2010 explore.travellr.com
 
 Dependencies:
-    - MooTools-core 1.2.4 or higher
-    - MooTools-more 1.2.4.4 RC1 or higher
-     */
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
+*/
 var FeedToggle = new Class({
 
     data: null,
@@ -290,7 +287,7 @@ var FeedToggle = new Class({
      * Create a new <FeedToggle> class. It will put the controls for its <Feeds>
      * in the container <MooTools::Element> supplied
      *
-     * Paramaters:
+     * Parameters:
      *     container - The <MooTools::Element> to put the controls in
      */
     initialize: function(container) {
@@ -301,7 +298,7 @@ var FeedToggle = new Class({
      * Function: addFeed
      * Add a <Feed> to this <FeedToggle>
      *
-     * Paramaters:
+     * Parameters:
      *     feed - The <Feed> to add to the <FeedToggle>
      */
     addFeed: function(feed) {
@@ -312,7 +309,6 @@ var FeedToggle = new Class({
 
         button.addEvent('click', function(event) {
             var isVisible = !feed.isVisible();
-            //event.stop();
 
             feed.setVisible(isVisible);
 
@@ -323,9 +319,7 @@ var FeedToggle = new Class({
                 button.removeClass('on');
                 button.addClass('off');
             }
-
         });
-
         this.container.grab(button);
     }
 });

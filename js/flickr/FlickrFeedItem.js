@@ -46,7 +46,7 @@ var FlickrFeedItem = new Class({
      * Sets the parameter to a instance variable then sets the url, pic
      * thumbnail and pic content
      *
-     * Paramaters:
+     * Parameters:
      *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject, options) {

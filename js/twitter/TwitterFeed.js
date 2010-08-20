@@ -38,7 +38,7 @@ var TwitterFeed = new Class({
      * Function: search
      * Search the feed for items relating to the search terms.
      *
-     * Paramaters:
+     * Parameters:
      *     searchFilter - The search filter to filter results with
      */
     search: function(searchFilter) {
@@ -74,7 +74,7 @@ var TwitterFeed = new Class({
      * object of the response object to the TwitterFeedItem class and then
      * pushing each of them onto a feedItems array
      *
-     * Paramaters:
+     * Parameters:
      *     response - object returned by the twitter call
      */
     makeFeedItems: function(response) {

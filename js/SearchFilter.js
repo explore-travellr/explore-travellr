@@ -50,7 +50,7 @@ var SearchFilter = new Class({
      * Creates a new <SearchFilter>. It will search for the supplied search
      * string. The <SearchFilters> data fields will be filled with the results.
      *
-     * Paramaters:
+     * Parameters:
      *     searchString - {String} The search string to gather data about
      */
     initialize: function(searchString) {

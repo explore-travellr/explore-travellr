@@ -38,7 +38,7 @@ var GeckoTipsFeedItem = new Class({
      * Consructor: initialize
      * Sets a new <GeckoTipsFeedItem> with the content drawn from user Tips
      *
-     * Paramaters:
+     * Parameters:
      *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject) {

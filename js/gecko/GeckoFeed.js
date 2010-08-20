@@ -35,7 +35,7 @@ var GeckoFeed = new Class({
     * and converts a XML feed from Gecko into a JSON object. It then
     * calls makeFeedItems on success.
     *
-    * Paramaters:
+    * Parameters:
     *     searchFilter - The search filter to filter results with
     */
     search: function(searchFilter) {
@@ -68,7 +68,7 @@ var GeckoFeed = new Class({
     * Function: makeFeedItems
     * Makes individual <GeckoReviewFeedItems> or <GeckoTipsFeedItems> from the contents of the API call to Gecko
     *
-    * Paramaters
+    * Parameters
     *     response - API response from Gecko
     */
     makeFeedItems: function(results) {

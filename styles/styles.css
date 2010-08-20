@@ -173,7 +173,6 @@ h1#logo{
           background-color:#4870a0;
 }
 
-
 .dropdown h3 {
           font-weight: normal;
           padding:4px 5px;
@@ -208,8 +207,7 @@ NOTE: has to be below dropdown CSS!!
 }
 
 
-
-.off {
+.off, .unavailable {
 background-position: 11px -19px;
 color:#aaa;
 }
@@ -299,7 +297,6 @@ color:#aaa;
           text-decoration:underline;
 }
 
-
 /* display box, modal and progress bar NEED STYLING */
 
 /***********************
@@ -322,6 +319,7 @@ color:#aaa;
 		  padding:5px;
 		  background:#fff;
 }
+
 .displayBox .inner.dragged {
     z-index: 10000;
 }
@@ -346,13 +344,13 @@ color:#aaa;
 	background:url(images/favs/travellersPoint.png) no-repeat 85px 5px #fff;
 }
 .displayBox .travellr{
-	padding-top:31px;
-	background:url(images/favs/travellr_long.png) no-repeat 5px 5px #fff;
+	padding-top:35px;
+	background:url(images/favs/travellr_long.png) no-repeat center 5px #fff;
 }
 
 .displayBox .geckoReview, .displayBox .geckoTips{
 	padding-top:31px;
-	background:url(images/favs/geckoGo_long.png) no-repeat 5px 5px #fff;
+	background: url(images/favs/geckoGo_long.png) no-repeat center 5px #fff;
 }
 
 .geckoReview p{
@@ -378,15 +376,13 @@ color:#aaa;
 }
 
 .displayBox .twitter{
-	-moz-box-shadow:0 0 0;
-	background: url("images/twitter_arrow.png") no-repeat 16px 5px;
+	/* background: url("images/twitter_arrow.png") no-repeat 16px 5px; */
+	background: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(213,213,213)), color-stop(1, rgb(250,250,250)));
+    background: -moz-linear-gradient( center bottom, rgb(213,213,213) 0%, rgb(250,250,250) 100%);
+    -moz-box-shadow: 1px 1px 3px #999;
 }
 
 .displayBox .twitter p{
-	background:#eee;
-	margin-left:20px;
-	border:solid 1px #aaa;
-	border-left: none;
 	padding:4px;
 }
 
@@ -443,11 +439,12 @@ color:#aaa;
 .icons .icon {
     display: inline-block;
     width: 16px;
-    heigth: 16px;
+    height: 16px;
     line-height: 16px;
     overflow: hidden;
     text-indent: -999999px;
     vertical-align: middle;
+    cursor: pointer;
 }
 .icons .scrapbook-icon {
     background-image: url('http://upload.wikimedia.org/wikipedia/commons/a/a1/Heart_add.png');
@@ -494,3 +491,4 @@ color:#aaa;
     background: #B5C4D6;
     color: #B5C4D6;
 }
+

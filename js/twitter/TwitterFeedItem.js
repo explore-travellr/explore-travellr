@@ -38,7 +38,7 @@ var TwitterFeedItem = new Class({
      * Constructor: initialize
      * Create a new <TwitterFeedItem> with the tweet data provided
      *
-     * Paramaters:
+     * Parameters:
      *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject) {

@@ -11,6 +11,7 @@ Loads the Explore.travellr application and some Native type extentions
  *     - <MooTools>
  *     - <http://mootools.net/docs/core/Native/String/>
  */
+ 
 String.implement({
 
     /**
@@ -60,7 +61,7 @@ String.implement({
      * appended to the end if the <String> is truncated. The terminator defautls
      * to ellipsis (...)
      *
-     * Paramaters:
+     * Parameters:
      *     upperBound - The maximum length of the <String>
      *     terminator - The terminator <String> to use if this <String> is truncated. Defaults to (...).
      *
@@ -91,31 +92,29 @@ String.implement({
 Array.implement({
 
     /**
-     * Function: getRandomKey
-     * Returns a random key from the array.
-     *
-     * Returns:
-     *     A random key.
-     */
+    * Function: getRandomKey
+    * Returns a random key from the array.
+    *
+    * Returns:
+    *     A random key.
+    */
     getRandomKey: function() {
         return $random(0, this.length - 1);
     },
-    
+
     /**
-     * Function: removeRandom
-     * Removes and returns a random value from the array
-     *
-     * Returns:
-     *     The removed item
-     */
+    * Function: removeRandom
+    * Removes and returns a random value from the array
+    *
+    * Returns:
+    *     The removed item
+    */
     removeRandom: function() {
         var index = this.getRandomKey();
         splice = this.splice(index, 1);
         return splice[0];
-    }
-
+    },
 });
-
 
 window.addEvent('domready', function() {
     // Initialize the main classes
@@ -138,13 +137,13 @@ window.addEvent('domready', function() {
 
     // Initialize the feed classes.
     // Add a feed to the list to automatically set it up.
-    var feeds = [TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoFeed, TravellersPointFeed, MapFeed];
+    var feeds = [MapFeed, TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoFeed, TravellersPointFeed];
     feeds.each(function(AFeedClass) {
         var feed = new AFeedClass(searchBox, container, scrapbook);
         feedToggle.addFeed(feed);
     });
 
-    // Grab the search string from the #fragment or ?search= get paramater
+    // Grab the search string from the #fragment or ?search= get parameter
     var uri = new URI(location);
     var searchString = (uri.get('fragment') || uri.getData('search'));
     if (searchString) {

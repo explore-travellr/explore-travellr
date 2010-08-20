@@ -42,7 +42,7 @@ var TravellrFeedItem = new Class({
      * Sets the parameter to a instance variable then sets the safe subject and
      * question url
      *
-     * Paramaters:
+     * Parameters:
      *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject) {
@@ -142,8 +142,14 @@ TravellrFeedItem.Ask = new Class({
 
     Extends: FeedItem,
 
-    // TODO: Work out how to submit this paramater to travellr
+    // TODO: Work out how to submit this parameter to travellr
     locationId: null,
+
+    /**
+    * Variable: name
+    * The name of this <FeedItem>, used in the GUI
+    */
+    name: 'TravellrFeedItem.Ask',    
 
     /**
      * Constant: MAX_LENGTH
@@ -161,7 +167,7 @@ TravellrFeedItem.Ask = new Class({
      * Constructor: initialize
      * Create a new <Ask> box
      *
-     * Paramaters:
+     * Parameters:
      *     locationId - The location this question is about. Optional
      */
     initialize: function(locationId) {
@@ -171,10 +177,10 @@ TravellrFeedItem.Ask = new Class({
 
     /**
      * Function: makePreview
-     * Builds a <MooTools::Element> containing some explanitory text
+     * Builds a <MooTools::Element> containing some explanatory text
      *
      * Returns:
-     *     A <MooTools::Element> containing some explanitory text
+     *     A <MooTools::Element> containing some explanatory text
      */
     makePreview: function() {
         return new Element('div', {
