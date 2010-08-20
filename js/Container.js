@@ -61,7 +61,14 @@ var Container = new Class({
     * in <displayBoxQueue>
     */
     queueDelay: 100,
-    loaded: false,
+
+    /**
+     * Variable: loaded
+     * If all the feeds are loaded
+     */
+    loaded: true,
+
+    feedsWithContent: [],
 
     /**
     * Constructor: initialize
@@ -84,7 +91,16 @@ var Container = new Class({
 
         this.searchBox = searchBox;
         if (this.searchBox) {
-            this.searchBox.addEvent('search', (function (event) {
+            window.addEvent('scroll', this.getNextFeedItems.bind(this));
+            this.searchBox.addEvent('search', (function (searchFilter) {
+                this.feeds.each(function(feed) {
+                    feed.newSearch(searchFilter);
+                    this.feedsWithContent.push(feed);
+                }, this);
+
+                this.getNextFeedItems();
+
+                /*
                 var progressElement = new Element('div', { id: 'progressBar' })
                 this.container.grab(progressElement);
 
@@ -100,10 +116,33 @@ var Container = new Class({
                     }
                 });
                 this.numberOfFeeds = this.feeds.length;
+                */
             }).bind(this));
         } else {
             this.loaded = true;
         }
+    },
+
+    getNextFeedItems: function() {
+
+        var feeds = this.feedsWithContent;
+        this.feedsWithContent = [];
+        feeds.each(function(feed) {
+
+            feed.getNextFeedItem((function(feedItem) {
+                console.log("Callback", feedItem);
+                if (feedItem) {
+                    this.addDisplayBox(new DisplayBox(feedItem));
+                    this.feedsWithContent.push(feed);
+                    if (window.atBottom()) {
+                        this.getNextFeedItems();
+                    }
+                } else {
+                    // No data returned from this feed;
+                }
+            }).bind(this));
+
+        }, this);
     },
 
     /**
@@ -116,6 +155,7 @@ var Container = new Class({
     addFeed: function (feed) {
         this.feeds.push(feed);
         feed.addEvent('feedReady', (function (amount) {
+            /*
             this.loadedFeeds++;//increment loading bar
             var progressWidth = this.progressBar.setPercentage(this.loadedFeeds / this.numberOfFeeds * 100);
             if (this.loadedFeeds == this.numberOfFeeds) {
@@ -123,6 +163,7 @@ var Container = new Class({
                 this.loaded = true;
                 this.queueAddDisplayBox();
             }
+            */
         }).bind(this));
     },
 

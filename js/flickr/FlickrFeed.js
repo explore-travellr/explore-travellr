@@ -27,7 +27,7 @@ var FlickrFeed = new Class({
      * Variable: itemsCalled
      * The maximum number of photos displayed
      */
-    itemsCalled: 10,
+    perPage: 10,
 
     /**
      * Variable: options
@@ -57,13 +57,18 @@ var FlickrFeed = new Class({
      * Parameters:
      *     searchFilter - The search filter to filter results with
      */
-    search: function(searchFilter) {
-        this.empty();
-        
+    newSearch: function(searchFilter) {
+        this.parent();
+        this.searchFilter = searchFilter;
+        this.page = 1;
+    },
+
+    getMoreFeedItems: function() {
         var tags = [];
         var groups = [
             "642578@N20", "651467@N20", "95408346@N00","642578@N20",
             "651467@N20", "95408346@N00", "1054980@N25", "80235331@N00",
+            /*
             "64181070@N00", "391332@N25", "616189@N23", "633730@N24",
             "16984497@N00", "376701@N20", "342614@N21", "23966700@N00",
             "62583794@N00", "364018@N23", "63655619@N00", "16816761@N00",
@@ -80,9 +85,10 @@ var FlickrFeed = new Class({
             "48926546@N00", "95408346@N00", "64228671@N00", "46306708@N00",
             "642578@N20", "1425956@N00", "97947309@N00", "13433297@N00", "77091372@N00",
             "979035@N25", "78336205@N00", "60853857@N00", "99936649@N00", "81913447@N00"
+            */
         ];
             
-        searchFilter.tags.each(function(tag) {
+        this.searchFilter.tags.each(function(tag) {
             tags.push(tag.name);
         });
         tags = tags.join(',');
@@ -90,18 +96,20 @@ var FlickrFeed = new Class({
         new Request.JSONP({
             url: 'http://api.flickr.com/services/rest/',
                 data: {
-                api_key:     this.options.apikey,
-                method:     this.options.method,
-                per_page:     this.itemsCalled,
-                tags:           tags,
-                woe_id:         (searchFilter.location ? searchFilter.location.woe_id : null),
-                format:     'json',
-                sort:           'relevance',
+                api_key:  this.options.apikey,
+                method:   this.options.method,
+                page:     this.page,
+                per_page: this.perPage,
+                tags:     tags,
+                woe_id:   (this.searchFilter.location ? this.searchFilter.location.woe_id : null),
+                format:   'json',
+                sort:     'relevance',
                 group_id: groups
             },
             callbackKey: 'jsoncallback',
             onSuccess: this.makeFeedItems.bind(this)
         }).send();
+        this.page = this.page + 1;
     },
 
     /**
@@ -118,7 +126,7 @@ var FlickrFeed = new Class({
         var feedItemReady = (function() {
             outstanding = outstanding - 1;
             if (outstanding === 0) {
-                this.feedReady();
+                this.feedItemsReady();
             }
         }).bind(this);
 
@@ -130,6 +138,10 @@ var FlickrFeed = new Class({
                 var feedItem = new FlickrFeedItem(data, {onReady: feedItemReady});
                 this.feedItems.push(feedItem);
             }, this);
+        }
+
+        if (!this.response || this.response.length != this.perPage) {
+            this.moreFeedItems = false;
         }
 
         // By calling it here, it still works when there are no feed items

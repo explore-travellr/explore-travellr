@@ -31,6 +31,8 @@ var Feed = new Class({
 
     itemsCalled: null,
 
+    getNextFeedItemQueue: [],
+
     /**
      * Variable: bound
      * An <JS::Object> of all the bound methods, for events and such
@@ -52,9 +54,6 @@ var Feed = new Class({
         this.container = container;
         this.scrapbook = scrapbook;
 
-        this.bound = this.bindMethods(this.bound);
-        this.attach();
-
         this.container.addFeed(this);
     },
 
@@ -68,58 +67,39 @@ var Feed = new Class({
      * Parameters:
      *     searchFilter - The <SearchFilter> to filter the feed results with
      */
-    search: function() { },
+    getMoreFeedItems: function() { },
 
     /**
      * Function: empty
      * Removes all <FeedItems> from the <Feed> and <Container>.
      */
-    empty: function() {
+    newSearch: function() {
         this.feedItems.each(function(feedItem) {
             this.container.removeDisplayBox(feedItem.getDisplayBox());
         }, this);
         this.feedItems = [];
+
+        this.moreFeedItems = true;
+        this.nextFeedItem = 0;
     },
 
-    /**
-     * Function: bindMethods
-     * The method binds all of the methods in unbound to this. The
-     * bound methods are used for events and such.
-     *
-     * Parameters:
-     *     unbound - A <JS::Object> of method names to bind
-     *
-     * Returns:
-     *     A hash of the methods, bound to this
-     */
-    bindMethods: function(unbound) {
-        var bound = {};
-        $H(unbound).each(function(value, key){
-            bound[key] = this[key].bind(this);
-        }, this);
-        return bound;
-    },
 
-    /**
-     * Function: attach
-     * Attach event listeners. <bindMethods> must be called first.
-     *
-     * See Also:
-     *     <detach>
-     */
-    attach: function() {
-        this.searchBox.addEvent('search', this.bound.search);
-    },
 
-    /**
-     * Function: detach
-     * Detach event listeners.
-     *
-     * See Also:
-     *     <attach>
-     */
-    detach: function() {
-        this.searchBox.removeEvent('search', this.bound.search);
+    getNextFeedItem: function(callback) {
+
+        if (this.moreFeedItems) {
+            if (this.nextFeedItem >= this.feedItems.length) {
+                this.getNextFeedItemQueue.push(callback);
+                this.getMoreFeedItems();
+            } else {
+                var next = this.feedItems[this.nextFeedItem];
+                this.nextFeedItem = this.nextFeedItem + 1;
+                callback(next);
+            }
+        } else {
+            callback(false);
+        }
+
     },
 
     /**
@@ -177,13 +157,11 @@ var Feed = new Class({
      * <FeedItem>s are ready. This adds the <FeedItem>s to the <Container>,
      * in a new <DisplayBox>.
      */
-    feedReady: function() {
-        this.fireEvent("feedReady", this.getFeedItems().length);
-        this.getFeedItems().each(function(feedItem) {
-            var displayBox = feedItem.toDisplayBox(feedItem.canScrapbook() ? this.scrapbook : null);
-            if (this.isVisible()) {
-                this.container.addDisplayBox(displayBox);
-            }
+    feedItemsReady: function() {
+        var queue = this.getNextFeedItemQueue;
+        this.getNextFeedItemQueue = [];
+        queue.each(function (callback) {
+            this.getNextFeedItem(callback);
         }, this);
     }
 

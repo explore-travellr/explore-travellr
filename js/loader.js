@@ -116,6 +116,13 @@ Array.implement({
     },
 });
 
+
+$extend(window, {
+    atBottom: function(margin) {
+        return this.getScroll().y >= this.getScrollSize().y - this.getSize().y - (margin || 0);
+    }
+});
+
 window.addEvent('domready', function() {
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
@@ -137,7 +144,7 @@ window.addEvent('domready', function() {
 
     // Initialize the feed classes.
     // Add a feed to the list to automatically set it up.
-    var feeds = [MapFeed, TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoFeed, TravellersPointFeed];
+    var feeds = [FlickrFeed]; //[MapFeed, TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoFeed, TravellersPointFeed];
     feeds.each(function(AFeedClass) {
         var feed = new AFeedClass(searchBox, container, scrapbook);
         feedToggle.addFeed(feed);
