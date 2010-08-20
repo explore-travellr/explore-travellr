@@ -50,7 +50,10 @@ var TravellersPointFeedItem = new Class({
             x: 2
         };
 
-        new Asset.images([this.post['media:thumbnail'].url], {onComplete: this.fireEvent.bind(this, 'ready')});
+        new Asset.images([
+			this.post['media:thumbnail'].url,
+			this.post['media:content'].url
+		], {onComplete: this.fireEvent.bind(this, 'ready')});
     },
 
     /**

@@ -20,6 +20,7 @@ Dependencies:
 var WorldNomadsFeedItem = new Class({
 
     Extends: FeedItem,
+	Implements: [Options, Events],
     Serializable: 'WorldNomadsFeedItem',
 
     /**
@@ -34,6 +35,12 @@ var WorldNomadsFeedItem = new Class({
      */
     name: 'WorldNomadsFeedItem',
 
+	/**
+	 * Variable: options
+	 * Options for this instance
+	 */
+	options: {},
+
     /**
      * Constructor: initialize
      * Constructs a new <WorldNomadsFeedItem> with the content drawn from the blog post sent in
@@ -41,12 +48,16 @@ var WorldNomadsFeedItem = new Class({
      * Paramaters:
      *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(feedObject) {
+    initialize: function(feedObject, options) {
+		this.setOptions(options);
         this.post = feedObject;
 
         this.size = {
             x: 2
         };
+        new Asset.images([
+			this.post['adventures:image'].medium
+		], {onComplete: this.fireEvent.bind(this, 'ready')});
     },
 
     /**

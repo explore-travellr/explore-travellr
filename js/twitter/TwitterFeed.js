@@ -24,9 +24,9 @@ var TwitterFeed = new Class({
 
     /**
      * Variable: itemsCalled
-     * The random number of tweets to display
+     * The miximum number of tweets to display
      */
-    itemsCalled: null,
+    itemsCalled: 50,
 
     /**
      * Variable: name
@@ -44,7 +44,6 @@ var TwitterFeed = new Class({
     search: function(searchFilter) {
         this.empty();
 
-        this.itemsCalled = $random(4,8);
         // TODO: Search for tags individually if nothing is found when searching for them all
         
         var tags = []; // to search for travel also, add 'travel' into the array

@@ -73,6 +73,7 @@ var TravellersPointFeed = new Class({
 
         if (results && results.value && results.value.items && results.value.items.length !== 0) {
             results.value.items.each(function(post) {
+                outstanding = outstanding + 1;
                 this.feedItems.push(new TravellersPointFeedItem(post, {onReady: callback}));
             }, this);
         }

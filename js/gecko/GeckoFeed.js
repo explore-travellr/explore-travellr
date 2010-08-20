@@ -56,7 +56,8 @@ var GeckoFeed = new Class({
                 _render: 'json',
                 lat: lat,
                 lng: lng,
-                type: 'Tips'
+                type: 'Tips',
+                page: 0
             },
             callbackKey: '_callback',
             onSuccess: this.makeFeedItems.bind(this)
