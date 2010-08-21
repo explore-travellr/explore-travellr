@@ -23,12 +23,22 @@ var WorldNomadsFeed = new Class({
     Extends: Feed,
 
     /**
+     * Variable: perPage
+     * The maximum number of posts displayed
+     */
+    perPage: 10,
+
+    /**
+     * Variable: page
+     * The page number of the current search. Incremented every search
+     */
+    page: 1,
+
+    /**
     * Variable: name
     * The name of thie <Feed>, used in the GUI
     */
     name: 'WorldNomads',
-
-    TYPE: 'recent',
 
     /**
     * Function: search
@@ -40,26 +50,28 @@ var WorldNomadsFeed = new Class({
     * Parameters:
     *     searchFilter - The search filter to filter results with
     */
-    search: function(searchFilter) {
-        this.empty();
+    newSearch: function(searchFilter) {
+        this.parent();
+        this.searchFilter = searchFilter;
+    },
 
-        var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
+    getMoreFeedItems: function() {
+        var country = (this.searchFilter.location ? this.searchFilter.location.country.toLowerCase() : null);
         var country_id = this.countries.get(country);
         
         //if the search string doesn't return a country, don't request World Nomads feed and grey out the toggle
-        if (!$chk(country_id) || (!searchFilter.location.name.toLowerCase().contains(country))) {
-            $$('.WorldNomadsfeed_toggle').addClass('unavailable');
-            this.feedReady();
+        if (!$chk(country_id) || (!this.searchFilter.location.name.toLowerCase().contains(country))) {
+            this.moreFeedItems = false;
+            this.feedItemsReady();
             return;
         }
-        $$('.WorldNomadsfeed_toggle').removeClass('unavailable');
+
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {
                 _id: 'cb5de2b4f3316941e39cd06ca852e7a9',
                 _render: 'json',
-                country_id: country_id,
-                type: this.TYPE
+                country_id: country_id
             },
             callbackKey: '_callback',
             onSuccess: this.makeFeedItems.bind(this)
@@ -79,7 +91,8 @@ var WorldNomadsFeed = new Class({
         var callback = (function() {
             outstanding = outstanding - 1;
             if (outstanding === 0) {
-                this.feedReady();
+                this.moreFeedItems = false;
+                this.feedItemsReady();
             }
         }).bind(this);
 

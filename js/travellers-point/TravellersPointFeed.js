@@ -25,33 +25,51 @@ var TravellersPointFeed = new Class({
     name: 'TravellersPoint',
 
     /**
+     * Variable: perPage
+     * The maximum number of photos displayed
+     */
+    perPage: 10,
+
+    /**
+     * Variable: page
+     * The page number of the current search. Incremented every search
+     */
+    page: 1,
+
+    newSearch: function(searchFilter) {
+        this.parent();
+        this.searchFilter = searchFilter;
+        this.page = 1;
+    },
+
+    /**
      * Search the feed for items relating to the search terms. This particular
      * search is actually done to yahoo pipes in which the pipe handles the request
      * and converts a RSS feed from World Nomads into a JSON object. It then
      * calls makeFeedItems on success.
-     *
-     * @param searchFilter The search filter to filter results with in TP
      */
-    search: function(searchFilter) {
-        this.empty();
+     getMoreFeedItems: function() {
+        var country = (this.searchFilter.location ? this.searchFilter.location.country.toLowerCase() : null);
 
-        var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
-
-        if (!$chk(country)) {
-            this.feedReady();
+        if (!country) {
+            this.moreFeedItems = false;
+            this.feedItemsReady();
             return;
         }
         
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {
-                _id: '94c1b9ad6592a64f907e6c6b2b520f78',
+                _id: 'e8e8994969edba5692e72656a04cf7e7',
                 _render: 'json',
                 countries: country
-               
             },
             callbackKey: '_callback',
-            onSuccess: this.makeFeedItems.bind(this)
+            onSuccess: this.makeFeedItems.bind(this),
+            onFailure: (function() {
+                this.moreFeedItems = false;
+                this.feedItemsReady();
+            }).bind(this)
         }).send();
     },
 
@@ -67,7 +85,8 @@ var TravellersPointFeed = new Class({
         var callback = (function() {
             outstanding = outstanding - 1;
             if (outstanding === 0) {
-                this.feedReady();
+                this.moreFeedItems = false;
+                this.feedItemsReady();
             }
         }).bind(this);
 

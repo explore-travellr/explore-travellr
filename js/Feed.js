@@ -33,6 +33,8 @@ var Feed = new Class({
 
     getNextFeedItemQueue: [],
 
+    moreFeedItems: true,
+
     /**
      * Variable: bound
      * An <JS::Object> of all the bound methods, for events and such
@@ -87,17 +89,17 @@ var Feed = new Class({
 
     getNextFeedItem: function(callback) {
 
-        if (this.moreFeedItems) {
-            if (this.nextFeedItem >= this.feedItems.length) {
+        if (this.nextFeedItem >= this.feedItems.length) {
+            if (this.moreFeedItems) {
                 this.getNextFeedItemQueue.push(callback);
                 this.getMoreFeedItems();
             } else {
-                var next = this.feedItems[this.nextFeedItem];
-                this.nextFeedItem = this.nextFeedItem + 1;
-                callback(next);
+                callback(false);
             }
         } else {
-            callback(false);
+            var next = this.feedItems[this.nextFeedItem];
+            this.nextFeedItem = this.nextFeedItem + 1;
+            callback(next);
         }
 
     },
@@ -130,12 +132,14 @@ var Feed = new Class({
 
             if (this.visible) {
                 this.feedItems.each(function(feedItem) {
-                    this.container.addDisplayBox(feedItem.getDisplayBox());
+                    this.container.addDisplayBox(feedItem.getDisplayBox() || new DisplayBox(feedItem));
                 }, this);
+                this.fireEvent('shown');
             } else {
                 this.feedItems.each(function(feedItem) {
                     this.container.removeDisplayBox(feedItem.getDisplayBox());
                 }, this);
+                this.fireEvent('hidden');
             }
         }
     },
@@ -158,11 +162,14 @@ var Feed = new Class({
      * in a new <DisplayBox>.
      */
     feedItemsReady: function() {
+
         var queue = this.getNextFeedItemQueue;
         this.getNextFeedItemQueue = [];
         queue.each(function (callback) {
             this.getNextFeedItem(callback);
         }, this);
+
+        this.fireEvent('feedItemsReady');
     }
 
 });

@@ -23,10 +23,16 @@ var TravellrFeed = new Class({
     Extends: Feed,
 
     /**
-     * Variable: itemsCalled
-     * The random number of items to display
+     * Variable: perPage
+     * The maximum number of photos displayed
      */
-    itemsCalled: null,
+    perPage: 10,
+
+    /**
+     * Variable: page
+     * The page number of the current search. Incremented every search
+     */
+    page: 1,
 
     /**
      * Variable: name
@@ -35,8 +41,8 @@ var TravellrFeed = new Class({
     name: 'Travellr',
 
     /**
-     * Function: search
-     * Search the feed for items relating to the search terms.
+     * Function: newSearch
+     * Reset the feed for a new search
      *
      * Parameters:
      *     searchFilter - The search filter to filter results with
@@ -44,38 +50,42 @@ var TravellrFeed = new Class({
      * See Also:
      *     <Feed::search>
      */
-    search: function(searchFilter) {     
+    newSearch: function(searchFilter) {     
+        this.parent();
+        this.searchFilter = searchFilter;
+        this.page = 1;
+    },
 
-        this.empty();
-
-        this.itemsCalled = $random(4,8);
-        //this.feedItems = []; Removed : Jake Kobes : 17-May-2010 : this was the problem with travellr feeditems not refreshing
-        // TODO: Search for tags individually if nothing is found when searching for them all
-
-        //This line adds the "Didn't find the information..." feedItem
-        this.feedItems.push(new TravellrFeedItem.Ask(searchFilter.location_id || null));
-
-        if (!($chk(searchFilter.location) || searchFilter.tags.length !== 0)) {
+    /**
+     * Function: getMoreFeedItems
+     * Get the next page of FeedItems
+     */
+    getMoreFeedItems: function() {
+        // If there is nothing to search for...
+        if (!(this.searchFilter.location || this.searchFilter.tags.length !== 0)) {
+            this.moreFeedItems = false;
             this.feedReady();
             return;
         }
 
-        var tags = "";
-        searchFilter.tags.each(function(tag) {
-            tags = tags + tag.stemmed + " ";
-        });
+        // Concatenate all the tag stems
+        var tags = this.searchFilter.tags.map(function(tag) {
+            return tag.stemmed;
+        }).join(' ');
 
+        // Make the request
         new Request.JSONP({
             url: 'http://api.travellr.com/explore_travellr/questions',
             data: {
-                location_id: (searchFilter.location ? searchFilter.location.id : null),
+                location_id: (this.searchFilter.location ? this.searchFilter.location.id : null),
                 tags: tags,
-                page: 1,
-                per_page: this.itemsCalled,
+                page: this.page,
+                per_page: this.perPage,
                 include: 'answers'
             },
             onSuccess: this.makeFeedItems.bind(this)
         }).send();
+        this.page = this.page + 1;
     },
 
     /**
@@ -96,6 +106,13 @@ var TravellrFeed = new Class({
             this.feedItems.push(feedItem);
         }, this);
 
-        this.feedReady();
+        if (!this.ask) {
+            //This line adds the "Didn't find the information..." feedItem
+            this.feedItems.push(new TravellrFeedItem.Ask(this.searchFilter.location_id || null));
+            this.ask = true;
+        }
+
+        this.moreFeedItems = (response.length >= this.perPage);
+        this.feedItemsReady();
     }
 });

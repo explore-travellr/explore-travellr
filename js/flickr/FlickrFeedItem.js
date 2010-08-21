@@ -58,7 +58,10 @@ var FlickrFeedItem = new Class({
         this.photo.picUrlThumbnail = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'_m.jpg';
         this.photo.picUrlContent = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'.jpg';
 
-        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent], {onComplete: this.fireEvent.bind(this, 'ready')});
+        new Asset.images([
+            this.photo.picUrlContent,
+            this.photo.picUrlThumbnail
+        ], {onComplete: this.fireEvent.bind(this, 'ready')});
 
         this.size = {
             x: 2

@@ -55,9 +55,13 @@ var WorldNomadsFeedItem = new Class({
         this.size = {
             x: 2
         };
-        new Asset.images([
-			this.post['adventures:image'].medium
-		], {onComplete: this.fireEvent.bind(this, 'ready')});
+        if (this.post['adventures:image']) {
+            new Asset.images([
+                this.post['adventures:image'].medium
+            ], {onComplete: this.fireEvent.bind(this, 'ready')});
+        } else {
+            this.fireEvent('ready');
+        }
     },
 
     /**
