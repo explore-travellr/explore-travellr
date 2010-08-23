@@ -99,7 +99,11 @@ var Feed = new Class({
         } else {
             var next = this.feedItems[this.nextFeedItem];
             this.nextFeedItem = this.nextFeedItem + 1;
-            callback(next);
+            if (next.previewLoaded) {
+                callback(next);
+            } else {
+                next.addEvent('previewLoaded', function() {callback(next);});
+            }
         }
 
     },

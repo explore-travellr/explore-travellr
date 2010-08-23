@@ -40,6 +40,24 @@ var FeedItem = new Class({
     size: null,
 
     /**
+     * Variable: previewLoaded
+     * If the <FeedItem> preview is ready for display. Feeds can override this
+     * and implement preloading of eg. images. If they do this, the previewLoaded
+     * event must be fired to indicate the preview is loaded, and this variable
+     * toggled to true
+     */
+    previewLoaded: true,
+
+    /**
+     * Variable: contentLoaded
+     * If the <FeedItem> content is ready for display. Feeds can override this
+     * and implement preloading of eg. images. If they do this, the contentLoaded
+     * event must be fired to indicate the content is loaded, and this variable
+     * toggled to true
+     */
+    contentLoaded: true,
+
+    /**
      * Constructor: intialize
      * Abstract constructor. Subclasses should implement this
      */

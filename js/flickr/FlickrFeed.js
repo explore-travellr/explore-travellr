@@ -135,27 +135,16 @@ var FlickrFeed = new Class({
      *     response - object returned by the flickr call
      */
     makeFeedItems: function(response) {
-        // This allows precaching of results
-        var outstanding = 1;
-        var feedItemReady = (function() {
-            outstanding = outstanding - 1;
-            if (outstanding === 0) {
-                this.feedItemsReady();
-            }
-        }).bind(this);
-
         this.response = response.photos ? response.photos.photo : false;
 
         if(this.response) {
             this.response.each(function(data) {
-                outstanding = outstanding + 1;
-                var feedItem = new FlickrFeedItem(data, {onReady: feedItemReady});
+                var feedItem = new FlickrFeedItem(data);
                 this.feedItems.push(feedItem);
             }, this);
         }
         this.moreFeedItems = this.response && this.response.length == this.perPage;
 
-        // By calling it here, it still works when there are no feed items
-        feedItemReady();
+        this.feedItemsReady();
     }
 });

@@ -87,23 +87,14 @@ var WorldNomadsFeed = new Class({
     *     response - object returned by the yahoo pipes call (parsing world nomads feeds)
     */
     makeFeedItems: function(results) {
-        var outstanding = 1;
-        var callback = (function() {
-            outstanding = outstanding - 1;
-            if (outstanding === 0) {
-                this.moreFeedItems = false;
-                this.feedItemsReady();
-            }
-        }).bind(this);
-
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {
             results.value.items.each(function(post) {
-                outstanding = outstanding + 1;
-                this.feedItems.push(new WorldNomadsFeedItem(post, {onReady: callback}));
+                this.feedItems.push(new WorldNomadsFeedItem(post));
             }, this);
         }
 
-        callback();
+        this.moreFeedItems = false;
+        this.feedItemsReady();
     },
 
     /**

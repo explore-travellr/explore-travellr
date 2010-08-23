@@ -81,22 +81,13 @@ var TravellersPointFeed = new Class({
      * @param response object returned by the yahoo pipes call (parsing travellers point feeds)
      */
     makeFeedItems: function(results) {
-        var outstanding = 1;
-        var callback = (function() {
-            outstanding = outstanding - 1;
-            if (outstanding === 0) {
-                this.moreFeedItems = false;
-                this.feedItemsReady();
-            }
-        }).bind(this);
-
         if (results && results.value && results.value.items && results.value.items.length !== 0) {
             results.value.items.each(function(post) {
-                outstanding = outstanding + 1;
-                this.feedItems.push(new TravellersPointFeedItem(post, {onReady: callback}));
+                this.feedItems.push(new TravellersPointFeedItem(post));
             }, this);
         }
 
-        callback();
+        this.moreFeedItems = false;
+        this.feedItemsReady();
     }
  });

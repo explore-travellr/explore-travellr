@@ -56,10 +56,15 @@ var WorldNomadsFeedItem = new Class({
             x: 2
         };
         if (this.post['adventures:image']) {
-            new Asset.images([
-                this.post['adventures:image'].medium
-            ], {onComplete: this.fireEvent.bind(this, 'ready')});
+            this.previewLoaded = false;
+            new Asset.images([this.post['adventures:image'].medium], {
+                onComplete: (function() {
+                    this.previewLoaded = true;
+                    this.fireEvent('previewLoaded');
+                }).bind(this)
+            });
         } else {
+            this.previewLoaded = true;
             this.fireEvent('ready');
         }
     },
@@ -75,7 +80,7 @@ var WorldNomadsFeedItem = new Class({
         var wrapper = new Element('div', {
             'class': 'worldNomads'
         });
-        if (this.post['adventures:image'].medium) {
+        if (this.post['adventures:image']) {
             wrapper.grab(new Element('img', {
                 'src': this.post['adventures:image'].medium
             }));
