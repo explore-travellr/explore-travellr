@@ -72,16 +72,18 @@ var WorldNomadsFeedItem = new Class({
      *     A <MooTools::Element> containing a preview of this <WorldNomadsFeedItem>
      */
     makePreview: function() {
-        return new Element('div', {
+        var wrapper = new Element('div', {
             'class': 'worldNomads'
-        }).adopt([
-            new Element('img', {
+        });
+        if (this.post['adventures:image'].medium) {
+            wrapper.grab(new Element('img', {
                 'src': this.post['adventures:image'].medium
-            }),
-            new Element('p', {
-                text: this.post.title
-            })
-        ]);
+            }));
+        };
+        wrapper.grab( new Element('p', {
+            text: this.post.title
+        }));
+        return wrapper;
     },
 
     /**
