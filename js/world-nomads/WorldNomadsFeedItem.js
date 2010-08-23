@@ -61,7 +61,7 @@ var WorldNomadsFeedItem = new Class({
             'class': 'worldNomads'
         }).adopt([
             new Element('img', {
-                'src': this.post['adventures:image'].medium
+                'src': (this.post['adventures:image']) ? this.post['adventures:image'].medium : '#'
             }),
             new Element('p', {
                 text: this.post.title

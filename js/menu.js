@@ -18,8 +18,6 @@ window.addEvent('domready', function() {
 		
           });
 	
-
-
           //Hide & Display dropdown menus on moueover & mouseout
           $$('.dropdown').setStyle('display','none');
 
@@ -44,6 +42,9 @@ window.addEvent('domready', function() {
                     'mouseout': hideMenu,
                     'click': showMenu
           });
+       
+          
+
 });
 
 	

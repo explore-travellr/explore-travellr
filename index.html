@@ -5,8 +5,9 @@
         <meta charset="utf-8">
         <title>explore.travellr</title>
 
-        <!-- Load the mootools library -->
-        <script type="text/javascript" src="js/mootools.js"></script>
+        <!-- Load the mootools library from google, if unavailable default to local -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
+		<script>!window.MooTools && document.write('<script type="text/javascript" src="js/mootools.js"><\/script>')</script>
         <script type="text/javascript" src="js/mootools-more.js"></script>
 
         <!-- Load all the classes needed -->
@@ -51,12 +52,14 @@
         <link rel="stylesheet" href="styles/styles.css">
 
     </head>
-    <body>
+<body>
 
         <div id="toolbar_wrapper">
-            <h1 id="logo" class="left">
+            <a href="index.html">
+              <h1 id="logo" class="left">
                 explore.travellr
-            </h1>
+              </h1>
+            </a>
             <div id="searchbar_wrapper" class="left">
                 <div id="searchBar">
                     <form id="searchForm" action="">
@@ -76,10 +79,10 @@
                 <a href="">About</a>
                 <div id="info_dropdown" class="dropdown">
                     <ul>
-                        <li>About Us</li>
-                        <li>Partners</li>
-                        <li>Terms and Conditions</li>
-                        <li>Contact Us</li>
+                        <li id="about_us">About Us</li>
+                        <li id="partners">Partners</li>
+                        <li id="terms_and_conditions">Terms and Conditions</li>
+                        <li id="contact_us">Contact Us</li>
                     </ul>
                 </div>
             </div>
@@ -97,10 +100,39 @@
         <!--<p id="msg">&nbsp;</p>-->
         <div id="container" class="container">
             <div id="slogan">
-                <p>View a sample search <a href="#">Skiing in Japan</a> or <a href="#">learn more</a></p>
+                <p>View a sample search <a href="#" id="japan">Skiing in Japan</a> or <a href="#" id="learn_more">learn more</a></p>
             </div>
+            
+            
+           
+         <div id="about_us_modal" class="information">
+            <h1>About Us</h1>
+            <p>explore.travellr has been created by: Nathaniel Burgess, Jacob Bresnehan, John Cobb, Timothy Heap,
+               Jake Kobes, Matthew Platts, Robert Tilt and Clare Vivarelli.</p>
+          </div>
+          <div id="partners_modal" class="information">
+              <h1>Partners</h1>
+              <p>This project was created for Travellr. Travellr is part of the World Nomads Group.</p>
+          </div>
+          <div id="terms_and_conditions_modal" class="information">
+              <h1>Terms and Conditions</h1>
+              <p>Balh balh balh </p>
+          </div>
+          <div id="contact_us_modal" class="information">
+              <h1>Contact Us</h1>
+              <p>Jager!!! </p>
+          </div>
+
+            
+            
+            
+            
         </div>
         <div id="scrapbook" class="container"></div>
+        
+         
+        
+        
 
         <!-- Google Tracking Code -->
         <script type="text/javascript">

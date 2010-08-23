@@ -83,7 +83,14 @@ var FlickrFeed = new Class({
 		];
 		
         this.itemsCalled = $random(4,8);
-			
+		
+        if (!searchFilter.location) {
+			$$('.Flickrfeed_toggle').addClass('unavailable');
+            this.feedReady();
+            return;
+        }
+		$$('.Flickrfeed_toggle').removeClass('unavailable');	
+		
         searchFilter.tags.each(function(tag) {
             tags.push(tag.name);
         });
