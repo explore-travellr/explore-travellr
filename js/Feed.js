@@ -169,7 +169,7 @@ var Feed = new Class({
             this.getNextFeedItem(callback);
         }, this);
 
-        this.fireEvent('feedItemsReady');
+        this.fireEvent('feedItemsReady', this);
     }
 
 });

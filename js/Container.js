@@ -104,7 +104,7 @@ var Container = new Class({
         });
 
         // This function is used as an event callback, so needs to be bound
-        this.feedReady = this.feedReady.bind(this);
+        this.feedReady = this.feedReady.bindWithEvent(this);
 
         this.searchBox = searchBox;
         if (this.searchBox) {
@@ -133,6 +133,8 @@ var Container = new Class({
 
                 this.feeds.each(function(feed) {
 
+                    feed.removeEvent('feedItemsReady', this.feedReady);
+                    feed.addEvent('feedItemsReady', this.feedReady);
                     feed.newSearch(searchFilter);
                     this.feedsWithContent.push(feed);
 
@@ -146,7 +148,7 @@ var Container = new Class({
         }
     },
 
-    feedReady: function() {
+    feedReady: function(feed) {
         this.loadedFeeds++;//increment loading bar
 
         if (this.progressBar) {
@@ -165,6 +167,8 @@ var Container = new Class({
 
             this.getNextFeedItems();
         }
+
+        feed.removeEvent('feedItemsReady', this.feedReady);
     },
 
     getNextFeedItems: function(firstRound) {
@@ -207,8 +211,7 @@ var Container = new Class({
                 this.feedsWithContent.erase(feed);
                 this.container.masonry({appendContent: []});
                 this.getNextFeedItems();
-            }).bind(this),
-            feedItemsReady: this.feedReady
+            }).bind(this)
         });
     },
 
