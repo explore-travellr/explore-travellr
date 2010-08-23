@@ -41,12 +41,8 @@ var YoutubeFeedItem = new Class({
      * Parameters:
      *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(feedObject, options) {
-
-        this.setOptions(options);
-
+    initialize: function(feedObject) {
         this.video = feedObject;
-        this.video.data.items.player = 
     },
 
     /**
@@ -57,13 +53,12 @@ var YoutubeFeedItem = new Class({
      *     A <MooTools::Element> containing a preview of this <YoutubeFeedItem>
      */
     makePreview: function() {
-        var img = new Element('img', {
-            src: this.video.picUrlThumbnail
-        });
-        return new Element('div', {
-            'class': 'Youtube'
+		return new Element('div', {
+            'class': 'youtube'
         }).adopt([
-            img,
+			new Element('h2', {
+					text: this.video.title
+			})
         ]);
     },
 
@@ -75,15 +70,14 @@ var YoutubeFeedItem = new Class({
      *     A <MooTools::Element> with the contents of this <YoutubeFeedItem>
      */
     makeContent: function() {
-        return new Element('div', {'class': 'Youtube'}).adopt([
+        return new Element('div', {
+            'class': 'youtube'
+        }).adopt([
             new Element('h2').grab(new Element('a', {
                 text: this.video.title,
-                href: this.video.url
+                href: this.video.player
             })),
-            new Element('a', {href: this.video.url}).grab(new Element('img', {
-                src: this.video.picUrlContent
-            }))
-        ]);
+        ]);	
     },
 
     /**
@@ -97,6 +91,7 @@ var YoutubeFeedItem = new Class({
         return this.video;
     }
 });
+
 YoutubeFeedItem.unserialize = function(data) {
     return new YoutubeFeedItem(data);
 };

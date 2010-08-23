@@ -30,19 +30,6 @@ var YoutubeFeed = new Class({
     itemsCalled: null,
 
     /**
-     * Variable: options
-     * A <JS::Object> containing options for <FlickrFeeds>
-     *
-     *   size - The size of the content image
-     *   method - The API method to call to search images
-     *   apikey - The Flickr API key to use
-     */
-    options: {
-        method: 'TODO',
-        apikey: 'TODO'
-    },
-
-    /**
      * Variable: name
      * The name of this <Feed>, for use in the GUI
      */
@@ -72,13 +59,10 @@ var YoutubeFeed = new Class({
                 data: {
                 q: 	this.tags,
                 key: 'AI39si6I6tBAD_U7oB8R5ESjFBD_9QMqcz5NrRIxFtCTbjEgJDiBLmxZ8EVu8iUTznjUuxRhPy2MWotbPhkrUfyPeOFa3KhLBA',
-				category: 'Travel',
-				max-results: 5,
 				v: 2,
 				safeSearch: 'moderate',
-				
+				alt: "jsonc",
             },
-            callbackKey: 'jsonp',
             onSuccess: this.makeFeedItems.bind(this)
         }).send();
     },
@@ -93,25 +77,14 @@ var YoutubeFeed = new Class({
      *     response - object returned by the youtube call
      */
     makeFeedItems: function(response) {
-        var outstanding = 1;
-        var feedItemReady = (function() {
-            outstanding = outstanding - 1;
-            if (outstanding === 0) {
-                this.feedReady();
-            }
-        }).bind(this);
+        this.response = response;
 
-        this.response = response.videos;
-
-        if($chk(this.response)) {
-            response.videos.each(function(data) {
-                outstanding = outstanding + 1;
-                var feedItem = new YoutubeFeedItem(data, {onReady: feedItemReady});
+        if($chk(this.response.data.items)) {
+            response.data.items.each(function(data) {
+                var feedItem = new YoutubeFeedItem(data);
                 this.feedItems.push(feedItem);
             }, this);
         }
-
-        // By calling it here, it still works when there are no feed items
-        feedItemReady();
+        this.feedReady();
     }
 });
