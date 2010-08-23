@@ -61,7 +61,17 @@ var FlickrFeedItem = new Class({
         new Asset.images([
             this.photo.picUrlContent,
             this.photo.picUrlThumbnail
-        ], {onComplete: this.fireEvent.bind(this, 'ready')});
+        ], {onComplete: (function() {
+            var img = new Element('img', {src: this.photo.picUrlThumbnail, styles: {visibility: 'hidden'}});
+            $(document.body).grab(img);
+            var size = img.getSize();
+            img.destroy();
+            var aspect = size.x / size.y;
+            if (aspect > 1.3) {
+                this.size.x = 4;
+            }
+            this.fireEvent('ready');
+        }).bind(this)});
 
         this.size = {
             x: 2
