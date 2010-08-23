@@ -78,7 +78,8 @@ var GeckoTipsFeedItem = new Class({
         }).adopt([
             new Element('h2').grab(new Element('a', {
                 href: this.post.url,
-                text: 'Gecko travel tip posted on:'+this.post.date
+                text: 'Gecko travel tip posted on:'+this.post.date,
+				target: '_blank'
             })),
             new Element('div', {
                 html: this.post.text

@@ -94,10 +94,14 @@ var FlickrFeedItem = new Class({
         return new Element('div', {'class': 'flickr'}).adopt([
             new Element('h2').grab(new Element('a', {
                 text: this.photo.title,
-                href: this.photo.url
+                href: this.photo.url,
+				target: '_blank'
             })),
-            new Element('a', {href: this.photo.url}).grab(new Element('img', {
-                src: this.photo.picUrlContent
+            new Element('a', {
+					href: this.photo.url,
+					target: '_blank'
+				}).grab(new Element('img', {
+					src: this.photo.picUrlContent
             }))
         ]);
     },

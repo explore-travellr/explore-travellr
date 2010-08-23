@@ -82,7 +82,8 @@ var WorldNomadsFeedItem = new Class({
         }).adopt([
             new Element('h2').grab(new Element('a', {
                 href: this.post.link,
-                text: this.post.title
+                text: this.post.title,
+				target: '_blank'
             })),
             new Element('div', {
                 html: this.post.description

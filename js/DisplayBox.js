@@ -179,7 +179,7 @@ var DisplayBox = new Class({
 
         //make a modal dialog
         var modalMask = new Element('div', { 'class': 'modalMask' });
-        var modalClose = new Element('div', { 'class': 'close-button', text: 'Close' });
+        var modalCloseButton = new Element('div', { 'class': 'close-button', text: 'Close' });
         var modal = new Element('div', { 'class': 'modal' });
         var content = this.feedItem.getContent();
         var preview = this.getPreview();
@@ -205,7 +205,7 @@ var DisplayBox = new Class({
 
         contentWrapper.grab(content);
 
-        modal.adopt([modalClose, contentWrapper, iconBar]);
+        modal.adopt([modalCloseButton, contentWrapper, iconBar]);
 
         $(document.body).grab(modalMask);
         $(document.body).grab(modal);
@@ -230,20 +230,34 @@ var DisplayBox = new Class({
         modal.fade('in');
 
         // Add events to elements
-        $$(modalClose, modalMask).addEvent('click', (function() {
-            // Fix untill the double modal box bug is fixed
-            if (content.parentNode) {
-                content.parentNode.removeChild(content);
-            }
-
-            modal.destroy();
-            modalMask.destroy();
-            modalClose.destroy();
-            this.shown = false;
+        $$(modalCloseButton, modalMask).addEvent('click', (function() {
+			this.closeModal(modal,modalMask,modalCloseButton);
         }).bind(this));
-
+		
+		window.addEvent('keypress', (function(e){ 
+			if(e.key == 'esc')
+			{
+				this.closeModal(modal,modalMask,modalCloseButton);
+			}
+		}).bind(this));
         // Tell listeners that this box was just displayed
         this.fireEvent('display');
-    }
+    },
+	
+    /**
+    * Function: closeModal
+    * TODO
+    */
+    closeModal: function(modal,modalMask,modalCloseButton) {
+		// Fix untill the double modal box bug is fixed
+		if (content.parentNode) {
+			content.parentNode.removeChild(content);
+		}
+
+		modal.destroy();
+		modalMask.destroy();
+		modalCloseButton.destroy();
+		this.shown = false;	
+	}	
 
 });

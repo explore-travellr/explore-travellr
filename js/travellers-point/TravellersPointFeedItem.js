@@ -86,7 +86,8 @@ var TravellersPointFeedItem = new Class({
         }).adopt([
             new Element('h2').grab(new Element('a', {
                 href: this.post.link,
-                text: this.post.title
+                text: this.post.title,
+				target: '_blank'
             })),
             new Element('div').grab(new Element('img',{'src':this.post['media:content'].url}))
         ]);

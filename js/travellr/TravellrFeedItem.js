@@ -94,7 +94,8 @@ var TravellrFeedItem = new Class({
         }).adopt([
             new Element('h2').grab(new Element('a', {
                 text: this.question.subject,
-                href: this.question.url
+                href: this.question.url,
+				target: '_blank'
             })),
             new Element('p').adopt(this.question.content.newlineToBr()),
             new Element('div', {'class': 'answers'}).adopt(answers),
