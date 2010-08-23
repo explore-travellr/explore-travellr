@@ -68,7 +68,23 @@ var Container = new Class({
      */
     loaded: false,
 
+    /**
+     * Variable: feedsWithContent
+     * An array of all the <Feeds> that have content to be displayed
+     */
     feedsWithContent: [],
+
+    /**
+     * Variable: progressBar
+     * An instance of <MoogressBar> showing the loading progress
+     */
+    progressBar: null,
+
+    /**
+     * Variable: progressElement
+     * The <JS::Element> the <progressBar> is using for display
+     */
+    progressElement: null,
 
     /**
     * Constructor: initialize
@@ -87,6 +103,9 @@ var Container = new Class({
             itemSelector: '.displayBox'
         });
 
+        // This function is used as an event callback, so needs to be bound
+        this.feedReady = this.feedReady.bind(this);
+
         this.searchBox = searchBox;
         if (this.searchBox) {
             // Load more on scroll
@@ -98,9 +117,14 @@ var Container = new Class({
                 this.loaded = false;
                 this.numberOfFeeds = this.feeds.length;
 
-                var progressElement = new Element('div', { id: 'progressBar' })
-                this.progressBar = new MoogressBar(progressElement);
-                this.container.grab(progressElement);
+                if (this.progressElement) {
+                    this.progressElement.destroy();
+                    this.progressBar = null;
+                }
+
+                this.progressElement = new Element('div', { id: 'progressBar' })
+                this.progressBar = new MoogressBar(this.progressElement);
+                this.container.grab(this.progressElement);
 
                 //fades out the tooltip
                 $('slogan').fade('out');
@@ -108,26 +132,6 @@ var Container = new Class({
                 this.feedsWithContent = [];
 
                 this.feeds.each(function(feed) {
-                    var onReady = (function (amount) {
-                        this.loadedFeeds++;//increment loading bar
-
-                        this.progressBar.setPercentage(this.loadedFeeds * 100 / this.numberOfFeeds);
-
-                        if (this.loadedFeeds == this.numberOfFeeds) {
-                            //hide loading bar
-                            this.firstRound = false;
-                            this.loaded = true;
-
-                            progressElement.destroy();
-                            this.progressBar = null;
-
-                            this.getNextFeedItems();
-                        }
-
-                        feed.removeEvent('feedItemsReady', onReady);
-                    }).bind(this)
-
-                    feed.addEvent('feedItemsReady', onReady);
 
                     feed.newSearch(searchFilter);
                     this.feedsWithContent.push(feed);
@@ -139,6 +143,27 @@ var Container = new Class({
             }).bind(this));
         } else {
             this.loaded = true;
+        }
+    },
+
+    feedReady: function() {
+        this.loadedFeeds++;//increment loading bar
+
+        if (this.progressBar) {
+            this.progressBar.setPercentage(this.loadedFeeds * 100 / this.numberOfFeeds);
+        }
+
+        if (this.loadedFeeds == this.numberOfFeeds) {
+            //hide loading bar
+            this.firstRound = false;
+            this.loaded = true;
+
+            this.progressElement.destroy();
+
+            this.progressElement = null;
+            this.progressBar = null;
+
+            this.getNextFeedItems();
         }
     },
 
@@ -182,7 +207,8 @@ var Container = new Class({
                 this.feedsWithContent.erase(feed);
                 this.container.masonry({appendContent: []});
                 this.getNextFeedItems();
-            }).bind(this)
+            }).bind(this),
+            feedItemsReady: this.feedReady
         });
     },
 
