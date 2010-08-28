@@ -13,7 +13,6 @@ Dependencies:
    - MooTools-more 1.2.4.4 RC1 or higher
 */
 
-
 var SearchFilter = new Class({
     Implements: Events,
     /**

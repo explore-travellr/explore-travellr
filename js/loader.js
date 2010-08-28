@@ -162,8 +162,7 @@ window.addEvent('domready', function() {
         searchBox.search(searchString);
     }
     
-    //Slogan - adds Japan to the search field and starts searching
-    
+    //Slogan - adds "Skiing in Japan" to the search field and starts searching
     $$('#japan').addEvents({ 
       'click': function(){
             var searchString = this.get('text');
@@ -211,20 +210,19 @@ window.addEvent('domready', function() {
         modalMask.fade('0.8');
         modal.fade('in');
 
-              // Add events to elements
-              $$(modalClose, modalMask).addEvent('click', (function() {
-                  closeModal(content,modal,modalMask,modalClose);
-              }).bind(this));
+		// Add events to elements
+		$$(modalClose, modalMask).addEvent('click', (function() {
+		  closeModal(content,modal,modalMask,modalClose);
+		}).bind(this));
 
-      		// Add events to window
-              window.addEvent('keypress', (function(e) {
-                  if(e.key == 'esc') {
-      				      closeModal(content,modal,modalMask,modalClose);
-      			      }
-              }).bind(this));
-              
-              
+		// Add events to window
+		window.addEvent('keypress', (function(e) {
+		  if(e.key == 'esc') {
+				  closeModal(content,modal,modalMask,modalClose);
+			  }
+		}).bind(this));          
     };
+	
     var closeModal = function(content,modal,modalMask,modalClose) {
 		if (content.parentNode) {
 			content.parentNode.removeChild(content);
@@ -245,14 +243,45 @@ window.addEvent('domready', function() {
     var lm = $('learn_more');
     var lmModal = $('about_us_modal');
     $(lm).addEvent('click', function() {
-      lmModal.setStyle('display', 'block');
-      showModal(lmModal);
+		lmModal.setStyle('display', 'block');
+		showModal(lmModal);
     })
       
+	$$('.feed_toggle').addEvents({
+		'click': function(){
+			if($(this).hasClass('on')){
+				$(this).removeClass('on');
+				$(this).addClass('off');
+			}
+			else{
+				$(this).removeClass('off');
+				$(this).addClass('on');
+			}
+		}
+	});
 
-    
-    
-    
+	//Hide & Display dropdown menus on moueover & mouseout
+	$$('.dropdown').setStyle('display','none');
+
+	var showMenu = function(event){
+		event.stop();
+		$(this).addClass('button_hover');
+		$(this).getElement('.dropdown').setStyle('display','block');
+	};
+
+	var hideMenu = function(){
+		$(this).removeClass('button_hover');
+		$(this).getElement('.dropdown').setStyle('display','none');
+	};
+
+	//sets drop bar boolean as false on load
+	var dropBarVisible = false;
+
+	$$('.toolbar_button').addEvents({
+		'mouseover': showMenu,
+		'mouseout': hideMenu,
+		'click': showMenu
+	});    
 });
 
 
