@@ -57,6 +57,9 @@ var WorldNomadsFeedItem = new Class({
      *     A <MooTools::Element> containing a preview of this <WorldNomadsFeedItem>
      */
     makePreview: function() {
+
+        if(this.post['adventures:image'].medium != null){
+
         return new Element('div', {
             'class': 'worldNomads'
         }).adopt([
@@ -67,7 +70,16 @@ var WorldNomadsFeedItem = new Class({
                 text: this.post.title
             })
         ]);
-    },
+        }
+        else
+        return new Element('div', {
+            'class': 'worldNomads'
+        }).adopt([
+            new Element('p', {
+                text: this.post.title
+            })
+        ]);
+
 
     /**
      * Function: makeContent
