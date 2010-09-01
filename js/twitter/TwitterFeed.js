@@ -47,7 +47,13 @@ var TwitterFeed = new Class({
         this.itemsCalled = $random(4,8);
         
         // TODO: Search for tags individually if nothing is found when searching for them all
-        
+        if (!searchFilter.location) {
+			$$('.Twitterfeed_toggle').addClass('unavailable');
+            this.feedReady();
+            return;
+        }
+		$$('.Twitterfeed_toggle').removeClass('unavailable');
+		
         var tags = []; // to search for travel also, add 'travel' into the array
         searchFilter.nounPhrases.each(function(nounPhrase) {
             tags.push('#' + nounPhrase.content);//converts all noun phrases into hashtags

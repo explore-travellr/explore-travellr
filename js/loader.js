@@ -116,6 +116,13 @@ Array.implement({
     },
 });
 
+
+$extend(window, {
+    atBottom: function(margin) {
+        return this.getScroll().y >= this.getScrollSize().y - this.getSize().y - (margin || 0);
+    }
+});
+
 window.addEvent('domready', function() {
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
@@ -137,7 +144,7 @@ window.addEvent('domready', function() {
 
     // Initialize the feed classes.
     // Add a feed to the list to automatically set it up.
-    var feeds = [MapFeed, TravellrFeed, TwitterFeed, FlickrFeed, WorldNomadsFeed, GeckoFeed, TravellersPointFeed];
+    var feeds = [FlickrFeed, TwitterFeed, GeckoFeed, TravellersPointFeed, TravellrFeed, WorldNomadsFeed];
     feeds.each(function(AFeedClass) {
         var feed = new AFeedClass(searchBox, container, scrapbook);
         feedToggle.addFeed(feed);
@@ -154,4 +161,133 @@ window.addEvent('domready', function() {
         $('searchField').set('value', searchString);
         searchBox.search(searchString);
     }
+    
+    //Slogan - adds "Skiing in Japan" to the search field and starts searching
+    $$('#japan').addEvents({ 
+      'click': function(){
+            var searchString = this.get('text');
+             // Search for the string
+              $('searchField').set('value', searchString);
+              searchBox.search(searchString);
+        }
+    });
+    
+    var showModal = function(content) {
+
+        //make a modal dialog
+        var modalMask = new Element('div', { 'class': 'modalMask' });
+        var modalClose = new Element('div', { 'class': 'close-button', text: 'Close' });
+        var modal = new Element('div', { 'class': 'modal' });
+        var contentWrapper = new Element('div', { 'class': 'content' });
+
+        // Hide the containers
+        modalMask.fade('hide');
+        modal.fade('hide');
+
+        contentWrapper.grab(content);
+
+        modal.adopt([modalClose, contentWrapper]);
+
+        $(document.body).grab(modalMask);
+        $(document.body).grab(modal);
+
+        // Position the box
+        var viewPos = window.getScroll();
+        var viewSize = window.getSize();
+
+        var modalSize = modal.getSize();
+        var documentSize = document.getScrollSize();
+
+        var modalLocation = {
+            x: viewPos.x + (viewSize.x - modalSize.x) / 2,
+            y: viewPos.y + (viewSize.y - modalSize.y) / 2
+        };
+        modal.setPosition(modalLocation);
+
+        modalMask.set('styles', { height: documentSize.y });
+
+        // Show the containers
+        modalMask.fade('0.8');
+        modal.fade('in');
+
+		// Add events to elements
+		$$(modalClose, modalMask).addEvent('click', (function() {
+		  closeModal(content,modal,modalMask,modalClose);
+		}).bind(this));
+
+		// Add events to window
+		window.addEvent('keypress', (function(e) {
+		  if(e.key == 'esc') {
+				  closeModal(content,modal,modalMask,modalClose);
+			  }
+		}).bind(this));          
+    };
+	
+    var closeModal = function(content,modal,modalMask,modalClose) {
+		if (content.parentNode) {
+			content.parentNode.removeChild(content);
+		}
+		modal.destroy();
+		modalMask.destroy();
+		modalClose.destroy();
+		this.shown = false;		
+	};
+    
+    (['about_us','partners','terms_and_conditions','contact_us']).each(function(id) {
+      var content = $(id+ '_modal');
+      $(id).addEvent('click', function() {
+        content.setStyle('display', 'block');
+        showModal(content);
+      })
+    });
+    var lm = $('learn_more');
+    var lmModal = $('about_us_modal');
+    $(lm).addEvent('click', function() {
+		lmModal.setStyle('display', 'block');
+		showModal(lmModal);
+    })
+      
+	$$('.feed_toggle').addEvents({
+		'click': function(){
+			if($(this).hasClass('on')){
+				$(this).removeClass('on');
+				$(this).addClass('off');
+			}
+			else{
+				$(this).removeClass('off');
+				$(this).addClass('on');
+			}
+		}
+	});
+
+	//Hide & Display dropdown menus on moueover & mouseout
+	$$('.dropdown').setStyle('display','none');
+
+	var showMenu = function(event){
+		event.stop();
+		$(this).addClass('button_hover');
+		$(this).getElement('.dropdown').setStyle('display','block');
+	};
+
+	var hideMenu = function(){
+		$(this).removeClass('button_hover');
+		$(this).getElement('.dropdown').setStyle('display','none');
+	};
+
+	//sets drop bar boolean as false on load
+	var dropBarVisible = false;
+
+	$$('.toolbar_button').addEvents({
+		'mouseover': showMenu,
+		'mouseout': hideMenu,
+		'click': showMenu
+	});    
 });
+
+
+
+
+
+
+
+

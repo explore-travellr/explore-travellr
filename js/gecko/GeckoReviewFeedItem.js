@@ -78,7 +78,8 @@ var GeckoReviewFeedItem = new Class({
         }).adopt([
             new Element('h2').grab(new Element('a', {
                 href: this.post.url,
-                text: this.post.name
+                text: this.post.name,
+				target: '_blank'
             })),
             new Element('div', {
                 html: this.post.text

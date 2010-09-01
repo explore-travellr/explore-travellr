@@ -79,7 +79,8 @@ var TwitterFeedItem = new Class({
         }).adopt([
             new Element('h2').grab(new Element('a', {
                 text: this.tweet.from_user,
-                href: this.tweet.url
+                href: this.tweet.url,
+				target: '_blank'
             })),
             new Element('p', {html:this.tweet.text.tweetify()}),
             new Element('p', {

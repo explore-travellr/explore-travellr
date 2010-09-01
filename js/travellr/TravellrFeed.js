@@ -49,7 +49,6 @@ var TravellrFeed = new Class({
         this.empty();
 
         this.itemsCalled = $random(4,8);
-        //this.feedItems = []; Removed : Jake Kobes : 17-May-2010 : this was the problem with travellr feeditems not refreshing
         // TODO: Search for tags individually if nothing is found when searching for them all
 
         //This line adds the "Didn't find the information..." feedItem

@@ -221,7 +221,9 @@ color:#aaa;
 #info_dropdown{
           left:630px;
 }
-
+#info_dropdown li:hover{
+          background-color:#4870a0;
+}
 
 #favourties_wrapper {
           position: absolute;
@@ -259,6 +261,50 @@ color:#aaa;
 .plain { 
     background-color: Blue;
 }
+
+/**************************************
+* Information menu
+***************************************/
+
+
+
+#about_us_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+  display:none;
+}
+#learn_more_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+
+}
+#partners_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+  display:none;
+}
+#terms_and_conditions_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+  display:none;
+}
+#contact_us_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+  display:none;
+}
+.information{
+  color:red;
+}
+
+
+
+
 
 /* temp Container styles */
 
@@ -301,6 +347,8 @@ color:#aaa;
           font-weight:600;
           text-decoration:underline;
 }
+
+
 
 /* display box, modal and progress bar NEED STYLING */
 

@@ -27,7 +27,11 @@ var WorldNomadsFeed = new Class({
     * The name of thie <Feed>, used in the GUI
     */
     name: 'WorldNomads',
-
+	
+    /**
+    * Variable: TYPE
+    * The request data parameters type
+    */
     TYPE: 'recent',
 
     /**
@@ -43,7 +47,7 @@ var WorldNomadsFeed = new Class({
     search: function(searchFilter) {
         this.empty();
 
-        var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
+        var country = ((searchFilter.location && searchFilter.location.country) ? searchFilter.location.country.toLowerCase() : null);
         var country_id = this.countries.get(country);
         
         //if the search string doesn't return a country, don't request World Nomads feed and grey out the toggle
