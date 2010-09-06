@@ -196,7 +196,7 @@ NOTE: has to be below dropdown CSS!!
 .WorldNomadsfeed_toggle{
 		background: url(images/favs/worldNomads.png) no-repeat 11px 5px;
 }
-.Geckofeed_toggle{
+.GeckoGofeed_toggle{
 		background: url(images/favs/geckoGo.png) no-repeat 11px 5px;
 }
 .TravellersPointfeed_toggle{
@@ -221,7 +221,9 @@ color:#aaa;
 #info_dropdown{
           left:630px;
 }
-
+#info_dropdown li:hover{
+          background-color:#4870a0;
+}
 
 #favourties_wrapper {
           position: absolute;
@@ -234,19 +236,24 @@ color:#aaa;
           background: #365F91 url("images/favourites_lip.gif") repeat-x bottom;
 }
 #favourites_dropdown .folder {
+    font: bold 15px arial;
     float: left;
-    width: 100px;
-    height: 0px;
+    color: #3f6491;
+    width: 170px;
+    height: 85px;
     line-height: 0px;
-    padding: 50px 0px;
-    border: 1px solid black;
-    margin: 0px 10px;
+    padding: 45px 0 0;
+    margin: 5px 10px;
     text-align: center;
     cursor: pointer;
+    background: url(images/favFolder_sprite.png) no-repeat top left;
 }
-
+#favourites_dropdown .folder:hover {
+    background-position: bottom left;
+    font-size: 16px;
+}    
 .drop {
-    background-color : red;
+    background-position: bottom left;
 }
 .dropped {
     background-color: green;
@@ -254,6 +261,50 @@ color:#aaa;
 .plain { 
     background-color: Blue;
 }
+
+/**************************************
+* Information menu
+***************************************/
+
+
+
+#about_us_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+  display:none;
+}
+#learn_more_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+
+}
+#partners_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+  display:none;
+}
+#terms_and_conditions_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+  display:none;
+}
+#contact_us_modal{
+  margin:0 auto;
+  width:500px;
+  border: 2px solid;
+  display:none;
+}
+.information{
+  color:red;
+}
+
+
+
+
 
 /* temp Container styles */
 
@@ -296,6 +347,8 @@ color:#aaa;
           font-weight:600;
           text-decoration:underline;
 }
+
+
 
 /* display box, modal and progress bar NEED STYLING */
 
@@ -491,4 +544,3 @@ color:#aaa;
     background: #B5C4D6;
     color: #B5C4D6;
 }
-

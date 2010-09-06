@@ -1,20 +1,20 @@
 /*
----
+Class: MoogressBar
+    With moogressBar you can easily create a progress bar powered by mooTools
 
-script: moogressBar.js
-version: 0.5.2
-description: with moogressBar you can easily create a progress bar powered by mooTools
-license: MIT-style
-authors:
-- Christopher Beloch
-- Arian Stolwijk (code improvements 0.2 -> 0.3)
+License:
+	MIT-style license.
+   
+Version: 
+	0.5.2
 
-requires: 
-  core:1.2.4: '*'
+Authors:
+	- Christopher Beloch
+	- Arian Stolwijk (code improvements 0.2 -> 0.3)
 
-provides: [Moogressbar]
-
-...
+Dependencies:
+   - <MooTools::core> 1.2.4 or higher
+   - <MooTools::more> 1.2.4.4 RC1 or higher
 */
 
 var MoogressBar = new Class({
@@ -69,7 +69,6 @@ var MoogressBar = new Class({
 			}).inject(this.bar);
 		}
 		
-
 		// Will it be Animated?
 		if(this.options.fx)
 		{

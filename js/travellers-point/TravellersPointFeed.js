@@ -35,13 +35,15 @@ var TravellersPointFeed = new Class({
     search: function(searchFilter) {
         this.empty();
 
-        var country = (searchFilter.location ? searchFilter.location.country.toLowerCase() : null);
+        var country = ((searchFilter.location && searchFilter.location.country) ? searchFilter.location.country.toLowerCase() : null);
 
         if (!$chk(country)) {
+			$$('.TravellersPointfeed_toggle').addClass('unavailable');
             this.feedReady();
             return;
         }
-        
+		$$('.TravellersPointfeed_toggle').removeClass('unavailable');
+		        
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {

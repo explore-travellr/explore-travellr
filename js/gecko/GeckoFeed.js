@@ -26,7 +26,7 @@ var GeckoFeed = new Class({
     * Variable: name
     * The name of thie <Feed>, used in the GUI
     */
-    name: 'Gecko',
+    name: 'GeckoGo',
 
     /**
     * Function: search
@@ -41,10 +41,14 @@ var GeckoFeed = new Class({
     search: function(searchFilter) {
         this.empty();
 
-        if (!$chk(searchFilter.location)) {
+		var valid = ((searchFilter.location && searchFilter.location.country) ? true : false);
+		
+        if (!valid) {
+			$$('.Geckofeed_toggle').addClass('unavailable');
             this.feedReady();
             return;
         }
+		$$('.Geckofeed_toggle').removeClass('unavailable');
         
         var lat = searchFilter.location.lat;
         var lng = searchFilter.location.lng;
