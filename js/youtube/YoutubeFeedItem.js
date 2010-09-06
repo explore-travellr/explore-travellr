@@ -43,6 +43,10 @@ var YoutubeFeedItem = new Class({
      */
     initialize: function(feedObject) {
         this.video = feedObject;
+		this.size = {x: 2};
+		this.url = "http://www.youtube.com/v/" + this.video.id + "?fs=1&hl=en_GB";
+		this.thumbnail = "http://i.ytimg.com/vi/" + this.video.id + "/default.jpg";
+		this.title = this.video.title;
     },
 
     /**
@@ -53,13 +57,16 @@ var YoutubeFeedItem = new Class({
      *     A <MooTools::Element> containing a preview of this <YoutubeFeedItem>
      */
     makePreview: function() {
+		var heading = new Element('h2', {
+			text: this.title
+		});
+		
+		var img = new Element('img', {
+            src: this.thumbnail
+        });
 		return new Element('div', {
             'class': 'youtube'
-        }).adopt([
-			new Element('h2', {
-					text: this.video.title
-			})
-        ]);
+        }).adopt([heading, img])
     },
 
     /**
@@ -70,17 +77,45 @@ var YoutubeFeedItem = new Class({
      *     A <MooTools::Element> with the contents of this <YoutubeFeedItem>
      */
     makeContent: function() {
-        return new Element('div', {
+
+        var ytembed = new Swiff( this.url, {
+			width: 480,
+			height: 385,
+			params: {
+				allowScriptAccess: "always"
+			},
+			properties: {
+				allowFullScreen: 'true'
+			}
+		});
+		
+		var wrapper = new Element('div', {
+			styles: {
+				width: 500,
+				height: 400
+			}
+		});	
+		wrapper.grab(ytembed);
+	
+		return new Element('div', {
             'class': 'youtube'
-        }).adopt([
-            new Element('h2').grab(new Element('a', {
-                text: this.video.title,
-                href: this.video.player
-            })),
-        ]);	
+        }).adopt(wrapper);
+       
     },
 
     /**
+	<object width="480" height="385">
+		<param name="movie" value="http://www.youtube.com/v/NkfuPTm1zUo?fs=1&amp;hl=en_GB"></param>
+		<param name="allowFullScreen" value="true"></param>
+		<param name="allowscriptaccess" value="always"></param>
+		<embed src="http://www.youtube.com/v/NkfuPTm1zUo?fs=1&amp;hl=en_GB" 
+			type="application/x-shockwave-flash" 
+			allowscriptaccess="always" 
+			allowfullscreen="true" 
+			width="480" 
+			height="385">
+		</embed>
+	</object>
      * Function: serialize
      * Returns the video data, ready for serialization
      *

@@ -45,19 +45,18 @@ var YoutubeFeed = new Class({
      */
     search: function(searchFilter) {
         this.empty();
-        
-        var tags = [];
+        var tags = [searchFilter.location.name];
 
         searchFilter.tags.each(function(tag) {
             tags.push(tag.name);
         });
 		
-        tags = tags.join(',');
+        tags = tags.join('+-');
 
         new Request.JSONP({
             url: 'http://gdata.youtube.com/feeds/api/videos',
                 data: {
-                q: 	this.tags,
+                q: 	tags,
                 key: 'AI39si6I6tBAD_U7oB8R5ESjFBD_9QMqcz5NrRIxFtCTbjEgJDiBLmxZ8EVu8iUTznjUuxRhPy2MWotbPhkrUfyPeOFa3KhLBA',
 				v: 2,
 				safeSearch: 'moderate',
