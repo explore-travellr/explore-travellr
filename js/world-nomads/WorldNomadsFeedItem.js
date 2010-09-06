@@ -20,6 +20,7 @@ Dependencies:
 var WorldNomadsFeedItem = new Class({
 
     Extends: FeedItem,
+	Implements: [Options, Events],
     Serializable: 'WorldNomadsFeedItem',
 
     /**
@@ -34,6 +35,12 @@ var WorldNomadsFeedItem = new Class({
      */
     name: 'WorldNomadsFeedItem',
 
+	/**
+	 * Variable: options
+	 * Options for this instance
+	 */
+	options: {},
+
     /**
      * Constructor: initialize
      * Constructs a new <WorldNomadsFeedItem> with the content drawn from the blog post sent in
@@ -41,12 +48,25 @@ var WorldNomadsFeedItem = new Class({
      * Parameters:
      *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(feedObject) {
+    initialize: function(feedObject, options) {
+		this.setOptions(options);
         this.post = feedObject;
 
         this.size = {
             x: 2
         };
+        if (this.post['adventures:image']) {
+            this.previewLoaded = false;
+            new Asset.images([this.post['adventures:image'].medium], {
+                onComplete: (function() {
+                    this.previewLoaded = true;
+                    this.fireEvent('previewLoaded');
+                }).bind(this)
+            });
+        } else {
+            this.previewLoaded = true;
+            this.fireEvent('ready');
+        }
     },
 
     /**
@@ -57,16 +77,18 @@ var WorldNomadsFeedItem = new Class({
      *     A <MooTools::Element> containing a preview of this <WorldNomadsFeedItem>
      */
     makePreview: function() {
-        return new Element('div', {
+        var wrapper = new Element('div', {
             'class': 'worldNomads'
-        }).adopt([
-            new Element('img', {
-                'src': (this.post['adventures:image']) ? this.post['adventures:image'].medium : '#'
-            }),
-            new Element('p', {
-                text: this.post.title
-            })
-        ]);
+        });
+        if (this.post['adventures:image']) {
+            wrapper.grab(new Element('img', {
+                'src': this.post['adventures:image'].medium
+            }));
+        };
+        wrapper.grab( new Element('p', {
+            text: this.post.title
+        }));
+        return wrapper;
     },
 
     /**

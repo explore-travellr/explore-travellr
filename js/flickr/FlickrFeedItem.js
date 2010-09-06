@@ -41,6 +41,15 @@ var FlickrFeedItem = new Class({
      */
     name: 'FlickrFeedItem',
 
+
+    /**
+     * Variable: previewLoaded
+     * If the <FeedItem> preview is ready for display. <FlickrFeedItems> need to preload
+     * the thumbnail, so this is initially false. The previewLoaded function is fired to indicate
+     * this is loaded, and this variable toggled to true
+     */
+    previewLoaded: false,
+
     /**
      * Function: initialize
      * Sets the parameter to a instance variable then sets the url, pic
@@ -58,7 +67,16 @@ var FlickrFeedItem = new Class({
         this.photo.picUrlThumbnail = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'_m.jpg';
         this.photo.picUrlContent = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'.jpg';
 
-        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent], {onComplete: this.fireEvent.bind(this, 'ready')});
+        new Asset.images([this.photo.picUrlThumbnail], {
+            onComplete: (function() {
+                this.previewLoaded = true;
+                this.fireEvent('previewLoaded');
+            }).bind(this)
+        });
+        new Asset.images([this.photo.picUrlContent], {onComplete: (function() {
+            this.contentLoaded = true;
+            this.fireEvent('contentLoaded');
+        }).bind(this)});
 
         this.size = {
             x: 2

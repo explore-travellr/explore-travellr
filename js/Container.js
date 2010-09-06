@@ -61,7 +61,30 @@ var Container = new Class({
     * in <displayBoxQueue>
     */
     queueDelay: 100,
+
+    /**
+     * Variable: loaded
+     * If all the feeds are loaded
+     */
     loaded: false,
+
+    /**
+     * Variable: feedsWithContent
+     * An array of all the <Feeds> that have content to be displayed
+     */
+    feedsWithContent: [],
+
+    /**
+     * Variable: progressBar
+     * An instance of <MoogressBar> showing the loading progress
+     */
+    progressBar: null,
+
+    /**
+     * Variable: progressElement
+     * The <JS::Element> the <progressBar> is using for display
+     */
+    progressElement: null,
 
     /**
     * Constructor: initialize
@@ -80,29 +103,94 @@ var Container = new Class({
             itemSelector: '.displayBox'
         });
 
-        this.addDisplayBoxFromQueue = this.addDisplayBoxFromQueue.bind(this);
+        // This function is used as an event callback, so needs to be bound
+        this.feedReady = this.feedReady.bindWithEvent(this);
 
         this.searchBox = searchBox;
         if (this.searchBox) {
-            this.searchBox.addEvent('search', (function (event) {
-                var progressElement = new Element('div', { id: 'progressBar' })
-                this.container.grab(progressElement);
+            // Load more on scroll
+            window.addEvent('scroll', this.getNextFeedItems.bind(this));
+
+            this.searchBox.addEvent('search', (function (searchFilter) {
 
                 this.loadedFeeds = 0;
                 this.loaded = false;
+                this.numberOfFeeds = this.feeds.length;
+
+                if (this.progressElement) {
+                    this.progressElement.destroy();
+                    this.progressBar = null;
+                }
+
+                this.progressElement = new Element('div', { id: 'progressBar' })
+                this.progressBar = new MoogressBar(this.progressElement);
+                this.container.grab(this.progressElement);
 
                 //fades out the tooltip
                 $('slogan').fade('out');
 
-                this.progressBar = new MoogressBar(progressElement, {
-                    onFinish: function () {
-                        progressElement.getParent().removeChild(progressElement);
-                    }
-                });
-                this.numberOfFeeds = this.feeds.length;
+                this.feedsWithContent = [];
+
+                this.feeds.each(function(feed) {
+
+                    feed.removeEvent('feedItemsReady', this.feedReady);
+                    feed.addEvent('feedItemsReady', this.feedReady);
+                    feed.newSearch(searchFilter);
+                    this.feedsWithContent.push(feed);
+
+                }, this);
+
+                this.getNextFeedItems(true);
+
             }).bind(this));
         } else {
             this.loaded = true;
+        }
+    },
+
+    feedReady: function(feed) {
+        this.loadedFeeds++;//increment loading bar
+
+        if (this.progressBar) {
+            this.progressBar.setPercentage(this.loadedFeeds * 100 / this.numberOfFeeds);
+        }
+
+        if (this.loadedFeeds == this.numberOfFeeds) {
+            //hide loading bar
+            this.firstRound = false;
+            this.loaded = true;
+
+            this.progressElement.destroy();
+
+            this.progressElement = null;
+            this.progressBar = null;
+
+            this.getNextFeedItems();
+        }
+
+        feed.removeEvent('feedItemsReady', this.feedReady);
+    },
+
+    getNextFeedItems: function(firstRound) {
+
+        if (firstRound || (this.loaded && window.atBottom(window.getSize().y))) {
+            var feeds = this.feedsWithContent;
+            this.feedsWithContent = [];
+            feeds.each(function(feed) {
+
+                feed.getNextFeedItem((function(feedItem) {
+                    (function() {
+                        if (feedItem) {
+                            this.addDisplayBox(new DisplayBox(feedItem));
+                            if (feed.isVisible()) {
+                                this.feedsWithContent.push(feed);
+                                this.getNextFeedItems();
+                            }
+                        }
+                    }).delay(100, this);
+                }).bind(this));
+
+            }, this);
         }
     },
 
@@ -115,15 +203,16 @@ var Container = new Class({
     */
     addFeed: function (feed) {
         this.feeds.push(feed);
-        feed.addEvent('feedReady', (function (amount) {
-            this.loadedFeeds++;//increment loading bar
-            var progressWidth = this.progressBar.setPercentage(this.loadedFeeds / this.numberOfFeeds * 100);
-            if (this.loadedFeeds == this.numberOfFeeds) {
-                //hide loading bar
-                this.loaded = true;
-                this.queueAddDisplayBox();
-            }
-        }).bind(this));
+        feed.addEvents({
+            shown: (function() {
+                this.feedsWithContent.include(feed);
+            }).bind(this),
+            hidden: (function() {
+                this.feedsWithContent.erase(feed);
+                this.container.masonry({appendContent: []});
+                this.getNextFeedItems();
+            }).bind(this)
+        });
     },
 
     /**
@@ -138,71 +227,24 @@ var Container = new Class({
     *     - <queueAddDisplayBox>
     */
     addDisplayBox: function (displayBox) {
-        this.displayBoxQueue.push(displayBox);
-        this.queueAddDisplayBox();
-    },
-
-    /**
-    * Function: addDisplayBoxFromQueue
-    * Adds a <DisplayBox> from the <displayBoxQueue>. This method will then
-    * call <queueAddDisplayBox>, to add any more queued <DisplayBoxes>
-    *
-    * Parameters:
-    *     displayBox - The <DisplayBox> to add
-    *
-    * See Also:
-    *     - <addDisplayBox>
-    *     - <queueAddDisplayBox>
-    */
-    addDisplayBoxFromQueue: function () {
-        var displayBox = this.displayBoxQueue.removeRandom();
-        if (!displayBox) {
-            // The queue may have been emptied since this function was queued.
-            return;
-        }  
-
         // Get the preview to display
         var preview = displayBox.getPreview();
 
         // Add it to the container
-        preview.fade('hide');
         this.container.grab(preview);
         this.container.masonry({
             appendContent: [preview]
         });
-        preview.fade('in');
-        displayBox.fireEvent('preview');
+
+        preview.fade('hide').fade('in');
 
         // Tell the display box about this container
         displayBox.setContainer(this);
         this.displayBoxes.push(displayBox);
 
-        // Add another if we need to
-        this.queueTimer = null;
-        this.queueAddDisplayBox();
+        displayBox.fireEvent('preview');
     },
 
-    /**
-    * Function: queueAddDisplayBox
-    * Make a periodical function to add a queued <DisplayBox> from
-    * <displayBoxQueue>. This function will only run if there are
-    * <DisplayBoxes> to add, and the periodical function is not already
-    * running.
-    *
-    * See Also:
-    *     - <addDisplayBox>
-    *     - <addDisplayBoxFromQueue>
-    */
-    queueAddDisplayBox: function () {
-        // Check it is not already queued
-        if (!$chk(this.queueTimer)) {
-            if (this.displayBoxQueue.length !== 0 && this.loaded) {
-                this.queueTimer = this.addDisplayBoxFromQueue.delay(this.queueDelay);
-            } else {
-                this.queueTimer = null;
-            }
-        }
-    },
 
     /**
     * Function: getDisplayBoxes
@@ -223,6 +265,7 @@ var Container = new Class({
     *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
     */
     removeDisplayBox: function (displayBox) {
+        if (!displayBox) return;
         displayBox.setContainer(null);
         this.displayBoxes.erase(displayBox);
         this.displayBoxQueue.erase(displayBox);

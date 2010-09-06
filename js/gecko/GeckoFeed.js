@@ -29,6 +29,23 @@ var GeckoFeed = new Class({
     name: 'GeckoGo',
 
     /**
+     * Variable: perPage
+     * The maximum number of photos displayed
+     */
+    perPage: 10,
+
+    /**
+     * Variable: page
+     * The page number of the current search. Incremented every search
+     */
+    page: 1,
+
+    newSearch: function(searchFilter) {
+        this.parent();
+        this.searchFilter = searchFilter;
+        this.page = 1;
+    },
+    /**
     * Function: search
     * Search the feed for items relating to the latitude and longtitude of the search terms. This particular
     * search is actually done to yahoo pipes in which the pipe handles the request
@@ -38,20 +55,17 @@ var GeckoFeed = new Class({
     * Parameters:
     *     searchFilter - The search filter to filter results with
     */
-    search: function(searchFilter) {
-        this.empty();
-
-		var valid = ((searchFilter.location && searchFilter.location.country) ? true : false);
-		
-        if (!valid) {
+    getMoreFeedItems: function() {
+        if (!this.searchFilter.location) {
 			$$('.Geckofeed_toggle').addClass('unavailable');
-            this.feedReady();
+            this.moreFeedItems = false;
+            this.feedItemsReady();
             return;
         }
 		$$('.Geckofeed_toggle').removeClass('unavailable');
         
-        var lat = searchFilter.location.lat;
-        var lng = searchFilter.location.lng;
+        var lat = this.searchFilter.location.lat;
+        var lng = this.searchFilter.location.lng;
 
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
@@ -60,11 +74,18 @@ var GeckoFeed = new Class({
                 _render: 'json',
                 lat: lat,
                 lng: lng,
-                type: 'Tips'
+                type: 'Tips',
+                page: this.page,
+                per_page: this.perPage
             },
             callbackKey: '_callback',
-            onSuccess: this.makeFeedItems.bind(this)
+            onSuccess: this.makeFeedItems.bind(this),
+            onFailure: (function() {
+                this.moreFeedItems = false;
+                this.feedItemsReady();
+            }).bind(this)
         }).send();
+        this.page = this.page + 1;
     },
 
     /**
@@ -80,7 +101,11 @@ var GeckoFeed = new Class({
                 // GeckoGo Review or GeckoGo Tips
                 this.feedItems.push(post.id ? new GeckoReviewFeedItem(post) : new GeckoTipsFeedItem(post));
             }, this);
-            this.feedReady();
+            this.moreFeedItems = results.value.items.length >= this.perPage;
+        } else {
+            this.moreFeedItems = false;
         }
+
+        this.feedItemsReady();
     }
 });

@@ -25,21 +25,36 @@ var TravellersPointFeed = new Class({
     name: 'TravellersPoint',
 
     /**
+     * Variable: perPage
+     * The maximum number of photos displayed
+     */
+    perPage: 10,
+
+    /**
+     * Variable: page
+     * The page number of the current search. Incremented every search
+     */
+    page: 1,
+
+    newSearch: function(searchFilter) {
+        this.parent();
+        this.searchFilter = searchFilter;
+        this.page = 1;
+    },
+
+    /**
      * Search the feed for items relating to the search terms. This particular
      * search is actually done to yahoo pipes in which the pipe handles the request
      * and converts a RSS feed from World Nomads into a JSON object. It then
      * calls makeFeedItems on success.
-     *
-     * @param searchFilter The search filter to filter results with in TP
      */
-    search: function(searchFilter) {
-        this.empty();
+     getMoreFeedItems: function() {
+        var country = (this.searchFilter.location && this.searchFilter.location.country ? this.searchFilter.location.country.toLowerCase() : null);
 
-        var country = ((searchFilter.location && searchFilter.location.country) ? searchFilter.location.country.toLowerCase() : null);
-
-        if (!$chk(country)) {
+        if (!country) {
 			$$('.TravellersPointfeed_toggle').addClass('unavailable');
-            this.feedReady();
+            this.moreFeedItems = false;
+            this.feedItemsReady();
             return;
         }
 		$$('.TravellersPointfeed_toggle').removeClass('unavailable');
@@ -47,13 +62,16 @@ var TravellersPointFeed = new Class({
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
             data: {
-                _id: '94c1b9ad6592a64f907e6c6b2b520f78',
+                _id: 'e8e8994969edba5692e72656a04cf7e7',
                 _render: 'json',
                 countries: country
-               
             },
             callbackKey: '_callback',
-            onSuccess: this.makeFeedItems.bind(this)
+            onSuccess: this.makeFeedItems.bind(this),
+            onFailure: (function() {
+                this.moreFeedItems = false;
+                this.feedItemsReady();
+            }).bind(this)
         }).send();
     },
 
@@ -65,20 +83,13 @@ var TravellersPointFeed = new Class({
      * @param response object returned by the yahoo pipes call (parsing travellers point feeds)
      */
     makeFeedItems: function(results) {
-        var outstanding = 1;
-        var callback = (function() {
-            outstanding = outstanding - 1;
-            if (outstanding === 0) {
-                this.feedReady();
-            }
-        }).bind(this);
-
         if (results && results.value && results.value.items && results.value.items.length !== 0) {
             results.value.items.each(function(post) {
-                this.feedItems.push(new TravellersPointFeedItem(post, {onReady: callback}));
+                this.feedItems.push(new TravellersPointFeedItem(post));
             }, this);
         }
 
-        callback();
+        this.moreFeedItems = false;
+        this.feedItemsReady();
     }
  });

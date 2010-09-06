@@ -28,15 +28,15 @@ var MapFeed = new Class({
      * TODO
      */
     search: function(searchFilter) {
-		this.empty();
-		//console.log(searchFilter);
-		
+        this.empty();
+        //console.log(searchFilter);
+        
         this.parent();
-		
-		var mapFeedItem = new MapFeedItem(searchFilter);
-		
-		this.feedItems.push(mapFeedItem);
-		
-		this.feedReady();
+        
+        var mapFeedItem = new MapFeedItem(searchFilter);
+        
+        this.feedItems.push(mapFeedItem);
+        
+        this.feedReady();
     }
  });

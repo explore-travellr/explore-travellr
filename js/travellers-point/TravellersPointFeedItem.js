@@ -36,6 +36,14 @@ var TravellersPointFeedItem = new Class({
     name: 'TravellersPointFeedItem',
 
     /**
+     * Variable: previewLoaded
+     * If the <FeedItem> preview is ready for display. <TravellersPointFeedItems> need to preload
+     * the thumbnail, so this is initially false. The previewLoaded function is fired to indicate
+     * this is loaded, and this variable toggled to true
+     */
+    previewLoaded: false,
+
+    /**
      * Consructor: initialize
      * Sets a new <TravellerspPointFeedItem> with the content drawn from the blog post sent in
      *
@@ -50,7 +58,19 @@ var TravellersPointFeedItem = new Class({
             x: 2
         };
 
-        new Asset.images([this.post['media:thumbnail'].url], {onComplete: this.fireEvent.bind(this, 'ready')});
+        new Asset.images([this.post['media:thumbnail'].url], {
+            onComplete: (function() {
+                this.previewLoaded = true;
+                this.fireEvent.bind(this, 'previewLoaded');
+            }).bind(this)
+        });
+
+        new Asset.images([this.post['media:content'].url], {
+            onComplete: (function() {
+                this.contentLoaded = true;
+                this.fireEvent.bind(this, 'contentLoaded');
+            }).bind(this)
+        });
     },
 
     /**
