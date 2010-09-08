@@ -96,7 +96,7 @@ var Container = new Class({
     *     container - The element to layout the DisplayBoxes in
     *     searchBox - The SearchBox that will create searches for the feeds in this container.
     */
-    initialize: function (container, searchBox) {
+    initialize: function (container, searchBox, scrapbook) {
         this.container = $(container);
         this.masonry = this.container.masonry({
             columnWidth: 100,
@@ -105,6 +105,7 @@ var Container = new Class({
 
         // This function is used as an event callback, so needs to be bound
         this.feedReady = this.feedReady.bindWithEvent(this);
+        this.scrapbook = scrapbook;
 
         this.searchBox = searchBox;
         if (this.searchBox) {
@@ -181,7 +182,7 @@ var Container = new Class({
                 feed.getNextFeedItem((function(feedItem) {
                     (function() {
                         if (feedItem) {
-                            this.addDisplayBox(new DisplayBox(feedItem));
+                            this.addDisplayBox(new DisplayBox(feedItem, this.scrapbook));
                             if (feed.isVisible()) {
                                 this.feedsWithContent.push(feed);
                                 this.getNextFeedItems();
