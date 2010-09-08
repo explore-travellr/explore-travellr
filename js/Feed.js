@@ -60,9 +60,9 @@ var Feed = new Class({
     },
 
     /**
-     * Function: search
+     * Function: getMoreFeedItems
      * Search the feed for items relating to the search terms. Calls
-     * <feedReady> when all the <FeedItem>s are found.
+     * <feedItemsReady> when all the <FeedItem>s are found.
      * 
      * This is an abstract method.
      *
@@ -72,7 +72,7 @@ var Feed = new Class({
     getMoreFeedItems: function() { },
 
     /**
-     * Function: empty
+     * Function: newSearch
      * Removes all <FeedItems> from the <Feed> and <Container>.
      */
     newSearch: function() {

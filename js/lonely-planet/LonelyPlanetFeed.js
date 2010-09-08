@@ -103,6 +103,6 @@ var LonelyPlanetFeed = new Class({
 
         console.log("response: " +response);
 
-        this.feedReady();
+        this.feedItemsReady();
     }
 });

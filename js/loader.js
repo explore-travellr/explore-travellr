@@ -144,7 +144,9 @@ window.addEvent('domready', function() {
 
     // Initialize the feed classes.
     // Add a feed to the list to automatically set it up.
-    var feeds = [FlickrFeed, TwitterFeed, GeckoFeed, TravellersPointFeed, TravellrFeed, WorldNomadsFeed];
+
+    var feeds = [FlickrFeed, TwitterFeed, GeckoFeed, TravellersPointFeed, TravellrFeed, WorldNomadsFeed, YoutubeFeed];
+
     feeds.each(function(AFeedClass) {
         var feed = new AFeedClass(searchBox, container, scrapbook);
         feedToggle.addFeed(feed);

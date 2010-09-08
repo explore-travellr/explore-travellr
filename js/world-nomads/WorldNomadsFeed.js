@@ -81,7 +81,7 @@ var WorldNomadsFeed = new Class({
     /**
     * Function: makeFeedItems
     * Makes the individual <WorldNomadsFeedItems> from the search results.
-    * <feedReady> is called when everything is created, to populate the <Container>
+    * <feedItemsReady> is called when everything is created, to populate the <Container>
     *
     * Parameters:
     *     response - object returned by the yahoo pipes call (parsing world nomads feeds)
