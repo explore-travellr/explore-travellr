@@ -65,7 +65,7 @@ var TwitterFeedItem = new Class({
 				'src': this.tweet.profile_image_url
 			}),
 			new Element('div',{
-				'class':'tweet_preview'
+				'class':'tweetPreview'
 			}).adopt([
 				new Element('p',{
 					text: this.tweet.text.truncateText(100) //Calls parent function
