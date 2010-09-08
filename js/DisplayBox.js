@@ -226,7 +226,7 @@ var DisplayBox = new Class({
         modalMask.set('styles', { height: documentSize.y });
 
         // Show the containers
-        modalMask.fade('0.8');
+        modalMask.fade('0.4');
         modal.fade('in');
 
         // Add events to elements
