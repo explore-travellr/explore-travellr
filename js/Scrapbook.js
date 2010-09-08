@@ -106,10 +106,12 @@ var Scrapbook = new Class({
     showFolders: function() {
         this.foldersVisible = true;
         this.folderFx.cancel().slideIn();
+        $('favourites_button').addClass('active');
     },
     hideFolders: function() {
         this.foldersVisible = false;
         this.folderFx.cancel().slideOut();
+        $('favourites_button').removeClass('active');
     },
 
     addDraggable: function(draggable, options, feedItem) {

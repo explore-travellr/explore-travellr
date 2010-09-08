@@ -106,7 +106,8 @@ h1#logo{
 }
 .fav_button:hover,
 .fav_button.active {
-          background: #365F91;
+          /* this is the opaque value, the rgba is with the transparency. background: #365F91; */
+          background: rgba(30, 77, 133, 0.9); 
 }
 /* Specific toolbar button styles	*/
 
@@ -233,7 +234,8 @@ color:#aaa;
 #favourites_dropdown {
           width: 100%;
           height: 140px;
-          background: #365F91 url("images/favourites_lip.gif") repeat-x bottom;
+          /* this is the opaque value, the rgba is with the transparency. background: #365F91; */
+          background: rgba(30, 77, 133, 0.9) url("images/favourites_lip.gif") repeat-x bottom;
 }
 #favourites_dropdown .folder {
     font: bold 15px arial;
@@ -251,7 +253,14 @@ color:#aaa;
 #favourites_dropdown .folder:hover {
     background-position: bottom left;
     font-size: 16px;
-}    
+}
+.addFavButton
+{
+    background: #fff;
+    -moz-border-radius: 5px;
+    padding: 40px 0 0 20px;
+    color: #3f6491;
+}
 .drop {
     background-position: bottom left;
 }
