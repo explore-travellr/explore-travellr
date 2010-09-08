@@ -256,10 +256,15 @@ color:#aaa;
 }
 .addFavButton
 {
-    background: #fff;
     -moz-border-radius: 5px;
-    padding: 40px 0 0 20px;
-    color: #3f6491;
+    padding: 10px 10px 10px 20px;
+    color: white;
+    /*color: #3f6491; */
+    cursor: pointer;
+    float: left;
+    width: 80px;
+    margin-top: 50px;
+    background: red;
 }
 .drop {
     background-position: bottom left;
