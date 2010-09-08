@@ -439,13 +439,23 @@ color:#aaa;
 
 .displayBox .twitter{
 	/* background: url("images/twitter_arrow.png") no-repeat 16px 5px; */
-	background: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(213,213,213)), color-stop(1, rgb(250,250,250)));
-    background: -moz-linear-gradient( center bottom, rgb(213,213,213) 0%, rgb(250,250,250) 100%);
+	background: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(250,250,250)));
+    background: -moz-linear-gradient( center bottom, rgb(255,255,255) 0%, rgb(250,250,250) 100%);
     -moz-box-shadow: 1px 1px 3px #999;
 }
 
 .displayBox .twitter p{
-	padding:4px;
+	font-size:11px;
+	color:#666;
+}
+
+.displayBox .twitter img{
+	border:1px solid #EEEEEE;
+	float:left;
+	height:45px;
+	margin:0 5px 0 0;
+	padding:3px;
+	width:45px;
 }
 
 /***********************
@@ -485,7 +495,6 @@ color:#aaa;
     position: absolute;
     background : white;
     z-index:1000;
-    -moz-border-radius:2px; -webkit-border-radius:2px;
     -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
     max-width: 600px;
     max-height: 500px;
@@ -493,7 +502,7 @@ color:#aaa;
     padding: 15px;
 }
 .modal .icons {
-    background-color: #eeeeee;
+    float:right;
     line-height: 16px;
     font-size: 16px;
 }
