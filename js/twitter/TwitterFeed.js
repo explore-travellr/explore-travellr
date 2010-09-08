@@ -107,7 +107,9 @@ var TwitterFeed = new Class({
         });
         if (tags.length == 0) {
             tags.push('#travel');
-            if(this.searchFilter.location) tags.push(this.searchFilter.location.name);
+            if (this.searchFilter.location) {
+                tags.push(this.searchFilter.location.name);
+            }
         }
         tags = tags.join(' ');
 

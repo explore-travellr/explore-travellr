@@ -126,7 +126,6 @@ $extend(window, {
 window.addEvent('domready', function() {
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
-    var container = new Container('container', searchBox);
 
     var scrapbook = new Scrapbook({
         button: $('favourites_button'),
@@ -140,6 +139,8 @@ window.addEvent('domready', function() {
             container.show();
         }
     });
+
+    var container = new Container('container', searchBox, scrapbook);
     var feedToggle = new FeedToggle('feedToggle');
 
     // Initialize the feed classes.
