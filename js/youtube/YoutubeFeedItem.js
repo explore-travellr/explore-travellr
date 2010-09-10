@@ -114,8 +114,8 @@ var YoutubeFeedItem = new Class({
 		
 		var wrapper = new Element('div', {
 			styles: {
-				width: 500,
-				height: 400
+				width: 480,
+				height: 385
 			}
 		});	
 		wrapper.grab(ytembed);

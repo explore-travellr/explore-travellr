@@ -99,6 +99,9 @@ var WorldNomadsFeedItem = new Class({
      *     A <MooTools::Element> with the content of this <WorldNomadsFeedItem>
      */
     makeContent: function() {
+        var output = this.post.description;
+        output.replace("<br>","</p>");
+        console.log(this.post.description);
         return new Element('div', {
             'class': 'worldNomads'
         }).adopt([
@@ -107,8 +110,9 @@ var WorldNomadsFeedItem = new Class({
                 text: this.post.title,
 				target: '_blank'
             })),
+
             new Element('div', {
-                html: this.post.description
+                html: "<p class='infoData'>"+output
             })
         ]);
     },
@@ -124,6 +128,7 @@ var WorldNomadsFeedItem = new Class({
         return this.post;
     }
 });
+
 WorldNomadsFeedItem.unserialize = function(data) {
     return new WorldNomadsFeedItem(data);
 };

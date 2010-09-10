@@ -195,12 +195,16 @@ var DisplayBox = new Class({
         // Put all the element in their correct containers
         if (this.getFeedItem().canScrapbook() && this.scrapbook) {
             var scrapbookAdd = new Element('div', { 'class': 'scrapbook-add scrapbook-icon icon', text: 'Add to scrapbook', title: 'Add to scrapbook' });
+            var openNewWindow = new Element('div', { 'class': 'open-new-icon icon', text: 'Open in new window', title: 'Open in new window (not implemented)' });
 
             scrapbookAdd.addEvent('click', (function() {
                 this.scrapbook.addItem(this.getFeedItem());
+                $$('.scrapbook-add').addClass('starred');
             }).bind(this));
 
+            iconBar.adopt(openNewWindow);
             iconBar.adopt(scrapbookAdd);
+            
         }
 
         contentWrapper.grab(content);

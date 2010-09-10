@@ -124,14 +124,15 @@ var TwitterFeedItem = new Class({
 					text: this.tweet.from_user,
 					href: this.tweet.url
 				}),
+                                new Element('p', {
+					'class': 'date',
+					text: postTime
+				}),
 				new Element('p', {
 					'class':'tweet_content',
 					html:this.tweet.text.tweetify()
-				}),
-				new Element('p', {
-					'class': 'date',
-					text: postTime
 				})
+				
 			])
 		]);
     },
