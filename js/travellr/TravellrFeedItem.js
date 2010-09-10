@@ -83,8 +83,7 @@ var TravellrFeedItem = new Class({
             new Element('h3', {text: 'Answers'}),
         ];
         this.question.answers.each(function(answer) {
-            answers.push(new Element('div', {'class': 'answer'}).adopt([
-                new Element('p', {'class': 'asside', text: 'A:'}),
+            answers.push(new Element('div', {'class': 'answer'}).adopt([,
                 new Element('p', {text: answer.content})
             ]));
         });
@@ -99,10 +98,10 @@ var TravellrFeedItem = new Class({
             })),
             new Element('p').adopt(this.question.content.newlineToBr()),
             new Element('div', {'class': 'answers'}).adopt(answers),
-            new Element('p', {
-                'class': 'date',
-                text: Date.parse(this.question.created_at).toString()
-            })
+            new Element('a', {
+              href: this.question.url, 
+              text: 'View more answers'
+              })
         ]);
     },
 

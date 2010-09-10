@@ -7,182 +7,186 @@ body{
     background: url("images/bg_large.png") no-repeat 0 40px;
 }
 
-/* Reusable classes*/
-
 .left{float:left}
 .right{float:right}
 .clear{clear:both}
 
 
-/* Tool Bar Styles */
-
+/*
+ * Tool Bar Styling
+ */
 
 #toolbar_wrapper{
-          width:100%;
-          height:45px;
-          background:url(images/toolbar_bg2.gif);
-          min-width:960px;
+  width:100%;
+  height:45px;
+  background:url(images/toolbar_bg2.gif);
+  min-width:960px;
 }
+
 #toolbar_wrapper a {
-          outline: none;
+  outline: none;
 }
 
 h1#logo{
-          width:170px;
-          height:45px;
-          display:block;
-          text-indent:-999px;
-          background:url(images/logoSmall.png) no-repeat 15px 11px;
+  width:170px;
+  height:45px;
+  display:block;
+  text-indent:-999px;
+  background:url(images/logoSmall.png) no-repeat 15px 11px;
 }
 
-/*	Search Bar	*/
+/*
+ *  Search Bar
+ */
 
 #searchbar_wrapper{
-          width:300px;
-          height:45px;
-
+  width:300px;
+  height:45px;
 }
 
 #searchBar{
-          width:300px;
-          height:24px;
-          -moz-border-radius:5px;
-          -webkit-border-radius:5px;
-          background:#fff;
-          margin:9px 0 0 0;
-          border:1px #B5c4d6 solid;
+  width:300px;
+  height:24px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+  background:#fff;
+  margin:9px 0 0 0;
+  border:1px #B5c4d6 solid;
 }
 
 #search_button{
-          width:30px;
-          background:url(images/search_icon.png) no-repeat 5px -16px;
-          border:none;
-          border-left:1px solid #e4eaf0;
-          margin: 3px 0 0 0;
-          height:16px;
-          cursor:pointer;
+  width:30px;
+  background:url(images/search_icon.png) no-repeat 5px -16px;
+  border:none;
+  border-left:1px solid #e4eaf0;
+  margin: 3px 0 0 0;
+  height:16px;
+  cursor:pointer;
 }
 
 #search_button:hover{
-          background:url(images/search_icon.png) no-repeat 5px 0px;
+  background:url(images/search_icon.png) no-repeat 5px 0px;
 }
 
 #searchField{
-          border:none;
-          border:transparent;
-          outline:none;
-          height:18px;
-          width:230px;
-          margin:2px 0 0 8px;
-          font-size:14px;
-          color:#333;
+  border:none;
+  border:transparent;
+  outline:none;
+  height:18px;
+  width:230px;
+  margin:2px 0 0 8px;
+  font-size:14px;
+  color:#333;
 }
 
 #searchField:focus{
-          border:none;
+  border:none;
 }
 
-/*	Generic toolbar button styles	*/
+/*
+ * Toolbar button classes
+ */
 
 .toolbar_button, .fav_button {
-          height: 45px;
-          cursor: pointer;
+  height: 45px;
+  cursor: pointer;
 }
 .button_hover {
-          background:#365F91;
-          color:#fff;
+  background:#365F91;
+  color:#fff;
 }
 .toolbar_button a, .fav_button a {
-          background:url("images/arrow.png") no-repeat scroll 109px 3px transparent;
-          color:#365F91;
-          display:block;
-          font-size:13px;
-          text-align:center;
+  background:url("images/arrow.png") no-repeat scroll 109px 3px transparent;
+  color:#365F91;
+  display:block;
+  font-size:13px;
+  text-align:center;
 }
 .toolbar_button:hover a, .fav_button:hover a,
 .toolbar_button.active a, .fav_button.active a {
-          color:#fff;
-          background:url("images/arrow.png") no-repeat scroll 109px -12px transparent;
+  color:#fff;
+  background:url("images/arrow.png") no-repeat scroll 109px -12px transparent;
 }
 .fav_button:hover,
 .fav_button.active {
-          /* this is the opaque value, the rgba is with the transparency. background: #365F91; */
-          background: rgba(30, 77, 133, 0.9); 
+  /* this is the opaque value, the rgba is with the transparency. background: #365F91; */
+  background: rgba(30, 77, 133, 0.9); 
 }
-/* Specific toolbar button styles	*/
+
+/*
+ * Specific Toolbar button styling
+ */
 
 #feed_button{
-          width:140px;
-          margin:0 0 0 20px;
+  width:140px;
+  margin:0 0 0 20px;
 }
 
 #feed_button a{
-          margin:14px 0 0;
-          padding:0 20px 0 0;
+  margin:14px 0 0;
+  padding:0 20px 0 0;
 }
 
 #info_button{
-          width:150px;
+  width:150px;
 }
 
 #info_button a{
-          margin:14px 0 0;
-          padding:0 20px 0 0;
+  margin:14px 0 0;
+  padding:0 20px 0 0;
 }
 
 #favourites_button{
-          width:130px;
-          padding:0 0 0 10px;
+  width:130px;
+  padding:0 0 0 10px;
 }
 
 #favourites_button a{
-          background:url("images/bookSmall.png") no-repeat scroll 0 0 transparent;
-          height:26px;
-          margin:10px 0 0;
-          padding:4px 0 0 21px;
+  background:url("images/bookSmall.png") no-repeat scroll 0 0 transparent;
+  height:26px;
+  margin:10px 0 0;
+  padding:4px 0 0 21px;
 }
 
 #favourites_button:hover a,
 #favourites_button.active a{
-          background:url("images/bookSmall.png") no-repeat scroll 0 -29px transparent;
+  background:url("images/bookSmall.png") no-repeat scroll 0 -29px transparent;
 }
 
-/* Generic dropdown styles */
+/*
+ * Generic dropdown styles 
+ */
 
 .dropdown {
-          position:absolute;
-          color: #fff;
-          top:44px;
-          background:#365F91;
-          display:none;
-          z-index:100;
-          padding:0 0 10px 0;
-}
-
-#feedToggle{
-
+  position:absolute;
+  color: #fff;
+  top:44px;
+  background:#365F91;
+  display:none;
+  z-index:100;
+  padding:0 0 10px 0;
 }
 
 .dropdown li{
-          display:block;
-          font-size:12px;
-          list-style:none outside none;
-          padding:6px 45px;
+  display:block;
+  font-size:12px;
+  list-style:none outside none;
+   padding:6px 45px;
 }
 
 .dropdown li:hover{
-          background-color:#4870a0;
+  background-color:#4870a0;
 }
 
 .dropdown h3 {
-          font-weight: normal;
-          padding:4px 5px;
-          font-size:12px;
-          font-weight:600;
+  font-weight: normal;
+  padding:4px 5px;
+  font-size:12px;
+  font-weight:600;
 }
 
-/*individual feed icons that are inside the the filter content menu
-NOTE: has to be below dropdown CSS!!
+/*
+ * Styles to set feed icons for toggle menu
  */
 
 .Travellrfeed_toggle{
@@ -207,36 +211,47 @@ NOTE: has to be below dropdown CSS!!
 		background: url(images/favs/google.png) no-repeat 11px 5px;
 }
 
-
-.off, .unavailable {
-background-position: 11px -19px;
-color:#aaa;
+.Youtubefeed_toggle{
+    background: url(images/favs/youtube.png) no-repeat 11px 5px;
 }
 
-/*	Specific dropdown styles	*/
+.off, .unavailable {
+  background-position: 11px -19px;
+  color:#aaa;
+}
+
+/*
+ * Positioning of specific drop-downs
+ */
 
 #feed_dropdown{
-          left:490px;	  
+  left:490px;	  
 }
 
 #info_dropdown{
-          left:630px;
+  left:630px;
 }
 #info_dropdown li:hover{
-          background-color:#4870a0;
+  background-color:#4870a0;
 }
 
+/*
+ * ScrapBook Styles
+ */
+
 #favourties_wrapper {
-          position: absolute;
-          z-index: 10;
-          width: 100%;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
 }
+
 #favourites_dropdown {
-          width: 100%;
-          height: 140px;
-          /* this is the opaque value, the rgba is with the transparency. background: #365F91; */
-          background: rgba(30, 77, 133, 0.9) url("images/favourites_lip.gif") repeat-x bottom;
+  width: 100%;
+  height: 140px;
+  /* this is the opaque value, the rgba is with the transparency. background: #365F91; */
+  background: rgba(30, 77, 133, 0.9) url("images/favourites_lip.gif") repeat-x bottom;
 }
+
 #favourites_dropdown .folder {
     font: bold 15px arial;
     float: left;
@@ -250,10 +265,12 @@ color:#aaa;
     cursor: pointer;
     background: url(images/favFolder_sprite.png) no-repeat top left;
 }
+
 #favourites_dropdown .folder:hover {
     background-position: bottom left;
     font-size: 16px;
 }
+
 .addFavButton
 {
     -moz-border-radius: 5px;
@@ -276,11 +293,9 @@ color:#aaa;
     background-color: Blue;
 }
 
-/**************************************
-* Information menu
-***************************************/
-
-
+/*
+ * Information Styles
+ */
 
 #about_us_modal{
   margin:0 auto;
@@ -317,114 +332,177 @@ color:#aaa;
 }
 
 
-
-
-
-/* temp Container styles */
+/*
+ * Container Styles
+ */
 
 .scrapbook-button {
-          width: 100px;
-          height: 100px;
-          background: #0ff;
+  width: 100px;
+  height: 100px;
+  background: #0ff;
 }
-
 
 .container{
-          width:100%;
-          height:100%;
+  width:100%;
+  height:100%;
 }
 .container#scrapbook {
-    background: #eeffee;
+  background: #eeffee;
 }
 
+/*
+ * Slogan and Example Search Styles
+ */
+
 #slogan{
-          background:url("images/slogan.png") no-repeat scroll 0 0 transparent;
-          height:200px;
-          margin:0 0 0 298px;
-          width:640px;
+  background:url("images/slogan.png") no-repeat scroll 0 0 transparent;
+  height:200px;
+  margin:0 0 0 298px;
+  width:640px;
 }
 
 #slogan p{
-          color:#666;
-          left:97px;
-          position:relative;
-          top:185px;
+  color:#666;
+  left:97px;
+  position:relative;
+  top:185px;
 }
 
 #slogan p a{
-          color:#50BCFF;
-          font-weight:600;
+  color:#50BCFF;
+  font-weight:600;
 }
 
 #slogan p a:hover{
-          color:#48A7E3;
-          font-weight:600;
-          text-decoration:underline;
+  color:#48A7E3;
+  font-weight:600;
+  text-decoration:underline;
+}
+
+/*
+ * Progress Bar Styles
+ */
+ 
+#progressBar {
+    width: 300px;
+    margin: 0 auto;
+    border: 1px solid #a3b5cc;
+    -moz-border-radius: 5px;
+    
+}
+
+#progressBar div {
+    background: #B5C4D6;
+    color: #B5C4D6;
 }
 
 
 
-/* display box, modal and progress bar NEED STYLING */
-
-/***********************
-* Display Box (preview box)
-***********************/
+/*
+ * Generic Display Box Styles
+ */
 
 .displayBox {
-          width: 150px;
-          position:absolute;
+  width: 150px;
+  position:absolute;
 }
 .displayBox .inner {
-          margin:5px;
-          font-family: Arial;
-          font-size: 0.8em;
-          cursor: pointer;
-          overflow: hidden;
-          word-wrap: break-word;
-		  -moz-box-shadow: 1px 1px 6px #999;
-		  -webkit-box-shadow: 0px 0px 6px #999;
-		  padding:5px;
-		  background:#fff;
+  margin:5px;
+  font-family: Arial;
+  font-size: 0.8em;
+  cursor: pointer;
+  overflow: hidden;
+  word-wrap: break-word;
+  -moz-box-shadow: 1px 1px 6px #999;
+  -webkit-box-shadow: 0px 0px 6px #999;
+  padding:5px;
+  background:#fff;
 }
 
 .displayBox .inner.dragged {
-    z-index: 10000;
+  z-index: 10000;
 }
-.displayBox p {
-          margin: 0;
+
+.displayBox .handle {
+  width: 190px;
+  height: 23px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  cursor: move;
 }
 
 .displayBox img{
-          width:180px;
+  width:180px;
 }
 
+/* 
+ * Flickr Display Box Styles
+ */
+ 
 .displayBox .flickr{
 	padding-top:26px;
 	background:url(images/favs/flickr.png) no-repeat 85px 5px #fff;
 }
+
+/*
+ * World Nomads Display Box Styles
+ */
+ 
 .displayBox .worldNomads{
 	padding-top:26px;
 	background:url(images/favs/worldNomads.png) no-repeat 85px 5px #fff;
 }
+
+/* 
+ * TravellrsPoint Display Box Styles
+ */
+ 
 .displayBox .TravellersPoint{
 	padding-top:26px;
 	background:url(images/favs/travellersPoint.png) no-repeat 85px 5px #fff;
 }
+
+/*
+ * Travellr Display Box Styles
+ */
+ 
 .displayBox .travellr{
 	padding-top:35px;
 	background:url(images/favs/travellr_long.png) no-repeat center 5px #fff;
 }
 
+/*
+ * GeckoGo Display Box Styles
+ */
+ 
 .displayBox .geckoReview, .displayBox .geckoTips{
 	padding-top:31px;
 	background: url(images/favs/geckoGo_long.png) no-repeat center 5px #fff;
 }
 
+.geckoReview p:before{
+  font-weight:600;
+  color:#77bb00;
+  font-style:normal;
+  content: 'Gecko has a review for ';
+}
+
+.geckoTips p:before{
+  font-weight:600;
+  color:#77bb00;
+  font-style:normal;
+  content: 'Gecko travel tip: ';
+}
+
+/*
+ * Twitter Display Box Styles
+ */
+
 .displayBox .twitter{
 	/* background: url("images/twitter_arrow.png") no-repeat 16px 5px; */
 	background: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(250,250,250)));
-    background: -moz-linear-gradient( center bottom, rgb(255,255,255) 0%, rgb(250,250,250) 100%);
-    -moz-box-shadow: 1px 1px 3px #999;
+  background: -moz-linear-gradient( center bottom, rgb(255,255,255) 0%, rgb(250,250,250) 100%);
 }
 
 .displayBox .twitter p{
@@ -441,52 +519,25 @@ color:#aaa;
 	width:45px;
 }
 
-.geckoReview p{
+/*
+ * YouTube Display Box Styles
+ */
 
+.displayBox .youtube .yt_thumb{
+  height:115px;
 }
 
-.geckoReview p:before{
-	font-weight:600;
-	color:#77bb00;
-	font-style:normal;
-	content: 'Gecko has a review for ';
-}
-
-.geckoTips p{
-
-}
-
-.geckoTips p:before{
-	font-weight:600;
-	color:#77bb00;
-	font-style:normal;
-	content: 'Gecko travel tip: ';
+.displayBox .youtube .yt_play{
+  left:79px;
+  position:absolute;
+  top:57px;
+  width:32px;
 }
 
 
-/***********************
- * Feed Toggle Panel
- ***********************/
-
-#feedToggleWrapper {
-          float: right;
-}
-
-#feedToggle {
-}
-
-
-.displayBox .handle {
-    width: 190px;
-    height: 23px;
-    left: 0;
-    top: 0;
-    position: absolute;
-    cursor: move;
-}
-/***********************
- * Modal Box (popup)
- ***********************/
+/*
+ * Generic Modal Styles
+ */
 
 .modalMask{
     position: absolute;
@@ -497,19 +548,25 @@ color:#aaa;
     background: #000;
     z-index:500;
 }
+
 .modal{
     position: absolute;
+    max-width:650px;
+    max-height:500px;
     background : white;
     z-index:1000;
     -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
     font-family:Arial,Helvetica,Verdana,sans-serif;
     padding: 15px;
 }
+
 .modal .icons {
     float:right;
     line-height: 16px;
     font-size: 16px;
+    margin:10px 0 0 0;
 }
+
 .icons .icon {
     display: inline-block;
     width: 16px;
@@ -520,6 +577,7 @@ color:#aaa;
     vertical-align: middle;
     cursor: pointer;
 }
+
 .icons .scrapbook-icon {
     background-image: url('http://upload.wikimedia.org/wikipedia/commons/a/a1/Heart_add.png');
 }
@@ -528,11 +586,9 @@ color:#aaa;
     position: relative;
     overflow: auto;
     word-wrap: break-word;
-}
-
-.modal .content img{
-    max-width:600x;
-	max-height:450px;
+    overflow:hidden;
+    max-width:620px; /*width of modal - 15px padding either side*/
+    max-height:470px; /*height of modal - 15px padding either side*/
 }
 
 .modal .modalClose{
@@ -554,7 +610,9 @@ color:#aaa;
     text-indent: -99999px;
 }
 
-/* Twitter Modal Styles */
+/*
+ * Twitter Modal Styles
+ */
 
 .modal .twitter .profile_image{
 	height:48px;
@@ -587,17 +645,72 @@ color:#aaa;
 	font:11px 'Lucida Grande', sans-serif;
 }
 
-/***********************
- * Loading Bar
- ***********************/
-#progressBar {
-    width: 300px;
-    margin: 0 auto;
-    border: 1px solid #a3b5cc;
-    -moz-border-radius: 5px;
-    
+/*
+ * Flickr Modal Styles
+ */
+
+.modal .flickr img{
+    max-width:600px;
+   max-height:450px;
 }
-#progressBar div {
-    background: #B5C4D6;
-    color: #B5C4D6;
+
+.modal .flickr h2{
+  background:url("images/favs/flickr.png") no-repeat scroll 0 5px transparent;
+  font-size:20px;
+  font-weight:normal;
+  line-height:1.3em;
+  margin:0 0 10px;
+  padding:0 0 0 22px;
+ }
+
+.modal .flickr h2 a{
+  color:#333;
 }
+
+/*
+ * Travellr Modal Styles
+ */
+ 
+.modal .travellr h2 {
+  font-size:18px; 
+  margin:0 0 10px 0;
+}
+
+.modal .travellr h3{
+  font-size:18px;
+  color:#333;
+  margin:10px 0;
+}
+
+.modal .travellr p{
+  color:#333333;
+  font-family:calibri,arial;
+  font-size:13px;
+  line-height:20px;
+}
+
+.modal .travellr a{
+  color:#0096FF;
+  font-weight:bold;
+}
+
+.modal .travellr a:hover{
+  text-decoration:underline;
+}
+
+.modal .travellr .answers+a{
+  float:right;
+}
+
+.modal .travellr .answers p{
+  background:#eee;
+  padding:5px;
+  margin:10px 0;
+}
+
+.modal .travellr .answers p:before{
+  font-weight:bold;
+  content:'A:  ';
+  font-size:13px;
+}
+

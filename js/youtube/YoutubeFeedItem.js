@@ -72,16 +72,24 @@ var YoutubeFeedItem = new Class({
      *     A <MooTools::Element> containing a preview of this <YoutubeFeedItem>
      */
     makePreview: function() {
-		var heading = new Element('h2', {
-			text: this.title
-		});
+		
+		//var heading = new Element('h2', {
+			//text: this.title
+		//});
 		
 		var img = new Element('img', {
-            src: this.thumbnail
+            src: this.thumbnail,
+            'class':'ty_thumb'
         });
+        
+    var play = new Element('img', {
+            src: 'styles/images/yt_play.png',
+            'class':'yt_play'
+        });
+        
 		return new Element('div', {
             'class': 'youtube'
-        }).adopt([heading, img])
+        }).adopt([img, play])
     },
 
     /**
