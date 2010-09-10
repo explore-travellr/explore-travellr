@@ -74,6 +74,14 @@ var YoutubeFeed = new Class({
      */
     getMoreFeedItems: function() {
 
+        // If query string is empty (x-men bug)
+        if (!this.tags) {
+                        $$('.YoutubeFeed_toggle').addClass('unavailable');
+            this.moreFeedItems = false;
+            this.feedItemsReady();
+            return;
+        }
+
         new Request.JSONP({
             url: 'http://gdata.youtube.com/feeds/api/videos',
             data: {
