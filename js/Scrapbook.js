@@ -52,13 +52,17 @@ var Scrapbook = new Class({
 
         this.folderFx = new Fx.Slide(this.options.folderDropdown, this.options.folderFx).hide();
         this.options.folderAdd.addEvent('click', (function() {
-            this.addFolder(new Scrapbook.Folder(prompt('Name of new folder'), null, this));
+            var name = prompt('Name of new folder');
+            if (name) {
+                this.addFolder(new Scrapbook.Folder(name, null, this));
+            }
         }).bind(this));
 
         this.getButton().addEvent('click', (function(event) {
             event.preventDefault();
             if (this.isVisible()) {
                 this.hide();
+                this.hideFolders();
             } else if (this.isFoldersVisible()) {
                 this.hideFolders();
             } else {
@@ -87,9 +91,11 @@ var Scrapbook = new Class({
             this.save();
         }).bind(this));
 
-        folder.toElement().addEvent('click', (function() {
+        folder.toElement().addEvent('click', (function(event) {
+            event.stopPropagation();
             this.show(folder);
         }).bind(this));
+
 
         this.updateDraggables();
     },
@@ -208,7 +214,7 @@ var Scrapbook = new Class({
         this.container.show();
         (folder || this.folders[0]).view(this.container);
         this.visible = true;
-        this.hideFolders();
+        // this.hideFolders();
         this.getButton().addClass('active');
         this.fireEvent('shown');
     },
