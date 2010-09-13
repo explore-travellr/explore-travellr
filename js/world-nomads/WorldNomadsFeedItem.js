@@ -101,7 +101,6 @@ var WorldNomadsFeedItem = new Class({
     makeContent: function() {
         var output = this.post.description;
         output.replace("<br>","</p>");
-        console.log(this.post.description);
         return new Element('div', {
             'class': 'worldNomads'
         }).adopt([
