@@ -357,6 +357,7 @@ h1#logo{
   margin:50px 0 0 0;
 }
 .container#scrapbook {
+  margin-top: 200px;
   background: #eeffee;
 }
 
@@ -603,13 +604,13 @@ h1#logo{
     background: url('images/favButton.png') top center;
 }
 
-.icons .scrapbook-icon:hover {
+.icons .scrapbook-add:hover {
     background-position: center -26px;
 }
-.icons .starred {
+.icons .scrapbook-remove {
     background-position: center -52px;
 }
-.icons .starred:hover {
+.icons .scrapbook-remove:hover {
     background-position: center -52px;
 }
 .icons .open-new-icon {

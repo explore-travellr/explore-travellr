@@ -167,5 +167,19 @@ var FeedItem = new Class({
      */
     canScrapbook: function() {
         return true;
+    },
+
+    getDisplayBoxButtons: function(options) {
+        var buttons = [];
+        if (this.url) {
+            var home = new Element('a', {
+                href: this.url,
+                title: 'View in a new window',
+                'class': 'icon open-new-icon',
+                target: '_blank',
+            });
+            buttons.push(home);
+        }
+        return buttons;
     }
 });

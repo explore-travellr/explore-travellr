@@ -63,7 +63,7 @@ var FlickrFeedItem = new Class({
         this.setOptions(options);
 
         this.photo = feedObject;
-        this.photo.url = 'http://www.flickr.com/photos/'+this.photo.owner+'/'+this.photo.id;
+        this.url = 'http://www.flickr.com/photos/'+this.photo.owner+'/'+this.photo.id;
         this.photo.picUrlThumbnail = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'_m.jpg';
         this.photo.picUrlContent = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'.jpg';
 
@@ -112,11 +112,11 @@ var FlickrFeedItem = new Class({
         return new Element('div', {'class': 'flickr'}).adopt([
             new Element('h2').grab(new Element('a', {
                 text: this.photo.title,
-                href: this.photo.url,
+                href: this.url,
 				target: '_blank'
             })),
             new Element('a', {
-					href: this.photo.url,
+					href: this.url,
 					target: '_blank'
 				}).grab(new Element('img', {
 					src: this.photo.picUrlContent
