@@ -141,11 +141,16 @@ window.addEvent('domready', function() {
     });
 
     var container = new Container('container', searchBox, scrapbook);
+	//container.getElement().setStyles('visibility','hidden');
+	container.hide();
     var feedToggle = new FeedToggle('feedToggle');
 
-    // Initialize the feed classes.
-    // Add a feed to the list to automatically set it up.
-
+	var mapFeedItem = new MapFeedItem(searchBox);
+	var mapDisplayBox = new DisplayBox(mapFeedItem);
+	container.addDisplayBox(mapDisplayBox);
+	
+	// Initialize the feed classes	
+	// Add a feed to the list to automatically set it up.
     var feeds = [FlickrFeed, TwitterFeed, GeckoFeed, TravellersPointFeed, TravellrFeed, WorldNomadsFeed, YoutubeFeed];
 
     feeds.each(function(AFeedClass) {

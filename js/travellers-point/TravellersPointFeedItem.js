@@ -14,6 +14,7 @@ Copyright:
 Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <MooTools::more> Utilities/Assets
    - <TravellersPointFeed>
 */
 
@@ -37,7 +38,7 @@ var TravellersPointFeedItem = new Class({
 
     /**
      * Variable: previewLoaded
-     * If the <FeedItem> preview is ready for display. <TravellersPointFeedItems> need to preload
+     * If the <FeedItem> preview is ready for display. <TravellersPointFeedItem> need to preload
      * the thumbnail, so this is initially false. The previewLoaded function is fired to indicate
      * this is loaded, and this variable toggled to true
      */
@@ -50,18 +51,18 @@ var TravellersPointFeedItem = new Class({
      * Parameters:
      *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
-    initialize: function(feedObject, options) {
-        this.setOptions(options);
-
+    initialize: function(feedObject, options) {    
+		this.setOptions(options);
         this.post = feedObject;
-        this.size = {
+		
+		this.size = {
             x: 2
         };
-
         new Asset.images([this.post['media:thumbnail'].url], {
             onComplete: (function() {
                 this.previewLoaded = true;
-                this.fireEvent.bind(this, 'previewLoaded');
+                //this.fireEvent.bind(this, 'previewLoaded');
+				this.fireEvent('previewLoaded');
             }).bind(this)
         });
 

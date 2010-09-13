@@ -34,7 +34,15 @@ var WorldNomadsFeedItem = new Class({
      * The name of this <FeedItem>, used in the GUI
      */
     name: 'WorldNomadsFeedItem',
-
+	
+    /**
+     * Variable: previewLoaded
+     * If the <FeedItem> preview is ready for display. <WorldNomadsFeedItem> need to preload
+     * the thumbnail, so this is initially false. The previewLoaded function is fired to indicate
+     * this is loaded, and this variable toggled to true
+     */
+    previewLoaded: false,
+	
 	/**
 	 * Variable: options
 	 * Options for this instance
@@ -56,7 +64,6 @@ var WorldNomadsFeedItem = new Class({
             x: 2
         };
         if (this.post['adventures:image']) {
-            this.previewLoaded = false;
             new Asset.images([this.post['adventures:image'].medium], {
                 onComplete: (function() {
                     this.previewLoaded = true;
@@ -101,7 +108,6 @@ var WorldNomadsFeedItem = new Class({
     makeContent: function() {
         var output = this.post.description;
         output.replace("<br>","</p>");
-        console.log(this.post.description);
         return new Element('div', {
             'class': 'worldNomads'
         }).adopt([

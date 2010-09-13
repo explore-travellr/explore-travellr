@@ -91,9 +91,9 @@ var TwitterFeed = new Class({
             this.geoCode = loc.lat + "," + loc.lng +"," + distance + "km";
             $$('.Twitterfeed_toggle').removeClass('unavailable');
         } else {
-			$$('.Twitterfeed_toggle').addClass('unavailable');
+			$$('.Twitterfeed_toggle').addClass('unavailable');			
             this.geoCode = null;
-        }
+        }	
     },
 
     /**
@@ -149,6 +149,7 @@ var TwitterFeed = new Class({
         this.response = response || false;
 
         if(this.response) {
+			$$('.Twitterfeed_toggle').removeClass('unavailable');
             this.maxId = this.response.max_id;
             (this.response.results || []).each(function(data) {
                 var feedItem = new TwitterFeedItem(data);
@@ -161,7 +162,7 @@ var TwitterFeed = new Class({
     }
 });
 
-
+//TODO - comment this please
 Number.implement({
       toRad: function() {
           return this * Math.PI / 180;

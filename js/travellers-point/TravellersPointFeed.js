@@ -49,15 +49,15 @@ var TravellersPointFeed = new Class({
      * calls makeFeedItems on success.
      */
      getMoreFeedItems: function() {
+	 
         var country = (this.searchFilter.location && this.searchFilter.location.country ? this.searchFilter.location.country.toLowerCase() : null);
-
         if (!country) {
 			$$('.TravellersPointfeed_toggle').addClass('unavailable');
             this.moreFeedItems = false;
             this.feedItemsReady();
             return;
         }
-		$$('.TravellersPointfeed_toggle').removeClass('unavailable');
+		$$('.TravellersPointfeed_toggle').removeClass('unavailable'); //Don't delete this line
 		        
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
@@ -80,10 +80,11 @@ var TravellersPointFeed = new Class({
      * post object of the response object to the TravellersPointFeedItem class and then
      * pushing each of them onto a feedItems array
      *
-     * @param response object returned by the yahoo pipes call (parsing travellers point feeds)
+     * Parameters:
+	 *     response object returned by the yahoo pipes call (parsing travellers point feeds)
      */
     makeFeedItems: function(results) {
-        if (results && results.value && results.value.items && results.value.items.length !== 0) {
+        if (results && results.value && results.value.items && $chk(results.value.items.length)) {
             results.value.items.each(function(post) {
                 this.feedItems.push(new TravellersPointFeedItem(post));
             }, this);

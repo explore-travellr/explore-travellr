@@ -49,8 +49,9 @@ var SearchBox = new Class({
         
         this.form.addEvent('submit', (function(event) {
 		
-			$$('#slogan').fade('out');
+			$$('#slogan').fade('out');		
             event.stop();
+			
             this.search(this.element.get('value'));
         }).bind(this));
     },

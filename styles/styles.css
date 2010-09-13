@@ -369,6 +369,8 @@ h1#logo{
   height:200px;
   margin:0 0 0 298px;
   width:640px;
+  position:absolute;
+  z-index:10;
 }
 
 #slogan p{

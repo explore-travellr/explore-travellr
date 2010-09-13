@@ -56,15 +56,17 @@ var WorldNomadsFeed = new Class({
     },
 
     getMoreFeedItems: function() {
-        var country = (this.searchFilter.location ? this.searchFilter.location.country.toLowerCase() : null);
+        var country = (this.searchFilter.location && this.searchFilter.location.country ? this.searchFilter.location.country.toLowerCase() : null);
         var country_id = this.countries.get(country);
         
         //if the search string doesn't return a country, don't request World Nomads feed and grey out the toggle
         if (!$chk(country_id) || (!this.searchFilter.location.name.toLowerCase().contains(country))) {
-            this.moreFeedItems = false;
+            $$('.WorldNomadsfeed_toggle').addClass('unavailable');
+			this.moreFeedItems = false;
             this.feedItemsReady();
             return;
         }
+		$$('.WorldNomadsfeed_toggle').removeClass('unavailable');
 
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',

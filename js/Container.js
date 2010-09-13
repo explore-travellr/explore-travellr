@@ -113,7 +113,8 @@ var Container = new Class({
             window.addEvent('scroll', this.getNextFeedItems.bind(this));
 
             this.searchBox.addEvent('search', (function (searchFilter) {
-
+				this.show();
+				//this.getElement().setStyles('visibility',null);
                 this.loadedFeeds = 0;
                 this.loaded = false;
                 this.numberOfFeeds = this.feeds.length;
@@ -297,6 +298,7 @@ var Container = new Class({
         this.getElement().setStyle('display', null);
         this.container.masonry({appendContent: []});
     },
+	
     hide: function () {
         this.getElement().setStyle('display', 'none');
     }
