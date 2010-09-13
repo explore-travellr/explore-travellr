@@ -368,7 +368,7 @@ h1#logo{
 #slogan{
   background:url("images/slogan.png") no-repeat scroll 0 0 transparent;
   height:200px;
-  margin:0 0 0 298px;
+  margin:-125px 0 0 298px;
   width:640px;
   position:absolute;
   z-index:10;
@@ -399,6 +399,8 @@ h1#logo{
 #progressBar {
     width: 300px;
     margin: 0 auto;
+	position: relative;
+	top: 300px;
     border: 1px solid #a3b5cc;
     -moz-border-radius: 5px;
     
