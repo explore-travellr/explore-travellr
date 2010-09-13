@@ -131,16 +131,18 @@ window.addEvent('domready', function() {
         button: $('favourites_button'),
         folderDropdown: $('favourites_dropdown'),
         folderWrapper: $('favourites_folders'),
-        folderAdd: $('favourites_add_folder'),
-        onShown: function() {
-            container.hide();
-        },
-        onHidden: function() {
-            container.show();
-        }
+        folderAdd: $('favourites_add_folder')
     });
 
     var container = new Container('container', searchBox, scrapbook);
+    scrapbook.addEvents({
+        onShown: (function() {
+            this.hide();
+        }).bind(container),
+        onHidden: (function() {
+            this.show();
+        }).bind(container)
+    });
     var feedToggle = new FeedToggle('feedToggle');
 
     // Initialize the feed classes.
