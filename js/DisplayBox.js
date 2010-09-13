@@ -193,19 +193,25 @@ var DisplayBox = new Class({
         modal.fade('hide');
 
         // Put all the element in their correct containers
-        if (this.getFeedItem().canScrapbook() && this.scrapbook) {
-            var scrapbookAdd = new Element('div', { 'class': 'scrapbook-add scrapbook-icon icon', text: 'Add to scrapbook', title: 'Add to scrapbook' });
-            var openNewWindow = new Element('div', { 'class': 'open-new-icon icon', text: 'Open in new window', title: 'Open in new window (not implemented)' });
-
-            scrapbookAdd.addEvent('click', (function() {
-                this.scrapbook.addItem(this.getFeedItem());
-                $$('.scrapbook-add').addClass('starred');
-            }).bind(this));
-
-            iconBar.adopt(openNewWindow);
-            iconBar.adopt(scrapbookAdd);
-            
+        var askForButtons = [this.feedItem];
+        var buttons = [];
+        if (this.scrapbook) {
+            askForButtons.push(this.scrapbook);
         }
+        var options = {
+            feedItem: this.feedItem,
+            scrapbook: this.scrapbook,
+            displayBox: this
+        };
+
+        askForButtons.each(function(ask) {
+            buttons.include(ask.getDisplayBoxButtons(options));
+        });
+        
+        buttons.each(function(button) {
+            iconBar.adopt(button);
+            iconBar.adopt(button);
+        });
 
         contentWrapper.grab(content);
 
