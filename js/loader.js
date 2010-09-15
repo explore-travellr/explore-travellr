@@ -270,12 +270,12 @@ window.addEvent('domready', function() {
         showModal(content);
       })
     });
-    var lm = $('learn_more');
+    /*var lm = $('learn_more');
     var lmModal = $('about_us_modal');
     $(lm).addEvent('click', function() {
 		lmModal.setStyle('display', 'block');
 		showModal(lmModal);
-    })
+    })*/
       
 	$$('.feed_toggle').addEvents({
 		'click': function(){
