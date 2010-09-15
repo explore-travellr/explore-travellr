@@ -113,7 +113,7 @@ Array.implement({
         var index = this.getRandomKey();
         splice = this.splice(index, 1);
         return splice[0];
-    },
+    }
 });
 
 

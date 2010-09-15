@@ -279,14 +279,26 @@ h1#logo{
     margin: 5px 10px;
     text-align: center;
     cursor: pointer;
-    background: url(images/favFolder_sprite.png) no-repeat top left;
+    background: url('images/favFolder_sprite.png') no-repeat top left;
 }
 
-#favourites_dropdown .folder:hover {
+#favourites_dropdown .folderOpen, #favourites_dropdown .folder:hover {
     background-position: bottom left;
     font-size: 16px;
 }
+#favourites_dropdown .fullFolder {
+    background-position: top right;
+}
+#favourites_dropdown .fullFolder:hover {
+    background-position: bottom right;
+}
+#favourites_dropdown .activeFolder {
+    background-image: url('images/favFolder_sprite_active.png');
+}
 
+#favourites_dropdown .fullFolder:hover {
+
+}
 .addFavButton
 {
     -moz-border-radius: 5px;
@@ -647,6 +659,7 @@ h1#logo{
 .icons .scrapbook-remove:hover {
     background-position: center -52px;
 }
+
 .icons .open-new-icon {
     background: url('images/openNew.png') center 1px;
 }
@@ -833,4 +846,9 @@ h1#logo{
     padding-left: 24px;
     margin-bottom: 13px;
     background: url("images/favs/travellersPoint.png") no-repeat 0 2px;
+}
+
+#animation {
+    width: 100%;
+    overflow: hidden;
 }

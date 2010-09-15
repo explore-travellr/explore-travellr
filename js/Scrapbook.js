@@ -148,10 +148,10 @@ var Scrapbook = new Class({
             }).bindWithEvent(this),
             
             onEnter: function(draggable, droppable) {
-                droppable.addClass('drop');
+                droppable.addClass('folderOpen');
             },
             onLeave: function(draggable, droppable) {
-                droppable.removeClass('drop');
+                droppable.removeClass('folderOpen');
             },
 
             onDrop: (function(draggable, droppable, event) {
@@ -160,9 +160,13 @@ var Scrapbook = new Class({
                 }
                 
                 if (droppable) {
-                    droppable.removeClass('drop');
-                    
-                    droppable.highlight();
+                    droppable.removeClass('folderOpen');
+                    droppable.addClass('activeFolder');
+
+                    (function() {
+                        droppable.removeClass('activeFolder');
+                    }).delay(500);
+                    //droppable.highlight();
                     this.hideFolders.delay(1000, this);
                     
                     droppable.retrieve('Scrapbook.Folder').addItem(draggable.retrieve('FeedItem'));
@@ -209,7 +213,7 @@ var Scrapbook = new Class({
     },
 
     isVisible: function() {
-        return this.visible;
+        return this.visible !== false;
     },
 
     isFoldersVisible: function() {
@@ -217,9 +221,17 @@ var Scrapbook = new Class({
     },
 
     show: function(folder) {
+        if (this.isVisible()) {
+            this.visibleFolder.toElement().removeClass('activeFolder');
+        }
         this.container.show();
-        (folder || this.folders[0]).view(this.container);
+        
+        folder = (folder || this.folders[0]);
+        folder.view(this.container);
+        folder.toElement().addClass('activeFolder');
+
         this.visible = true;
+        this.visibleFolder = folder;
         // this.hideFolders();
         this.getButton().addClass('active');
         this.fireEvent('shown');
@@ -227,6 +239,9 @@ var Scrapbook = new Class({
 
     hide: function() {
         this.container.hide();
+        if (this.isVisible()) {
+            this.visibleFolder.toElement().removeClass('activeFolder');
+        }
         this.visible = false;
         this.getButton().removeClass('active');
         this.fireEvent('hidden');
@@ -348,6 +363,8 @@ Scrapbook.Folder = new Class({
             this.setDirty(true);
         }).bind(this));
 
+        this.toElement().addClass('fullFolder');
+
         // Add the item
         this.items.push(item);
         this.setDirty(true);
@@ -362,6 +379,9 @@ Scrapbook.Folder = new Class({
      */
     removeItem: function(item) {
         this.items.erase(item);
+        if (!this.items.length) {
+            this.toElement().removeClass('fullFolder');
+        }
         this.setDirty(true);
     },
 
