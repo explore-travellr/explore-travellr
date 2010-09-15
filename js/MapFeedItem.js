@@ -54,9 +54,10 @@ var MapFeedItem = new Class({
 		searchBox.addEvent('search', (function(searchFilter) {
 		
 			if (searchFilter.location != null) {
-                            //console.log(searchFilter.location);
+                            //searchFilter for preview map
                             this.lat = searchFilter.location.lat;
                             this.lng = searchFilter.location.lng;
+                                //search filter for content map
 				var NELatLng = new google.maps.LatLng(searchFilter.location.bounds_b, searchFilter.location.bounds_l);
 				var SWLatLng = new google.maps.LatLng(searchFilter.location.bounds_t, searchFilter.location.bounds_r);
 				this.latLngBounds = new google.maps.LatLngBounds(NELatLng, SWLatLng);
@@ -110,7 +111,7 @@ var MapFeedItem = new Class({
             lat = 0;
             lng = 22;
         }
-        return this.base + 'center=' + lat + ',' + lng + '&zoom=' + zoom + '&sensor=false&size=' + width + 'x' + height;
+        return this.base + 'center=' + lat + ',' + lng + '&zoom=' + zoom + '&sensor=false&size=' + width + 'x' + height + '&maptype=terrain';
     },
 	
     /**
@@ -143,7 +144,7 @@ var MapFeedItem = new Class({
         var myOptions = {
             zoom: 0,
             center: new google.maps.LatLng(0, 0),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+            mapTypeId: google.maps.MapTypeId.TERRAIN
         };
 
         // There was an error if the map was created before it was displayed
@@ -153,25 +154,25 @@ var MapFeedItem = new Class({
                 map.fitBounds(this.latLngBounds);
             }
 
-            //Obtain coodinates from a click
-            google.maps.event.addListener(map, 'click', function(event) {
-                var clicked_lat = event.latLng.lat();
-                var clicked_lng = event.latLng.lng();
-
-                var latlng = new google.maps.LatLng(clicked_lat, clicked_lng);
-                geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ 'latLng': latlng }, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
-                            address.set('text', results[1].formatted_address);
-                        }
-                    } else {
-                        alert("Geocoder failed due to: " + status);
-                    }
-                });
-
-
-            }); // end click function
+            //Obtain coodinates from a click GEOCODE
+//            google.maps.event.addListener(map, 'click', function(event) {
+//                var clicked_lat = event.latLng.lat();
+//                var clicked_lng = event.latLng.lng();
+//
+//                var latlng = new google.maps.LatLng(clicked_lat, clicked_lng);
+//                geocoder = new google.maps.Geocoder();
+//                geocoder.geocode({ 'latLng': latlng }, function(results, status) {
+//                    if (status == google.maps.GeocoderStatus.OK) {
+//                        if (results[1]) {
+//                            address.set('text', results[1].formatted_address);
+//                        }
+//                    } else {
+//                        alert("Geocoder failed due to: " + status);
+//                    }
+//                });
+//
+//
+//            }); // end click function
         }).bind(this));
 
         var address = new Element('p');
@@ -179,5 +180,19 @@ var MapFeedItem = new Class({
         return new Element('div', {
             'class': 'Map'
         }).adopt([mapElement, address]);
+    },
+
+/**
+     * Function: serialize
+     * Returns the photo data, ready for serialization
+     *
+     * Returns:
+     *     The photo data
+     */
+    serialize: function() {
+        return this.photo;
     }
 });
+MapFeedItem.unserialize = function(data) {
+    return new MapFeedItem(data);
+};
