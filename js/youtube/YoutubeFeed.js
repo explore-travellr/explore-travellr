@@ -59,7 +59,7 @@ var YoutubeFeed = new Class({
             tags.push(searchFilter.location.name);
         }
 
-        searchFilter.tags.each(function(tag) {
+        (searchFilter.tags || []).each(function(tag) {
             tags.push(tag.name);
         });
 		

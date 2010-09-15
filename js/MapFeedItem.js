@@ -36,6 +36,8 @@ var MapFeedItem = new Class({
      * To hold the map object so it can be reset when a new search is made
      */	
 	map: null,
+
+    base: 'http://maps.google.com/maps/api/staticmap?',
 	
     /**
      * Function: initialize
@@ -52,6 +54,9 @@ var MapFeedItem = new Class({
 		searchBox.addEvent('search', (function(searchFilter) {
 		
 			if (searchFilter.location != null) {
+                            //console.log(searchFilter.location);
+                            this.lat = searchFilter.location.lat;
+                            this.lng = searchFilter.location.lng;
 				var NELatLng = new google.maps.LatLng(searchFilter.location.bounds_b, searchFilter.location.bounds_l);
 				var SWLatLng = new google.maps.LatLng(searchFilter.location.bounds_t, searchFilter.location.bounds_r);
 				this.latLngBounds = new google.maps.LatLngBounds(NELatLng, SWLatLng);
@@ -59,17 +64,53 @@ var MapFeedItem = new Class({
 				this.latLngBounds = null;
 			}
 
-			if (this.map) {
-				if (this.latLngBounds) {
-					this.map.fitBounds(this.latLngBounds);
-				} else {
-					this.map.setCenter(new google.maps.LatLng(0, 0));
-					this.map.setZoom(0);
-				}
+			if (this.img) {
+                            this.img.src = this.makeImgSource();
 			}
 
 
 		}).bind(this));
+    },
+
+    /**
+     * Code by Jai of travellr
+     * http://groups.google.com/group/google-maps-js-api-v3/browse_thread/thread/43958790eafe037f/66e889029c555bee?pli=1
+     */
+    makeImgSource: function() {
+        var lat, lng, zoom;
+        var width = 380;
+        var height = 380;
+
+        //function to set appropriate zoom level
+        if (this.latLngBounds) {
+            var magic = 0.703119412486786;
+            var bounds_t = this.latLngBounds.getNorthEast().lng();
+            var bounds_b = this.latLngBounds.getSouthWest().lng();
+            var bounds_l = this.latLngBounds.getNorthEast().lat();
+            var bounds_r = this.latLngBounds.getSouthWest().lat();
+
+            var dlat = bounds_t - bounds_b;
+            var dlon;
+
+                if (bounds_l < bounds_r) {
+               dlon = bounds_r - bounds_l;
+            } else {
+               dlon = 360 - bounds_l + bounds_r;
+            }
+
+            var z0 = (Math.log(magic * height / dlat) / Math.log(2)).ceil();
+            var z1 = (Math.log(magic * width / dlon) / Math.log(2)).ceil();
+
+            zoom = z1 ? ((z1 > z0) ? z0 : z1) : z0;
+            lat = this.lat;
+            lng = this.lng;
+            //default zoom level (if no location is searched)
+        } else {
+            zoom = 1;
+            lat = 0;
+            lng = 22;
+        }
+        return this.base + 'center=' + lat + ',' + lng + '&zoom=' + zoom + '&sensor=false&size=' + width + 'x' + height;
     },
 	
     /**
@@ -80,25 +121,13 @@ var MapFeedItem = new Class({
 	 *     A <MooTools::Element> containing a preview of this <MapFeedItem>
 	 */
     makePreview: function() {
-        var mapElement = new Element('div', { styles: { height: 400} });
-
-        var myOptions = {
-            zoom: 0,
-            center: new google.maps.LatLng(0, 0),
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-
-        this.displayBox.addEvent('preview', (function() {
-            var map = new google.maps.Map(mapElement, myOptions);
-			this.map = map;
-            if (this.latLngBounds) {
-                map.fitBounds(this.latLngBounds);
-            }
-        }).bind(this));
+        this.img = new Element('img', {styles: {width: 'auto'},
+            src: this.makeImgSource()
+        });
 
         return new Element('div', {
-            'class': 'Map'
-        }).adopt([mapElement]);
+            'class': 'map'
+        }).adopt(this.img);
     },
 	
     /**
@@ -109,7 +138,7 @@ var MapFeedItem = new Class({
      *     A <MooTools::Element> with the contents of this <MapFeedItem>
      */
     makeContent: function() {
-        var mapElement = new Element('div', { styles: { width: 800, height: 600} });
+        var mapElement = new Element('div', { styles: { width: 600, height: 400} });
 
         var myOptions = {
             zoom: 0,
