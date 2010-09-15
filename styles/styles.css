@@ -507,8 +507,18 @@ h1#logo{
 	padding:8px;
 }
 
+
+.displayBox .ask{
+  padding-top:35px;
+	background:url(images/travellr_ask.png) no-repeat center 5px #2575ce;
+  border:1px solid #2575ce;
+}
+
 .displayBox .ask p{
+  text-align:center;
 	font-weight:bold;
+	background: #2575ce;
+	color: #fff;
 }
 
 /*
