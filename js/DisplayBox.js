@@ -239,35 +239,30 @@ var DisplayBox = new Class({
         modalMask.fade('0.4');
         modal.fade('in');
 
+        var closeModal = (function() {
+            // Fix untill the double modal box bug is fixed
+            if (content.parentNode) {
+                content.parentNode.removeChild(content);
+            }
+
+            modal.destroy();
+            modalMask.destroy();
+            modalCloseButton.destroy();
+            this.shown = false;	
+        }).bind(this);
+
         // Add events to elements
         $$(modalCloseButton, modalMask).addEvent('click', (function() {
-			this.closeModal(modal,modalMask,modalCloseButton);
+			closeModal()
         }).bind(this));
 		
 		window.addEvent('keypress', (function(e){ 
-			if(e.key == 'esc')
-			{
-				this.closeModal(modal,modalMask,modalCloseButton);
+			if(e.key == 'esc') {
+				closeModal()
 			}
 		}).bind(this));
         // Tell listeners that this box was just displayed
         this.fireEvent('display');
-    },
-	
-    /**
-    * Function: closeModal
-    * TODO
-    */
-    closeModal: function(modal,modalMask,modalCloseButton) {
-		// Fix untill the double modal box bug is fixed
-		if (content.parentNode) {
-			content.parentNode.removeChild(content);
-		}
-
-		modal.destroy();
-		modalMask.destroy();
-		modalCloseButton.destroy();
-		this.shown = false;	
-	}	
+    }
 
 });
