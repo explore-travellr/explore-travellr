@@ -38,12 +38,68 @@
         <script type="text/javascript" src="js/twitter/TwitterFeed.js"></script>
         <script type="text/javascript" src="js/world-nomads/WorldNomadsFeedItem.js"></script>
         <script type="text/javascript" src="js/world-nomads/WorldNomadsFeed.js"></script>
-        <script type="text/javascript" src="js/lonely-planet/LonelyPlanetFeedItem.js"></script>
-        <script type="text/javascript" src="js/lonely-planet/LonelyPlanetFeed.js"></script>
 		<script type="text/javascript" src="js/youtube/YoutubeFeedItem.js"></script>
         <script type="text/javascript" src="js/youtube/YoutubeFeed.js"></script>
 		<script type="text/javascript" src="js/MapFeedItem.js"></script>
 		
+  
+      <script type="text/javascript" charset="utf-8">
+         window.addEvent('domready', function() {
+
+         // Cloud 
+         var cloud = $('cloud');
+
+         new Fx.Move(cloud, {
+           relativeTo: $('container'),
+           position: 'right',
+           edge: 'left',
+           duration: 60000
+         }).start();
+
+         // Cloud 2
+         var cloud_2 = $('cloud_2');
+         new Fx.Move(cloud_2, {
+           relativeTo: $('container'),
+           position: 'right',
+           edge: 'left',
+           duration: 70000
+         }).start();
+
+
+         // Cloud 3
+
+         var cloud_3 = $('cloud_3');
+         new Fx.Move(cloud_3, {
+           relativeTo: $('container'),
+           position: 'right',
+           edge: 'left',
+           duration: 70000
+         }).start();
+
+         // Cloud 4
+
+         var cloud_4 = $('cloud_4');
+         new Fx.Move(cloud_4, {
+           relativeTo: $('container'),
+           position: 'right',
+           edge: 'left',
+           duration: 70000
+         }).start();
+
+
+
+          // Balloon
+           var balloon = $('balloon');
+           new Fx.Move(balloon, {
+             relativeTo: $('container'),
+             position: 'right',
+             edge: 'left',
+             duration: 95000
+           }).start();
+
+       });
+       </script>
+	
         <!-- Primary dom-ready script -->
         <script type="text/javascript" src="js/loader.js"></script>
 
@@ -81,7 +137,7 @@
 				
 				<!-- although this drop down is no longer used I have left it here as it breaks the
 				filter menu when i remove it - I'll try to find a solution where it can be removed
-				when more time is available -->
+				when more time is available - cited by John, noted by Jake K-->
                 <div id="info_dropdown" class="dropdown">
                     <ul>
                         <li id="about_us">About Us</li>
@@ -107,30 +163,36 @@
         </div>
 		
 		<div id="slogan">
-			<p>View a sample search <span id="sample_search"></span> or <a href="#" id="learn_more">learn more</a></p>
+			<p>View a sample search <span id="sample_search"></span> or  <a href="http://www.cis.utas.edu.au/student-proj-sby/travellr/" target="_blank">learn more</a></p>
+
+
 		</div> 
 		
-        <div id="container" class="container">
-		
-			<!--are these modals needed anymore?-->
-			<div id="about_us_modal" class="information">
-				<h1>About Us</h1>
-				<p>Whils this site is still in development, you can view information about us (and the project) here: 
-				<a href="http://www.cis.utas.edu.au/student-proj-sby/travellr/">http://www.cis.utas.edu.au/student-proj-sby/travellr/</a></p>
-			</div>
-			<div id="partners_modal" class="information">
-				<h1>Partners</h1>
-				<p>This project was created for Travellr. Travellr is part of the World Nomads Group.</p>
-			</div>
-			<div id="terms_and_conditions_modal" class="information">
-				<h1>Terms and Conditions</h1>
-				<p>Balh balh balh </p>
-			</div>
-			<div id="contact_us_modal" class="information">
-				<h1>Contact Us</h1>
-				<p>Jager!!! </p>
-			</div>   
-        </div>
+        <div id="container" class="container"></div>
+        
+		<div id="animation">
+			<div id="cloud">
+			  <img src="styles/images/cloud_1.png" width="129" height="52" alt="Cloud 1">
+			</div><!-- #cloud -->
+
+			<div id="cloud_2">
+			 <img src="styles/images/cloud_2.png" width="87" height="57" alt="Cloud 2">
+			</div><!-- #cloud_2 -->
+
+			<div id="cloud_3">
+			 <img src="styles/images/cloud_3.png" width="106" height="67" alt="Cloud 3">
+			</div><!-- #cloud_3 -->
+
+			<div id="cloud_4">
+			 <img src="styles/images/cloud_1.png" width="129" height="52" alt="Cloud ">
+			</div><!-- #cloud_4 -->
+
+			<div id="balloon">
+			  <img src="styles/images/balloon.png" width="83" height="119" alt="Balloon">
+			</div><!-- #balloon -->
+		</div><!-- #animation -->
+
+        
         <div id="scrapbook" class="container"></div> 
         <!-- Google Tracking Code -->
         <script type="text/javascript">

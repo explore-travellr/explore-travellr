@@ -69,7 +69,7 @@ var SearchFilter = new Class({
                 var tagArray = [];
                 data.topic_matches.each(function(tag) {
                     tagArray.push(tag.topic);
-                })
+                });
                 this.tags = tagArray;
 
                 this.nounPhrases = data.noun_phrases;

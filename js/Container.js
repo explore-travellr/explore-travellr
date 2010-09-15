@@ -124,12 +124,13 @@ var Container = new Class({
                     this.progressBar = null;
                 }
 
-                this.progressElement = new Element('div', { id: 'progressBar' })
+                this.progressElement = new Element('div', { id: 'progressBar' });
                 this.progressBar = new MoogressBar(this.progressElement);
                 this.container.grab(this.progressElement);
 
                 //fades out the tooltip
                 $('slogan').fade('out');
+				$('animation').fade('hide');
 
                 this.feedsWithContent = [];
 
@@ -266,7 +267,7 @@ var Container = new Class({
     *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
     */
     removeDisplayBox: function (displayBox) {
-        if (!displayBox) return;
+        if (!displayBox) { return; }
         displayBox.setContainer(null);
         this.displayBoxes.erase(displayBox);
         this.displayBoxQueue.erase(displayBox);

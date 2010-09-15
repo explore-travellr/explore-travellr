@@ -253,12 +253,12 @@ var DisplayBox = new Class({
 
         // Add events to elements
         $$(modalCloseButton, modalMask).addEvent('click', (function() {
-			closeModal()
+			closeModal();
         }).bind(this));
 		
 		window.addEvent('keypress', (function(e){ 
 			if(e.key == 'esc') {
-				closeModal()
+				closeModal();
 			}
 		}).bind(this));
         // Tell listeners that this box was just displayed
