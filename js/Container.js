@@ -181,15 +181,13 @@ var Container = new Class({
             feeds.each(function(feed) {
 
                 feed.getNextFeedItem((function(feedItem) {
-                    (function() {
-                        if (feedItem) {
+                    if (feedItem) {
+                        if (feed.isVisible()) {
                             this.addDisplayBox(new DisplayBox(feedItem, this.scrapbook));
-                            if (feed.isVisible()) {
-                                this.feedsWithContent.push(feed);
-                                this.getNextFeedItems();
-                            }
+                            this.feedsWithContent.push(feed);
+                            this.getNextFeedItems.delay(100, this);
                         }
-                    }).delay(100, this);
+                    }
                 }).bind(this));
 
             }, this);
@@ -208,6 +206,7 @@ var Container = new Class({
         feed.addEvents({
             shown: (function() {
                 this.feedsWithContent.include(feed);
+                this.getNextFeedItems();
             }).bind(this),
             hidden: (function() {
                 this.feedsWithContent.erase(feed);

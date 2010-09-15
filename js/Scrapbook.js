@@ -312,7 +312,7 @@ Scrapbook.Folder = new Class({
     toElement: function() {
         if (!this.element) {
             this.element = new Element('div', {
-                class: 'folder',
+                'class': 'folder',
                 text: this.getName()
             });
             this.element.store('Scrapbook.Folder', this);

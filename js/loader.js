@@ -287,11 +287,12 @@ window.addEvent('domready', function() {
 	//sets drop bar boolean as false on load
 	var dropBarVisible = false;
 
-	$$('.toolbar_button').addEvents({
+	$$('#feed_button').addEvents({
 		'mouseover': showMenu,
 		'mouseout': hideMenu,
 		'click': showMenu
-	});    
+	});  
+	
 });
 
 
