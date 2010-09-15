@@ -893,10 +893,7 @@ h1#logo{
     background: url("images/favs/travellersPoint.png") no-repeat 0 2px;
 }
 
-#animation {
-    width: 100%;
-    overflow: hidden;
-}
+
 /*
 * moving objects on index
 */
