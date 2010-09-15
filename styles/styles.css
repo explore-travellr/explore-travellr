@@ -136,9 +136,17 @@ h1#logo{
   width:150px;
 }
 
+#info_button:hover{
+	 background:#365F91;
+}
+
 #info_button a{
   margin:14px 0 0;
-  padding:0 20px 0 0;
+  background:none;
+}
+
+#info_button a:hover{
+  color:#fff;
 }
 
 #favourites_button{
