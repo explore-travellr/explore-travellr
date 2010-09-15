@@ -187,7 +187,11 @@ TravellrFeedItem.Ask = new Class({
             'class': 'travellr ask'
         }).adopt([
             new Element('p', {
-                text: 'Didn\'t find the information you were looking for? Ask a question on Travellr.com!'
+                text: 'Didn\'t find the information you were looking for?'
+            })
+        ]).adopt([
+            new Element('p', {
+                text: 'Ask a question on Travellr.com!'
             })
         ]);
 
