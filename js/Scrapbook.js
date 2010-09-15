@@ -8,6 +8,7 @@ var Scrapbook = new Class({
     container: null,
 
     visible: false,
+    visibleFolder: null,
     foldersVisible: false,
 
     draggables: [],
@@ -51,6 +52,15 @@ var Scrapbook = new Class({
         }).bind(this));
 
         this.folderFx = new Fx.Slide(this.options.folderDropdown, this.options.folderFx).hide();
+        
+        // Hide the drop down on mouse leave, if its a good thing to do
+        this.options.folderDropdown.addEvent('mouseleave', (function() {
+            (function() {
+                if (!this.isVisible() && !this.dragging) {
+                    this.hideFolders();
+                }
+            }).delay(1000, this)
+        }).bind(this));
         this.options.folderAdd.addEvent('click', (function() {
             var name = prompt('Name of new folder');
             if (name) {
@@ -144,6 +154,7 @@ var Scrapbook = new Class({
 
             onStart: (function(draggable) {
                 this.showFolders();
+                this.dragging = true;
                 draggable.addClass('dragged');
             }).bindWithEvent(this),
             
@@ -155,6 +166,8 @@ var Scrapbook = new Class({
             },
 
             onDrop: (function(draggable, droppable, event) {
+                this.dragging = false;
+
                 if (event) {
                     event.stop();
                 }
@@ -167,9 +180,6 @@ var Scrapbook = new Class({
                         droppable.removeClass('activeFolder');
                     }).delay(500);
                     //droppable.highlight();
-                    if (!this.isVisible()) {
-                        this.hideFolders.delay(1000, this);
-                    }
                     
                     droppable.retrieve('Scrapbook.Folder').addItem(draggable.retrieve('FeedItem'));
                 } else if (!this.isVisible()) {
@@ -215,7 +225,7 @@ var Scrapbook = new Class({
     },
 
     isVisible: function() {
-        return this.visible !== false;
+        return this.visible;
     },
 
     isFoldersVisible: function() {
@@ -250,9 +260,14 @@ var Scrapbook = new Class({
     },
 
     getDisplayBoxButtons: function(options) {
-        hasFeedItem = this.getFolders()[0].hasItem(options.feedItem);
+        folder = (this.isVisible() ? this.visibleFolder : this.getFolders()[0]);
+        hasFeedItem = folder.hasItem(options.feedItem);
 
         var scrapbook = new Element('div', { 'class': 'scrapbook-icon icon'});
+        if (this.isVisible()) {
+            scrapbook.addClass('scrapbook-open');
+        }
+
         var addText = "Add to scrapbook";
         var removeText = "Remove from scrapbook";
         if (!hasFeedItem) {
@@ -264,12 +279,12 @@ var Scrapbook = new Class({
         }
         scrapbook.addEvent('click', (function() {
             if (hasFeedItem) {
-                this.removeItem(options.feedItem);
+                folder.removeItem(options.feedItem);
                 scrapbook.removeClass('scrapbook-remove');
                 scrapbook.addClass('scrapbook-add');
                 scrapbook.set({text: removeText, title: removeText});
             } else {
-                this.addItem(options.feedItem);
+                folder.addItem(options.feedItem);
                 scrapbook.removeClass('scrapbook-add');
                 scrapbook.addClass('scrapbook-remove');
                 scrapbook.set({text: addText, title: addText});
@@ -391,6 +406,7 @@ Scrapbook.Folder = new Class({
                 delete this.items[i];
             }
         }
+        this.items = this.items.clean();
         if (!this.items.length) {
             this.toElement().removeClass('fullFolder');
         }
