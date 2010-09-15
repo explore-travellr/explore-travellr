@@ -185,7 +185,6 @@ window.addEvent('domready', function() {
 		
 	var arrayLength = sampleSearches.length;
 	var searchNumber = Math.floor(Math.random()*arrayLength)
-	console.log(sampleSearches[searchNumber]);
 
 	$$('#sample_search').adopt([
             new Element('a').grab(new Element('a', {
