@@ -113,7 +113,7 @@ Array.implement({
         var index = this.getRandomKey();
         splice = this.splice(index, 1);
         return splice[0];
-    },
+    }
 });
 
 
@@ -184,7 +184,7 @@ window.addEvent('domready', function() {
 		];
 		
 	var arrayLength = sampleSearches.length;
-	var searchNumber = Math.floor(Math.random()*arrayLength)
+	var searchNumber = Math.floor(Math.random()*arrayLength);
 
 	$$('#sample_search').adopt([
             new Element('a').grab(new Element('a', {
@@ -268,7 +268,7 @@ window.addEvent('domready', function() {
       $(id).addEvent('click', function() {
         content.setStyle('display', 'block');
         showModal(content);
-      })
+      });
     });
     /*var lm = $('learn_more');
     var lmModal = $('about_us_modal');

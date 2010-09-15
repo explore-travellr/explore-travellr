@@ -176,7 +176,7 @@ var FeedItem = new Class({
                 href: this.url,
                 title: 'View in a new window',
                 'class': 'icon open-new-icon',
-                target: '_blank',
+                target: '_blank'
             });
             buttons.push(home);
         }
