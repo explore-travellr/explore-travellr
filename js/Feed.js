@@ -135,11 +135,9 @@ var Feed = new Class({
             this.visible = visible;
 
             if (this.visible) {
-                this.feedItems.each(function(feedItem) {
-                    this.container.addDisplayBox(feedItem.getDisplayBox() || new DisplayBox(feedItem));
-                }, this);
                 this.fireEvent('shown');
             } else {
+                this.nextFeedItem = 0;
                 this.feedItems.each(function(feedItem) {
                     this.container.removeDisplayBox(feedItem.getDisplayBox());
                 }, this);
