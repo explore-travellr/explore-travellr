@@ -173,7 +173,28 @@ window.addEvent('domready', function() {
     }
     
     //Slogan - adds "Skiing in Japan" to the search field and starts searching
-    $$('#japan').addEvents({ 
+	
+	var sampleSearches = [
+		'Skiing in Japan',
+		'Hiking in Switzerland',
+		'Festivals in Germany',
+		'Surfing in Sydney',
+		'New York City',
+		'Restaurants in Paris'
+		];
+		
+	var arrayLength = sampleSearches.length;
+	var searchNumber = Math.floor(Math.random()*arrayLength)
+	console.log(sampleSearches[searchNumber]);
+
+	$$('#sample_search').adopt([
+            new Element('a').grab(new Element('a', {
+                href: '#',
+                text: sampleSearches[searchNumber]
+            }))]);
+	
+	
+    $$('#sample_search').addEvents({ 
       'click': function(){
             var searchString = this.get('text');
              // Search for the string
