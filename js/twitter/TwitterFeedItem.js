@@ -138,6 +138,17 @@ var TwitterFeedItem = new Class({
     },
 
     /**
+     * Function: clone
+     * Returns a clone of this instance
+     *
+     * Returns:
+     * A clone of this TwitterFeedItem
+     */
+    clone: function() {
+        return new TwitterFeedItem(this.tweet);
+    },
+
+    /**
      * Function: serialize
      * Returns the tweet data, ready for serialization
      *

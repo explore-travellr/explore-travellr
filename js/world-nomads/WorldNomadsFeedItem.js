@@ -124,6 +124,17 @@ var WorldNomadsFeedItem = new Class({
     },
 
     /**
+     * Function: clone
+     * Returns a clone of this instance
+     *
+     * Returns:
+     * A clone of this WorldNomadsFeedItem
+     */
+    clone: function() {
+        return new WorldNomadsFeedItem(this.post, this.options);
+    },
+
+    /**
      * Function: serialize
      * Returns the post data, ready for serialization
      *

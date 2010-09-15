@@ -167,10 +167,12 @@ var Scrapbook = new Class({
                         droppable.removeClass('activeFolder');
                     }).delay(500);
                     //droppable.highlight();
-                    this.hideFolders.delay(1000, this);
+                    if (!this.isVisible()) {
+                        this.hideFolders.delay(1000, this);
+                    }
                     
                     droppable.retrieve('Scrapbook.Folder').addItem(draggable.retrieve('FeedItem'));
-                } else {
+                } else if (!this.isVisible()) {
                     this.hideFolders();
                 }
                 
@@ -248,7 +250,8 @@ var Scrapbook = new Class({
     },
 
     getDisplayBoxButtons: function(options) {
-        hasFeedItem = this.hasItem(options.feedItem);
+        hasFeedItem = this.getFolders()[0].hasItem(options.feedItem);
+
         var scrapbook = new Element('div', { 'class': 'scrapbook-icon icon'});
         var addText = "Add to scrapbook";
         var removeText = "Remove from scrapbook";
@@ -358,16 +361,19 @@ Scrapbook.Folder = new Class({
      *      item - The item to add to the folder
      */
     addItem: function(item) {
-        // Listen for a change on the item
-        item.addEvent('dirty', (function() {
+        item = item.clone();
+        if (!this.hasItem(item)) {
+            // Listen for a change on the item
+            item.addEvent('dirty', (function() {
+                this.setDirty(true);
+            }).bind(this));
+
+            this.toElement().addClass('fullFolder');
+
+            // Add the item
+            this.items.push(item);
             this.setDirty(true);
-        }).bind(this));
-
-        this.toElement().addClass('fullFolder');
-
-        // Add the item
-        this.items.push(item);
-        this.setDirty(true);
+        }
     },
 
     /**
@@ -378,7 +384,13 @@ Scrapbook.Folder = new Class({
      *      item - The item to remove from the folder
      */
     removeItem: function(item) {
-        this.items.erase(item);
+        var i = this.items.length - 1,
+            serialized = JSON.encode(Serializable.serialize(item));
+        for (; i >= 0; --i) {
+            if (JSON.encode(Serializable.serialize(this.items[i])) == serialized) {
+                delete this.items[i];
+            }
+        }
         if (!this.items.length) {
             this.toElement().removeClass('fullFolder');
         }
@@ -396,7 +408,10 @@ Scrapbook.Folder = new Class({
      * True if the folder contains the item, false otherwise
      */
     hasItem: function(item) {
-        return this.getItems().contains(item);
+        var serialized = JSON.encode(Serializable.serialize(item));
+        return this.getItems().some(function(compare) {
+            return JSON.encode(Serializable.serialize(compare)) == serialized;
+        });
     },
 
     getDirty: function() {
@@ -428,7 +443,7 @@ Scrapbook.Folder = new Class({
      * Return an object representing this folder in a serialized state
      */
     serialize: function() {
-        if (this.getDirty()) {
+        if (this.getDirty() || !this.serialized) {
             var name = this.getName();
             var serializedItems = [];
 

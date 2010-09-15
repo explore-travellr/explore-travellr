@@ -88,6 +88,17 @@ var GeckoTipsFeedItem = new Class({
     },
 
     /**
+     * Function: clone
+     * Returns a clone of this instance
+     *
+     * Returns:
+     * A clone of this GeckoTipsFeedItem
+     */
+    clone: function() {
+        return new GeckoTipsFeedItem(this.post);
+    },
+
+    /**
      * Function: serialize
      * Returns the post data, ready for serialization
      *

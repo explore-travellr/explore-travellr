@@ -46,7 +46,7 @@ var TravellersPointFeedItem = new Class({
 
     /**
      * Consructor: initialize
-     * Sets a new <TravellerspPointFeedItem> with the content drawn from the blog post sent in
+     * Sets a new <TravellersPointFeedItem> with the content drawn from the blog post sent in
      *
      * Parameters:
      *      feedObject - The object is associative array of keys related to the feedObject passed in
@@ -76,10 +76,10 @@ var TravellersPointFeedItem = new Class({
 
     /**
      * Function: makePreview
-     * Builds a <MooTools::Element> containing a preview of this <TravellerspPointFeedItem>
+     * Builds a <MooTools::Element> containing a preview of this <TravellersPointFeedItem>
      *
      * Returns:
-     *     A <MooTools::Element> containing a preview of this <TravellerspPointFeedItem>
+     *     A <MooTools::Element> containing a preview of this <TravellersPointFeedItem>
      */
     makePreview: function() {
         return new Element('div', {
@@ -96,10 +96,10 @@ var TravellersPointFeedItem = new Class({
 
     /**
      * Function: makeContent
-     * Builds a <MooTools::Element> with the content of this <TravellerspPointFeedItem>
+     * Builds a <MooTools::Element> with the content of this <TravellersPointFeedItem>
      *
      * Returns:
-     *     A <MooTools::Element> with the content of this <TravellerspPointFeedItem>
+     *     A <MooTools::Element> with the content of this <TravellersPointFeedItem>
      */
     makeContent: function() {
         return new Element('div', {
@@ -112,6 +112,17 @@ var TravellersPointFeedItem = new Class({
             })),
             new Element('div').grab(new Element('img',{'src':this.post['media:content'].url}))
         ]);
+    },
+
+    /**
+     * Function: clone
+     * Returns a clone of this instance
+     *
+     * Returns:
+     * A clone of this TravellersPointFeedItem
+     */
+    clone: function() {
+        return new TravellersPointFeedItem(this.post, this.options);
     },
 
     /**

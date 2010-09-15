@@ -127,18 +127,17 @@ var YoutubeFeedItem = new Class({
     },
 
     /**
-	<object width="480" height="385">
-		<param name="movie" value="http://www.youtube.com/v/NkfuPTm1zUo?fs=1&amp;hl=en_GB"></param>
-		<param name="allowFullScreen" value="true"></param>
-		<param name="allowscriptaccess" value="always"></param>
-		<embed src="http://www.youtube.com/v/NkfuPTm1zUo?fs=1&amp;hl=en_GB" 
-			type="application/x-shockwave-flash" 
-			allowscriptaccess="always" 
-			allowfullscreen="true" 
-			width="480" 
-			height="385">
-		</embed>
-	</object>
+     * Function: clone
+     * Returns a clone of this instance
+     *
+     * Returns:
+     * A clone of this YoutubeFeedItem
+     */
+    clone: function() {
+        return new YoutubeFeedItem(this.video);
+    },
+
+    /**
      * Function: serialize
      * Returns the video data, ready for serialization
      *

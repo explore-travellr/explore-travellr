@@ -106,6 +106,17 @@ var TravellrFeedItem = new Class({
     },
 
     /**
+     * Function: clone
+     * Returns a clone of this instance
+     *
+     * Returns:
+     * A clone of this TravellrFeedItem
+     */
+    clone: function() {
+        return new TravellrFeedItem(this.question);
+    },
+
+    /**
      * Function: serialize
      * Returns the question data, ready for serialization
      *

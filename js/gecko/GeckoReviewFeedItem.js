@@ -86,6 +86,17 @@ var GeckoReviewFeedItem = new Class({
             })
         ]);
     },
+
+    /**
+     * Function: clone
+     * Returns a clone of this instance
+     *
+     * Returns:
+     * A clone of this GeckoReviewFeedItem
+     */
+    clone: function() {
+        return new GeckoReviewFeedItem(this.post);
+    },
     
     /**
      * Function: serialize

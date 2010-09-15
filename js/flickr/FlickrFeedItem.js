@@ -123,6 +123,17 @@ var FlickrFeedItem = new Class({
             }))
         ]);
     },
+    
+    /**
+     * Function: clone
+     * Returns a clone of this instance
+     *
+     * Returns:
+     * A clone of this instance
+     */
+    clone: function() {
+        return new FlickrFeedItem(this.photo, this.options);
+    },
 
     /**
      * Function: serialize

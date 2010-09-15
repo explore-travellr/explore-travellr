@@ -181,5 +181,14 @@ var FeedItem = new Class({
             buttons.push(home);
         }
         return buttons;
+    },
+
+    /**
+     * Return a clone of this item
+     */
+    clone: function() {
+        var err = new Error("Cloning not supported for this class");
+        err.instance = this;
+        throw err;
     }
 });
