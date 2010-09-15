@@ -97,7 +97,7 @@ var FlickrFeedItem = new Class({
         return new Element('div', {
             'class': 'flickr'
         }).adopt([
-            img,
+            img
         ]);
     },
 

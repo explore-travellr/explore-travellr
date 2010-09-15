@@ -32,7 +32,7 @@ var Scrapbook = new Class({
 
         this.persistant = new Persist.Store(this.name);
         this.persistant.get(this.name, (function(ok, data) {
-            if (ok && data != null) {
+            if (ok && data !== null) {
                 // Unserializing the data may fail
                 try {
                     var folders = JSON.decode(data);
@@ -45,7 +45,7 @@ var Scrapbook = new Class({
             }
 
             // If nothing was loaded, make a default thing
-            if (this.folders == null || this.folders.length == 0) {
+            if (this.folders === null || this.folders.length === 0) {
                 this.folders = [];
                 this.addFolder(new Scrapbook.Folder("Favorites", null, this));
             }

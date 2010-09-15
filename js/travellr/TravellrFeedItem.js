@@ -80,10 +80,10 @@ var TravellrFeedItem = new Class({
      */
     makeContent: function() {
         var answers = [
-            new Element('h3', {text: 'Answers'}),
+            new Element('h3', {text: 'Answers'})
         ];
         this.question.answers.each(function(answer) {
-            answers.push(new Element('div', {'class': 'answer'}).adopt([,
+            answers.push(new Element('div', {'class': 'answer'}).adopt([
                 new Element('p', {text: answer.content})
             ]));
         });
@@ -250,7 +250,7 @@ TravellrFeedItem.Ask = new Class({
             }).adopt([
                 textarea,
                 submit
-                ]),
+                ])
             ]);
     },
 

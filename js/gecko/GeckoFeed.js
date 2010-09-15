@@ -53,7 +53,7 @@ var GeckoFeed = new Class({
     * calls makeFeedItems on success.
     *
     * Parameters:
-    *     searchFilter - The search filter to filter results with
+    *     searchFilter - The search filter to filter results with, yahoo pipes needs lat/lng
     */
     getMoreFeedItems: function() {
         if (!this.searchFilter.location) {

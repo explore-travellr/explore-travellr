@@ -85,7 +85,7 @@ var YoutubeFeed = new Class({
         new Request.JSONP({
             url: 'http://gdata.youtube.com/feeds/api/videos',
             data: {
-                q: 	this.tags,
+                q: this.tags,
                 key: 'AI39si6I6tBAD_U7oB8R5ESjFBD_9QMqcz5NrRIxFtCTbjEgJDiBLmxZ8EVu8iUTznjUuxRhPy2MWotbPhkrUfyPeOFa3KhLBA',
                 v: 2,
                 safeSearch: 'moderate',

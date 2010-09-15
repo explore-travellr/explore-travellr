@@ -89,7 +89,7 @@ var YoutubeFeedItem = new Class({
         
 		return new Element('div', {
             'class': 'youtube'
-        }).adopt([img, play])
+        }).adopt([img, play]);
     },
 
     /**

@@ -91,7 +91,7 @@ var WorldNomadsFeedItem = new Class({
             wrapper.grab(new Element('img', {
                 'src': this.post['adventures:image'].medium
             }));
-        };
+        }
         wrapper.grab( new Element('p', {
             text: this.post.title
         }));

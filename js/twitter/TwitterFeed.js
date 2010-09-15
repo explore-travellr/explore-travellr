@@ -66,7 +66,6 @@ var TwitterFeed = new Class({
 
             // Radius of the earth, in km
             var R = 6371;
-            var lat1 = loc.bounds_l;
 
             // Points to measure
             var lat1 = loc.bounds_l;
@@ -76,13 +75,13 @@ var TwitterFeed = new Class({
 
             var toRad = function(num) {
                 return num * Math.PI / 180;
-            }
+            };
 
             // ???
             var dLat = (lat2-lat1).toRad();
             var dLon = (lon2-lon1).toRad(); 
-            var sDLat2 = Math.sin(dLat / 2)
-            var sDLon2 = Math.sin(dLon / 2)
+            var sDLat2 = Math.sin(dLat / 2);
+            var sDLon2 = Math.sin(dLon / 2);
             var a = sDLat2 * sDLat2 + Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) * sDLon2 * sDLon2;
             var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
             var distance = R * c;
@@ -105,7 +104,7 @@ var TwitterFeed = new Class({
         this.searchFilter.nounPhrases.each(function(nounPhrase) {
             tags.push('#' + nounPhrase.content);
         });
-        if (tags.length == 0) {
+        if (tags.length === 0) {
             tags.push('#travel');
             if (this.searchFilter.location) {
                 tags.push(this.searchFilter.location.name);
