@@ -44,12 +44,78 @@
         <script type="text/javascript" src="js/youtube/YoutubeFeed.js"></script>
 		<script type="text/javascript" src="js/MapFeedItem.js"></script>
 		
+  
+      <script type="text/javascript" charset="utf-8">
+         window.addEvent('domready', function() {
+
+         // Cloud 
+         var cloud = $('cloud');
+
+         new Fx.Move(cloud, {
+           relativeTo: $('container'),
+           position: 'right',
+           edge: 'left',
+           duration: 60000
+         }).start();
+
+         // Cloud 2
+         var cloud_2 = $('cloud_2');
+         new Fx.Move(cloud_2, {
+           relativeTo: $('container'),
+           position: 'right',
+           edge: 'left',
+           duration: 70000
+         }).start();
+
+
+         // Cloud 3
+
+         var cloud_3 = $('cloud_3');
+         new Fx.Move(cloud_3, {
+           relativeTo: $('container'),
+           position: 'right',
+           edge: 'left',
+           duration: 70000
+         }).start();
+
+         // Cloud 4
+
+         var cloud_4 = $('cloud_4');
+         new Fx.Move(cloud_4, {
+           relativeTo: $('container'),
+           position: 'right',
+           edge: 'left',
+           duration: 70000
+         }).start();
+
+
+
+          // Balloon
+           var balloon = $('balloon');
+           new Fx.Move(balloon, {
+             relativeTo: $('container'),
+             position: 'right',
+             edge: 'left',
+             duration: 95000
+           }).start();
+
+       });
+       </script>
+
+		
+		
+		
         <!-- Primary dom-ready script -->
         <script type="text/javascript" src="js/loader.js"></script>
 
         <!-- CSS : implied media="all"-->
         <link rel="stylesheet" href="styles/reset.css">
         <link rel="stylesheet" href="styles/styles.css">
+        
+        
+        
+        
+     
 
     </head>
 	<body>
@@ -131,6 +197,34 @@
 				<p>Jager!!! </p>
 			</div>   
         </div>
+        
+        
+          <div id="animation">
+
+
+            <div id="cloud">
+              <img src="styles/images/cloud_1.png" width="129" height="52" alt="Cloud 1">
+            </div><!-- #cloud -->
+
+            <div id="cloud_2">
+             <img src="styles/images/cloud_2.png" width="87" height="57" alt="Cloud 2">
+            </div><!-- #cloud_2 -->
+
+            <div id="cloud_3">
+             <img src="styles/images/cloud_3.png" width="106" height="67" alt="Cloud 3">
+            </div><!-- #cloud_3 -->
+
+            <div id="cloud_4">
+             <img src="styles/images/cloud_1.png" width="129" height="52" alt="Cloud ">
+            </div><!-- #cloud_4 -->
+
+            <div id="balloon">
+              <img src="styles/images/balloon.png" width="83" height="119" alt="Balloon">
+            </div><!-- #balloon -->
+
+          </div><!-- #animation -->
+
+        
         <div id="scrapbook" class="container"></div> 
         <!-- Google Tracking Code -->
         <script type="text/javascript">

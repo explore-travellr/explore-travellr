@@ -6,6 +6,7 @@ body{
     font-family:Tahoma, Arial; font-size:14px;
     background: url("images/bg_large.png") no-repeat 0 40px;
     overflow-y:scroll;
+    overflow-x:hidden;
 }
 
 .left{float:left}
@@ -155,15 +156,10 @@ h1#logo{
 }
 
 #favourites_button a{
-  background:url("images/bookSmall.png") no-repeat scroll 0 0 transparent;
-  height:26px;
+  background:url("images/favButton.png") no-repeat scroll 11px -1px transparent;
+  height:22px;
   margin:10px 0 0;
   padding:4px 0 0 21px;
-}
-
-#favourites_button:hover a,
-#favourites_button.active a{
-  background:url("images/bookSmall.png") no-repeat scroll 0 -29px transparent;
 }
 
 /*
@@ -412,6 +408,8 @@ h1#logo{
 	top: 300px;
     border: 1px solid #a3b5cc;
     -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
     
 }
 
@@ -834,3 +832,39 @@ h1#logo{
     margin-bottom: 13px;
     background: url("images/favs/travellersPoint.png") no-repeat 0 2px;
 }
+
+/*
+* moving objects on index
+*/
+
+#animation{
+  position: absolute;
+   z-index: 0;
+}
+
+#cloud{
+  margin-left:-100px;
+  margin-top: 100px;
+   
+}
+
+#cloud_2{
+  margin-top: 150px;
+
+}
+
+#cloud_3{
+  margin-left:-300px;
+  margin-top: 150px;
+}
+
+#cloud_4{
+  margin-left:600px;
+  margin-top: 250px;
+}
+
+#balloon{
+  margin-top:300px;
+  margin-left:200px;
+}
+
