@@ -501,8 +501,8 @@ h1#logo{
 	padding:8px;
 }
 
-.displayBox .ask{
-	background-color:#C4D7ED;
+.displayBox .ask p{
+	font-weight:bold;
 }
 
 /*
