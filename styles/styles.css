@@ -179,6 +179,7 @@ h1#logo{
    padding:6px 45px;
 }
 
+
 .dropdown li:hover{
   background-color:#4870a0;
 }
@@ -494,6 +495,16 @@ h1#logo{
         border:1px solid #365F91;
 }
 
+.displayBox .travellr p{
+	color:#375D81;
+	font-size:14px;
+	padding:8px;
+}
+
+.displayBox .ask{
+	background-color:#C4D7ED;
+}
+
 /*
  * GeckoGo Display Box Styles
  */
@@ -502,6 +513,12 @@ h1#logo{
 	padding-top:31px;
 	background: url(images/favs/geckoGo_long.png) no-repeat center 5px #fff;
         border:1px solid #77bb00;
+}
+
+.displayBox .geckoReview p{
+	color:#333;
+	font-size:14px;
+	padding:8px;
 }
 
 .geckoReview p:before{
@@ -531,6 +548,13 @@ h1#logo{
 .displayBox .twitter p{
 	font-size:11px;
 	color:#666;
+}
+
+.displayBox .twitter p:before {
+	color:#70D4E2;
+	font-size:11px;
+	content:'via twitter: ';
+	font-weight:bold;
 }
 
 .displayBox .twitter img{
