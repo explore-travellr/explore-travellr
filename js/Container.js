@@ -124,7 +124,7 @@ var Container = new Class({
                     this.progressBar = null;
                 }
 
-                this.progressElement = new Element('div', { id: 'progressBar' })
+                this.progressElement = new Element('div', { id: 'progressBar' });
                 this.progressBar = new MoogressBar(this.progressElement);
                 this.container.grab(this.progressElement);
 
@@ -267,7 +267,7 @@ var Container = new Class({
     *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
     */
     removeDisplayBox: function (displayBox) {
-        if (!displayBox) return;
+        if (!displayBox) { return; }
         displayBox.setContainer(null);
         this.displayBoxes.erase(displayBox);
         this.displayBoxQueue.erase(displayBox);

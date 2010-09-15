@@ -53,7 +53,7 @@ var MapFeedItem = new Class({
 		
 		searchBox.addEvent('search', (function(searchFilter) {
 		
-			if (searchFilter.location != null) {
+			if (searchFilter.location !== null) {
                             //searchFilter for preview map
                             this.lat = searchFilter.location.lat;
                             this.lng = searchFilter.location.lng;
