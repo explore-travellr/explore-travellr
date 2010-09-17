@@ -53,7 +53,7 @@ var MoogressBar = new Class({
 				'height': this.options.height,
 				'text-align': 'center',
 				'line-height': this.options.height + 'px',
-				'color': '#FFFFFF',
+				'color': '#365F91',
 				// Border Radius deactivated, because Firefox is causing drawing problems
 				'border-radius': '4px 0px 0px 4px',
 				'-webkit-border-radius': '4px 0px 0px 4px',
@@ -146,7 +146,7 @@ Fx.Counter = new Class({
     },
     
     set: function(now){
-        //this.element.set('text', now.round() + this.after);
+        this.element.set('text', 'Loading Results...');
         return this;
     }
     

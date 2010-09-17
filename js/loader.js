@@ -263,13 +263,6 @@ window.addEvent('domready', function() {
 		this.shown = false;		
 	};
     
-    (['about_us','partners','terms_and_conditions','contact_us']).each(function(id) {
-      var content = $(id+ '_modal');
-      $(id).addEvent('click', function() {
-        content.setStyle('display', 'block');
-        showModal(content);
-      });
-    });
     /*var lm = $('learn_more');
     var lmModal = $('about_us_modal');
     $(lm).addEvent('click', function() {
