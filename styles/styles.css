@@ -155,6 +155,22 @@ h1#logo{
   color:#fff;
 }
 
+#favourites_text {
+padding:12px 0 0 270px;
+width:200px;
+float: left;
+cursor: default;
+visibility:hidden;
+ 
+}
+
+#favourites_text h5{
+  color:#50BCFF;
+  font-weight:600;
+  
+
+}
+
 #favourites_button{
   width:130px;
   padding:0 0 0 10px;
@@ -166,6 +182,7 @@ h1#logo{
   margin:10px 0 0;
   padding:4px 0 0 21px;
 }
+
 
 /*
  * Generic dropdown styles 
