@@ -139,21 +139,23 @@ var MapFeedItem = new Class({
      *     A <MooTools::Element> with the contents of this <MapFeedItem>
      */
     makeContent: function() {
-        var mapElement = new Element('div', { styles: { width: 600, height: 400} });
+        var mapElement = new Element('div', { styles: { width: 600, height: 500} });
 
         var myOptions = {
-            zoom: 0,
+            zoom: 1,
             center: new google.maps.LatLng(0, 0),
+	    streetViewControl : true,
             mapTypeId: google.maps.MapTypeId.TERRAIN
         };
 
         // There was an error if the map was created before it was displayed
         this.displayBox.addEvent('display', (function() {
             var map = new google.maps.Map(mapElement, myOptions);
+          
             if (this.latLngBounds) {
                 map.fitBounds(this.latLngBounds);
-            }
-
+                map.setZoom(map.getZoom() + 1);
+        }
             //Obtain coodinates from a click GEOCODE
 //            google.maps.event.addListener(map, 'click', function(event) {
 //                var clicked_lat = event.latLng.lat();
