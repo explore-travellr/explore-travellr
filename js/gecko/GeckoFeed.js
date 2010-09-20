@@ -67,7 +67,7 @@ var GeckoFeed = new Class({
         var lat = this.searchFilter.location.lat;
         var lng = this.searchFilter.location.lng;
 		
-		console.log(lat+" "+lng);
+		//console.log(lat+" "+lng);
 		
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
