@@ -83,7 +83,12 @@ var TravellrFeed = new Class({
                 per_page: this.perPage,
                 include: 'answers'
             },
-            onSuccess: this.makeFeedItems.bind(this)
+            onSuccess: this.makeFeedItems.bind(this),
+            onFailure: (function() {
+                this.moreFeedItems = false;
+                this.addAskBox();
+                this.feedItemsReady();
+            }).bind(this)
         }).send();
         this.page = this.page + 1;
     },
@@ -106,13 +111,17 @@ var TravellrFeed = new Class({
             this.feedItems.push(feedItem);
         }, this);
 
+        this.addAskBox();
+
+        this.moreFeedItems = (response.length >= this.perPage);
+        this.feedItemsReady();
+    },
+
+    addAskBox: function() {
         if (!this.ask) {
             //This line adds the "Didn't find the information..." feedItem
             this.feedItems.push(new TravellrFeedItem.Ask(this.searchFilter.location_id || null));
             this.ask = true;
         }
-
-        this.moreFeedItems = (response.length >= this.perPage);
-        this.feedItemsReady();
     }
 });
