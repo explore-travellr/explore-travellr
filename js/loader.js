@@ -124,6 +124,16 @@ $extend(window, {
 });
 
 window.addEvent('domready', function() {
+
+    //checks browser engine to see if compatible with application
+    if(Browser.Engine.trident) {
+        alert("Your browser, Internet Explorer, is not currently supported by our application. Please use Firefox, Chrome of Safari.");
+    } else if(Browser.Engine.presto) {
+        alert("Your browser, Opera, is not currently supported by our application. Please use Firefox, Chrome of Safari.");
+}
+
+
+
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
 
