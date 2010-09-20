@@ -90,8 +90,11 @@ var WorldNomadsFeed = new Class({
     */
     makeFeedItems: function(results) {
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {
+            //if( post.value.items.each["adventures:image"] )
             results.value.items.each(function(post) {
-                this.feedItems.push(new WorldNomadsFeedItem(post));
+                if (post['adventures:image']) {
+                    this.feedItems.push(new WorldNomadsFeedItem(post));
+                }
             }, this);
         }
 
