@@ -102,7 +102,7 @@ var DisplayBox = new Class({
 
 
             if (this.getFeedItem().canScrapbook() && this.scrapbook) {
-                var handle = new Element('div', {'class': 'handle'});
+                var handle = new Element('div', {'class': 'handle',title:'Click and hold to drag to favourites'});
                 handle.addEvent('click', function(event) { event.stop(); });
                 preview.grab(handle);
 
