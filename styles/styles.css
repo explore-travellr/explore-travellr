@@ -5,9 +5,13 @@ explore.travellr blue: #365F91
 
 body{
     font-family:Tahoma, Arial; font-size:14px;
-    background: url("images/bg_large.png") no-repeat 0 40px;
+    background: url("images/bg_large.png") repeat-x 0 40px;
     overflow-y:scroll;
     overflow-x:hidden;
+}
+
+body.locked{
+	overflow-y:hidden;
 }
 
 .left{float:left}

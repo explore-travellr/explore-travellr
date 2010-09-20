@@ -177,6 +177,8 @@ var DisplayBox = new Class({
         }
         this.shown = true;
 
+		$(document.body).addClass('locked');
+
         //make a modal dialog
         var modalMask = new Element('div', { 'class': 'modalMask' });
         var modalCloseButton = new Element('div', { 'class': 'close-button', text: 'Close' });
@@ -249,6 +251,10 @@ var DisplayBox = new Class({
             modalMask.destroy();
             modalCloseButton.destroy();
             this.shown = false;	
+
+			$(document.body).removeClass('locked');
+
+			
         }).bind(this);
 
         // Add events to elements
