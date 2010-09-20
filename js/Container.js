@@ -87,6 +87,18 @@ var Container = new Class({
     progressElement: null,
 
     /**
+     * Variable: numScreens
+     * The number of screens of content to show at a time
+     */
+    numScreens: null,
+
+    /**
+     * Variable: showMore
+     * The 'showMore' button
+     */
+    showMore: null,
+
+    /**
     * Constructor: initialize
     * Creates a new Container class. This instance will layout its DisplayBoxes
     * in the supplied container element. The container will listen to the
@@ -130,7 +142,7 @@ var Container = new Class({
 
                 //fades out the tooltip
                 $('slogan').fade('out');
-				$('animation').fade('hide');
+				$('animation').destroy();
 
                 this.feedsWithContent = [];
 
@@ -142,6 +154,9 @@ var Container = new Class({
                     this.feedsWithContent.push(feed);
 
                 }, this);
+
+                this.numScreens = 2;
+                this.showMore && this.showMore.destroy();
 
                 this.getNextFeedItems(true);
 
@@ -176,22 +191,36 @@ var Container = new Class({
 
     getNextFeedItems: function(firstRound) {
 
-        if (firstRound || (this.loaded && window.atBottom(window.getSize().y))) {
-            var feeds = this.feedsWithContent;
-            this.feedsWithContent = [];
-            feeds.each(function(feed) {
-
-                feed.getNextFeedItem((function(feedItem) {
-                    if (feedItem) {
-                        if (feed.isVisible()) {
-                            this.addDisplayBox(new DisplayBox(feedItem, this.scrapbook));
-                            this.feedsWithContent.push(feed);
-                            this.getNextFeedItems.delay(100, this);
-                        }
-                    }
+        if (!this.showMore && (firstRound || this.loaded)) {
+            if (window.getScrollSize().y > window.getSize().y * this.numScreens) {
+                this.showMore = new Element('div', {
+                    'class': 'show-more',
+                    text: 'Show more',
+                });
+                this.showMore.addEvent('click', (function() {
+                    this.numScreens = this.numScreens + 2;
+                    this.showMore.destroy();
+                    this.showMore = null;
+                    this.getNextFeedItems();
                 }).bind(this));
+                this.container.grab(this.showMore, 'after');
+            } else {
+                var feeds = this.feedsWithContent;
+                this.feedsWithContent = [];
+                feeds.each(function(feed) {
 
-            }, this);
+                    feed.getNextFeedItem((function(feedItem) {
+                        if (feedItem) {
+                            if (feed.isVisible()) {
+                                this.addDisplayBox(new DisplayBox(feedItem, this.scrapbook));
+                                this.feedsWithContent.push(feed);
+                                this.getNextFeedItems.delay(100, this);
+                            }
+                        }
+                    }).bind(this));
+
+                }, this);
+            }
         }
     },
 

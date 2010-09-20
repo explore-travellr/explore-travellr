@@ -390,7 +390,7 @@ h1#logo{
 #slogan{
   background:url("images/slogan.png") no-repeat scroll 0 0 transparent;
   height:200px;
-  margin:-125px 0 0 298px;
+  margin:50px 0 0 298px;
   width:640px;
   position:absolute;
   z-index:10;
@@ -898,6 +898,18 @@ h1#logo{
     padding-left: 24px;
     margin-bottom: 13px;
     background: url("images/favs/travellersPoint.png") no-repeat 0 2px;
+}
+
+/*
+* Show all button
+*/
+.show-more {
+    padding: 1em;
+    margin: 1em 0px;
+    border: 1px solid black;
+    background: #ddd;
+    text-align: center;
+    cursor: pointer;
 }
 
 

@@ -29,6 +29,7 @@ var Scrapbook = new Class({
         this.setOptions(options);
 
         this.container = new Container('scrapbook');
+        this.container.hide();
 
         this.persistant = new Persist.Store(this.name);
         this.persistant.get(this.name, (function(ok, data) {

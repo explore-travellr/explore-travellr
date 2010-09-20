@@ -130,7 +130,7 @@ window.addEvent('domready', function() {
         alert("Your browser, Internet Explorer, is not currently supported by our application. Please use Firefox, Chrome of Safari.");
     } else if(Browser.Engine.presto) {
         alert("Your browser, Opera, is not currently supported by our application. Please use Firefox, Chrome of Safari.");
-}
+    }
 
 
 
