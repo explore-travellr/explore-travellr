@@ -49,8 +49,9 @@ var SearchBox = new Class({
         
         this.form.addEvent('submit', (function(event) {
 		
-			$$('#slogan').fade('out');		
-            event.stop();
+			if (!searchString) {
+            $$('#slogan').fade('out');
+            event.stop();}
 			
             this.search(this.element.get('value'));
         }).bind(this));
@@ -66,13 +67,15 @@ var SearchBox = new Class({
      * Parameters:
      *     searchString - {String} The string to search for.
      */
-    search: function(searchString) {  
+    search: function(searchString) {
+        if (!searchString) {
+           return;
+        }
         location.hash = searchString;
         this.searchFilter = new SearchFilter(searchString);
         this.searchFilter.addEvent('ready', (function() {
-            this.fireEvent('search', [this.searchFilter]);
+        this.fireEvent('search', [this.searchFilter]);
         }).bind(this));
-    }
-    
+     }  
 });
 
