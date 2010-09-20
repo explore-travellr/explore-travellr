@@ -79,10 +79,11 @@ var YoutubeFeedItem = new Class({
 		
 		var img = new Element('img', {
             src: this.thumbnail,
-            'class':'ty_thumb'
+            'class':'ty_thumb',
+			title: 'Click to view the youtube video for "' + this.title + '"'
         });
         
-    var play = new Element('img', {
+    	var play = new Element('img', {
             src: 'styles/images/yt_play.png',
             'class':'yt_play'
         });
@@ -121,7 +122,8 @@ var YoutubeFeedItem = new Class({
 		wrapper.grab(ytembed);
 	
 		return new Element('div', {
-            'class': 'youtube'
+            'class': 'youtube',
+			title: 'Click to go play "' + this.title + '"'
         }).adopt(wrapper);
        
     },

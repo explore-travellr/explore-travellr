@@ -199,7 +199,8 @@ window.addEvent('domready', function() {
 	$$('#sample_search').adopt([
             new Element('a').grab(new Element('a', {
                 href: '#',
-                text: sampleSearches[searchNumber]
+                text: sampleSearches[searchNumber],
+				title: 'Use this term for your sample search, click away!'
             }))]);
 	
 	
@@ -211,74 +212,6 @@ window.addEvent('domready', function() {
               searchBox.search(searchString);
         }
     });
-    
-    var showModal = function(content) {
-
-        //make a modal dialog
-        var modalMask = new Element('div', { 'class': 'modalMask' });
-        var modalClose = new Element('div', { 'class': 'close-button', text: 'Close' });
-        var modal = new Element('div', { 'class': 'modal' });
-        var contentWrapper = new Element('div', { 'class': 'content' });
-
-        // Hide the containers
-        modalMask.fade('hide');
-        modal.fade('hide');
-
-        contentWrapper.grab(content);
-
-        modal.adopt([modalClose, contentWrapper]);
-
-        $(document.body).grab(modalMask);
-        $(document.body).grab(modal);
-
-        // Position the box
-        var viewPos = window.getScroll();
-        var viewSize = window.getSize();
-
-        var modalSize = modal.getSize();
-        var documentSize = document.getScrollSize();
-
-        var modalLocation = {
-            x: viewPos.x + (viewSize.x - modalSize.x) / 2,
-            y: viewPos.y + (viewSize.y - modalSize.y) / 2
-        };
-        modal.setPosition(modalLocation);
-
-        modalMask.set('styles', { height: documentSize.y });
-
-        // Show the containers
-        modalMask.fade('0.8');
-        modal.fade('in');
-
-		// Add events to elements
-		$$(modalClose, modalMask).addEvent('click', (function() {
-		  closeModal(content,modal,modalMask,modalClose);
-		}).bind(this));
-
-		// Add events to window
-		window.addEvent('keypress', (function(e) {
-		  if(e.key == 'esc') {
-				  closeModal(content,modal,modalMask,modalClose);
-			  }
-		}).bind(this));          
-    };
-	
-    var closeModal = function(content,modal,modalMask,modalClose) {
-		if (content.parentNode) {
-			content.parentNode.removeChild(content);
-		}
-		modal.destroy();
-		modalMask.destroy();
-		modalClose.destroy();
-		this.shown = false;		
-	};
-    
-    /*var lm = $('learn_more');
-    var lmModal = $('about_us_modal');
-    $(lm).addEvent('click', function() {
-		lmModal.setStyle('display', 'block');
-		showModal(lmModal);
-    })*/
       
 	$$('.feed_toggle').addEvents({
 		'click': function(){

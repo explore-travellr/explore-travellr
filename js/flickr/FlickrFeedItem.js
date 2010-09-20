@@ -92,7 +92,8 @@ var FlickrFeedItem = new Class({
      */
     makePreview: function() {
         var img = new Element('img', {
-            src: this.photo.picUrlThumbnail
+            src: this.photo.picUrlThumbnail,
+			title: 'Click to view the "' + this.photo.title + '" photo'
         });
         return new Element('div', {
             'class': 'flickr'
@@ -113,11 +114,13 @@ var FlickrFeedItem = new Class({
             new Element('h2').grab(new Element('a', {
                 text: this.photo.title,
                 href: this.url,
-				target: '_blank'
+				target: '_blank',
+				title: 'Click to go to the origin of the "' + this.photo.title + '" photo'
             })),
             new Element('a', {
 					href: this.url,
-					target: '_blank'
+					target: '_blank',
+					title: 'Click to go to the origin of the "' + this.photo.title + '" photo'
 				}).grab(new Element('img', {
 					src: this.photo.picUrlContent
             }))

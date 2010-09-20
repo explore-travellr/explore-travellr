@@ -86,7 +86,8 @@ var TravellersPointFeedItem = new Class({
             'class': 'TravellersPoint'
         }).adopt([
             new Element('img', {
-                'src': this.post['media:thumbnail'].url
+                'src': this.post['media:thumbnail'].url,
+				title: 'Click to view a larger image of "' + this.post.title + '"'
             }),
             new Element('p', {
                 text: this.post.title              
@@ -108,7 +109,8 @@ var TravellersPointFeedItem = new Class({
             new Element('h2').grab(new Element('a', {
                 href: this.post.link,
                 text: this.post.title,
-				target: '_blank'
+				target: '_blank',
+				title: 'Click to go to the source of "' + this.post.title + '"'
             })),
             new Element('div').grab(new Element('img',{'src':this.post['media:content'].url}))
         ]);

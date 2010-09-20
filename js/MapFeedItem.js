@@ -54,10 +54,10 @@ var MapFeedItem = new Class({
 		searchBox.addEvent('search', (function(searchFilter) {
 		
 			if (searchFilter.location !== null) {
-                            //searchFilter for preview map
-                            this.lat = searchFilter.location.lat;
-                            this.lng = searchFilter.location.lng;
-                                //search filter for content map
+				//searchFilter for preview map
+				this.lat = searchFilter.location.lat;
+				this.lng = searchFilter.location.lng;
+				//search filter for content map
 				var NELatLng = new google.maps.LatLng(searchFilter.location.bounds_b, searchFilter.location.bounds_l);
 				var SWLatLng = new google.maps.LatLng(searchFilter.location.bounds_t, searchFilter.location.bounds_r);
 				this.latLngBounds = new google.maps.LatLngBounds(NELatLng, SWLatLng);
@@ -66,7 +66,7 @@ var MapFeedItem = new Class({
 			}
 
 			if (this.img) {
-                            this.img.src = this.makeImgSource();
+				this.img.src = this.makeImgSource();
 			}
 
 
@@ -93,7 +93,7 @@ var MapFeedItem = new Class({
             var dlat = bounds_t - bounds_b;
             var dlon;
 
-                if (bounds_l < bounds_r) {
+			if (bounds_l < bounds_r) {
                dlon = bounds_r - bounds_l;
             } else {
                dlon = 360 - bounds_l + bounds_r;
@@ -123,7 +123,8 @@ var MapFeedItem = new Class({
 	 */
     makePreview: function() {
         this.img = new Element('img', {styles: {width: 'auto'},
-            src: this.makeImgSource()
+            src: this.makeImgSource(),
+			title: 'A Google map of your searched location, click to interact with'
         });
 
         return new Element('div', {

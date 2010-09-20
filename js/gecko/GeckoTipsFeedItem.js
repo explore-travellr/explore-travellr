@@ -79,7 +79,8 @@ var GeckoTipsFeedItem = new Class({
             new Element('h2').grab(new Element('a', {
                 href: this.post.url,
                 text: 'Gecko travel tip posted on:'+this.post.date,
-				target: '_blank'
+				target: '_blank',
+				title: 'Click to go to the origin of the travel tip'
             })),
             new Element('div', {
                 html: this.post.text

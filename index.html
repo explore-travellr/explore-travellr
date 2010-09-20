@@ -41,7 +41,6 @@
 		<script type="text/javascript" src="js/youtube/YoutubeFeedItem.js"></script>
         <script type="text/javascript" src="js/youtube/YoutubeFeed.js"></script>
 		<script type="text/javascript" src="js/MapFeedItem.js"></script>
-		
   
       <script type="text/javascript" charset="utf-8">
          window.addEvent('domready', function() {
@@ -96,8 +95,9 @@
              edge: 'left',
              duration: 95000
            }).start();
-
+		   
        });
+
        </script>
 	
         <!-- Primary dom-ready script -->
@@ -109,8 +109,9 @@
 
     </head>
 	<body>
+
         <div id="toolbar_wrapper">
-            <a href="index.html">
+            <a href="index.html" title="explore.travellr for inspiration">
               <h1 id="logo" class="left">
                 explore.travellr
               </h1>
@@ -119,25 +120,26 @@
             <div id="searchbar_wrapper" class="left">
                 <div id="searchBar">
                     <form id="searchForm" action="">
-                        <input type="text" id="searchField" name="search" />
-                        <input type="submit" name="explore!" value="" id="search_button" class="right" />
-                    </form>
+                        <input type="text" id="searchField" name="search" title="Enter a place and/or activity to search"/>
+                        <input type="submit" name="explore!" value="" id="search_button" class="right" title="Click to search the toggled feeds" />
+                    </form>	
                 </div>
             </div>
 			
             <div id="feed_button" class="left toolbar_button">
-                <a href="#">Filter Content</a>
+                <a href="#" title="Click on the feeds to toggle them off or on">Filter Content</a>
                 <div id="feed_dropdown" class="dropdown">
                     <div id="feedToggle"></div>
                 </div>
             </div>
 
             <div id="info_button" class="left toolbar_button">
-                <a href="http://www.cis.utas.edu.au/student-proj-sby/travellr/" target="_blank">About Us</a>		
+                <a href="http://www.cis.utas.edu.au/student-proj-sby/travellr/" target="_blank" title="Learn more about us">About Us</a>		
             </div>
 			
             <div id="favourites_button" class="right fav_button">
-                <a href="">Favourites</a>
+
+                <a href="" title="Click here to access your favourites folders">Favourites</a>
 
                 <div id="favourties_wrapper">
                     <div id="favourites_dropdown">
@@ -150,9 +152,7 @@
         </div>
 		
 		<div id="slogan">
-			<p>View a sample search <span id="sample_search"></span> or  <a href="http://www.cis.utas.edu.au/student-proj-sby/travellr/" target="_blank">learn more</a></p>
-
-
+			<p>View a sample search <span id="sample_search"></span> or  <a href="http://www.cis.utas.edu.au/student-proj-sby/travellr/" target="_blank" title="Learn more about us">learn more</a></p>
 		</div> 
 		
         <div id="container" class="container"></div>

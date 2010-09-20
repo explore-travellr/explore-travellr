@@ -89,6 +89,7 @@ var WorldNomadsFeed = new Class({
     *     response - object returned by the yahoo pipes call (parsing world nomads feeds)
     */
     makeFeedItems: function(results) {
+	
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {
             results.value.items.each(function(post) {
                 this.feedItems.push(new WorldNomadsFeedItem(post));

@@ -89,7 +89,8 @@ var WorldNomadsFeedItem = new Class({
         });
         if (this.post['adventures:image']) {
             wrapper.grab(new Element('img', {
-                'src': this.post['adventures:image'].medium
+                'src': this.post['adventures:image'].medium,
+				title: 'Click to view the "' + this.post.title + '" post'
             }));
         }
         wrapper.grab( new Element('p', {
@@ -114,7 +115,8 @@ var WorldNomadsFeedItem = new Class({
             new Element('h2').grab(new Element('a', {
                 href: this.post.link,
                 text: this.post.title,
-				target: '_blank'
+				target: '_blank',
+				title: 'Click to go to the origin of the "' + this.post.title + '" post'
             })),
 
             new Element('div', {

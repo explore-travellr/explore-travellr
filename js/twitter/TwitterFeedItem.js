@@ -62,10 +62,12 @@ var TwitterFeedItem = new Class({
 		}).adopt([
 			new Element('img',{
 				'class':'user_avatar',
-				'src': this.tweet.profile_image_url
+				'src': this.tweet.profile_image_url,
+				title: 'User: '+this.tweet.from_user
 			}),
 			new Element('div',{
-				'class':'tweetPreview'
+				'class':'tweetPreview',
+				title: 'A tweet from twitter.com, click to view in a larger window'
 			}).adopt([
 				new Element('p',{
 					text: this.tweet.text.truncateText(100) //Calls parent function
@@ -112,7 +114,8 @@ var TwitterFeedItem = new Class({
 				'class':'profile_image'
 			}).adopt([
 				new Element('img',{
-					'src': this.tweet.profile_image_url
+					'src': this.tweet.profile_image_url,
+					title: 'User: '+this.tweet.from_user
 				})
 			]),
 			new Element('div',{
@@ -121,9 +124,11 @@ var TwitterFeedItem = new Class({
 				new Element('a', {
 					'class' : 'user',
 					text: this.tweet.from_user,
-					href: this.tweet.url
+					href: this.tweet.url,
+					target: '_blank',
+					title: 'Click to go to the source of the tweet'
 				}),
-                                new Element('p', {
+                new Element('p', {
 					'class': 'date',
 					text: postTime
 				}),

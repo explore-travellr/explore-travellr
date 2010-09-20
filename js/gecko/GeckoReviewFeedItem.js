@@ -57,7 +57,8 @@ var GeckoReviewFeedItem = new Class({
      */
     makePreview: function() {
         return new Element('div', {
-            'class': 'geckoReview'
+            'class': 'geckoReview',
+			title: 'Click to read to review'
         }).adopt([
             new Element('p', {
                 text: this.post.name+' in '+this.post.country
@@ -79,7 +80,8 @@ var GeckoReviewFeedItem = new Class({
             new Element('h2').grab(new Element('a', {
                 href: this.post.url,
                 text: this.post.name,
-				target: '_blank'
+				target: '_blank',
+				title: 'Click to go to the origin of the "' + this.post.name + '" review'
             })),
             new Element('div', {
                 html: this.post.text

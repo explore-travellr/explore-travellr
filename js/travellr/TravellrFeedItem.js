@@ -63,7 +63,8 @@ var TravellrFeedItem = new Class({
      */
     makePreview: function() {
         return new Element('div', {
-            'class': 'travellr'
+            'class': 'travellr',
+			title: 'Click to view some answers to this question'
         }).adopt([
             new Element('p', {
                 text: this.question.subject.truncateText(100)
@@ -94,7 +95,8 @@ var TravellrFeedItem = new Class({
             new Element('h2').grab(new Element('a', {
                 text: this.question.subject,
                 href: this.question.url,
-				target: '_blank'
+				target: '_blank',
+				title: 'Click to go to the source on travellr.com'
             })),
             new Element('p').adopt(this.question.content.newlineToBr()),
             new Element('div', {'class': 'answers'}).adopt(answers),
