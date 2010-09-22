@@ -319,6 +319,7 @@ h1#logo{
 .addFavButton
 {
     -moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
     padding: 10px 0px 10px 15px;
     color: #3f6491;
     /*color: #3f6491; */
@@ -448,7 +449,6 @@ h1#logo{
 
 #progressBar div {
     background: #B5C4D6;
-   
 }
 
 
@@ -661,6 +661,8 @@ h1#logo{
     line-height: 16px;
     font-size: 16px;
     margin:10px 0 0 0;
+	position:relative;
+	height:25px;
 }
 
 .icons .icon {
@@ -683,7 +685,9 @@ h1#logo{
 	line-height:30px;
 	width:172px;
 	padding:0 27px 0 0;
-text-align:right;
+	text-align:right;
+	position:absolute;
+	right:26px;
 }
 
 .icons .scrapbook-add:hover {
@@ -698,6 +702,9 @@ text-align:right;
 
 .icons .open-new-icon {
     background: url('images/openNew.png') center 1px;
+	position:absolute;
+	right:0;
+	top:-1px;
 }
 
 .icons .open-new-icon:hover {
