@@ -146,7 +146,8 @@ Fx.Counter = new Class({
     },
     
     set: function(now){
-        this.element.set('text', 'Loading Results...');
+		
+        this.element.set('text', 'Loading...');
         return this;
     }
     

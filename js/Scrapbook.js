@@ -55,18 +55,29 @@ var Scrapbook = new Class({
         this.folderFx = new Fx.Slide(this.options.folderDropdown, this.options.folderFx).hide();
         
         // Hide the drop down on mouse leave, if its a good thing to do
-        this.options.folderDropdown.addEvent('mouseleave', (function() {
-            (function() {
-                if (!this.isVisible() && !this.dragging) {
-                    this.hideFolders();
-                }
-            }).delay(1000, this)
-        }).bind(this));
-        this.options.folderAdd.addEvent('click', (function() {
-            var name = prompt('Name of new folder');
-            if (name) {
-                this.addFolder(new Scrapbook.Folder(name, null, this));
-            }
+		var closingFolder = null;
+        this.options.folderDropdown.addEvents({
+			mouseleave: (function() {
+				closingFolder = (function() {
+					if (!this.isVisible() && !this.dragging && !this.addingFolder) {
+						this.hideFolders();
+					}
+				}).delay(1000, this);
+			}).bind(this),
+			mouseenter: function() {
+				closingFolder && $clear(closingFolder);
+				closingFolder = null;
+			}
+		});
+        this.options.folderAdd.addEvent('click', (function(event) {
+			event.stop();
+			var dialog = new MooDialog.Prompt('Name of new folder?', (function(ret){
+				if (ret) {
+					this.addFolder(new Scrapbook.Folder(ret, null, this));
+				}
+				this.addingFolder = false;
+			}).bind(this));
+			this.addingFolder = true;
         }).bind(this));
 
         this.getButton().addEvent('click', (function(event) {

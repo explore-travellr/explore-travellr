@@ -329,6 +329,7 @@ h1#logo{
     margin-top: 50px;
     background: #eee;
     background: -moz-linear-gradient(center top, #fff, #aaa);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#aaa));
     text-shadow: 0px 0px 1px #aaa;
 }
 .drop {
@@ -938,13 +939,19 @@ h1#logo{
     margin: 1em 0px;
     border:1px solid #CCCCCC;
     background:-moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
-	-moz-border-radius:3px 3px 3px 3px;
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF), to(#EFEFEF));
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
     text-align: center;
     cursor: pointer;
 	width: 200px;
 	margin: auto;
 	margin-top: 20px;
 	margin-bottom: 20px;
+}
+.show-more:hover {
+  -moz-box-shadow: 2px 2px 6px #333;
+  -webkit-box-shadow: 2px 2px 6px #333;
 }
 
 /*
@@ -980,5 +987,73 @@ h1#logo{
 #balloon{
   margin-top:300px;
   margin-left:200px;
+}
+
+/* Created by Arian Stolwijk <http://www.aryweb.nl> */
+
+.MooDialog {
+	background: #eef5f8;
+	color: black;
+	padding: 10px;
+	border-radius: 7px; 
+	-moz-border-radius: 7px; 
+	-webkit-border-radius: 7px; 
+	border-radius: 7px; 
+	-moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+}
+
+.MooDialogTitle {
+	padding-top: 30px;
+}
+
+.MooDialog .title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 3px 20px;
+	background: #b7c4dc;
+	border-bottom: 1px solid #a1aec5;
+	font-weight: bold; 
+	text-shadow: 1px 1px 0 #fff;
+	color: black;
+	border-radius: 7px; 
+	-moz-border-radius: 7px; 
+	-webkit-border-radius: 7px; 
+}
+
+.MooDialog .close {
+	background: url(images/dialog-close.png) no-repeat;
+	width: 16px;
+	height: 16px;
+	display: block;
+	cursor: pointer;
+	top: -5px;
+	left: -5px;
+	position: absolute;
+}
+
+.MooDialog .buttons {
+	text-align: right;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+}
+
+.MooDialog .MooDialogAlert, .MooDialog .MooDialogConfirm, .MooDialog .MooDialogPromt, .MooDialog .MooDialogError {
+	background: url(images/dialog-warning.png) no-repeat;
+	padding-left: 40px;
+	min-height: 40px;
+}
+
+.MooDialog .MooDialogConfirm, .MooDialog .MooDialogPromt {
+	background: url(images/dialog-question.png) no-repeat;
+}
+
+.MooDialog .MooDialogError {
+	background: url(images/dialog-error.png) no-repeat;
 }
 
