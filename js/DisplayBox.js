@@ -170,19 +170,27 @@ var DisplayBox = new Class({
     * Show the full content of the <FeedItem> in a modal dialog.
     */
     showContent: function() {
-
+		
         if (this.shown) {
             alert("Attempted to show twice");
             return;
         }
         this.shown = true;
-
+		
+		if (this.getFeedItem().contentLoaded) {
+			this.showModal(this.getFeedItem().getContent());
+		} else {
+			this.getFeedItem().addEvent('contentLoaded', (function() {
+				this.showModal(this.getFeedItem().getContent());
+			}).bind(this));
+		}
+	},
+	
+	showModal: function(content) {
         //make a modal dialog
         var modalMask = new Element('div', { 'class': 'modalMask' });
         var modalCloseButton = new Element('div', { 'class': 'close-button', text: 'Close' });
         var modal = new Element('div', { 'class': 'modal' });
-        var content = this.feedItem.getContent();
-        var preview = this.getPreview();
         var container = this.container.getElement();
         var contentWrapper = new Element('div', { 'class': 'content' });
 

@@ -49,6 +49,7 @@ var FlickrFeedItem = new Class({
      * this is loaded, and this variable toggled to true
      */
     previewLoaded: false,
+    contentLoaded: false,
 
     /**
      * Function: initialize
@@ -73,11 +74,13 @@ var FlickrFeedItem = new Class({
                 this.fireEvent('previewLoaded');
             }).bind(this)
         });
-        new Asset.images([this.photo.picUrlContent], {onComplete: (function() {
-            this.contentLoaded = true;
-            this.fireEvent('contentLoaded');
-        }).bind(this)});
-
+		
+		new Asset.images([this.photo.picUrlContent], {onComplete: (function() {
+			this.contentLoaded = true;
+			this.fireEvent('contentLoaded');
+			console.log("Flickr image is loaded", this);
+		}).bind(this)}); 
+		
         this.size = {
             x: 2
         };
@@ -109,19 +112,19 @@ var FlickrFeedItem = new Class({
      *     A <MooTools::Element> with the contents of this <FlickrFeedItem>
      */
     makeContent: function() {
-        return new Element('div', {'class': 'flickr'}).adopt([
-            new Element('h2').grab(new Element('a', {
-                text: this.photo.title,
-                href: this.url,
+		return new Element('div', {'class': 'flickr'}).adopt([
+			new Element('h2').grab(new Element('a', {
+				text: this.photo.title,
+				href: this.url,
 				target: '_blank'
-            })),
-            new Element('a', {
+			})),
+			new Element('a', {
 					href: this.url,
 					target: '_blank'
 				}).grab(new Element('img', {
 					src: this.photo.picUrlContent
-            }))
-        ]);
+			}))
+		]);
     },
     
     /**
