@@ -261,6 +261,9 @@ var Scrapbook = new Class({
     },
 
     getDisplayBoxButtons: function(options) {
+        if (!options.feedItem.canScrapbook()) {
+          return [];
+        }
         folder = (this.isVisible() ? this.visibleFolder : this.getFolders()[0]);
         hasFeedItem = folder.hasItem(options.feedItem);
 
