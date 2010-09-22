@@ -47,13 +47,14 @@ var SearchBox = new Class({
         
         this.form = this.element.getParent('form');
         
-        this.form.addEvent('submit', (function(event) { 
-		   
-			$$('#slogan').fade('out');	
-            event.stop();
-
-			      this.search(this.element.get('value'));
-        }).bind(this));
+		if(this.element.get('value') != "") {
+			this.form.addEvent('submit', (function(event) { 
+			   
+				$$('#slogan').fade('out');	
+				event.stop();
+				this.search(this.element.get('value'));
+			}).bind(this));
+		}
     },
 
     /**
@@ -72,7 +73,7 @@ var SearchBox = new Class({
         location.hash = searchString;
         this.searchFilter = new SearchFilter(searchString);
         this.searchFilter.addEvent('ready', (function() {
-        this.fireEvent('search', [this.searchFilter]);
+			this.fireEvent('search', [this.searchFilter]);
         }).bind(this));
      }  
 });

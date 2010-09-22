@@ -132,8 +132,6 @@ window.addEvent('domready', function() {
         alert("Your browser, Opera, is not currently supported by our application. Please use Firefox, Chrome of Safari.");
     }
 
-
-
     // Initialize the main classes
     var searchBox = new SearchBox('searchField');
 
@@ -157,7 +155,8 @@ window.addEvent('domready', function() {
     });
 
     var feedToggle = new FeedToggle('feedToggle');
-
+	
+	// Adds the map to the container
 	var mapDisplayBox = new DisplayBox(new MapFeedItem(searchBox));
 	container.addDisplayBox(mapDisplayBox);
 	
@@ -179,7 +178,7 @@ window.addEvent('domready', function() {
 
         // Search for the string
         $('searchField').set('value', searchString);
-        searchBox.search(searchString);
+		searchBox.search(searchString);
     }
     
     //Slogan - adds "Skiing in Japan" to the search field and starts searching

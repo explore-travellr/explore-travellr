@@ -64,6 +64,7 @@ var TravellrFeed = new Class({
         // If there is nothing to search for...
         if (!(this.searchFilter.location || this.searchFilter.tags.length !== 0)) {
             this.moreFeedItems = false;
+			this.addAskBox();
             this.feedItemsReady();
             return;
         }

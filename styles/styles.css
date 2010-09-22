@@ -917,17 +917,21 @@ h1#logo{
 }
 
 /*
-* Show all button
+* Show more button
 */
 .show-more {
     padding: 1em;
     margin: 1em 0px;
-    border: 1px solid black;
-    background: #ddd;
+    border:1px solid #CCCCCC;
+    background:-moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
+	-moz-border-radius:3px 3px 3px 3px;
     text-align: center;
     cursor: pointer;
+	width: 200px;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
-
 
 /*
 * moving objects on index
