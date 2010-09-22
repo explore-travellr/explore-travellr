@@ -142,7 +142,10 @@ var Container = new Class({
 
                 //fades out the tooltip
                 $('slogan').fade('out');
-				$('animation').destroy();
+				
+				var animation = $('animation');
+				if(animation)
+					$('animation').destroy();
 
                 this.feedsWithContent = [];
 

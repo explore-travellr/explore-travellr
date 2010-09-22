@@ -100,8 +100,8 @@ var GeckoFeed = new Class({
     makeFeedItems: function(results) {
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {
             results.value.items.each(function(post) {
-                // GeckoGo Review or GeckoGo Tips
-                this.feedItems.push(post.id ? new GeckoReviewFeedItem(post) : new GeckoTipsFeedItem(post));
+                if(post.text)
+					this.feedItems.push(post.id ? new GeckoReviewFeedItem(post) : new GeckoTipsFeedItem(post));
             }, this);
             this.moreFeedItems = results.value.items.length >= this.perPage;
         } else {

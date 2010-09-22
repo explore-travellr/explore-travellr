@@ -269,13 +269,15 @@ var Scrapbook = new Class({
             scrapbook.addClass('scrapbook-open');
         }
 
-        var addText = "Add to scrapbook";
-        var removeText = "Remove from scrapbook";
+        var addText = "add to favourites";
+        var removeText = "removed from favourites";
+		var addedText = "item in favourites";
+		
         if (!hasFeedItem) {
             scrapbook.set({text: addText, title: addText});
             scrapbook.addClass('scrapbook-add');
         } else {
-            scrapbook.set({text: removeText, title: removeText});
+            scrapbook.set({text: addedText, title: removeText});
             scrapbook.addClass('scrapbook-remove');
         }
         scrapbook.addEvent('click', (function() {
@@ -288,7 +290,7 @@ var Scrapbook = new Class({
                 folder.addItem(options.feedItem);
                 scrapbook.removeClass('scrapbook-add');
                 scrapbook.addClass('scrapbook-remove');
-                scrapbook.set({text: addText, title: addText});
+                scrapbook.set({text: addedText, title: addedText});
             }
             hasFeedItem = !hasFeedItem;
         }).bind(this));

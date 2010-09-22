@@ -669,24 +669,31 @@ h1#logo{
     height: 26px;
     line-height: 26px;
     overflow: hidden;
-    text-indent: -999999px;
+    /*text-indent: -999999px;*/
     vertical-align: middle;
     cursor: pointer;
     margin:0 0 0 10px;
 }
 
 .icons .scrapbook-icon {
-    background: url('images/favButton.png') top center;
+    background: url('images/favButton.png') top right no-repeat;
+	width:150px;
+	color:#4870A0;
+	font-size:11px;
+	line-height:30px;
+	width:172px;
+	padding:0 27px 0 0;
+text-align:right;
 }
 
 .icons .scrapbook-add:hover {
-    background-position: center -26px;
+    background-position: right -26px;
 }
 .icons .scrapbook-remove {
-    background-position: center -52px;
+    background-position: right -52px;
 }
 .icons .scrapbook-remove:hover {
-    background-position: center -52px;
+    background-position: right -52px;
 }
 
 .icons .open-new-icon {
