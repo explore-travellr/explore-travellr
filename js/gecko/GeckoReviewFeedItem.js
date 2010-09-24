@@ -74,6 +74,7 @@ var GeckoReviewFeedItem = new Class({
      *     A <MooTools::Element> with the content of this <GeckoReviewFeedItem>
      */
     makeContent: function() {
+        this.url = this.post.url;
         return new Element('div', {
             'class': 'GeckoReview'
         }).adopt([

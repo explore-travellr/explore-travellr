@@ -18,6 +18,7 @@ Dependencies:
 var MapFeedItem = new Class({
 
     Extends: FeedItem,
+    //Implements: [Options, Events],
 	
     /**
      * Variable: name
@@ -48,8 +49,12 @@ var MapFeedItem = new Class({
      *     searchBox - to add an event to searchbox to find map
      */
     initialize: function(searchBox) {
+                //editted by nat and clare
+                //maps/api/staticmap?'+ 'center=' + lat + ',' + lng + '&zoom=' + zoom + '&sensor=false&size=' + width + 'x' + height + '&maptype=terrain
+                //this.url needs to be modified to add location lat and long parameters based off search by user
+                this.url = "http://maps.google.com";
 
-		this.size = { x: 4 };
+                this.size = { x: 4 };
 		
 		searchBox.addEvent('search', (function(searchFilter) {
 		

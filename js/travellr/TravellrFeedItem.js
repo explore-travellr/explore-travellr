@@ -80,6 +80,7 @@ var TravellrFeedItem = new Class({
      *     A <MooTools::Element> with the content of this <TravellrFeedItem>
      */
     makeContent: function() {
+        this.url = this.question.url;
         var answers = [
             new Element('h3', {text: 'Answers'})
         ];

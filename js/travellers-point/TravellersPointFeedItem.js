@@ -103,6 +103,7 @@ var TravellersPointFeedItem = new Class({
      *     A <MooTools::Element> with the content of this <TravellersPointFeedItem>
      */
     makeContent: function() {
+        this.url = this.post.link;
         return new Element('div', {
             'class': 'TravellersPoint'
         }).adopt([

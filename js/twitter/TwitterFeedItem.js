@@ -84,6 +84,7 @@ var TwitterFeedItem = new Class({
      *     A <MooTools::Element> containing the tweet data
      */
     makeContent: function() {
+                this.url = this.tweet.url;
 		var postTime = Date.parse(this.tweet.created_at).toString();
 			
 		function prettyDate(time){

@@ -57,7 +57,8 @@ var WorldNomadsFeedItem = new Class({
      *      feedObject - The object is associative array of keys related to the feedObject passed in
      */
     initialize: function(feedObject, options) {
-		this.setOptions(options);
+               
+               this.setOptions(options);     
         this.post = feedObject;
 
         this.size = {
@@ -107,6 +108,7 @@ var WorldNomadsFeedItem = new Class({
      *     A <MooTools::Element> with the content of this <WorldNomadsFeedItem>
      */
     makeContent: function() {
+        this.url = this.post.link;
         var output = this.post.description;
         output.replace("<br>","</p>");
         return new Element('div', {
