@@ -106,12 +106,14 @@ var TravellrFeed = new Class({
     makeFeedItems: function(response) {
 
         this.response = response;
-
-        response.each(function(questionData) {
-            var feedItem = new TravellrFeedItem(questionData);
-            this.feedItems.push(feedItem);
-        }, this);
-
+		
+		response.each(function(questionData) {
+			if(questionData.answer_count != 0) {
+				var feedItem = new TravellrFeedItem(questionData);
+				this.feedItems.push(feedItem);
+			}
+		}, this);
+		
         this.addAskBox();
 
         this.moreFeedItems = (response.length >= this.perPage);

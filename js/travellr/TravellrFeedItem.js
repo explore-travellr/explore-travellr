@@ -36,7 +36,19 @@ var TravellrFeedItem = new Class({
      * The name of this <FeedItem>, used in the GUI
      */
     name: 'TravellrFeedItem',
-
+	
+    /**
+     * Variable: MAX_ANSWERS
+     * Maximum answers allowed to be show on content
+     */	
+	MAX_ANSWERS: 3,
+	
+    /**
+     * Variable: answerCount
+     * Number of answers attached to the question
+     */	
+	answerCount: null,	
+	
     /**
      * Consructor: initialize
      * Sets the parameter to a instance variable then sets the safe subject and
@@ -48,6 +60,7 @@ var TravellrFeedItem = new Class({
     initialize: function(feedObject) {
         
         this.question = feedObject;
+		this.answerCount = this.question.answer_count;
         this.question.safe_subject = this.question.subject.toLowerCase().replace(/[^a-z0-9]*/, '-').replace(/^-|-$/, '');
         this.question.url = 'http://travellr.com/questions/place/' + this.question.id + '/' + this.question.safe_subject;
 
@@ -84,10 +97,11 @@ var TravellrFeedItem = new Class({
         var answers = [
             new Element('h3', {text: 'Answers'})
         ];
+
         this.question.answers.each(function(answer) {
-            answers.push(new Element('div', {'class': 'answer'}).adopt([
-                new Element('p', {text: answer.content})
-            ]));
+			answers.push(new Element('div', {'class': 'answer'}).adopt([
+				new Element('p', {text: answer.content})
+			]));
         });
 
         return new Element('div', {

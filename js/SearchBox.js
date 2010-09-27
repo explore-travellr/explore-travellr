@@ -46,15 +46,12 @@ var SearchBox = new Class({
         this.element = $(element);
         
         this.form = this.element.getParent('form');
-        
-		if(this.element.get('value') != "") {
-			this.form.addEvent('submit', (function(event) { 
-			   
-				$$('#slogan').fade('out');	
-				event.stop();
-				this.search(this.element.get('value'));
-			}).bind(this));
-		}
+
+        this.form.addEvent('submit', (function(event) {
+                $$('#slogan').fade('out');
+                event.stop();
+                this.search(this.element.get('value'));
+        }).bind(this));
     },
 
     /**
@@ -68,7 +65,12 @@ var SearchBox = new Class({
      *     searchString - {String} The string to search for.
      */
 
-    search: function(searchString) {  
+    search: function(searchString) {
+	
+        if (!searchString) {
+            return;
+        }
+        
         $('favourites_text').fade('in');
         location.hash = searchString;
         this.searchFilter = new SearchFilter(searchString);
