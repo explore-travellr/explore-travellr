@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <meta charset="utf-8">
+        <title>explore.travellr</title>
+
+        <!-- Load the mootools library from google, if unavailable default to local -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.3/mootools-yui-compressed.js"></script>
+		<script>!window.MooTools && document.write('<script type="text/javascript" src="js/mootools.js"><\/script>')</script>
+        <script type="text/javascript" src="js/mootools-more.js"></script>
+        <style type="text/css">
+.drag, .drop {
+    border: 1px solid black;
+    width: 100px;
+    heigth: 100px;
+    padding: 50px;
+    position: relative;
+    display: block;
+    margin: 0px;
+    left: 0px;
+    top: 0px;
+}
+.drag .handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: 5px;
+    top: 5px;
+    border: 1px inset green;
+    background-color: white;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+}
+.drag { background-color: green; z-index: 2; }
+.drop { background-color: red; z-index: 1; }
+.dragged {
+    z-index: 10000;
+    position: relative;
+    display: block;
+}
+        </style>
+        <script type="text/javascript">
+this.draggables = [];
+var _addDraggable = function(drag, droppables) {
+    this.draggables.push(new Drag.Move(drag.draggable, $extend(drag.options, {
+
+        droppables: droppables,
+        preventDefault: true,
+        stopPropagation: true,
+
+        onStart: (function(draggable) {
+            drag.draggable.addClass('dragged');
+        }).bindWithEvent(this),
+        
+        onEnter: function(draggable, droppable) {
+        },
+        onLeave: function(draggable, droppable) {
+        },
+
+        onDrop: (function(draggable, droppable, event) {
+            if (event) {
+                event.stop();
+            }
+            
+            if (droppable) {
+                droppable.highlight();
+            }
+            
+            new Fx.Morph(draggable).start({left:0, top:0}).chain(function() {
+                draggable.removeClass('dragged');
+            });
+            
+        }).bindWithEvent(this)
+
+    })));
+}
+var Foo = new Class({
+    element: null,
+    initialize: function(element) {
+        this.element = element;
+    },
+    toElement: function() {
+        if (!this.element) {
+            this.element = new Element('div', {'class': 'drop', text: 'Drop here!'});
+            $(document.body).grab(this.element);
+        }
+        return this.element;
+    }
+});
+window.addEvent('domready', function() {
+    var drag = $('drag');
+
+    var foos = [];
+    (5).times(function(el) {
+        foos.push(new Foo());
+    });
+
+    var droppables = foos.map(function(foo) {
+        return foo.toElement();
+    });
+
+    drag.addEvent('click', function(event) {
+        alert("Showing things");
+    })
+
+    _addDraggable({
+        draggable: drag,
+        options: {
+            handle: drag.getElement('.handle'),
+        }
+    }, $$('.drop'));
+
+});
+        </script>
+    </head>
+    <body>
+        <div class="drag" id="drag"><div class="handle"></div>Drag me!</div>
+    </body>
+</html>

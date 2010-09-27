@@ -73,10 +73,11 @@ var SearchBox = new Class({
         
         $('favourites_text').fade('in');
         location.hash = searchString;
-        this.searchFilter = new SearchFilter(searchString);
-        this.searchFilter.addEvent('ready', (function() {
-			this.fireEvent('search', [this.searchFilter]);
-        }).bind(this));
+        this.searchFilter = new SearchFilter(searchString, {
+            onReady: (function() {
+                this.fireEvent('search', [this.searchFilter]);
+            }).bind(this)
+        });
      }  
 });
 

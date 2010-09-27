@@ -14,7 +14,7 @@ Dependencies:
 */
 
 var SearchFilter = new Class({
-    Implements: Events,
+    Implements: [Events, Options],
     /**
      * Event: searchReady
      * Fired when the data has been retrieved from Travellr
@@ -52,7 +52,8 @@ var SearchFilter = new Class({
      * Parameters:
      *     searchString - {String} The search string to gather data about
      */
-    initialize: function(searchString) {
+    initialize: function(searchString, options) {
+        this.setOptions(options);
         this.searchString = searchString;
 
         // Send off the search
