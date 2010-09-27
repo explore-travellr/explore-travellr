@@ -473,6 +473,8 @@ h1#logo{
   -webkit-box-shadow: 1px 1px 6px #999;
   padding:5px;
   background:#fff;
+  position: relative;
+  display: block;
 }
 
 .displayBox .inner:hover {
@@ -480,8 +482,10 @@ h1#logo{
   -webkit-box-shadow: 2px 2px 6px #333;
 }
 
-.displayBox .inner.dragged {
+.displayBox .dragged {
   z-index: 10000;
+  position: relative;
+  display: block;
 }
 
 .displayBox .handle {

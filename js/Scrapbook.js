@@ -160,6 +160,7 @@ var Scrapbook = new Class({
 
     _addDraggable: function(drag, droppables) {
         this.draggables.push(new Drag.Move(drag.draggable, $extend(drag.options, {
+
             droppables: droppables,
             preventDefault: true,
             stopPropagation: true,
@@ -167,7 +168,7 @@ var Scrapbook = new Class({
             onStart: (function(draggable) {
                 this.showFolders();
                 this.dragging = true;
-                draggable.addClass('dragged');
+                drag.draggable.addClass('dragged');
             }).bindWithEvent(this),
             
             onEnter: function(draggable, droppable) {
