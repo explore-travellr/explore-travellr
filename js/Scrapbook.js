@@ -38,7 +38,7 @@ var Scrapbook = new Class({
                 try {
                     var folders = JSON.decode(data);
                     folders.each(function(folder) {
-                        this.addFolder(Serializable.unserialize(folder, [null, this]));
+                        this.addFolder(Serializable.unserialize(folder, [{scrapbook: this}]));
                     }, this);
                 } catch (err) {
                     this.folders = null;
@@ -48,7 +48,7 @@ var Scrapbook = new Class({
             // If nothing was loaded, make a default thing
             if (this.folders === null || this.folders.length === 0) {
                 this.folders = [];
-                this.addFolder(new Scrapbook.Folder("Favorites", null, this));
+                this.addFolder(new Scrapbook.Folder({title: "Favorites", scrapbook: this, canDelete: false}));
             }
         }).bind(this));
 
@@ -73,7 +73,7 @@ var Scrapbook = new Class({
 			event.stop();
 			var dialog = new MooDialog.Prompt('Name of new folder?', (function(ret){
 				if (ret) {
-					this.addFolder(new Scrapbook.Folder(ret, null, this));
+					this.addFolder(new Scrapbook.Folder({title: ret, scrapbook: this}));
 				}
 				this.addingFolder = false;
 			}).bind(this));
@@ -119,7 +119,7 @@ var Scrapbook = new Class({
             this.save();
         }).bind(this));
 
-        folder.toElement().addEvent('click', (function(event) {
+        $(folder).addEvent('click', (function(event) {
             event.stopPropagation();
             this.show(folder);
         }).bind(this));
@@ -129,8 +129,11 @@ var Scrapbook = new Class({
     },
 
     removeFolder: function(folder) {
-        this.folders.erase(folder);
-        this.options.folderWrapper.removeChild(folder);
+        if (folder != this.folders[0]) {
+            this.folders.erase(folder);
+            this.options.folderWrapper.removeChild($(folder));
+        }
+        this.save();
     },
 
     getFolders: function() {
@@ -150,7 +153,7 @@ var Scrapbook = new Class({
 
     addDraggable: function(draggable, options, feedItem) {
         var droppables = this.getFolders().map(function(folder) {
-            return folder.toElement();
+            return $(folder);
         });
 
         var drag = {draggable: draggable, options: options, feedItem: feedItem};
@@ -215,7 +218,7 @@ var Scrapbook = new Class({
      */
     updateDraggables: function() {
         var droppables = this.getFolders().map(function(folder) {
-            return folder.toElement();
+            return $(folder);
         });
         this.draggables.each(function(d) {
             d.detach();
@@ -247,13 +250,12 @@ var Scrapbook = new Class({
 
     show: function(folder) {
         if (this.isVisible()) {
-            this.visibleFolder.toElement().removeClass('activeFolder');
+            this.visibleFolder.hide();
         }
         this.container.show();
         
         folder = (folder || this.folders[0]);
-        folder.view(this.container);
-        folder.toElement().addClass('activeFolder');
+        folder.show(this.container);
 
         this.visible = true;
         this.visibleFolder = folder;
@@ -265,7 +267,7 @@ var Scrapbook = new Class({
     hide: function() {
         this.container.hide();
         if (this.isVisible()) {
-            this.visibleFolder.toElement().removeClass('activeFolder');
+            $(this.visibleFolder).removeClass('activeFolder');
         }
         this.visible = false;
         this.getButton().removeClass('active');
@@ -320,7 +322,7 @@ Scrapbook.Folder = new Class({
     Serializable: 'Scrapbook.Folder',
 
     parent: null,
-    name: null,
+    title: null,
     items: null,
 
     /**
@@ -336,6 +338,21 @@ Scrapbook.Folder = new Class({
     dirty: false,
 
     /**
+     * Variable: shown
+     * A boolean, representing if this folder is currently visible
+     */
+    shown: false,
+
+    /**
+     * Variable: options
+     * Contains default options for folders
+     */
+    options: {
+        title: 'unnamed folder',
+        canDelete: true
+    },
+
+    /**
      * Constructor: initialize
      * Creates a new folder.
      *
@@ -344,35 +361,66 @@ Scrapbook.Folder = new Class({
      *     parent - The parent folder
      *     scrapbook - The scrapbook that manages this heirachy
      */
-    initialize: function(name, parent, scrapbook) {
-        this.name = name;
-        this.parent = parent;
-        this.scrapbook = scrapbook;
+    initialize: function(options) {
+        this.parent = options.parent;
+        this.scrapbook = options.scrapbook;
+        delete options.parent;
+        delete options.scrapbook;
+
+        this.setOptions(options);
+
+        this.title = options.title;
+
         this.displayBox = new Scrapbook.Folder.DisplayBox(this);
         this.items = [];
     },
 
-    view: function(container) {
+    /**
+     * Function: show
+     * Show the folder and its contents in the <Container>
+     *
+     * Parameters:
+     *      container - The <Container> to show the folder in
+     */
+    show: function(container) {
         this.container = container;
         this.container.removeAllDisplayBoxes();
+        this.shown = true;
+        $(this).addClass('activeFolder');
         this.getItems().each(function(item) {
             container.addDisplayBox(new DisplayBox(item, this.scrapbook));
         }, this);
     }, 
 
+    /**
+     * Function: hide
+     * Called when the folder is hidden
+     */
+    hide: function() {
+        $(this).removeClass('activeFolder');
+        this.shown = true;
+    },
+
     toElement: function() {
         if (!this.element) {
             this.element = new Element('div', {
                 'class': 'folder',
-                text: this.getName()
+                text: this.getTitle()
             });
+            if (this.options.canDelete) {
+                var del = new Element('div', {
+                    'class': 'delete',
+                    title: 'Delete ' + this.title
+                });
+                del.addEvent('click', (function(event) {
+                    event.stop();
+                    this.scrapbook.removeFolder(this);
+                }).bind(this));
+                this.element.grab(del);
+            }
             this.element.store('Scrapbook.Folder', this);
         }
         return this.element;
-    },
-
-    toDisplayBox: function() {
-        return this.displayBox;
     },
 
     /**
@@ -396,12 +444,15 @@ Scrapbook.Folder = new Class({
     addItem: function(item) {
         item = item.clone();
         if (!this.hasItem(item)) {
+            if (this.shown) {
+                this.container.addDisplayBox(new DisplayBox(item, this.scrapbook));
+            }
             // Listen for a change on the item
             item.addEvent('dirty', (function() {
                 this.setDirty(true);
             }).bind(this));
 
-            this.toElement().addClass('fullFolder');
+            $(this).addClass('fullFolder');
 
             // Add the item
             this.items.push(item);
@@ -418,15 +469,20 @@ Scrapbook.Folder = new Class({
      */
     removeItem: function(item) {
         var i = this.items.length - 1,
-            serialized = JSON.encode(Serializable.serialize(item));
+            serialized = JSON.encode(Serializable.serialize(item)),
+            removed = [];
         for (; i >= 0; --i) {
             if (JSON.encode(Serializable.serialize(this.items[i])) == serialized) {
+                if (this.shown) {
+                    this.container.removeDisplayBox(this.items[i].getDisplayBox());
+                    this.container.getElement().masonry({appendContent: []});
+                }
                 delete this.items[i];
             }
         }
         this.items = this.items.clean();
         if (!this.items.length) {
-            this.toElement().removeClass('fullFolder');
+            $(this).removeClass('fullFolder');
         }
         this.setDirty(true);
     },
@@ -455,22 +511,23 @@ Scrapbook.Folder = new Class({
     setDirty: function(dirty) {
         var fire = !this.dirty && dirty;
         this.dirty = dirty;
+
         if (fire) {
             this.fireEvent('dirty');
         }
     },
 
-    getName: function() {
-        return this.name;
+    getTitle: function() {
+        return this.title;
     },
 
-    setName: function(name) {
-        this.name = name;
+    setTitle: function(title) {
+        this.title = title;
         this.setDirty(true);
     },
 
     getPath: function() {
-        return this.parent.getPath() + '.' + this.getName();
+        return this.parent.getPath() + '.' + this.getTitle();
     },
 
     /**
@@ -478,7 +535,6 @@ Scrapbook.Folder = new Class({
      */
     serialize: function() {
         if (this.getDirty() || !this.serialized) {
-            var name = this.getName();
             var serializedItems = [];
 
             this.items.each(function(item) {
@@ -486,7 +542,10 @@ Scrapbook.Folder = new Class({
             });
 
             this.serialized = {
-                name: name,
+                options: {
+                    title: this.getTitle(),
+                    canDelete: this.options.canDelete
+                },
                 items: serializedItems
             };
             this.setDirty(false);
@@ -507,8 +566,13 @@ Scrapbook.Folder = new Class({
  * Returns:
  *      A <Scrapbook.Folder>, identical to the one that was serialized initially.
  */
-Scrapbook.Folder.unserialize = function(data, parent, scrapbook) {
-    var folder = new Scrapbook.Folder(data.name, parent, scrapbook);
+Scrapbook.Folder.unserialize = function(data, options) {
+    if (!data.options) {
+        throw new Error("Old scrapbook contents");
+    }
+    options = $H(data.options).extend(options);
+
+    var folder = new Scrapbook.Folder(options);
     (data.items || []).each(function(item) {
         folder.addItem(Serializable.unserialize(item));
     });
@@ -527,7 +591,7 @@ Scrapbook.Folder.DisplayBox = new Class({
         if (!this.preview) {
 
             var wrapper = new Element('div', {
-                text: this.folder.getName(),
+                text: this.folder.getTitle(),
                 styles: {
                     width: 50
                 },

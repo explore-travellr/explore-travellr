@@ -297,6 +297,7 @@ h1#logo{
     text-align: center;
     cursor: pointer;
     background: url('images/favFolder_sprite.png') no-repeat top left;
+    position: relative;
 }
 
 #favourites_dropdown .folderOpen, #favourites_dropdown .folder:hover {
@@ -316,8 +317,18 @@ h1#logo{
 #favourites_dropdown .fullFolder:hover {
 
 }
-.addFavButton
-{
+#favourites_dropdown .folder .delete {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 29px;
+    height: 29px;
+    background: url('images/closeButton.png') no-repeat top left;
+}
+#favourites_dropdown .folder .delete:hover {
+    background-position: bottom center;
+}
+.addFavButton {
     -moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
     padding: 10px 0px 10px 15px;
@@ -397,8 +408,7 @@ h1#logo{
   margin:50px 0 0 0;
 }
 .container#scrapbook {
-  margin-top: 200px;
-  background: #eeffee;
+  margin-top: 125px;
 }
 
 /*
@@ -693,8 +703,7 @@ h1#logo{
 	position:absolute;
 	right:26px;
 }
-
-.icons .scrapbook-add:hover {
+.icons .scrapbook-icon:hover {
     background-position: right -26px;
 }
 .icons .scrapbook-remove {
@@ -702,6 +711,12 @@ h1#logo{
 }
 .icons .scrapbook-remove:hover {
     background-position: right -52px;
+}
+.icons .scrapbook-open.scrapbook-remove {
+    background: url('images/deleteButton.png') top right no-repeat;
+}
+.icons .scrapbook-open.scrapbook-remove:hover {
+    background-position: right -26px;
 }
 
 .icons .open-new-icon {
@@ -732,7 +747,7 @@ h1#logo{
 
 .modal .close-button{
     -moz-border-radius:15px ; -webkit-border-radius:15px ;
-    background:url("images/closebox.png") no-repeat top right;
+    background:url("images/closeButton.png") no-repeat top right;
     cursor:pointer;
     height:29px;
     width:29px;
