@@ -160,6 +160,7 @@ var Container = new Class({
 
                 this.numScreens = 2;
                 this.showMore && this.showMore.destroy();
+                this.showMore = null;
 
                 this.getNextFeedItems(true);
 
@@ -175,6 +176,7 @@ var Container = new Class({
         if (this.progressBar) {
             this.progressBar.setPercentage(this.loadedFeeds * 100 / this.numberOfFeeds);
         }
+
 
         if (this.loadedFeeds == this.numberOfFeeds) {
             //hide loading bar
@@ -195,7 +197,7 @@ var Container = new Class({
     getNextFeedItems: function(firstRound) {
 
         if (!this.showMore && (firstRound || this.loaded)) {
-            if (window.getScrollSize().y > window.getSize().y * this.numScreens) {
+            if (!firstRound && window.getScrollSize().y > window.getSize().y * this.numScreens) {
                 this.showMore = new Element('div', {
                     'class': 'show-more',
                     text: 'Show more results',
