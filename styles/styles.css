@@ -467,7 +467,6 @@ h1#logo{
   font-family: Arial;
   font-size: 0.8em;
   cursor: pointer;
-  overflow: hidden;
   word-wrap: break-word;
   -moz-box-shadow: 1px 1px 6px #999;
   -webkit-box-shadow: 1px 1px 6px #999;

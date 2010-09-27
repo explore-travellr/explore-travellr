@@ -98,11 +98,12 @@ var TravellrFeedItem = new Class({
             new Element('h3', {text: 'Answers'})
         ];
 
-        this.question.answers.each(function(answer) {
-			answers.push(new Element('div', {'class': 'answer'}).adopt([
-				new Element('p', {text: answer.content})
+		var i, l = Math.min(3, this.answerCount);
+		for(i = 0; i < l; ++i) {
+        	answers.push(new Element('div', {'class': 'answer'}).adopt([
+				new Element('p', {text: this.question.answers[i].content})
 			]));
-        });
+        }
 
         return new Element('div', {
             'class': 'travellr'
