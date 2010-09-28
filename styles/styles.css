@@ -981,6 +981,29 @@ h1#logo{
   -webkit-box-shadow: 2px 2px 6px #333;
 }
 
+#back-to-results {
+    padding: 1em;
+    margin: 1em 0px;
+    border:1px solid #CCCCCC;
+    background:-moz-linear-gradient(center top , #FFFFFF, #EFEFEF) repeat scroll 0 0 #F6F6F6;
+	background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFF), to(#EFEFEF));
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+    text-align: center;
+    cursor: pointer;
+	width: 200px;
+	margin:20px auto;
+}
+ 
+ .invisible{
+	display:none;
+ }
+
+.back-to-results:hover {
+  -moz-box-shadow: 2px 2px 6px #333;
+  -webkit-box-shadow: 2px 2px 6px #333;
+}
+
 /*
 * moving objects on index
 */

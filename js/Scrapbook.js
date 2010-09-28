@@ -91,6 +91,13 @@ var Scrapbook = new Class({
                 this.showFolders();
             }
         }).bind(this));
+		
+		$('back-to-results').addEvent('click', (function(event){
+			this.hide();
+			this.hideFolders();
+			$('back-to-results').addClass('invisible');
+		}).bind(this));
+		
     },
 
     addItem: function() {
@@ -398,6 +405,7 @@ Scrapbook.Folder = new Class({
         this.container.removeAllDisplayBoxes();
         this.shown = true;
         $(this).addClass('activeFolder');
+		$('back-to-results').removeClass('invisible');
         this.getItems().each(function(item) {
             container.addDisplayBox(new DisplayBox(item, this.scrapbook));
         }, this);
