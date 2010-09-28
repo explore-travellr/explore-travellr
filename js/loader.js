@@ -143,7 +143,6 @@ window.addEvent('domready', function() {
     });
 
     var container = new Container('container', searchBox, scrapbook);
-	container.hide();
 
     scrapbook.addEvents({
         onShown: (function() {
@@ -155,13 +154,9 @@ window.addEvent('domready', function() {
     });
 
     var feedToggle = new FeedToggle('feedToggle');
-	
-	// Adds the map to the container
-	var mapDisplayBox = new DisplayBox(new MapFeedItem(searchBox));
-	container.addDisplayBox(mapDisplayBox);
-	
-	// Initialize the feed classes	
-	// Add a feed to the list to automatically set it up.
+    
+    // Initialize the feed classes    
+    // Add a feed to the list to automatically set it up.
     var feeds = [FlickrFeed, TwitterFeed, GeckoFeed, TravellersPointFeed, TravellrFeed, WorldNomadsFeed, YoutubeFeed];
 
     feeds.each(function(AFeedClass) {
@@ -178,31 +173,31 @@ window.addEvent('domready', function() {
 
         // Search for the string
         $('searchField').set('value', searchString);
-		searchBox.search(searchString);
+        searchBox.search(searchString);
     }
     
     //Slogan - adds "Skiing in Japan" to the search field and starts searching
-	
-	var sampleSearches = [
-		'Skiing in Japan',
-		'Hiking in Switzerland',
-		'Festivals in Germany',
-		'Surfing in Sydney',
-		'New York City',
-		'Restaurants in Paris'
-		];
-		
-	var arrayLength = sampleSearches.length;
-	var searchNumber = Math.floor(Math.random()*arrayLength);
+    
+    var sampleSearches = [
+        'Skiing in Japan',
+        'Hiking in Switzerland',
+        'Festivals in Germany',
+        'Surfing in Sydney',
+        'New York City',
+        'Restaurants in Paris'
+        ];
+        
+    var arrayLength = sampleSearches.length;
+    var searchNumber = Math.floor(Math.random()*arrayLength);
 
-	$$('#sample_search').adopt([
+    $$('#sample_search').adopt([
             new Element('a').grab(new Element('a', {
                 href: '#',
                 text: sampleSearches[searchNumber],
-				title: 'Use this term for your sample search, click away!'
+                title: 'Use this term for your sample search, click away!'
             }))]);
-	
-	
+    
+    
     $$('#sample_search').addEvents({ 
       'click': function(){
             var searchString = this.get('text');
@@ -212,42 +207,70 @@ window.addEvent('domready', function() {
         }
     });
       
-	$$('.feed_toggle').addEvents({
-		'click': function(){
-			if($(this).hasClass('on')){
-				$(this).removeClass('on');
-				$(this).addClass('off');
-			}
-			else{
-				$(this).removeClass('off');
-				$(this).addClass('on');
-			}
-		}
-	});
+    $$('.feed_toggle').addEvents({
+        'click': function(){
+            if($(this).hasClass('on')){
+                $(this).removeClass('on');
+                $(this).addClass('off');
+            }
+            else{
+                $(this).removeClass('off');
+                $(this).addClass('on');
+            }
+        }
+    });
 
-	//Hide & Display dropdown menus on moueover & mouseout
-	$$('.dropdown').setStyle('display','none');
+    //Hide & Display dropdown menus on moueover & mouseout
+    $$('.dropdown').setStyle('display','none');
 
-	var showMenu = function(event){
-		event.stop();
-		$(this).addClass('button_hover');
-		$(this).getElement('.dropdown').setStyle('display','block');
-	};
+    var showMenu = function(event){
+        event.stop();
+        $(this).addClass('button_hover');
+        $(this).getElement('.dropdown').setStyle('display','block');
+    };
 
-	var hideMenu = function(){
-		$(this).removeClass('button_hover');
-		$(this).getElement('.dropdown').setStyle('display','none');
-	};
+    var hideMenu = function(){
+        $(this).removeClass('button_hover');
+        $(this).getElement('.dropdown').setStyle('display','none');
+    };
 
-	//sets drop bar boolean as false on load
-	var dropBarVisible = false;
+    //sets drop bar boolean as false on load
+    var dropBarVisible = false;
 
-	$$('#feed_button').addEvents({
-		'mouseover': showMenu,
-		'mouseout': hideMenu,
-		'click': showMenu
-	});  
-	
+    $$('#feed_button').addEvents({
+        'mouseover': showMenu,
+        'mouseout': hideMenu,
+        'click': showMenu
+    });  
+
+    var positionAndMove = function(el, randomLeft) {
+        var relative = $(document.body);
+        if (!el || !el.getParent()) {
+            return;
+        }
+        var x1 = randomLeft ? Math.random() * relative.getSize().x : el.getSize().x * -1;
+        var x2 = relative.getSize().x;
+        var duration = (x2 - x1) * (100 + 20 * Math.random());
+
+        el.setPosition({
+            x: x1,
+            y: Math.random() * (window.getSize().y - el.getSize().y)
+        });
+        var fn = arguments.callee;
+
+        new Fx.Tween(el, {
+            duration: duration,
+            transition: 'linear',
+            onComplete: function() {
+                fn(el, false);
+            }
+        }).start('left', x1, x2);
+    };
+
+    (['cloud', 'cloud_2', 'cloud_3', 'cloud_4', 'balloon']).each(function(id) {
+        positionAndMove($(id), true);
+    });
+
 });
 
 

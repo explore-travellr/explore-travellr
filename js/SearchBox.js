@@ -48,7 +48,6 @@ var SearchBox = new Class({
         this.form = this.element.getParent('form');
 
         this.form.addEvent('submit', (function(event) {
-                $$('#slogan').fade('out');
                 event.stop();
                 this.search(this.element.get('value'));
         }).bind(this));
@@ -71,7 +70,6 @@ var SearchBox = new Class({
             return;
         }
         
-        $('favourites_text').fade('in');
         location.hash = searchString;
         this.searchFilter = new SearchFilter(searchString, {
             onReady: (function() {

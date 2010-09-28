@@ -978,33 +978,14 @@ h1#logo{
 
 #animation{
   position: absolute;
-   z-index: 0;
+  z-index: 0;
+  top: 0px;
+  left: 0px;
 }
 
-#cloud{
-  margin-left:-100px;
-  margin-top: 100px;
-   
-}
-
-#cloud_2{
-  margin-top: 150px;
-
-}
-
-#cloud_3{
-  margin-left:-300px;
-  margin-top: 150px;
-}
-
-#cloud_4{
-  margin-left:600px;
-  margin-top: 250px;
-}
-
-#balloon{
-  margin-top:300px;
-  margin-left:200px;
+#cloud, #cloud_2, #cloud_3, #cloud_4, #balloon {
+	position: absolute;
+	top: 0px;
 }
 
 /* Created by Arian Stolwijk <http://www.aryweb.nl> */

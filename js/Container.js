@@ -19,6 +19,13 @@ See Also:
 var Container = new Class({
 
     /**
+     * Variable: firstSearch
+     * True if the first search has not happened yet. This can be used to clean up
+     * various elements displayed initially, that need to be removed later, for example
+     */
+    firstSearch: true,
+
+    /**
     * Variable: container
     * The <MooTools::Element> that this <Container> displays its <DisplayBoxes> in
     */
@@ -119,8 +126,11 @@ var Container = new Class({
         this.feedReady = this.feedReady.bindWithEvent(this);
         this.scrapbook = scrapbook;
 
+
         this.searchBox = searchBox;
         if (this.searchBox) {
+
+            var mapFeedItem = new MapFeedItem(this.searchBox);
             // Load more on scroll
             window.addEvent('scroll', this.getNextFeedItems.bind(this));
 
@@ -134,37 +144,54 @@ var Container = new Class({
                 this.loaded = false;
                 this.numberOfFeeds = this.feeds.length;
 
+                // Destroy the old one, if it is still there
                 if (this.progressElement) {
                     this.progressElement.destroy();
                     this.progressBar = null;
                 }
 
+                // Make a new one
                 this.progressElement = new Element('div', { id: 'progressBar' });
                 this.progressBar = new MoogressBar(this.progressElement);
                 this.container.grab(this.progressElement);
 
-                //fades out the tooltip
-                $('slogan').fade('out');
-				
-				var animation = $('animation');
-				if(animation)
-					$('animation').destroy();
+                // Do things on the first search
+                if (this.firstSearch) {
+    
+                    // Adds the map to the container
+                    this.addDisplayBox(new DisplayBox(mapFeedItem));
 
+                    //fades out the things shown initially
+                    var initial = $$('.initial-display');
+                    initial.fade('out');
+                    (function() {
+                        initial.each(function(el) {
+                            el.destroy();
+                        });
+                    }).delay(1000);
+
+                    $$('.initial-hidden').fade('in');
+
+                    this.firstSearch = false;
+                }
+                
+                // Reset all the feeds
                 this.feedsWithContent = [];
-
                 this.feeds.each(function(feed) {
-
                     feed.removeEvent('feedItemsReady', this.feedReady);
                     feed.addEvent('feedItemsReady', this.feedReady);
                     feed.newSearch(searchFilter);
                     this.feedsWithContent.push(feed);
-
                 }, this);
 
+                // Reset the paging
                 this.numScreens = 2;
                 this.showMore && this.showMore.destroy();
                 this.showMore = null;
 
+                this.getElement().masonry({appendContent: []});
+
+                // Start the process off
                 this.getNextFeedItems(true);
 
             }).bind(this));
@@ -335,7 +362,7 @@ var Container = new Class({
         this.getElement().setStyle('display', null);
         this.container.masonry({appendContent: []});
     },
-	
+    
     hide: function () {
         this.getElement().setStyle('display', 'none');
     }
