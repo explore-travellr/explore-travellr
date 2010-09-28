@@ -158,6 +158,7 @@ var Scrapbook = new Class({
         this.folderFx.cancel().slideOut();
 		this.show_drag_text();
         $('favourites_button').removeClass('active');
+        $('back-to-results').addClass('invisible');
     },
 
     addDraggable: function(draggable, options, feedItem) {
