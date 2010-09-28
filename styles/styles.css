@@ -331,7 +331,7 @@ h1#logo{
     right: 10px;
     bottom: 10px;
     width: 29px;
-    height: 29px;
+    height: 28px;
     background: url('images/closeButton.png') no-repeat top left;
 }
 #favourites_dropdown .folder .delete:hover {
@@ -1022,17 +1022,14 @@ h1#logo{
 
 /* Created by Arian Stolwijk <http://www.aryweb.nl> */
 
+
 .MooDialog {
-	background: #eef5f8;
+	background: white;
 	color: black;
 	padding: 10px;
-	border-radius: 7px; 
-	-moz-border-radius: 7px; 
-	-webkit-border-radius: 7px; 
-	border-radius: 7px; 
-	-moz-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
-	-webkit-box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
-	box-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+	-moz-box-shadow: 1px 1px 20px rgba(0,0,0,0.8);
+	-webkit-box-shadow: 1px 1px 20px rgba(0,0,0,0.8);
+	box-shadow: 1px 1px 20px rgba(0,0,0,0.8);
 }
 
 .MooDialogTitle {
@@ -1055,15 +1052,30 @@ h1#logo{
 	-webkit-border-radius: 7px; 
 }
 
+.example {
+    -moz-border-radius:15px ; -webkit-border-radius:15px ;
+    background:url("images/closeButton.png") no-repeat top right;
+    cursor:pointer;
+    height:29px;
+    width:29px;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    z-index: 10000;
+    text-indent: -99999px;
+    }
+    
 .MooDialog .close {
-	background: url(images/dialog-close.png) no-repeat;
-	width: 16px;
-	height: 16px;
-	display: block;
-	cursor: pointer;
-	top: -5px;
-	left: -5px;
-	position: absolute;
+	-moz-border-radius:15px ; -webkit-border-radius:15px ;
+    background:url("images/closeButton.png") no-repeat top right;
+    cursor:pointer;
+    height:29px;
+    width:29px;
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    z-index: 10000;
+    text-indent: -99999px;
 }
 
 .MooDialog .buttons {
