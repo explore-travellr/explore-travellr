@@ -125,8 +125,11 @@ var Container = new Class({
             window.addEvent('scroll', this.getNextFeedItems.bind(this));
 
             this.searchBox.addEvent('search', (function (searchFilter) {
-				this.show();
-				//this.getElement().setStyles('visibility',null);
+                this.show();
+                this.scrapbook.isVisible() && this.scrapbook.hide();
+                this.scrapbook.isFoldersVisible() && this.scrapbook.hideFolders();
+
+                // Reset things for the loading bar
                 this.loadedFeeds = 0;
                 this.loaded = false;
                 this.numberOfFeeds = this.feeds.length;
