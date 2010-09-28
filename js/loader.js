@@ -185,14 +185,14 @@ window.addEvent('domready', function() {
         'Surfing in Sydney',
         'New York City',
         'Restaurants in Paris'
-        ];
+	];
         
     var arrayLength = sampleSearches.length;
     var searchNumber = Math.floor(Math.random()*arrayLength);
 
     $$('#sample_search').adopt([
             new Element('a').grab(new Element('a', {
-                href: '#',
+                href: '#' + sampleSearches[searchNumber],
                 text: sampleSearches[searchNumber],
                 title: 'Use this term for your sample search, click away!'
             }))]);
