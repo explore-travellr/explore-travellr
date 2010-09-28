@@ -156,11 +156,20 @@ h1#logo{
 }
 
 #favourites_text {
-	padding:12px 0 0 0;
-	width:200px;
+	margin:2px 0 0 0;
+	height:35px;
+	width:350px;
 	cursor: default;
 	visibility:hidden;
 	float: right;
+}
+
+.drag-text{
+	background:url(images/helptext.png) no-repeat 0 0;
+}
+
+.drop-text{
+	background:url(images/helptext.png) no-repeat 0 -35px;
 }
 
 #favourites_text h5{

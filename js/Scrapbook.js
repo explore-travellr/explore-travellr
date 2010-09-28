@@ -143,11 +143,13 @@ var Scrapbook = new Class({
     showFolders: function() {
         this.foldersVisible = true;
         this.folderFx.cancel().slideIn();
+		this.show_drop_text();
         $('favourites_button').addClass('active');
     },
     hideFolders: function() {
         this.foldersVisible = false;
         this.folderFx.cancel().slideOut();
+		this.show_drag_text();
         $('favourites_button').removeClass('active');
     },
 
@@ -183,7 +185,6 @@ var Scrapbook = new Class({
 
             onDrop: (function(draggable, droppable, event) {
                 this.dragging = false;
-
                 if (event) {
                     event.stop();
                 }
@@ -312,7 +313,17 @@ var Scrapbook = new Class({
             hasFeedItem = !hasFeedItem;
         }).bind(this));
         return [scrapbook];
-    }
+    },
+	
+	show_drop_text: function() {
+		$('favourites_text').removeClass('drag-text');
+		$('favourites_text').addClass('drop-text');
+	},
+	
+	show_drag_text: function() {
+		$('favourites_text').removeClass('drop-text');
+		$('favourites_text').addClass('drag-text');
+	}
 
 });
 
