@@ -492,6 +492,8 @@ h1#logo{
   padding:5px;
   background:#fff;
   position: relative;
+  top: 0px;
+  left: 0px;
   display: block;
 }
 
@@ -502,8 +504,6 @@ h1#logo{
 
 .displayBox .dragged {
   z-index: 10000;
-  position: relative;
-  display: block;
 }
 
 .displayBox .handle {
