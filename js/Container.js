@@ -230,7 +230,7 @@ var Container = new Class({
             if (!firstRound && window.getScrollSize().y > window.getSize().y * this.numScreens) {
                 this.showMore = new Element('div', {
                     'class': 'show-more',
-                    text: 'Show more results',
+                    text: 'Show more results'
                 });
                 this.showMore.addEvent('click', (function() {
                     this.numScreens = this.numScreens + 2;

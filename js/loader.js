@@ -117,18 +117,36 @@ Array.implement({
 });
 
 
-$extend(window, {
-    atBottom: function(margin) {
-        return this.getScroll().y >= this.getScrollSize().y - this.getSize().y - (margin || 0);
-    }
-});
-
+/**
+ * Function: Window Domready
+ * This is a large function that instantates different elements when the document
+ * object modal (DOM) has loaded.
+ *
+ * Firstly, there are two browser checks that check for non-supported browsers
+ * (Opera and IE) and alert() the user they ar not supported.
+ *
+ * The main classes (<SearchBox>, <Scrapbook>, <Container> and <FeedToggle>) are instaniated.
+ *
+ * Instantiates the feed classes.
+ *
+ * Takes the search string, encodes spaces with correct ASCII, then sends the string to <SearchBox>.
+ *
+ * Creates an array of seample searches. An item of this array randomly replaces
+ * the sample_search css id. when clicked it becomes the search string.
+ *
+ * The remainder of the domready consists of two parts, both visual. The first
+ * creates and positions the menu effects and style changes. The second part,
+ * <positionAndMove>, creates the splash page animation.
+ *
+ */
 window.addEvent('domready', function() {
 
-    //checks browser engine to see if compatible with application
+    //checks user agent to see if browser is Internet Explorer
     if(Browser.Engine.trident) {
         alert("Your browser, Internet Explorer, is not currently supported by our application. Please use Firefox, Chrome of Safari.");
-    } else if(Browser.Engine.presto) {
+    }
+    //checks user agent to see if browser is Opera
+    else if(Browser.Engine.presto) {
         alert("Your browser, Opera, is not currently supported by our application. Please use Firefox, Chrome of Safari.");
     }
 
@@ -234,9 +252,6 @@ window.addEvent('domready', function() {
         $(this).getElement('.dropdown').setStyle('display','none');
     };
 
-    //sets drop bar boolean as false on load
-    var dropBarVisible = false;
-
     $$('#feed_button').addEvents({
         'mouseover': showMenu,
         'mouseout': hideMenu,
@@ -250,19 +265,18 @@ window.addEvent('domready', function() {
         }
         var x1 = randomLeft ? Math.random() * relative.getSize().x : el.getSize().x * -1;
         var x2 = relative.getSize().x;
-        var duration = (x2 - x1) * (100 + 20 * Math.random());
+        var duration = (x2 - x1) * (10 + 2 * Math.random());
 
         el.setPosition({
             x: x1,
             y: Math.random() * (window.getSize().y - el.getSize().y)
         });
-        var fn = arguments.callee;
 
         new Fx.Tween(el, {
             duration: duration,
             transition: 'linear',
             onComplete: function() {
-                fn(el, false);
+                positionAndMove(el, false);
             }
         }).start('left', x1, x2);
     };
@@ -272,11 +286,3 @@ window.addEvent('domready', function() {
     });
 
 });
-
-
-
-
-
-
-
-
