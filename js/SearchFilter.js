@@ -1,6 +1,7 @@
 /*
 Class: SearchFilter
-   SearchFilter - DESC TODO
+   The <SearchFilter> takes in a search string and sends it to travellr.com
+   for extraction of key words, then returns them as tags
 
 License:
    MIT-style license.

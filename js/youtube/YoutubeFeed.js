@@ -15,14 +15,21 @@ Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
    - <MooTools::more> Request.JSONP
-   - <YoutubeFeeditem>
+   - <youtube.YoutubeFeeditem>
 */
 
 var YoutubeFeed = new Class({
     
-    Implements: [Options, Events],
+    //Implements: [Options, Events],
+	
     Extends: Feed,
 
+    /**
+     * Variable: name
+     * The name of this <Feed>, for use in the GUI
+     */
+    name: 'Youtube',
+	
     /**
      * Variable: perPage
      * The number of videos to return per request
@@ -34,12 +41,6 @@ var YoutubeFeed = new Class({
      * The start index of the videos to return. Results are 'paginated' using this
      */
     startIndex: null,
-
-    /**
-     * Variable: name
-     * The name of this <Feed>, for use in the GUI
-     */
-    name: 'Youtube',
 
     /**
      * Function: newSearch
@@ -120,7 +121,6 @@ var YoutubeFeed = new Class({
         } else {
             this.moreFeedItems = false;
         }
-
         this.feedItemsReady();
     }
 });

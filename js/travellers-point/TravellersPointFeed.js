@@ -21,7 +21,11 @@ Dependencies:
 var TravellersPointFeed = new Class({
 
     Extends: Feed,
-
+	
+    /**
+     * Variable: name
+     * The name of thie <Feed>, used in the GUI
+     */
     name: 'TravellersPoint',
 
     /**
@@ -35,17 +39,24 @@ var TravellersPointFeed = new Class({
      * The page number of the current search. Incremented every search
      */
     page: 1,
-
+	
+    /**
+     * Function: newSearch
+     * Reset variables and what not ready for a new search
+     *
+     * Parameters:
+     *     searchFilter - The search filter to filter new results with
+     */
     newSearch: function(searchFilter) {
         this.parent();
         this.searchFilter = searchFilter;
-        this.page = 1;
     },
 
-    /**
-     * Search the feed for items relating to the search terms. This particular
+	/**
+     * Function: getMoreFeedItems
+     * Gets the feeditems relating to the latitude and longtitude of the search terms. This particular
      * search is actually done to yahoo pipes in which the pipe handles the request
-     * and converts a RSS feed from World Nomads into a JSON object. It then
+     * and converts a XML feed from Gecko into a JSON object. It then
      * calls makeFeedItems on success.
      */
      getMoreFeedItems: function() {
@@ -57,7 +68,7 @@ var TravellersPointFeed = new Class({
             this.feedItemsReady();
             return;
         }
-		$$('.TravellersPointfeed_toggle').removeClass('unavailable'); //Don't delete this line
+		$$('.TravellersPointfeed_toggle').removeClass('unavailable');
 		        
         new Request.JSONP({
             url: 'http://pipes.yahoo.com/pipes/pipe.run',
@@ -76,12 +87,13 @@ var TravellersPointFeed = new Class({
     },
 
     /**
+	 * Function: makeFeedItems
      * Makes the individual travellers point feed items by sending the each journal
      * post object of the response object to the TravellersPointFeedItem class and then
      * pushing each of them onto a feedItems array
      *
      * Parameters:
-	 *     response object returned by the yahoo pipes call (parsing travellers point feeds)
+	 *     response - object returned by the yahoo pipes call (parsing travellers point feeds)
      */
     makeFeedItems: function(results) {
         if (results && results.value && results.value.items && $chk(results.value.items.length)) {

@@ -14,7 +14,7 @@ Copyright:
 Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
-   - <Feed>
+   - <MooTools::more> Request.JSONP
    - <twitter.TwitterFeedItem>
 */
 
@@ -22,6 +22,12 @@ var TwitterFeed = new Class({
 
     Extends: Feed,
 
+    /**
+     * Variable: name
+     * The name of this <Feed>, used in the GUI
+     */
+    name: 'Twitter',
+	
     /**
      * Variable: perPage
      * The maximum number of photos displayed
@@ -33,12 +39,6 @@ var TwitterFeed = new Class({
      * The page number of the current search. Incremented every search
      */
     page: 1,
-
-    /**
-     * Variable: name
-     * The name of this <Feed>, used in the GUI
-     */
-    name: 'Twitter',
 
     /**
      * Variable: maxId
@@ -161,12 +161,32 @@ var TwitterFeed = new Class({
     }
 });
 
-//TODO - comment this please
+/*
+Class: Number
+   Some extra <Number> functions
+
+Extends:
+   <Number>
+*/
 Number.implement({
-      toRad: function() {
-          return this * Math.PI / 180;
-      },
-      toDeg: function() {
-          return this * 180 / Math.PI;
-      }
+
+	/**
+	 * Function: toRad
+	 * Returns this number converted from degrees to radians.
+	 *
+	 * Returns: This number in radians.
+	 */
+	toRad: function() {
+		return this * Math.PI / 180;
+	},
+	
+	/**
+	 * Function: toDeg
+	 * Returns this number converted from radians to degrees.
+	 *
+	 * Returns: This number in degrees.
+	 */
+	toDeg: function() {
+		return this * 180 / Math.PI;
+	}
 });

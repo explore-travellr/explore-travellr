@@ -23,6 +23,12 @@ var TravellrFeed = new Class({
     Extends: Feed,
 
     /**
+     * Variable: name
+     * The name of this <Feed>, used in the GUI
+     */
+    name: 'Travellr',
+	
+    /**
      * Variable: perPage
      * The maximum number of photos displayed
      */
@@ -35,20 +41,11 @@ var TravellrFeed = new Class({
     page: 1,
 
     /**
-     * Variable: name
-     * The name of this <Feed>, used in the GUI
-     */
-    name: 'Travellr',
-
-    /**
      * Function: newSearch
      * Reset the feed for a new search
      *
      * Parameters:
      *     searchFilter - The search filter to filter results with
-     *
-     * See Also:
-     *     <Feed::search>
      */
     newSearch: function(searchFilter) {     
         this.parent();
@@ -119,7 +116,12 @@ var TravellrFeed = new Class({
         this.moreFeedItems = (response.length >= this.perPage);
         this.feedItemsReady();
     },
-
+	
+    /**
+     * Function: addAskBox
+     * Adds the 'ask travellr' box to the feeditem list, this allows users to
+	 * ask a travel question and forward it on to travellr.com
+     */
     addAskBox: function() {
         if (!this.ask) {
             //This line adds the "Didn't find the information..." feedItem

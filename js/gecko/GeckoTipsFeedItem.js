@@ -14,25 +14,25 @@ Copyright:
 Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
-   - <GeckoGoFeed>
+   - <GeckoFeed>
 */
 
 var GeckoTipsFeedItem = new Class({
 
     Extends: FeedItem,
     Serializable: 'GeckoTipsFeedItem',
-
-    /**
-     * Variable: post
-     * A <JS::Object> holding all the post data
-     */
-    post: null,
-
+	
     /**
      * Variable: name
      * The name of this <FeedItem>, used in the GUI
      */
     name: 'GeckoTipsFeedItem',
+	
+    /**
+     * Variable: post
+     * A <JS::Object> holding all the post data
+     */
+    post: null,
 
     /**
      * Consructor: initialize
@@ -110,6 +110,14 @@ var GeckoTipsFeedItem = new Class({
         return this.post;
     }
 });
+
+/*
+Class: GeckoTipsFeedItem.unserialize
+   Returns the gecko tips, ready to be unserialized
+
+Extends:
+   <GeckoTipsFeedItem>
+*/
 GeckoTipsFeedItem.unserialize = function(data) {
     return new GeckoTipsFeedItem(data);
 };

@@ -21,18 +21,18 @@ var TwitterFeedItem = new Class({
 
     Extends: FeedItem,
     Serializable: 'TwitterFeedItem',
-
-    /**
-     * Variable: tweet
-     * A <JS::Object> holding all the post data
-     */
-    tweet: null,
-
+	
     /**
      * Variable: name
      * The name of this <FeedItem> class, used in the GUI
      */
     name: 'TwitterFeedItem',
+	
+    /**
+     * Variable: tweet
+     * A <JS::Object> holding all the post data
+     */
+    tweet: null,
 
     /**
      * Constructor: initialize
@@ -164,6 +164,14 @@ var TwitterFeedItem = new Class({
         return this.tweet;
     }
 });
+
+/*
+Class: TwitterFeedItem.unserialize
+   Returns the tweet, ready to be unserialized
+
+Extends:
+   <TwitterFeedItem>
+*/
 TwitterFeedItem.unserialize = function(data) {
     return new TwitterFeedItem(data);
 };

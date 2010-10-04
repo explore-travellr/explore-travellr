@@ -23,7 +23,13 @@ var FlickrFeedItem = new Class({
     Extends: FeedItem,
     Implements: [Options, Events],
     Serializable: 'FlickrFeedItem',
-
+	
+    /**
+     * Variable: name
+     * The name of this <FeedItem> class, used in the GUI
+     */
+    name: 'FlickrFeedItem',
+	
     /**
      * Variable: photo
      * A <JS::Object> that holds all the information about this Flickr photo
@@ -188,6 +194,14 @@ var FlickrFeedItem = new Class({
         return this.photo;
     }
 });
+
+/*
+Class: FlickrFeedItem.unserialize
+   Returns the photo data, ready to be unserialized
+
+Extends:
+   <FlickrFeedItem>
+*/
 FlickrFeedItem.unserialize = function(data) {
     return new FlickrFeedItem(data);
 };

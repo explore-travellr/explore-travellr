@@ -14,7 +14,7 @@ Copyright:
 Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
-   - <Feed>
+   - <MooTools::more> Request.JSONP
    - <world-nomads.WorldNomadsFeedItem>
 */
 
@@ -22,6 +22,12 @@ var WorldNomadsFeed = new Class({
 
     Extends: Feed,
 
+    /**
+    * Variable: name
+    * The name of thie <Feed>, used in the GUI
+    */
+    name: 'WorldNomads',	
+	
     /**
      * Variable: perPage
      * The maximum number of posts displayed
@@ -35,26 +41,24 @@ var WorldNomadsFeed = new Class({
     page: 1,
 
     /**
-    * Variable: name
-    * The name of thie <Feed>, used in the GUI
-    */
-    name: 'WorldNomads',
-
-    /**
-    * Function: search
-    * Search the feed for items relating to the search terms. This particular
-    * search is actually done to yahoo pipes in which the pipe handles the request
-    * and converts a RSS feed from World Nomads into a JSON object. It then
-    * calls makeFeedItems on success.
-    *
-    * Parameters:
-    *     searchFilter - The search filter to filter results with
-    */
+     * Function: newSearch
+     * Reset variables and what not ready for a new search
+     *
+     * Parameters:
+     *     searchFilter - The search filter to filter new results with
+     */
     newSearch: function(searchFilter) {
         this.parent();
         this.searchFilter = searchFilter;
     },
-
+	
+    /**
+     * Function: getMoreFeedItems
+     * Gets the feeditems relating to the latitude and longtitude of the search terms. This particular
+     * search is actually done to yahoo pipes in which the pipe handles the request
+     * and converts a XML feed from Gecko into a JSON object. It then
+     * calls makeFeedItems on success.
+     */
     getMoreFeedItems: function() {
         var country = (this.searchFilter.location && this.searchFilter.location.country ? this.searchFilter.location.country.toLowerCase() : null);
         var country_id = this.countries.get(country);

@@ -23,6 +23,12 @@ var TravellrFeedItem = new Class({
     Serializable: 'TravellrFeedItem',
 
     /**
+     * Variable: name
+     * The name of this <FeedItem>, used in the GUI
+     */
+    name: 'TravellrFeedItem',
+	
+    /**
      * Variable: question
      * A <JS::Object> holding all the question data
      *
@@ -31,11 +37,6 @@ var TravellrFeedItem = new Class({
      */
     question: null,
 
-    /**
-     * Variable: name
-     * The name of this <FeedItem>, used in the GUI
-     */
-    name: 'TravellrFeedItem',
 	
     /**
      * Variable: MAX_ANSWERS
@@ -100,7 +101,7 @@ var TravellrFeedItem = new Class({
 
 		var i, l = Math.min(3, this.answerCount);
 		for(i = 0; i < l; ++i) {
-        	answers.push(new Element('div', {'class': 'answer'}).adopt([
+			answers.push(new Element('div', {'class': 'answer'}).adopt([
 				new Element('p', {text: this.question.answers[i].content})
 			]));
         }
@@ -146,6 +147,14 @@ var TravellrFeedItem = new Class({
         return this.question;
     }
 });
+
+/*
+Class: TravellrFeedItem.unserialize
+   Returns the travellr q&a, ready to be unserialized
+
+Extends:
+   <TravellrFeedItem>
+*/
 TravellrFeedItem.unserialize = function(data) {
     return new TravellrFeedItem(data);
 };
@@ -172,7 +181,10 @@ TravellrFeedItem.Ask = new Class({
 
     Extends: FeedItem,
 
-    // TODO: Work out how to submit this parameter to travellr
+    /**
+    * Variable: locationId
+    * The location this question is about. Optional
+    */
     locationId: null,
 
     /**
@@ -272,7 +284,15 @@ TravellrFeedItem.Ask = new Class({
                 ])
             ]);
     },
-
+	
+    /**
+     * Function: canScrapbook
+     * Simply a unified function for feeditems that check if the item can be 
+	 * placed into favourites
+     *
+     * Returns:
+     *     False, the ask box can not be added to favourites
+     */
     canScrapbook: function() {
         return false;
     }

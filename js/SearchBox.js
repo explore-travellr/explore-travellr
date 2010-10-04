@@ -25,7 +25,6 @@ var SearchBox = new Class({
      * Parameters:
      *     searchFilter - A <SearchFilter> containing the search parameters
      */
-
     Implements: Events,
 
     /**
@@ -63,7 +62,6 @@ var SearchBox = new Class({
      * Parameters:
      *     searchString - {String} The string to search for.
      */
-
     search: function(searchString) {
 	
         if (!searchString) {

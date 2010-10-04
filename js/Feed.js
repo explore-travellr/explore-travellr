@@ -11,7 +11,6 @@ Copyright:
 Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
-   - <MooTools::Request.JSONP>
 */
 var Feed = new Class({
 
@@ -28,11 +27,23 @@ var Feed = new Class({
      * An <JS::Array> of all the <FeedItem>s belonging to this <Feed>
      */
     feedItems: [],
-
+	
+    /**
+     * Variable: itemsCalled
+     * An index number of feed items called
+     */
     itemsCalled: null,
-
+	
+    /**
+     * Variable: getNextFeedItemQueue
+     * An <JS::Array> of all the <FeedItem>s in queue
+     */
     getNextFeedItemQueue: [],
-
+	
+    /**
+     * Variable: moreFeedItems
+     * A check to see if we feed can get more feed items
+     */
     moreFeedItems: true,
 
     /**
@@ -84,9 +95,14 @@ var Feed = new Class({
         this.moreFeedItems = true;
         this.nextFeedItem = 0;
     },
-
-
-
+	
+    /**
+     * Function: getNextFeedItem
+     * Builds the next feed item and queue it to the queued array
+	 *
+     * Parameters:
+     *     callback - the ready feed pushed on to queue
+     */
     getNextFeedItem: function(callback) {
 
         if (this.nextFeedItem >= this.feedItems.length) {
@@ -173,5 +189,4 @@ var Feed = new Class({
 
         this.fireEvent('feedItemsReady', this);
     }
-
 });

@@ -14,6 +14,7 @@ Copyright:
 Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
+   - <MooTools::more> Utilities/Assets   
    - <WorldNomadsFeed>
 */
 
@@ -22,6 +23,12 @@ var WorldNomadsFeedItem = new Class({
     Extends: FeedItem,
 	Implements: [Options, Events],
     Serializable: 'WorldNomadsFeedItem',
+	
+    /**
+     * Variable: name
+     * The name of this <FeedItem>, used in the GUI
+     */
+    name: 'WorldNomadsFeedItem',
 
     /**
      * Variable: post
@@ -29,12 +36,6 @@ var WorldNomadsFeedItem = new Class({
      */
     post: null,
 
-    /**
-     * Variable: name
-     * The name of this <FeedItem>, used in the GUI
-     */
-    name: 'WorldNomadsFeedItem',
-	
     /**
      * Variable: previewLoaded
      * If the <FeedItem> preview is ready for display. <WorldNomadsFeedItem> need to preload
@@ -150,6 +151,13 @@ var WorldNomadsFeedItem = new Class({
     }
 });
 
+/*
+Class: WorldNomadsFeedItem.unserialize
+   Returns the world nomads journal entry, ready to be unserialized
+
+Extends:
+   <WorldNomadsFeedItem>
+*/
 WorldNomadsFeedItem.unserialize = function(data) {
     return new WorldNomadsFeedItem(data);
 };

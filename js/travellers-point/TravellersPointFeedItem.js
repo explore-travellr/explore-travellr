@@ -25,16 +25,16 @@ var TravellersPointFeedItem = new Class({
     Serializable: 'TravellersPointFeedItem',
 
     /**
-     * Variable: post
-     * A <JS::Object> holding all the post data
-     */
-    post: null,
-
-    /**
      * Variable: name
      * The name of this <FeedItem>, used in the GUI
      */
     name: 'TravellersPointFeedItem',
+	
+    /**
+     * Variable: post
+     * A <JS::Object> holding all the post data
+     */
+    post: null,
 
     /**
      * Variable: previewLoaded
@@ -61,7 +61,6 @@ var TravellersPointFeedItem = new Class({
         new Asset.images([this.post['media:thumbnail'].url], {
             onComplete: (function() {
                 this.previewLoaded = true;
-                //this.fireEvent.bind(this, 'previewLoaded');
 				this.fireEvent('previewLoaded');
             }).bind(this)
         });
@@ -139,6 +138,14 @@ var TravellersPointFeedItem = new Class({
         return this.post;
     }
 });
+
+/*
+Class: TravellersPointFeedItem.unserialize
+   Returns the travellers-point photo, ready to be unserialized
+
+Extends:
+   <TravellersPointFeedItem>
+*/
 TravellersPointFeedItem.unserialize = function(data) {
     return new TravellersPointFeedItem(data);
 };

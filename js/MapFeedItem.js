@@ -18,7 +18,6 @@ Dependencies:
 var MapFeedItem = new Class({
 
     Extends: FeedItem,
-    //Implements: [Options, Events],
 	
     /**
      * Variable: name
@@ -37,7 +36,11 @@ var MapFeedItem = new Class({
      * To hold the map object so it can be reset when a new search is made
      */	
 	map: null,
-
+	
+    /**
+     * Variable: base
+     * To hold the string for the hyperlink to google maps
+     */	
     base: 'http://maps.google.com/maps/api/staticmap?',
 	
     /**
@@ -49,12 +52,11 @@ var MapFeedItem = new Class({
      *     searchBox - to add an event to searchbox to find map
      */
     initialize: function(searchBox) {
-                //editted by nat and clare
-                //maps/api/staticmap?'+ 'center=' + lat + ',' + lng + '&zoom=' + zoom + '&sensor=false&size=' + width + 'x' + height + '&maptype=terrain
-                //this.url needs to be modified to add location lat and long parameters based off search by user
-                this.url = "http://maps.google.com";
-
-                this.size = { x: 4 };
+		//editted by nat and clare
+		//maps/api/staticmap?'+ 'center=' + lat + ',' + lng + '&zoom=' + zoom + '&sensor=false&size=' + width + 'x' + height + '&maptype=terrain
+		//this.url needs to be modified to add location lat and long parameters based off search by user
+		this.url = "http://maps.google.com";
+		this.size = { x: 4 };
 		
 		searchBox.addEvent('search', (function(searchFilter) {
 		
@@ -73,12 +75,11 @@ var MapFeedItem = new Class({
 			if (this.img) {
 				this.img.src = this.makeImgSource();
 			}
-
-
 		}).bind(this));
     },
-
+	
     /**
+     * Function: makeImgSource
      * Code by Jai of travellr
      * http://groups.google.com/group/google-maps-js-api-v3/browse_thread/thread/43958790eafe037f/66e889029c555bee?pli=1
      */
@@ -161,26 +162,24 @@ var MapFeedItem = new Class({
             if (this.latLngBounds) {
                 map.fitBounds(this.latLngBounds);
                 map.setZoom(map.getZoom() + 1);
-            }
-            //Obtain coodinates from a click GEOCODE
-//            google.maps.event.addListener(map, 'click', function(event) {
-//                var clicked_lat = event.latLng.lat();
-//                var clicked_lng = event.latLng.lng();
-//
-//                var latlng = new google.maps.LatLng(clicked_lat, clicked_lng);
-//                geocoder = new google.maps.Geocoder();
-//                geocoder.geocode({ 'latLng': latlng }, function(results, status) {
-//                    if (status == google.maps.GeocoderStatus.OK) {
-//                        if (results[1]) {
-//                            address.set('text', results[1].formatted_address);
-//                        }
-//                    } else {
-//                        alert("Geocoder failed due to: " + status);
-//                    }
-//                });
-//
-//
-//            }); // end click function
+			}
+			/*Obtain coodinates from a click GEOCODE
+            google.maps.event.addListener(map, 'click', function(event) {
+                var clicked_lat = event.latLng.lat();
+                var clicked_lng = event.latLng.lng();
+
+                var latlng = new google.maps.LatLng(clicked_lat, clicked_lng);
+                geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'latLng': latlng }, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            address.set('text', results[1].formatted_address);
+                        }
+                    } else {
+                        alert("Geocoder failed due to: " + status);
+                    }
+                });
+            }); */
         }).bind(this));
 
         var address = new Element('p');
@@ -201,6 +200,14 @@ var MapFeedItem = new Class({
         return this.photo;
     }
 });
+
+/*
+Class: MapFeedItem.unserialize
+   Returns the map, ready to be unserialized
+
+Extends:
+   <MapFeedItem>
+*/
 MapFeedItem.unserialize = function(data) {
     return new MapFeedItem(data);
 };

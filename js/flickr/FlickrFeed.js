@@ -15,14 +15,21 @@ Dependencies:
    - <MooTools::core> 1.2.4 or higher
    - <MooTools::more> 1.2.4.4 RC1 or higher
    - <MooTools::more> Request.JSONP
-   - <FlickrFeedItem>
+   - <flickr.FlickrFeedItem>
 */
 
 var FlickrFeed = new Class({
 
     Implements: [Options, Events],
+	
     Extends: Feed,
 
+    /**
+     * Variable: name
+     * The name of this <Feed>, for use in the GUI
+     */
+    name: 'Flickr',
+	
     /**
      * Variable: perPage
      * The maximum number of photos displayed
@@ -48,12 +55,6 @@ var FlickrFeed = new Class({
         method: 'flickr.photos.search',
         apikey: '49dbf1eebc2e9dd4ae02a97d074d83fc'
     },
-
-    /**
-     * Variable: name
-     * The name of this <Feed>, for use in the GUI
-     */
-    name: 'Flickr',
 
     /**
      * Function: newSearch

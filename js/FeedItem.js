@@ -16,9 +16,6 @@ Dependencies:
 var FeedItem = new Class({
 
     Implements: [Options, Events],
-    
-    // TODO Check if useless
-    type: null,
 
     /**
      * Variable: displayBox
@@ -153,7 +150,14 @@ var FeedItem = new Class({
     getDisplayBox: function() {
         return this.displayBox;
     },
-
+	
+    /**
+     * Function: toDisplayBox
+     * Returns a new <DisplayBox> that has this <FeedItem> details
+     *
+     * Returns:
+     *     A new <DisplayBox> that has the current source
+     */
     toDisplayBox: function(scrapbook, options) {
         return new DisplayBox(this, scrapbook, options);
     },
@@ -168,7 +172,14 @@ var FeedItem = new Class({
     canScrapbook: function() {
         return true;
     },
-
+	
+    /**
+     * Function: getDisplayBoxButtons
+     * Build the view source link and returns the anchor tag
+     * 
+     * Return:
+     *      The buttons array, currently only the source button
+     */
     getDisplayBoxButtons: function(options) {
         var buttons = [];
         if (this.url) {
@@ -184,6 +195,7 @@ var FeedItem = new Class({
     },
 
     /**
+     * Function: clone
      * Return a clone of this item
      */
     clone: function() {

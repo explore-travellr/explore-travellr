@@ -23,17 +23,18 @@ var YoutubeFeedItem = new Class({
     Extends: FeedItem,
     Implements: [Options, Events],
     Serializable: 'YoutubeFeedItem',
-
-    /**
-     * Variable: TODO
-     */
-    video: null,
-
+	
     /**
      * Variable: name
      * The name of this <FeedItem> class, used in the GUI
      */
     name: 'YoutubeFeedItem',
+	
+    /**
+     * Variable: video
+     * A <JS::Object> holding all the video data	 
+     */
+    video: null,
 
     /**
      * Variable: previewLoaded
@@ -45,11 +46,12 @@ var YoutubeFeedItem = new Class({
 
     /**
      * Function: initialize
-     *
+     * Constructs a new <YoutubeFeedItem> with the content drawn from the videos returned
+	 *
      * Parameters:
      *     feedObject - The object is associative array of keys related to the feedObject passed in
      */
-     initialize: function(feedObject) {
+    initialize: function(feedObject) {
         this.video = feedObject;
 		this.size = {x: 2};
 		this.url = "http://www.youtube.com/v/" + this.video.id + "?fs=1&hl=en_GB";
@@ -73,17 +75,13 @@ var YoutubeFeedItem = new Class({
      */
     makePreview: function() {
 		
-		//var heading = new Element('h2', {
-			//text: this.title
-		//});
-		
 		var img = new Element('img', {
             src: this.thumbnail,
             'class':'ty_thumb',
 			title: 'Click to view the youtube video for "' + this.title + '"'
         });
         
-    	var play = new Element('img', {
+		var play = new Element('img', {
             src: 'styles/images/yt_play.png',
             'class':'yt_play'
         });
@@ -150,7 +148,13 @@ var YoutubeFeedItem = new Class({
         return this.video;
     }
 });
+/*
+Class: YoutubeFeedItem.unserialize
+   Returns the you tube clip link, ready to be unserialized
 
+Extends:
+   <YoutubeFeedItem>
+*/
 YoutubeFeedItem.unserialize = function(data) {
     return new YoutubeFeedItem(data);
 };
