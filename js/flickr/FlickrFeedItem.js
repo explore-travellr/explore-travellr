@@ -41,6 +41,19 @@ var FlickrFeedItem = new Class({
      */
     name: 'FlickrFeedItem',
 
+    /**
+     * Variable: options
+     * A <JS::Object> containing options for <FlickrFeedItems>
+     *
+     *   size - The size of the content image
+     *   method - The API method to call to search images
+     *   apikey - The Flickr API key to use
+     */
+    options: {
+        size: 'm',
+        method: 'flickr.photos.getSizes',
+        apikey: '49dbf1eebc2e9dd4ae02a97d074d83fc'
+    },
 
     /**
      * Variable: previewLoaded
@@ -67,16 +80,38 @@ var FlickrFeedItem = new Class({
         this.photo.picUrlThumbnail = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'_m.jpg';
         this.photo.picUrlContent = 'http://farm'+this.photo.farm+'.static.flickr.com/'+this.photo.server+'/'+this.photo.id+'_'+this.photo.secret+'.jpg';
 
-        new Asset.images([this.photo.picUrlThumbnail], {
+        new Asset.images([this.photo.picUrlThumbnail, this.photo.picUrlContent]);
+
+        this.sizes = {
+            thumb: {width: null, height: null},
+            content: {width: null, height: null}
+        };
+
+        new Request.JSONP({
+            url: 'http://api.flickr.com/services/rest/',
+            data: {
+                api_key:  this.options.apikey,
+                method:   this.options.method,
+                photo_id: this.photo.id,
+                format:   'json'
+            },
+            callbackKey: 'jsoncallback',
+            onSuccess: (function(data) {
+                console.log(data);
+                this.sizes = {
+                    thumb: data.sizes.size[2],
+                    content: data.sizes.size[3]
+                };
+            }).bind(this),
             onComplete: (function() {
                 this.previewLoaded = true;
                 this.fireEvent('previewLoaded');
+
+                this.contentLoaded = true;
+                this.fireEvent('contentLoaded');
             }).bind(this)
-        });
-        new Asset.images([this.photo.picUrlContent], {onComplete: (function() {
-            this.contentLoaded = true;
-            this.fireEvent('contentLoaded');
-        }).bind(this)});
+        }).send();
+
 
         this.size = {
             x: 2
@@ -93,6 +128,8 @@ var FlickrFeedItem = new Class({
     makePreview: function() {
         var img = new Element('img', {
             src: this.photo.picUrlThumbnail,
+            width: this.sizes.thumb.width,
+            height: this.sizes.thumb.height,
 			title: 'Click to view the "' + this.photo.title + '" photo'
         });
         return new Element('div', {
@@ -122,7 +159,9 @@ var FlickrFeedItem = new Class({
 					target: '_blank',
 					title: 'Click to go to the origin of the "' + this.photo.title + '" photo'
 				}).grab(new Element('img', {
-					src: this.photo.picUrlContent
+					src: this.photo.picUrlContent,
+                    width: this.sizes.content.width,
+                    height: this.sizes.content.height
             }))
         ]);
     },

@@ -104,7 +104,7 @@ var FlickrFeed = new Class({
 
         new Request.JSONP({
             url: 'http://api.flickr.com/services/rest/',
-                data: {
+            data: {
                 api_key:  this.options.apikey,
                 method:   this.options.method,
                 page:     this.page,
