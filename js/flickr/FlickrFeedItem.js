@@ -103,7 +103,7 @@ var FlickrFeedItem = new Class({
             },
             callbackKey: 'jsoncallback',
             onSuccess: (function(data) {
-                console.log(data);
+                
                 this.sizes = {
                     thumb: data.sizes.size[2],
                     content: data.sizes.size[3]
