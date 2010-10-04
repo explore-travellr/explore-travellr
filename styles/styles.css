@@ -668,24 +668,18 @@ h1#logo{
     z-index:500;
 }
 
-.modal{
-    position: absolute;
-    max-width:650px;
-    max-height:500px;
-    background : white;
-    z-index:1000;
+.MooDialog{
     -moz-box-shadow:1px 1px 20px; -webkit-box-shadow:1px 1px 20px;
     font-family:Arial,Helvetica,Verdana,sans-serif;
-    padding: 15px;
 }
 
-.modal .icons {
-    float:right;
+.MooDialog .icons {
     line-height: 16px;
     font-size: 16px;
     margin:10px 0 0 0;
 	position:relative;
 	height:25px;
+    text-align: right;
 }
 
 .icons .icon {
@@ -706,11 +700,8 @@ h1#logo{
 	color:#4870A0;
 	font-size:11px;
 	line-height:30px;
-	width:172px;
 	padding:0 27px 0 0;
-	text-align:right;
-	position:absolute;
-	right:26px;
+    width: auto;
 }
 .icons .scrapbook-icon:hover {
     background-position: right -26px;
@@ -730,48 +721,25 @@ h1#logo{
 
 .icons .open-new-icon {
     background: url('images/openNew.png') center 1px;
-	position:absolute;
-	right:0;
-	top:-1px;
 }
 
 .icons .open-new-icon:hover {
     background-position: center 27px;
 }
 
-.modal .content {
+.MooDialog .content {
     position: relative;
     overflow: auto;
     word-wrap: break-word;
-    overflow:hidden;
-    max-width:620px; /*width of modal - 15px padding either side*/
-    max-height:470px; /*height of modal - 15px padding either side*/
-}
-
-.modal .modalClose{
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}
-
-.modal .close-button{
-    -moz-border-radius:15px ; -webkit-border-radius:15px ;
-    background:url("images/closeButton.png") no-repeat top right;
-    cursor:pointer;
-    height:29px;
-    width:29px;
-    position: absolute;
-    top: -12px;
-    right: -12px;
-    z-index: 10000;
-    text-indent: -99999px;
+    padding: 1px;
+    max-width: 600px;
 }
 
 /*
  * Twitter Modal Styles
  */
 
-.modal .twitter .profile_image{
+.MooDialog .twitter .profile_image{
 	height:48px;
 	width:48px;
 	float:left;
@@ -779,25 +747,25 @@ h1#logo{
 	padding:6px;
 }
 
-.modal .twitter .tweet{
-	float:left;
+.MooDialog .twitter .tweet{
+    margin-left: 58px;
 	padding:0 10px;
 	width:300px;
 }
 
-.modal .twitter p.tweet_content{
+.MooDialog .twitter p.tweet_content{
 	font:14px Georgia;
 	line-height:18px;
 	color:#333;
 }
 
-.modal .twitter .tweet a{
+.MooDialog .twitter .tweet a{
 	color:#2FC2EF;
 	font:14px 'Lucida Grande',sans-serif;
 	font-weight:600;
 }
 
-.modal .twitter .date{
+.MooDialog .twitter .date{
 	color:#999;
 	font:11px 'Lucida Grande', sans-serif;
         margin-top: 5px;
@@ -807,12 +775,12 @@ h1#logo{
  * Flickr Modal Styles
  */
 
-.modal .flickr img{
+.MooDialog .flickr img{
     max-width:600px;
    max-height:450px;
 }
 
-.modal .flickr h2{
+.MooDialog .flickr h2{
   background:url("images/favs/flickrIco.png") no-repeat scroll 0 5px transparent;
   font-size:20px;
   font-weight:normal;
@@ -823,7 +791,7 @@ h1#logo{
   display: block;
  }
 
-.modal .flickr h2 a{
+.MooDialog .flickr h2 a{
   color:#333;
 }
 
@@ -831,54 +799,55 @@ h1#logo{
  * Travellr Modal Styles
  */
  
-.modal .travellr h2 {
+.MooDialog .travellr h2 {
   font-size:18px; 
   margin:0 0 10px 0;
 }
 
-.modal .travellr h3{
+.MooDialog .travellr h3{
   font-size:18px;
   color:#333;
   margin:10px 0;
 }
 
-.modal .travellr p{
+.MooDialog .travellr p{
   color:#333333;
   font-family:calibri,arial;
   font-size:13px;
   line-height:20px;
 }
 
-.modal .travellr a{
+.MooDialog .travellr a{
   color:#0096FF;
   font-weight:bold;
 }
 
-.modal .travellr a:hover{
+.MooDialog .travellr a:hover{
   text-decoration:underline;
 }
 
-.modal .travellr .answers+a{
-  float:right;
+.MooDialog .travellr .view-more {
+  display: block;
+  text-align: right;
 }
 
-.modal .travellr .answers p{
+.MooDialog .travellr .answers p{
   background:#eee;
   padding:5px;
   margin:10px 0;
 }
 
-.modal .travellr .answers p:before{
+.MooDialog .travellr .answers p:before{
   font-weight:bold;
   content:'A:  ';
   font-size:13px;
 }
 
-.modal .ask h2{
+.MooDialog .ask h2{
  color:#0096FF;
 }
 
-.modal .ask textarea{
+.MooDialog .ask textarea{
 	-moz-border-radius:3px 3px 3px 3px;
 	-moz-box-shadow:0.75px 0.75px 3px #C8C8C8 inset;
 	-webkit-border-radius:3px 3px 3px 3px;
@@ -894,7 +863,7 @@ h1#logo{
 	overflow:auto;
 	display:block;
 }
-.modal .ask input{
+.MooDialog .ask input{
 	float:right;
 	background:#8EC94C;
 	border:0 none;
@@ -911,22 +880,22 @@ h1#logo{
 	-webkit-border-radius:4px;
 }
 
-.modal .worldNomads {
+.MooDialog .worldNomads {
      margin-left: 100px;
      color: #666;
 }
-.modal .worldNomads a {
+.MooDialog .worldNomads a {
     color: #0067A8;
     font-size: 10px;
     text-transform: uppercase;
 }
-.modal .worldNomads div {
+.MooDialog .worldNomads div {
     line-height: 20px;
 }
-.modal .worldNomads img {
+.MooDialog .worldNomads img {
     margin: -56px 0 0 -97px;
 }
-.modal .worldNomads h2 a {
+.MooDialog .worldNomads h2 a {
     color: #666;
     font-weight: 700;
     font-size: 20px;
@@ -939,17 +908,17 @@ h1#logo{
     line-height: 16px;
 }
 
-.modal .GeckoReview h2 a, .modal .GeckoTips h2 a {
+.MooDialog .GeckoReview h2 a, .MooDialog .GeckoTips h2 a {
     color: #77bb00;
     margin-bottom: 15px;
     display: block;
 }
-.modal .GeckoReview div, .modal .GeckoTips div {
+.MooDialog .GeckoReview div, .MooDialog .GeckoTips div {
     color: #666;
     line-height: 20px;
 }
 
-.modal .TravellersPoint h2 a {
+.MooDialog .TravellersPoint h2 a {
     color: #336699;
     font: 18px georgia, serif;
     display: block;

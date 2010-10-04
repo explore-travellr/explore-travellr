@@ -97,10 +97,6 @@ var MooDialog = new Class({
 		}
 
 		
-		// Set the position of the dialog
-		var docSize = document.id(document.body).getSize();
-		this.setPosition((docSize.x - x)/2, (docSize.y - y)/2);
-		
 		// IE 6 scroll
 		if (options.scroll && this.ie6){
 			window.addEvent('scroll', function(){
@@ -165,6 +161,11 @@ var MooDialog = new Class({
 		this.fireEvent('open');
 		this.fx.start(this.options.fx.open);
 		this.overlay.open();
+		
+		// Set the position of the dialog
+        var wrapperSize = this.wrapper.getSize();
+		var docSize = document.id(document.body).getSize();
+		this.setPosition((docSize.x - wrapperSize.x)/2, (docSize.y - wrapperSize.y)/2);
 		
 		if(this.options.useEscKey){
 			// Add event for the esc key

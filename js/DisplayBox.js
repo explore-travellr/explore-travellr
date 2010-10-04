@@ -177,28 +177,13 @@ var DisplayBox = new Class({
         }
         this.shown = true;
 
-		$(document.body).addClass('locked');
-
-        //make a modal dialog
-        var modalMask = new Element('div', { 'class': 'modalMask' });
-        var modalCloseButton = new Element('div', { 'class': 'close-button', text: 'Close' });
-        var modal = new Element('div', { 'class': 'modal' });
         var content = this.feedItem.getContent();
-        var preview = this.getPreview();
-        var container = this.container.getElement();
-        var contentWrapper = new Element('div', { 'class': 'content' });
-
         var iconBar = new Element('div', { 'class': 'icons' });
-
-        // Hide the containers
-        modalMask.fade('hide');
-        modal.fade('hide');
 
         // Put all the element in their correct containers
         var askForButtons = [this.feedItem];
-        var buttons = [];
         if (this.scrapbook) {
-            askForButtons.push(this.scrapbook);
+            askForButtons.unshift(this.scrapbook);
         }
         var options = {
             feedItem: this.feedItem,
@@ -206,6 +191,7 @@ var DisplayBox = new Class({
             displayBox: this
         };
 
+        var buttons = [];
         askForButtons.each(function(ask) {
             buttons.include(ask.getDisplayBoxButtons(options));
         });
@@ -215,60 +201,21 @@ var DisplayBox = new Class({
             iconBar.adopt(button);
         });
 
-        contentWrapper.grab(content);
+        var contentWrapper = new Element('div', { 'class': 'content' });
+        contentWrapper.adopt([content, iconBar]);
 
-        modal.adopt([modalCloseButton, contentWrapper, iconBar]);
+        var modal = new MooDialog({
+            size: {width: null, height: null},
+            useEscKey: true,
 
-        $(document.body).grab(modalMask);
-        $(document.body).grab(modal);
-
-        // Position the box
-        var viewPos = window.getScroll();
-        var viewSize = window.getSize();
-
-        var modalSize = modal.getSize();
-        var documentSize = document.getScrollSize();
-
-        var modalLocation = {
-            x: viewPos.x + (viewSize.x - modalSize.x) / 2,
-            y: viewPos.y + (viewSize.y - modalSize.y) / 2
-        };
-        modal.setPosition(modalLocation);
-
-        modalMask.set('styles', { height: documentSize.y });
-
-        // Show the containers
-        modalMask.fade('0.4');
-        modal.fade('in');
-
-        var closeModal = (function() {
-            // Fix untill the double modal box bug is fixed
-            if (content.parentNode) {
-                content.parentNode.removeChild(content);
-            }
-
-            modal.destroy();
-            modalMask.destroy();
-            modalCloseButton.destroy();
-            this.shown = false;	
-
-			$(document.body).removeClass('locked');
-
-			
-        }).bind(this);
-
-        // Add events to elements
-        $$(modalCloseButton, modalMask).addEvent('click', (function() {
-			closeModal();
-        }).bind(this));
-		
-		window.addEvent('keypress', (function(e){ 
-			if(e.key == 'esc') {
-				closeModal();
-			}
-		}).bind(this));
-        // Tell listeners that this box was just displayed
-        this.fireEvent('display');
+            // Tell listeners that this box was just displayed
+            onOpen: (function() {
+                this.fireEvent('display');
+            }).bind(this),
+            onClose: (function() {
+                this.shown = false;	
+            }).bind(this)
+        }).setContent(contentWrapper).open();
     }
 
 });

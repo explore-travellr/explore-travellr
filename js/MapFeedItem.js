@@ -161,7 +161,7 @@ var MapFeedItem = new Class({
             if (this.latLngBounds) {
                 map.fitBounds(this.latLngBounds);
                 map.setZoom(map.getZoom() + 1);
-        }
+            }
             //Obtain coodinates from a click GEOCODE
 //            google.maps.event.addListener(map, 'click', function(event) {
 //                var clicked_lat = event.latLng.lat();

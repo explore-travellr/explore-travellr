@@ -117,9 +117,10 @@ var TravellrFeedItem = new Class({
             new Element('p').adopt(this.question.content.newlineToBr()),
             new Element('div', {'class': 'answers'}).adopt(answers),
             new Element('a', {
-              href: this.question.url, 
-              text: 'View more answers'
-              })
+                'class': 'view-more',
+                href: this.question.url, 
+                text: 'View more answers'
+            })
         ]);
     },
 
