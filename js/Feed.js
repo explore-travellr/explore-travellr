@@ -86,7 +86,7 @@ var Feed = new Class({
      * Function: newSearch
      * Removes all <FeedItems> from the <Feed> and <Container>.
      */
-    newSearch: function() {
+    newSearch: function(searchFilter) {
         this.feedItems.each(function(feedItem) {
             this.container.removeDisplayBox(feedItem.getDisplayBox());
         }, this);
@@ -94,6 +94,9 @@ var Feed = new Class({
 
         this.moreFeedItems = true;
         this.nextFeedItem = 0;
+
+		// Set the searchFilter if it is supplied
+		searchFilter && (this.searchFilter = searchFilter);
     },
 	
     /**
