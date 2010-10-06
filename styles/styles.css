@@ -1002,7 +1002,18 @@ h1#logo{
 	position: absolute;
 	top: 0px;
 	left: -100px;
+	z-index: 2;
 }
+.sparkle {
+	width: 11px;
+	height: 11px;
+	position: absolute;
+	z-index: -1;
+	margin: -5px;
+}
+.red.sparkle { color: #ff0000; }
+.orange.sparkle { color: #ff8800; }
+.yellow.sparkle { color: #ffff00; }
 
 /* Created by Arian Stolwijk <http://www.aryweb.nl> */
 

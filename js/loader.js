@@ -270,7 +270,7 @@ window.addEvent('domready', function() {
 
         el.setPosition({
             x: x1,
-            y: Math.random() * (window.getSize().y - el.getSize().y)
+            y: Math.random() * (relative.getSize().y - el.getSize().y)
         });
 
         new Fx.Tween(el, {
@@ -288,6 +288,21 @@ window.addEvent('domready', function() {
 	
 	// BAAAA
 	(function() {
+		var makeSparkle = function() {
+			var cloud = $('cloud_5');
+			if (cloud) {
+				var cloudSize = cloud.getSize();
+				var pos = { left: cloudSize.x * 0.5, top: cloudSize.y * (0.5 + Math.random()) / 3 };
+				var sparkle = new Element('div', {'text': "\u2605", 'class': 'sparkle ' + ['red', 'yellow', 'orange'].getRandom(), styles: pos});
+				cloud.grab(sparkle);
+				new Fx.Morph(sparkle, {duration: 200 + 100 * Math.random(), transition: 'linear', onComplete: sparkle.destroy.bind(sparkle)}).start({
+					top: pos.top + (Math.random() * 30 - 15),
+					left: (Math.random() * 50 - 100)
+				});
+				makeSparkle.delay(30);
+			}
+		};
+		makeSparkle();
 		positionAndMove($('cloud_5'), false, 35);
 	}).delay(30000);
 
