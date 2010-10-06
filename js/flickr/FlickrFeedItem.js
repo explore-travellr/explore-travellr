@@ -42,12 +42,6 @@ var FlickrFeedItem = new Class({
     photo: null,
 
     /**
-     * Variable: name
-     * The name of this <FeedItem> class, used in the GUI
-     */
-    name: 'FlickrFeedItem',
-
-    /**
      * Variable: options
      * A <JS::Object> containing options for <FlickrFeedItems>
      *
@@ -64,10 +58,18 @@ var FlickrFeedItem = new Class({
     /**
      * Variable: previewLoaded
      * If the <FeedItem> preview is ready for display. <FlickrFeedItems> need to preload
-     * the thumbnail, so this is initially false. The previewLoaded function is fired to indicate
+     * the thumbnail, so this is initially false. The previewLoaded event is fired to indicate
      * this is loaded, and this variable toggled to true
      */
     previewLoaded: false,
+
+    /**
+     * Variable: contentLoaded
+     * If the <FeedItem> content is ready for display. <FlickrFeedItems> need to preload
+     * the main image, so this is initially false. The contentLoaded event is fired to indicate
+     * this is loaded, and this variable toggled to true
+     */
+    contentLoaded: false,
 
     /**
      * Function: initialize
