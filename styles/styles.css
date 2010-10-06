@@ -165,11 +165,11 @@ h1#logo{
 }
 
 .drag-text{
-	background:url(images/helptext.png) no-repeat 0 0;
+	background:url(images/helpText.png) no-repeat 0 0;
 }
 
 .drop-text{
-	background:url(images/helptext.png) no-repeat 0 -35px;
+	background:url(images/helpText.png) no-repeat 0 -35px;
 }
 
 #favourites_text h5{
@@ -342,7 +342,6 @@ h1#logo{
 	-webkit-border-radius: 5px;
     padding: 10px 0px 10px 15px;
     color: #3f6491;
-    /*color: #3f6491; */
     cursor: pointer;
     float: left;
     width: 80px;
@@ -352,6 +351,12 @@ h1#logo{
 	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff), to(#aaa));
     text-shadow: 0px 0px 1px #aaa;
 }
+.addFavButton:hover {
+	color: #35547A;
+	-moz-box-shadow: 2px 2px 6px #333;
+	-webkit-box-shadow: 2px 2px 6px #333;
+}
+
 .drop {
     background-position: bottom left;
 }
@@ -417,7 +422,7 @@ h1#logo{
   margin:50px 0 0 0;
 }
 .container#scrapbook {
-  margin-top: 125px;
+  margin-top: 190px;
 }
 
 /*
@@ -729,7 +734,7 @@ h1#logo{
 
 .MooDialog .content {
     position: relative;
-    overflow: auto;
+    overflow: hidden;
     word-wrap: break-word;
     padding: 1px;
     max-width: 600px;
@@ -927,6 +932,10 @@ h1#logo{
     background: url("images/favs/travellersPoint.png") no-repeat 0 2px;
 }
 
+.MooDialog .TravellersPoint img {
+    max-width: 560px;
+}
+
 /*
 * Show more button
 */
@@ -963,7 +972,12 @@ h1#logo{
 	width: 200px;
 	margin:20px auto;
 }
- 
+
+#back-to-results:hover {
+  -moz-box-shadow: 2px 2px 6px #333;
+  -webkit-box-shadow: 2px 2px 6px #333;
+}
+
  .invisible{
 	display:none;
  }
@@ -984,9 +998,10 @@ h1#logo{
   left: 0px;
 }
 
-#cloud, #cloud_2, #cloud_3, #cloud_4, #balloon {
+#cloud, #cloud_2, #cloud_3, #cloud_4, #cloud_5, #balloon {
 	position: absolute;
 	top: 0px;
+	left: -100px;
 }
 
 /* Created by Arian Stolwijk <http://www.aryweb.nl> */

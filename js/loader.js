@@ -258,14 +258,15 @@ window.addEvent('domready', function() {
         'click': showMenu
     });  
 
-    var positionAndMove = function(el, randomLeft) {
+    var positionAndMove = function(el, randomLeft, speed) {
         var relative = $(document.body);
+		speed = speed || 1;
         if (!el || !el.getParent()) {
             return;
         }
         var x1 = randomLeft ? Math.random() * relative.getSize().x : el.getSize().x * -1;
         var x2 = relative.getSize().x;
-        var duration = (x2 - x1) * (10 + 2 * Math.random());
+        var duration = (x2 - x1) * (100 + 20 * Math.random()) / speed;
 
         el.setPosition({
             x: x1,
@@ -276,7 +277,7 @@ window.addEvent('domready', function() {
             duration: duration,
             transition: 'linear',
             onComplete: function() {
-                positionAndMove(el, false);
+                positionAndMove(el, false, speed);
             }
         }).start('left', x1, x2);
     };
@@ -284,5 +285,10 @@ window.addEvent('domready', function() {
     (['cloud', 'cloud_2', 'cloud_3', 'cloud_4', 'balloon']).each(function(id) {
         positionAndMove($(id), true);
     });
+	
+	// BAAAA
+	(function() {
+		positionAndMove($('cloud_5'), false, 35);
+	}).delay(30000);
 
 });

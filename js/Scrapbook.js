@@ -48,7 +48,7 @@ var Scrapbook = new Class({
             // If nothing was loaded, make a default thing
             if (this.folders === null || this.folders.length === 0) {
                 this.folders = [];
-                this.addFolder(new Scrapbook.Folder({title: "Favorites", scrapbook: this, canDelete: false}));
+                this.addFolder(new Scrapbook.Folder({title: "Favourites", scrapbook: this, canDelete: false}));
             }
         }).bind(this));
 
