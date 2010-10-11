@@ -112,13 +112,17 @@ var MooDialog = new Class({
 		}
 		this.fx.addEvent('complete', function(){
 			this.fireEvent(this.open ? 'show' : 'hide');
-			if (options.disposeOnClose && !this.open) this.dispose();
+			if (options.disposeOnClose && !this.open) {
+				this.dispose();
+			}
 		}.bind(this));
 		
 		this.overlay = new Overlay(document.body, {
 			duration: this.options.fx.options.duration
 		});
-		if (options.closeOnOverlayClick) this.overlay.addEvent('click', this.close.bind(this));
+		if (options.closeOnOverlayClick) {
+			this.overlay.addEvent('click', this.close.bind(this));
+		}
 	},
 
 	setContent: function(content){
@@ -146,7 +150,7 @@ var MooDialog = new Class({
 		if (wrapper.getStyle('position') != 'fixed'){
 			var scroll = document.id(document.body).getScroll();
 			x += scroll.x;
-			y += scroll.y
+			y += scroll.y;
 		}
 		
 		wrapper.setStyles({
@@ -170,7 +174,9 @@ var MooDialog = new Class({
 		if(this.options.useEscKey){
 			// Add event for the esc key
 			document.id(document.body).addEvent('keydown', function(e){
-				if (e.key == 'esc') this.close();
+				if (e.key == 'esc') {
+					this.close();
+				}
 			}.bind(this));
 		}
 		return this;
@@ -195,8 +201,6 @@ var MooDialog = new Class({
 	
 });
 
-
-
 Element.implement({
 	MooDialog: function(options){
 		var box = new MooDialog(options)
@@ -207,4 +211,78 @@ Element.implement({
 	}
 });
 
+/*
+---
+description:     MooDialog
 
+authors:
+  - Arian Stolwijk
+
+license:
+  - MIT-style license
+
+requires:
+  core/1.2.4:   '*'
+
+provides:
+  - [MooDialog.Prompt]
+...
+*/
+
+MooDialog.Prompt = new Class({	
+	
+	Extends: MooDialog,	
+  
+	options: {
+		okText: 'Ok',
+		focus: true
+	},
+
+	initialize: function(msg, fn, options){
+		this.parent(options);
+
+		fn = fn ? fn : function(){};
+
+		var textInput = new Element('input', {
+			type: 'text',
+			styles: {
+				width: (this.options.size.width - 70)
+			}
+		});
+
+		this.setContent(
+			new Element('div')
+				.adopt(
+					new Element('p', {
+						'class': 'MooDialogPromt',
+						text: msg
+					})
+				).adopt(
+					new Element('form',{
+						'class': 'buttons',
+						events: {
+							submit: function(e){
+								e.stop();
+								fn(textInput.get('value'));
+								this.close();
+							}.bind(this)
+						}
+					}).adopt(textInput).adopt(
+						new Element('input', {
+							type: 'submit',
+							value: this.options.okText,
+							styles: {
+								width: 40
+							}
+						})						
+					)
+				)
+		).open();
+		
+		if (this.options.focus) {
+			this.addEvent('show', function(){
+				textInput.focus();
+			});
+		}
+	}
+});

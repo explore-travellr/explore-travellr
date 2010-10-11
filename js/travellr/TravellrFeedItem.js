@@ -182,15 +182,15 @@ TravellrFeedItem.Ask = new Class({
     Extends: FeedItem,
 
     /**
-    * Variable: locationId
-    * The location this question is about. Optional
-    */
+     * Variable: locationId
+     * The location this question is about. Optional
+     */
     locationId: null,
 
     /**
-    * Variable: name
-    * The name of this <FeedItem>, used in the GUI
-    */
+     * Variable: name
+     * The name of this <FeedItem>, used in the GUI
+     */
     name: 'TravellrFeedItem.Ask',    
 
     /**

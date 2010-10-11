@@ -199,7 +199,15 @@ var Container = new Class({
             this.loaded = true;
         }
     },
-
+	
+    /**
+     * Function: feedReady
+     * Increments the number of feeds that have been loaded, sets the percentage 
+	 * of the loading bar and then if loading bar is complete remove the loading bar
+     *
+     * Parameters:
+     *     feed - The feed to add
+     */
     feedReady: function(feed) {
         this.loadedFeeds++;//increment loading bar
 
@@ -223,7 +231,15 @@ var Container = new Class({
 
         feed.removeEvent('feedItemsReady', this.feedReady);
     },
-
+	
+    /**
+     * Function: getNextFeedItems
+     * Adds the show more button at the end of the page and allows for the
+	 * application to request more feed items to be added to the page
+     *
+     * Parameters:
+     *     firstRound - true or false for initial search or not
+     */
     getNextFeedItems: function(firstRound) {
         if (!this.showMore && (firstRound || this.loaded)) {
             if (!firstRound && window.getScrollSize().y > window.getSize().y * this.numScreens) {
@@ -242,7 +258,6 @@ var Container = new Class({
                 var feeds = this.feedsWithContent;
                 this.feedsWithContent = [];
                 feeds.each(function(feed) {
-
                     feed.getNextFeedItem((function(feedItem) {
                         if (feedItem) {
                             if (feed.isVisible()) {
@@ -252,7 +267,6 @@ var Container = new Class({
                             }
                         }
                     }).bind(this));
-
                 }, this);
             }
         }
@@ -310,7 +324,6 @@ var Container = new Class({
         displayBox.fireEvent('preview');
     },
 
-
     /**
      * Function: getDisplayBoxes
      * Get all the DisplayBoxes being managed by this Container
@@ -356,18 +369,23 @@ var Container = new Class({
     getElement: function () {
         return this.container;
     },
-
+    /**
+     * Function: show
+     * Toggles the container and show more button to show
+     */
     show: function () {
         this.getElement().setStyle('display', null);
 		this.showMore && this.showMore.setStyle('display', null);
         this.container.masonry({appendContent: []});
     },
-    
+    /**
+     * Function: hide
+     * Toggles the container and show more button to hide
+     */  
     hide: function () {
         this.getElement().setStyle('display', 'none');
 		this.showMore && this.showMore.setStyle('display', 'none');
     }
-
 });
 
 /*

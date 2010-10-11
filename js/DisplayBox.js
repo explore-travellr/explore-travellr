@@ -28,48 +28,48 @@ var DisplayBox = new Class({
     mouseY: null,
 
     /**
-    * Variable: feedItem
-    * The <FeedItem> this <DisplayBox> is handling
-    */
+     * Variable: feedItem
+     * The <FeedItem> this <DisplayBox> is handling
+     */
     feedItem: null,
 
     /**
-    * Variable: options
-    * Options for this <DisplayBox> instance
-    *
-    *     readMore - Whether the <FeedItem> has more content to show
-    */
+     * Variable: options
+     * Options for this <DisplayBox> instance
+     *
+     *     readMore - Whether the <FeedItem> has more content to show
+     */
     options: {
         readMore: true,
         scrapbook: null
     },
 
     /**
-    * Constant: margin
-    * The minimum distance from the window edge for the modal window
-    */
+     * Constant: margin
+     * The minimum distance from the window edge for the modal window
+     */
     margin: 50,
 
     /**
-    * Variable: container
-    * The <Container> that this <DisplayBox> is managed by
-    */
+     * Variable: container
+     * The <Container> that this <DisplayBox> is managed by
+     */
     container: null,
 
     /**
-    * Variable: shown
-    * If the content is currently shown
-    */
+     * Variable: shown
+     * If the content is currently shown
+     */
     shown: false,
 
     /**
-    * Function: initialize
-    * Create a new <DisplayBox> for a <FeedItem>.
-    *
-    * Parameters:
-    *     feedItem - The <FeedItem> to manage 
-    *     options - Options for this class
-    */
+     * Function: initialize
+     * Create a new <DisplayBox> for a <FeedItem>.
+     *
+     * Parameters:
+     *     feedItem - The <FeedItem> to manage 
+     *     options - Options for this class
+     */
     initialize: function(feedItem, scrapbook, options) {
         this.feedItem = feedItem;
         this.scrapbook = scrapbook;
@@ -78,12 +78,12 @@ var DisplayBox = new Class({
     },
 
     /**
-    * Function: getPreview
-    * Get an <MooTools::Element> containing a preview of the <FeedItem>.
-    *
-    * Returns:
-    *     A preview of the FeedItem
-    */
+     * Function: getPreview
+     * Get an <MooTools::Element> containing a preview of the <FeedItem>.
+     *
+     * Returns:
+     *     A preview of the FeedItem
+     */
     getPreview: function() {
         if (!this.preview) {
 
@@ -121,12 +121,12 @@ var DisplayBox = new Class({
     },
 
     /**
-    * Function: getContent
-    * Get an HTML element containing the content of the FeedItem
-    *
-    * Returns:
-    *     The FeedItem content
-    */
+     * Function: getContent
+     * Get an HTML element containing the content of the FeedItem
+     *
+     * Returns:
+     *     The FeedItem content
+     */
     getContent: function() {
         if (!this.content) {
             var content = this.feedItem.getContent();
@@ -136,39 +136,39 @@ var DisplayBox = new Class({
     },
 
     /**
-    * Function: getContainer
-    * Get the <Container> that this <DisplayBox> is managed by
-    *
-    * Returns:
-    *     The <Container> this <DisplayBox> is managed by, or null
-    */
+     * Function: getContainer
+     * Get the <Container> that this <DisplayBox> is managed by
+     *
+     * Returns:
+     *     The <Container> this <DisplayBox> is managed by, or null
+     */
     getContainer: function() {
         return this.container;
     },
 
     /**
-    * Function: getFeedItem
-    * Get the <FeedItem> that this <DisplayBox> is displaying
-    *
-    * Returns:
-    *     The <FeedItem> this <DisplayBox> is displaying
-    */
+     * Function: getFeedItem
+     * Get the <FeedItem> that this <DisplayBox> is displaying
+     *
+     * Returns:
+     *     The <FeedItem> this <DisplayBox> is displaying
+     */
     getFeedItem: function() {
         return this.feedItem;
     },
 
     /**
-    * Function: setContainer
-    * Sets the <Container> that this <DisplayBox> is managed by
-    */
+     * Function: setContainer
+     * Sets the <Container> that this <DisplayBox> is managed by
+     */
     setContainer: function(container) {
         this.container = container;
     },
 
     /**
-    * Function: showContent
-    * Show the full content of the <FeedItem> in a modal dialog.
-    */
+     * Function: showContent
+     * Show the full content of the <FeedItem> in a modal dialog.
+     */
     showContent: function() {
 
         if (this.shown) {
@@ -217,5 +217,4 @@ var DisplayBox = new Class({
             }).bind(this)
         }).setContent(contentWrapper).open();
     }
-
 });

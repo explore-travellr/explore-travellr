@@ -247,9 +247,6 @@ h1#logo{
 .TravellersPointfeed_toggle{
 		background: url(images/favs/travellersPoint.png) no-repeat 11px 5px;
 }
-.Mapfeed_toggle{
-		background: url(images/favs/google.png) no-repeat 11px 5px;
-}
 
 .Youtubefeed_toggle{
     background: url(images/favs/youtube.png) no-repeat 11px 5px;
@@ -617,7 +614,6 @@ h1#logo{
  */
 
 .displayBox .twitter{
-	/* background: url("images/twitter_arrow.png") no-repeat 16px 5px; */
 	background: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(255,255,255)), color-stop(1, rgb(250,250,250)));
   background: -moz-linear-gradient( center bottom, rgb(255,255,255) 0%, rgb(250,250,250) 100%);
 }
@@ -1090,8 +1086,3 @@ h1#logo{
 .MooDialog .MooDialogConfirm, .MooDialog .MooDialogPromt {
 	background: url(images/dialog-question.png) no-repeat;
 }
-
-.MooDialog .MooDialogError {
-	background: url(images/dialog-error.png) no-repeat;
-}
-
