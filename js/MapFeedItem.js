@@ -1,6 +1,6 @@
 /*
 Script: MapFeedItem.js
-   MapFeedItem - MooTools based GeckoGo feed item handler
+   MapFeedItem - MooTools based map feed item handler
 
 License:
    MIT-style license.
@@ -12,7 +12,6 @@ Dependencies:
    - MooTools-core 1.2.4 or higher
    - MooTools-more 1.2.4.4 RC1 or higher
    - FeedItem Class
-   - GeckoReviewFeed Class
 */
 
 var MapFeedItem = new Class({
@@ -163,23 +162,6 @@ var MapFeedItem = new Class({
                 map.fitBounds(this.latLngBounds);
                 map.setZoom(map.getZoom() + 1);
 			}
-			/*Obtain coodinates from a click GEOCODE
-            google.maps.event.addListener(map, 'click', function(event) {
-                var clicked_lat = event.latLng.lat();
-                var clicked_lng = event.latLng.lng();
-
-                var latlng = new google.maps.LatLng(clicked_lat, clicked_lng);
-                geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ 'latLng': latlng }, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
-                            address.set('text', results[1].formatted_address);
-                        }
-                    } else {
-                        alert("Geocoder failed due to: " + status);
-                    }
-                });
-            }); */
         }).bind(this));
 
         var address = new Element('p');
@@ -189,7 +171,7 @@ var MapFeedItem = new Class({
         }).adopt([mapElement, address]);
     },
 
-/**
+	/**
      * Function: serialize
      * Returns the photo data, ready for serialization
      *

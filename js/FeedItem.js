@@ -83,7 +83,7 @@ var FeedItem = new Class({
      * Function: makeContent
      * Creates a <MooTools::Element> with the contents of this FeedItem
      */
-     makeContent: function() { },
+    makeContent: function() { },
 
     /**
      * Function: getPreview
@@ -108,7 +108,7 @@ var FeedItem = new Class({
      * Function: makePreview
      * Creates a <MooTools::Element> with a preview of this FeedItem
      */
-     makePreview: function() { },
+    makePreview: function() { },
 
     /**
      * Function: getSize

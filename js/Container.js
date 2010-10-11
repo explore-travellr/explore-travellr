@@ -106,15 +106,15 @@ var Container = new Class({
     showMore: null,
 
     /**
-    * Constructor: initialize
-    * Creates a new Container class. This instance will layout its DisplayBoxes
-    * in the supplied container element. The container will listen to the
-    * search box, emptying itself out when a seach is made
-    *
-    * Parameters:
-    *     container - The element to layout the DisplayBoxes in
-    *     searchBox - The SearchBox that will create searches for the feeds in this container.
-    */
+     * Constructor: initialize
+     * Creates a new Container class. This instance will layout its DisplayBoxes
+     * in the supplied container element. The container will listen to the
+     * search box, emptying itself out when a seach is made
+     *
+     * Parameters:
+     *     container - The element to layout the DisplayBoxes in
+     *     searchBox - The SearchBox that will create searches for the feeds in this container.
+     */
     initialize: function (container, searchBox, scrapbook) {
         this.container = $(container);
         this.masonry = this.container.masonry({
@@ -225,7 +225,6 @@ var Container = new Class({
     },
 
     getNextFeedItems: function(firstRound) {
-
         if (!this.showMore && (firstRound || this.loaded)) {
             if (!firstRound && window.getScrollSize().y > window.getSize().y * this.numScreens) {
                 this.showMore = new Element('div', {
@@ -260,12 +259,12 @@ var Container = new Class({
     },
 
     /**
-    * Function: addFeed
-    * Adds a feed to this container
-    *
-    * Parameters:
-    *     feed - The feed to add
-    */
+     * Function: addFeed
+     * Adds a feed to this container
+     *
+     * Parameters:
+     *     feed - The feed to add
+     */
     addFeed: function (feed) {
         this.feeds.push(feed);
         feed.addEvents({
@@ -282,16 +281,16 @@ var Container = new Class({
     },
 
     /**
-    * Function: addDisplayBox
-    * Adds a <DisplayBox> to the <Containers> <displayBoxQueue>. <DisplayBoxes>
-    * will be added in the future at a time decided by the <Container>.
-    *
-    * Parameters:
-    *     displayBox - The <DisplayBox> to add
-    *
-    * See Also:
-    *     - <queueAddDisplayBox>
-    */
+     * Function: addDisplayBox
+     * Adds a <DisplayBox> to the <Containers> <displayBoxQueue>. <DisplayBoxes>
+     * will be added in the future at a time decided by the <Container>.
+     *
+     * Parameters:
+     *     displayBox - The <DisplayBox> to add
+     *
+     * See Also:
+     *     - <queueAddDisplayBox>
+     */
     addDisplayBox: function (displayBox) {
         // Get the preview to display
         var preview = displayBox.getPreview();
@@ -313,23 +312,23 @@ var Container = new Class({
 
 
     /**
-    * Function: getDisplayBoxes
-    * Get all the DisplayBoxes being managed by this Container
-    *
-    * Returns:
-    *     An array containing the DisplayBoxes in this Container
-    */
+     * Function: getDisplayBoxes
+     * Get all the DisplayBoxes being managed by this Container
+     *
+     * Returns:
+     *     An array containing the DisplayBoxes in this Container
+     */
     getDisplayBoxes: function (feed) {
         return this.displayBoxes;
     },
 
     /**
-    * Function: removeDisplayBox
-    * Remove a display box from the Container
-    *
-    * Parameters:
-    *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
-    */
+     * Function: removeDisplayBox
+     * Remove a display box from the Container
+     *
+     * Parameters:
+     *     displayBox - The DisplayBox to remove. If the DisplayBox is not present, this function does nothing.
+     */
     removeDisplayBox: function (displayBox) {
         if (!displayBox) { return; }
         displayBox.setContainer(null);
@@ -348,12 +347,12 @@ var Container = new Class({
     },
 
     /**
-    * Function: getElement
-    * Get the element that this Container is putting its DisplayBoxes in
-    *
-    * Returns:
-    *     The Element the Container manages
-    */
+     * Function: getElement
+     * Get the element that this Container is putting its DisplayBoxes in
+     *
+     * Returns:
+     *     The Element the Container manages
+     */
     getElement: function () {
         return this.container;
     },
