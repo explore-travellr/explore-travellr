@@ -2,18 +2,64 @@ var Scrapbook = new Class({
 
     Implements: [Events, Options],
 
+	/**
+	 * Variable: folderFx
+	 * The Fx instance that animates the folder dropdown
+	 */
     folderFx: null,
+
+	/**
+	 * Variable: folders
+	 * An array of <Scrapbook.Folders> the <Scrapbook> contains
+	 */
     folders: [],
 
+	/**
+	 * Variable: container
+	 * The <Container> the <Scrapbook> displays its contents in
+	 */
     container: null,
 
+	/**
+	 * Variable: visible
+	 * If the <Scrapbook> is visible or not
+	 */
     visible: false,
+
+	/**
+	 * Variable: visibleFolder
+	 * The <Scrapbook.Folder> that is currently visible.
+	 */
     visibleFolder: null,
+
+	/**
+	 * Variable: foldersVisible
+	 * If the folder dropdown is currently visible
+	 */
     foldersVisible: false,
 
+	/**
+	 * Variable: draggables
+	 * An array of Drag.Move instances that control the dragging of <FeedItems>
+	 */
     draggables: [],
+
+	/**
+	 * Variable: draggableElements
+	 * An array of configurations for recreating the Drag.Moves
+	 */
     draggableElements: [],
 
+	/**
+	 * Variable: options
+	 * Options to modify the instance with at creation time.
+	 * Available options include:
+	 * 	button - The Element to show/hide the <Scrapbook> with
+	 * 	folderDropdown - The Element that drops down to show the folders
+	 * 	folderWrapper - The Element to place the folders in to
+	 * 	folderAdd - The Element used to add a folder
+	 * 	folderFx - The Fx parameters used to animate the folder dropdown
+	 */
     options: {
         button: null,
         folderDropdown: null,
@@ -22,9 +68,25 @@ var Scrapbook = new Class({
         folderFx: { duration: 400, wrapper: 'favourites_wrapper'  }
     },
 
+	/**
+	 * Variable: persistant
+	 * The instance of persistant storage
+	 */
     persistant: null,
+
+	/**
+	 * Variable: name
+	 * The name of this class, for saving to persistant storage
+	 */
     name: 'Scrapbook',
 
+	/**
+	 * Constructor: initialize
+	 * Create a new <Scrapbook> using the options supplied
+	 *
+	 * Parameters:
+	 * 	options - A has of options for this instance. See <options>
+	 */
     initialize: function(options) {
         this.setOptions(options);
 
@@ -100,23 +162,51 @@ var Scrapbook = new Class({
 		
     },
 
+	/**
+	 * Function: addItem
+	 * Add an item to the first available folder.
+	 * See <Scrapbook.Folder.addItem> for arguments.
+	 */
     addItem: function() {
         var folder = this.folders[0];
         folder.addItem.apply(folder, arguments);
     },
 
+	/**
+	 * Function: removeItem
+	 * Remove an item from all folders
+	 * Parameters:
+	 * 	item - The item to remove
+	 */
     removeItem: function(item) {
         this.folders.each(function(folder) {
             folder.removeItem(item);
         });
     },
 
+	/**
+	 * Function: hasItem
+	 * Tests for the existance of an item in the <Scrapbook>.
+	 *
+	 * Parameters:
+	 * 	item - The item to search for
+	 *
+	 * Returns:
+	 * True if the item is found, false otherwise
+	 */
     hasItem: function(item) {
         return this.folders.some(function(folder) {
             return folder.hasItem(item);
         });
     },
 
+	/**
+	 * Function: addFolder
+	 * Add a given folder to the <Scrapbook>
+	 *
+	 * Parameters:
+	 *  folder - The <Scrapbook.Folder> to add.
+	 */
     addFolder: function(folder) {
         this.folders.push(folder);
 
@@ -135,6 +225,13 @@ var Scrapbook = new Class({
         this.updateDraggables();
     },
 
+	/**
+	 * Function: removeFolder
+	 * Removes the given folder from the <Scrapbook>
+	 *
+	 * Parameters:
+	 * 	folder - The <Scrapbook.Folder> to remove
+	 */
     removeFolder: function(folder) {
         if (folder != this.folders[0]) {
             this.folders.erase(folder);
@@ -143,16 +240,29 @@ var Scrapbook = new Class({
         this.save();
     },
 
+	/**
+	 * Function: getFolders
+	 * Returns an array of all the <Scrapbook.Folder> this <Scrapbook> contains
+	 */
     getFolders: function() {
         return this.folders;
     },
 
+	/**
+	 * Function: showFolders
+	 * Show the folder dropdown
+	 */
     showFolders: function() {
         this.foldersVisible = true;
         this.folderFx.cancel().slideIn();
 		this.show_drop_text();
         $('favourites_button').addClass('active');
     },
+
+	/**
+	 * Function: hideFolders
+	 * Hide the folder dropdown
+	 */
     hideFolders: function() {
         this.foldersVisible = false;
         this.folderFx.cancel().slideOut();
@@ -161,6 +271,15 @@ var Scrapbook = new Class({
         $('back-to-results').addClass('invisible');
     },
 
+	/**
+	 * Function: addDraggable
+	 * Add a draggable Element ready to be added to the <Scrapbook>
+	 *
+	 * Parameters:
+	 * 	draggable - The Element to be dragged
+	 * 	options - The options to supply to the Drag.Move instance
+	 * 	feedItem - The <FeedItem> this item belongs to
+	 */
     addDraggable: function(draggable, options, feedItem) {
         var droppables = this.getFolders().map(function(folder) {
             return $(folder);
@@ -171,6 +290,14 @@ var Scrapbook = new Class({
         this._addDraggable(drag, droppables);
     },
 
+	/**
+	 * Function: _addDraggable
+	 * Create a Drag.Move instance. Only called from <addDraggable> and <updateDraggables>
+	 *
+	 * Parameters:
+	 * 	drag - The options hash created in addDraggable
+	 * 	droppables - The droppable targets, ie <Scrapbook.Folders>
+	 */
     _addDraggable: function(drag, droppables) {
         this.draggables.push(new Drag.Move(drag.draggable, $extend(drag.options, {
 
@@ -222,7 +349,6 @@ var Scrapbook = new Class({
 
     /**
      * Function: updateDraggables
-     *
      * Updates all the draggables to reflect a change in the droppables
      */
     updateDraggables: function() {
@@ -237,10 +363,18 @@ var Scrapbook = new Class({
         }, this);
     },
 
+	/**
+	 * Function: getButton
+	 * Get the show/hide button
+	 */
     getButton: function() {
        return this.options.button;
     },
 
+	/**
+	 * Function: save
+	 * Save the contents of the <Scrapbook> to persistant storage
+	 */
     save: function() {
         var serialized = [];
         this.folders.each(function(folder) {
@@ -249,14 +383,35 @@ var Scrapbook = new Class({
         this.persistant.set(this.name, JSON.encode(serialized));
     },
 
+	/**
+	 * Function: isVisible
+	 * Returns the visibility of the <Scrapbook>
+	 *
+	 * Returns:
+	 * The visibility of the <Scrapbook>
+	 */
     isVisible: function() {
         return this.visible;
     },
 
+	/**
+	 * Function: isFoldersVisible
+	 * Returns the visibility of the folders dropdown
+	 *
+	 * Returns:
+	 * The visibility of the folders dropdown
+	 */
     isFoldersVisible: function() {
         return this.foldersVisible;
     },
 
+	/**
+	 * Function: show
+	 * Shows the <Scrapbook.Folder> in the <Scrapbooks> <container>
+	 *
+	 * Parameters:
+	 * 	folder - The <Scrapbook.Folder> to show
+	 */
     show: function(folder) {
         if (this.isVisible()) {
             this.visibleFolder.hide();
@@ -273,6 +428,10 @@ var Scrapbook = new Class({
         this.fireEvent('shown');
     },
 
+	/**
+	 * Function: hide
+	 * Hides the <Scrapbook> and the folder dropdown.
+	 */
     hide: function() {
         this.container.hide();
         if (this.isVisible()) {
@@ -283,6 +442,13 @@ var Scrapbook = new Class({
         this.fireEvent('hidden');
     },
 
+	/**
+	 * Function: getDisplayBoxButtons
+	 * Get the buttons to put in a <DisplayBox>. See <DisplayBox.showContent>
+	 *
+	 * Parameters:
+	 * 	options - A hash of options to work with creating buttons
+	 */
     getDisplayBoxButtons: function(options) {
         if (!options.feedItem.canScrapbook()) {
           return [];
@@ -323,11 +489,19 @@ var Scrapbook = new Class({
         return [scrapbook];
     },
 	
+	/**
+	 * Function: show_drop_text
+	 * Shows the 'drop here' help text
+	 */
 	show_drop_text: function() {
 		$('favourites_text').removeClass('drag-text');
 		$('favourites_text').addClass('drop-text');
 	},
 	
+	/**
+	 * Function: show_drag_text
+	 * Shows the 'drag items' help text
+	 */
 	show_drag_text: function() {
 		$('favourites_text').removeClass('drop-text');
 		$('favourites_text').addClass('drag-text');
@@ -340,8 +514,16 @@ Scrapbook.Folder = new Class({
     Implements: [Events, Options],
     Serializable: 'Scrapbook.Folder',
 
-    parent: null,
+	/**
+	 * Variable: title
+	 * The title for this folder, as used in the GUI
+	 */
     title: null,
+
+	/**
+	 * Variable: items
+	 * An array of items in the folder
+	 */
     items: null,
 
     /**
@@ -377,20 +559,16 @@ Scrapbook.Folder = new Class({
      *
      * Parameters
      *     name - The name of the folder
-     *     parent - The parent folder
      *     scrapbook - The scrapbook that manages this heirachy
      */
     initialize: function(options) {
-        this.parent = options.parent;
         this.scrapbook = options.scrapbook;
-        delete options.parent;
         delete options.scrapbook;
 
         this.setOptions(options);
 
         this.title = options.title;
 
-        this.displayBox = new Scrapbook.Folder.DisplayBox(this);
         this.items = [];
     },
 
@@ -421,6 +599,10 @@ Scrapbook.Folder = new Class({
         this.shown = true;
     },
 
+	/**
+	 * Function: toElement
+	 * Automagically used to cast this instance to an Element
+	 */
     toElement: function() {
         if (!this.element) {
             this.element = new Element('div', {
@@ -524,10 +706,19 @@ Scrapbook.Folder = new Class({
         });
     },
 
+	/**
+	 * Function: getDirty
+	 * Returns the dirty status of this instance
+	 */
     getDirty: function() {
         return this.dirty;
     },
 
+	/**
+	 * Function: setDirty
+	 * Sets the <dirty> status of this instance, as well as firing
+	 * off 'dirty' events if needed
+	 */
     setDirty: function(dirty) {
         var fire = !this.dirty && dirty;
         this.dirty = dirty;
@@ -537,20 +728,25 @@ Scrapbook.Folder = new Class({
         }
     },
 
+	/**
+	 * Function: getTitle
+	 * Returns the <title> of this instance
+	 */
     getTitle: function() {
         return this.title;
     },
 
+	/**
+	 * Function: setTitle
+	 * Sets the title of this instance
+	 */
     setTitle: function(title) {
         this.title = title;
         this.setDirty(true);
     },
 
-    getPath: function() {
-        return this.parent.getPath() + '.' + this.getTitle();
-    },
-
     /**
+	 * Function: serialize
      * Return an object representing this folder in a serialized state
      */
     serialize: function() {
@@ -580,7 +776,6 @@ Scrapbook.Folder = new Class({
  *
  * Parameters:
  *      data - The <Folders> data.
- *      parent - The <Folders> parent. Either another <Folder> or null.
  *      scrapbook - The <Scrapbook> managing this <Folder>.
  *
  * Returns:
@@ -599,31 +794,3 @@ Scrapbook.Folder.unserialize = function(data, options) {
     folder.setDirty(false);
     return folder;
 };
-
-Scrapbook.Folder.DisplayBox = new Class({
-    folder: null,
-    preview: null,
-    initialize: function(folder) {
-        this.folder = folder;
-    },
-
-    getPreview: function() {
-        if (!this.preview) {
-
-            var wrapper = new Element('div', {
-                text: this.folder.getTitle(),
-                styles: {
-                    width: 50
-                },
-                'class': 'displayBox folder'
-            });
-
-            wrapper.addEvent('click', (function() {
-                this.fireEvent('click');
-            }).bind(this));
-
-            this.preview = wrapper;
-        }
-        return this.preview;
-    }
-});
