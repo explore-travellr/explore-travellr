@@ -634,7 +634,8 @@ Scrapbook.Folder = new Class({
      */
     hide: function() {
         $(this).removeClass('activeFolder');
-        this.shown = true;
+        this.shown = false;
+		this.container = null;
     },
 
 	/**
