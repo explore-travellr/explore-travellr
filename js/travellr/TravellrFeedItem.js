@@ -149,33 +149,36 @@ var TravellrFeedItem = new Class({
 });
 
 /*
-Class: TravellrFeedItem.unserialize
-   Returns the travellr q&a, ready to be unserialized
+Function: unserialize
+Unserializes a TravellrFeedItem from serialized data
 
-Extends:
-   <TravellrFeedItem>
+Parameters:
+	data - The serialized data
+
+Returns:
+A new TravellrFeedItem, identical to the serialized one
 */
 TravellrFeedItem.unserialize = function(data) {
     return new TravellrFeedItem(data);
 };
 
-/*
-Class: travellr.TravellrFeedItem.Ask
-A <FeedItem> that allows users to ask a question directly to Travellr
-
-Extends:
-  <FeedItem>
-
-License:
-    MIT-style license.
-
-Copyright:
-    Copyright (c) 2010 explore.travellr.com
-
-Dependencies:
-    - <MooTools::core> 1.2.4 or higher
-    - <MooTools::more> 1.2.4.4 RC1 or higher
-    - <TravellrFeed>
+/**
+ * Class: travellr.TravellrFeedItem.Ask
+ * A <FeedItem> that allows users to ask a question directly to Travellr
+ * 
+ * Extends:
+ * <FeedItem>
+ * 
+ * License:
+ * MIT-style license.
+ * 
+ * Copyright:
+ * Copyright (c) 2010 explore.travellr.com
+ * 
+ * Dependencies:
+ *     - <MooTools::core> 1.2.4 or higher
+ *     - <MooTools::more> 1.2.4.4 RC1 or higher
+ *     - <TravellrFeed>
 */
 TravellrFeedItem.Ask = new Class({
 

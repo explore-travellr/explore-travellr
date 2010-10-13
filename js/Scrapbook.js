@@ -1,3 +1,24 @@
+/**
+ * Class: Scrapbook
+ * The <Scrapbook> class allows users to save <FeedItems>, so they can come back to them later.
+ * It uses HTML5 storage, flash storage, or cookies to save item. This is done through the use
+ * of the <PersistJS> class.
+ *
+ * Items can be saved into Folders, and users can have as many folders as they want.
+ *
+ * License:
+ *     MIT-style license.
+ * 
+ * Copyright:
+ *     Copyright (c) 2010 explore.travellr.com
+ * 
+ * Dependencies:
+ *    - <MooTools::core> 1.2.4 or higher
+ *    - <MooTools::more> 1.2.4.4 RC1 or higher
+ *    - <PersistJS>
+ *    - <FeedItem>
+ *    - <Scrapbook.Folders>
+ */
 var Scrapbook = new Class({
 
     Implements: [Events, Options],
@@ -509,6 +530,23 @@ var Scrapbook = new Class({
 
 });
 
+/**
+ * Class: Scrapbook.Folder
+ * The <Scrapbook.Folder> is where <FeedItems> are actually stored in the <Scrapbook>. This class
+ * is responsible for storing, displaying and saving the individual <FeedItems>.
+ *
+ * License:
+ *     MIT-style license.
+ * 
+ * Copyright:
+ *     Copyright (c) 2010 explore.travellr.com
+ * 
+ * Dependencies:
+ *    - <MooTools::core> 1.2.4 or higher
+ *    - <MooTools::more> 1.2.4.4 RC1 or higher
+ *    - <FeedItem>
+ *    - <Scrapbook>
+ */
 Scrapbook.Folder = new Class({
 
     Implements: [Events, Options],

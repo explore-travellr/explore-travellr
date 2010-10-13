@@ -21,6 +21,10 @@
 //
 
 
+/**
+ * File: PersistJS
+ * PersistJS from <Pablotron at http://pablotron.org/?cid=1557>
+ */
 /* 
  * The contents of gears_init.js; we need this because Chrome supports
  * Gears out of the box, but still requires this constructor.  Note that
