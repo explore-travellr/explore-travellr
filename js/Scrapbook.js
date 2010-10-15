@@ -394,7 +394,8 @@ var Scrapbook = new Class({
 
 	/**
 	 * Function: save
-	 * Save the contents of the <Scrapbook> to persistant storage
+	 * Save the contents of the <Scrapbook> to persistant storage by serializing
+	 * all the folders.
 	 */
     save: function() {
         var serialized = [];

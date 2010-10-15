@@ -169,27 +169,5 @@ var MapFeedItem = new Class({
         return new Element('div', {
             'class': 'Map'
         }).adopt([mapElement, address]);
-    },
-
-	/**
-     * Function: serialize
-     * Returns the photo data, ready for serialization
-     *
-     * Returns:
-     *     The photo data
-     */
-    serialize: function() {
-        return this.photo;
     }
 });
-
-/*
-Class: MapFeedItem.unserialize
-   Returns the map, ready to be unserialized
-
-Extends:
-   <MapFeedItem>
-*/
-MapFeedItem.unserialize = function(data) {
-    return new MapFeedItem(data);
-};

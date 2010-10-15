@@ -24,9 +24,6 @@ var DisplayBox = new Class({
 
     Implements: [Events, Options],
 
-    mouseX: null,
-    mouseY: null,
-
     /**
      * Variable: feedItem
      * The <FeedItem> this <DisplayBox> is handling
@@ -43,12 +40,6 @@ var DisplayBox = new Class({
         readMore: true,
         scrapbook: null
     },
-
-    /**
-     * Constant: margin
-     * The minimum distance from the window edge for the modal window
-     */
-    margin: 50,
 
     /**
      * Variable: container

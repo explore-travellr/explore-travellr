@@ -50,26 +50,6 @@ var Container = new Class({
     toggleBox: null,
 
     /**
-    * Variable: displayBoxQueue
-    * A queue (<JS::Array>) of <DisplayBoxes> that will be animated in to the
-    * display
-    */
-    displayBoxQueue: [],
-
-    /**
-    * Variable: queueTimer
-    * The timer reference for delaying the animation of <displayBoxQueue>
-    */
-    queueTimer: null,
-
-    /**
-    * Variable: queueDelay
-    * The time in milliseconds to delay between displaying each <DisplayBox> in
-    * in <displayBoxQueue>
-    */
-    queueDelay: 100,
-
-    /**
      * Variable: loaded
      * If all the feeds are loaded
      */
@@ -402,8 +382,6 @@ Dependencies:
    - <MooTools::more> 1.2.4.4 RC1 or higher
 */
 var FeedToggle = new Class({
-
-    data: null,
 
     /**
      * Variable: container
