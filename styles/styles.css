@@ -843,7 +843,12 @@ h1#logo{
   content:'A:  ';
   font-size:13px;
 }
-
+.MooDialog .ask input[type="submit"] {
+    position: absolute;
+    right: 0;
+    z-index: 2;
+    cursor: pointer;
+}
 .MooDialog .ask h2{
  color:#0096FF;
 }
